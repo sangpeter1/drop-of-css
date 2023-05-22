@@ -11,6 +11,6 @@ app.get("/", (req, res) =>
 );
 
 app.use("/api/auth", require("./api/auth"));
-app.use("/api/colorgenerator", require("./api/colorgenerator"));
+app.use("/api/colorgenerator", require("./api/cpg"));
 
 module.exports = app;
