@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store";
+import { fetchColorPalette } from "../store";
 
 const Home = () => {
   const { auth } = useSelector((state) => state);
@@ -10,6 +11,11 @@ const Home = () => {
   const [format, setFormat] = useState(""); //this will be deleted -- we'll pick a format and hard code
   const [mode, setMode] = useState("");
   const [count, setCount] = useState("");
+  const [colorPalette, setColorPalette] = useState([]);
+
+  useEffect(() => {
+    console.log(colorPalette);
+  }, [colorPalette]);
 
   const cpgModes = [
     "monochrome",
@@ -24,23 +30,33 @@ const Home = () => {
 
   const cpgCounts = [3, 4, 5, 6];
 
-  const runCPG = (ev) => {
-    // ev.preventDefault();
-    console.log(ev);
+  const runCPG = async (ev) => {
+    ev.preventDefault();
     console.log(hex, mode, count);
+    try {
+      const response = await dispatch(fetchColorPalette({ hex, mode, count }));
+      await setColorPalette(response.colors);
+      console.log(colorPalette);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div>
       <h1>Home</h1>
       <div>
-        <form onSubmit={runCPG()}>
+        <form onSubmit={runCPG}>
           <input
             value={hex}
             onChange={(ev) => setHex(ev.target.value)}
             placeholder="Insert Hex Code"
           />
-          <select value={mode} onChange={(ev) => setMode(ev.target.value)}>
+          <select
+            value={mode}
+            onChange={(ev) => setMode(ev.target.value)}
+            placeholder="Select Mode"
+          >
             {cpgModes.map((mode) => {
               return (
                 <option value={mode} key={mode.id}>
@@ -49,7 +65,11 @@ const Home = () => {
               );
             })}
           </select>
-          <select value={count} onChange={(ev) => setCount(ev.target.value)}>
+          <select
+            value={count}
+            onChange={(ev) => setCount(ev.target.value)}
+            placeholder="Select Count"
+          >
             {cpgCounts.map((count) => {
               return (
                 <option value={count} key={count.id}>
@@ -58,8 +78,27 @@ const Home = () => {
               );
             })}
           </select>
-          <button>Submit</button>
+          <button onClick={(ev) => runCPG(ev)}>Submit</button>
         </form>
+      </div>
+      <div id="cpg-container">
+        {console.log(colorPalette)}
+        {colorPalette
+          ? colorPalette.map((color) => {
+              return (
+                <div
+                  id="cpg-color"
+                  key={color.id}
+                  style={{
+                    backgroundColor: color.hex.value,
+                    width: `calc(400px)/${colorPalette.length}`,
+                  }}
+                >
+                  {color.hex.value}
+                </div>
+              );
+            })
+          : ""}
       </div>
 
       <div>

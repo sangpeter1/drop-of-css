@@ -10,10 +10,11 @@ const cpg = (state = {}, action) => {
 export const fetchColorPalette = (search) => {
   return async (dispatch) => {
     const { hex, mode, count } = search;
-    const response = await axios.get("/api/cpg", {
-      params: { hex: hex, mode: mode, count: count },
-    });
+    console.log("in the store", hex, mode, count);
+    const response = await axios.post("/api/cpg", { hex, mode, count });
+    console.log("in the store", response.data);
     dispatch({ type: "SET_COLORPALETTE", palette: response.data });
+    return response.data;
   };
 };
 
