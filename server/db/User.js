@@ -29,6 +29,19 @@ const User = conn.define("user", {
     type: BOOLEAN,
     defaultValue: false,
   },
+   email: {
+    type: STRING,
+    /*allowNull: false,
+    unique: true,
+    validate: {
+      notEmpty: {
+        msg: 'Email address required.'
+      },
+      isEmail: {
+        msg: 'Must be a valid email address.'
+      }
+    }*/
+  },
 });
 
 User.addHook("beforeSave", async (user) => {
