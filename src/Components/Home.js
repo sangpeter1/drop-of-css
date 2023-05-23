@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../store";
+import { fetchComponents, logout } from "../store";
 import { fetchColorPalette } from "../store";
 
 const Home = () => {
@@ -12,6 +12,22 @@ const Home = () => {
   const [mode, setMode] = useState("");
   const [count, setCount] = useState("");
   const [colorPalette, setColorPalette] = useState([]);
+  const [components, setComponents] = useState("");
+
+  useEffect(() => {
+    dispatch(fetchComponents());
+    // async function fetchData() {
+    //   const response = await dispatch(fetchComponents());
+    //   console.log("use effect response", response);
+    //   setComponents(response);
+    // }
+    // fetchData();
+  }, []);
+
+  // if (!components) {
+  //   return null;
+  // }
+  console.log(components, "components");
 
   useEffect(() => {
     console.log(colorPalette);
@@ -82,7 +98,7 @@ const Home = () => {
         </form>
       </div>
       <div id="cpg-container">
-        {console.log(colorPalette)}
+        {/* {console.log(colorPalette)} */}
         {colorPalette
           ? colorPalette.map((color) => {
               return (
@@ -100,7 +116,7 @@ const Home = () => {
             })
           : ""}
       </div>
-
+      {components ? components[0].htmlText : "nada"}
       <div>
         Welcome {auth.username} I'm going to leave this here, even though we
         probably won't use it in our final project.!!
