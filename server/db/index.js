@@ -1,23 +1,48 @@
 const conn = require("./conn");
 const User = require("./User");
+const Component = require("./Component");
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
-  const [moe, lucy, larry, ethyl, admin] = await Promise.all([
+  const [moe, lucy, ethyl] = await Promise.all([
     User.create({ username: "moe", password: "123" }),
     User.create({ username: "lucy", password: "123" }),
-    User.create({ username: "larry", password: "123" }),
     User.create({ username: "ethyl", password: "123" }),
-    User.create({ username: "admin", password: "admin", isAdmin: true }),
+  ]);
+
+  const [testNavbar] = await Promise.all([
+    Component.create({
+      type: "navbar",
+      name: "test",
+      htmlText: `
+      <>
+        <ul className="navbar">
+          <li>
+            <a href="#home">Home</a>
+          </li>
+          <li>
+            <a href="#about">About</a>
+          </li>
+          <li>
+            <a href="#services">Services</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+        </>
+        `,
+    }),
   ]);
 
   return {
     users: {
       moe,
       lucy,
-      larry,
       ethyl,
-      admin,
+    },
+    components: {
+      testNavbar,
     },
   };
 };
@@ -25,4 +50,5 @@ const syncAndSeed = async () => {
 module.exports = {
   syncAndSeed,
   User,
+  Component,
 };
