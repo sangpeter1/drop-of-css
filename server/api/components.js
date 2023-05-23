@@ -5,7 +5,10 @@ const Component = require("../db/Component");
 
 app.get("/", async (req, res, next) => {
   try {
-    res.send(await Component.findAll());
+    console.log("helloooooooo");
+    const comp = await Component.findAll();
+    console.log(comp);
+    res.send(comp);
   } catch (err) {
     next(err);
   }
