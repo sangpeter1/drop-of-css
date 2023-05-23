@@ -1,24 +1,26 @@
-const conn = require('./conn');
-const User = require('./User');
+const conn = require("./conn");
+const User = require("./User");
 
-const syncAndSeed = async()=> {
+const syncAndSeed = async () => {
   await conn.sync({ force: true });
-  const [moe, lucy, larry, ethyl] = await Promise.all([
-    User.create({ username: 'moe', password: '123'}),
-    User.create({ username: 'lucy', password: '123' }),
-    User.create({ username: 'larry', password: '123' }),
-    User.create({ username: 'ethyl', password: '123' }),
+  const [moe, lucy, larry, ethyl, admin] = await Promise.all([
+    User.create({ username: "moe", password: "123" }),
+    User.create({ username: "lucy", password: "123" }),
+    User.create({ username: "larry", password: "123" }),
+    User.create({ username: "ethyl", password: "123" }),
+    User.create({ username: "admin", password: "admin", isAdmin: true }),
   ]);
 
   return {
     users: {
       moe,
       lucy,
-      larry
-    }
+      larry,
+      ethyl,
+      admin,
+    },
   };
 };
-
 
 module.exports = {
   syncAndSeed,
