@@ -20,7 +20,7 @@ app.post("/", async (req, res, next) => {
   try {
     console.log(url);
     const response = await axios.get(url);
-    // console.log(response.data);
+    console.log(response.data);
     res.send(response.data);
   } catch (err) {
     next(err);
