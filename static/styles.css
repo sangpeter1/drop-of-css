@@ -17,12 +17,15 @@ nav {
 }
 
 #cpg-container {
-  width: 400px;
-  height: 4rem;
+  box-sizing: border-box;
+  width: 500px;
+  height: 5rem;
+  border: 1px blanchedalmond solid;
   border-radius: 1rem;
   display: flex;
 }
 
 #cpg-color {
-  height: 4rem;
+  height: 5rem;
+  box-sizing: border-box;
 }
