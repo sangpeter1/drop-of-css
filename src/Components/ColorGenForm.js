@@ -3,18 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchColorPalette } from "../store";
 
 const ColorGenForm = () => {
-    
   const dispatch = useDispatch();
   //const { cpg } = useSelector((state) => state);
-  
-  const [format, setFormat] = useState(""); 
+
+  const [format, setFormat] = useState("");
   const [hex, setHex] = useState("");
   const [mode, setMode] = useState("");
   const [count, setCount] = useState("");
   const [colorPalette, setColorPalette] = useState([]);
 
-
- /* useEffect(() => {
+  /* useEffect(() => {
     console.log(colorPalette);
   }, [colorPalette]);*/
 
@@ -31,7 +29,7 @@ const ColorGenForm = () => {
 
   const cpgCounts = [3, 4, 5, 6];
 
- /* const runCPG = async (ev) => {
+  /* const runCPG = async (ev) => {
     ev.preventDefault();
     console.log(hex, mode, count);
     try {
@@ -55,18 +53,18 @@ const runCPG = async (ev) => {
   }
 };*/
 
-const runCPG = async (ev) => {
-  ev.preventDefault();
-  console.log(hex, mode, count);
-  try {
-    const search = { hex, mode, count }; // Create the search object with properties
-    const response = await dispatch(fetchColorPalette(search));
-    await setColorPalette(response.colors);
-    console.log(colorPalette);
-  } catch (error) {
-    console.error(error);
-  }
-};
+  const runCPG = async (ev) => {
+    ev.preventDefault();
+    console.log(hex, mode, count);
+    try {
+      const search = { hex, mode, count }; // Create the search object with properties
+      const response = await dispatch(fetchColorPalette(search));
+      await setColorPalette(response.colors);
+      console.log(colorPalette);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -116,10 +114,14 @@ const runCPG = async (ev) => {
                   id="cpg-color"
                   key={uniqueKey}
                   style={{
+                    boxSizing: "border-box",
                     backgroundColor: color.hex.value,
-                    width: `calc(400px)/${colorPalette.length}`,
+                    width: `calc(500px/${colorPalette.length})`,
+                    textAlign: "center",
                   }}
                 >
+                  {color.name.value}
+                  <br />
                   {color.hex.value}
                 </div>
               );
@@ -129,6 +131,5 @@ const runCPG = async (ev) => {
     </div>
   );
 };
-
 
 export default ColorGenForm;
