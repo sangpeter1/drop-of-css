@@ -4,11 +4,9 @@ const Component = require("./Component");
 const Template = require("./Template");
 const Palette = require("./Palette");
 
-
 Palette.belongsTo(Template);
 User.hasMany(Template);
 Template.hasMany(Component);
-
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
@@ -23,7 +21,6 @@ const syncAndSeed = async () => {
       type: "navbar",
       name: "test",
       htmlText: `
-      <>
         <ul className="navbar">
           <li>
             <a href="#home">Home</a>
@@ -37,9 +34,7 @@ const syncAndSeed = async () => {
           <li>
             <a href="#contact">Contact</a>
           </li>
-        </ul>
-        </>
-        `,
+        </ul>`,
     }),
   ]);
 
