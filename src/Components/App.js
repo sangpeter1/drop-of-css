@@ -27,7 +27,7 @@ const App = () => {
     if(!prevAuth.current.id && auth.id){
       console.log(`${auth.username} is logged in`);
       dispatch(fetchComponents());
-      dispatch(fetchColorPalette({ hex: "#FFFFFF", mode: "dark", count: 5 }));
+      dispatch(fetchColorPalette({ hex: "FFFFFF", mode: "dark", count: 5 }));
     }
     if(prevAuth.current.id && !auth.id){
       console.log('logged out');
