@@ -13,7 +13,7 @@ h1 {
   box-sizing: content-box;
   border: 1px solid black;
   border-radius: 0.5rem;
-  margin: 1rem;
+  margin: 0.1rem;
 }
 
 #page-container-right-divs {
@@ -26,8 +26,8 @@ h1 {
   box-sizing: content-box;
   border: 2px solid red;
   border-radius: 0.5rem;
-  min-height: 8rem;
-  width: 75vw;
+  min-height: 55vh;
+  width: 30vw;
   margin: 0.25rem;
 }
 
@@ -36,15 +36,15 @@ h1 {
   border: 2px solid green;
   border-radius: 0.5rem;
   height: 60vh;
-  width: 20vw;
+  width: 30vw;
   margin: 0.25rem;
 }
 
 #preview-pane-div {
   border: 2px solid blue;
   border-radius: 0.5rem;
-  height: 50vh;
-  width: 75vw;
+  height: 90vh;
+  width: 69vw;
   margin: 0.25rem;
 }
 
@@ -64,18 +64,23 @@ nav {
 
 #cpg-container {
   box-sizing: border-box;
-  width: 500px;
-  height: 5rem;
-  border: 1px blanchedalmond solid;
+  width: 30vw;
+  margin-top: 1rem;
+  height: 8vh;
+  border: 2px blanchedalmond solid;
   border-radius: 1rem;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #cpg-color {
-  height: 5rem;
+  min-height: 8vh;
   box-sizing: border-box;
 }
 
 .colorGen {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
