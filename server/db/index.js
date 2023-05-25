@@ -3,6 +3,7 @@ const User = require("./User");
 const Component = require("./Component");
 const Template = require("./Template");
 const Palette = require("./Palette");
+const components = require("./components")
 
 Palette.belongsTo(Template);
 User.hasMany(Template);
@@ -16,26 +17,10 @@ const syncAndSeed = async () => {
     User.create({ username: "ethyl", password: "123" }),
   ]);
 
-  const [testNavbar] = await Promise.all([
-    Component.create({
-      type: "navbar",
-      name: "test",
-      htmlText: `
-        <ul className="navbar">
-          <li>
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#about">About</a>
-          </li>
-          <li>
-            <a href="#services">Services</a>
-          </li>
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
-        </ul>`,
-    }),
+  const [navbar, form] = await Promise.all([
+    components.map(component => {
+      Component.create(component)
+    })
   ]);
 
   return {
@@ -45,7 +30,8 @@ const syncAndSeed = async () => {
       ethyl,
     },
     components: {
-      testNavbar,
+      navbar,
+      form
     },
   };
 };
