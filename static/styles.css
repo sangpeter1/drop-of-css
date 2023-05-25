@@ -1,5 +1,50 @@
 body {
   font-family: verdana;
+  background-color: #fafafa;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+#page-container-div {
+  display: flex;
+  box-sizing: content-box;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+
+#page-container-right-divs {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid salmon;
+}
+
+#cpg-div {
+  box-sizing: content-box;
+  border: 2px solid red;
+  border-radius: 0.5rem;
+  min-height: 8rem;
+  width: 75vw;
+  margin: 0.25rem;
+}
+
+#component-div {
+  box-sizing: content-box;
+  border: 2px solid green;
+  border-radius: 0.5rem;
+  height: 60vh;
+  width: 20vw;
+  margin: 0.25rem;
+}
+
+#preview-pane-div {
+  border: 2px solid blue;
+  border-radius: 0.5rem;
+  height: 50vh;
+  width: 75vw;
+  margin: 0.25rem;
 }
 
 form {
