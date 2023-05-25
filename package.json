@@ -22,6 +22,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.8.0",
+    "react-color": "^2.19.3",
     "sequelize": "^6.31.1"
   },
   "devDependencies": {

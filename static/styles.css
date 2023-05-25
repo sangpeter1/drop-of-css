@@ -1,3 +1,4 @@
+
 body {
   font-family: verdana;
 }
@@ -28,4 +29,8 @@ nav {
 #cpg-color {
   height: 5rem;
   box-sizing: border-box;
+}
+
+.colorGen{
+  display: flex;
 }
