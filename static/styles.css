@@ -1,7 +1,7 @@
-
 body {
   font-family: verdana;
   background-color: #fafafa;
+  margin: 0;
 }
 
 h1 {
@@ -76,6 +76,6 @@ nav {
   box-sizing: border-box;
 }
 
-.colorGen{
+.colorGen {
   display: flex;
 }

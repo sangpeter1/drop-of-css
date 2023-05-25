@@ -36,10 +36,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>ColorReactor: JSX Color Palette and Component Builder</h1>
       <Nav />
-      {auth.id ? <Home /> : <Login />}
-
       <div id="page-container-div">
         <div id="component-div">
           <Components />
