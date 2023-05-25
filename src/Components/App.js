@@ -51,16 +51,16 @@ const App = () => {
     <div>
       <Nav />
       <div id="page-container-div">
-        <div id="component-div">
-          <Components openInPreview={handleOpenInPreview} />
-        </div>
         <div id="page-container-right-divs">
           <div id="cpg-div">
             <ColorGenForm />
           </div>
-          <div id="preview-pane-div">
-            <PreviewPane form={form} nav={nav} />
+          <div id="component-div">
+            <Components openInPreview={handleOpenInPreview} />
           </div>
+        </div>
+        <div id="preview-pane-div">
+          <PreviewPane form={form} nav={nav} />
         </div>
       </div>
 

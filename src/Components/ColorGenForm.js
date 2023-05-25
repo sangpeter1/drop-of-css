@@ -43,43 +43,49 @@ const ColorGenForm = () => {
   };
 
   return (
-    <div className="ColorGen">
-      <div>
+    <>
+      <p style={{ textAlign: "center", margin: 4 }}>Create Palette</p>
+      <div className="ColorGen">
         <div>
-          <form onSubmit={runCPG}>
-            <input
-              value={hex}
-              onChange={(ev) => setHex(ev.target.value)}
-              placeholder="Insert Hex Code"
-            />
-            <select
-              value={mode}
-              onChange={(ev) => setMode(ev.target.value)}
-              placeholder="Select Mode"
-            >
-              {cpgModes.map((mode) => {
-                return (
-                  <option value={mode} key={mode}>
-                    {mode}
-                  </option>
-                );
-              })}
-            </select>
-            <select
-              value={count}
-              onChange={(ev) => setCount(ev.target.value)}
-              placeholder="Select Count"
-            >
-              {cpgCounts.map((count) => {
-                return (
-                  <option value={count} key={count}>
-                    {count}
-                  </option>
-                );
-              })}
-            </select>
-            <button onClick={(ev) => runCPG(ev)}>Submit</button>
-          </form>
+          <ColorPicker onColorChange={handleColorChange} />
+        </div>
+        <div>
+          <div>
+            <form onSubmit={runCPG}>
+              <input
+                value={hex}
+                onChange={(ev) => setHex(ev.target.value)}
+                placeholder="Insert Hex Code"
+              />
+              <select
+                value={mode}
+                onChange={(ev) => setMode(ev.target.value)}
+                placeholder="Select Mode"
+              >
+                {cpgModes.map((mode) => {
+                  return (
+                    <option value={mode} key={mode}>
+                      {mode}
+                    </option>
+                  );
+                })}
+              </select>
+              <select
+                value={count}
+                onChange={(ev) => setCount(ev.target.value)}
+                placeholder="Select Count"
+              >
+                {cpgCounts.map((count) => {
+                  return (
+                    <option value={count} key={count}>
+                      {count}
+                    </option>
+                  );
+                })}
+              </select>
+              <button onClick={(ev) => runCPG(ev)}>Submit</button>
+            </form>
+          </div>
         </div>
         <div id="cpg-container">
           {/* {console.log(colorPalette)} */}
@@ -99,7 +105,7 @@ const ColorGenForm = () => {
                     }}
                   >
                     {color.hsv.v < 70 ? (
-                      <div style={{ color: "#FCFCFC" }}>
+                      <div style={{ color: "#FCFCFC", alignItems: "center" }}>
                         {color.name.value}
                         <br />
                         {color.hex.value}
@@ -117,10 +123,7 @@ const ColorGenForm = () => {
             : null}
         </div>
       </div>
-      <div>
-        <ColorPicker onColorChange={handleColorChange} />
-      </div>
-    </div>
+    </>
   );
 };
 
