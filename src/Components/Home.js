@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store";
 
-
 const Home = () => {
-  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
-
 
   return (
     <div>
