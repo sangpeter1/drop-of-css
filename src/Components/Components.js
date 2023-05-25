@@ -5,29 +5,59 @@ import DOMPurify from "dompurify";
 
 const sanitizer = DOMPurify.sanitize;
 
-const Components = () => {
+const Components = ({ openInPreview }) => {
   const { components } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  //i think this is how you can pass the data to the preview pane page. i'll have to check old code.
-  const [nav, setNavBar] = useState("");
-  const [title, setTitle] = useState("");
-  const [form, setForm] = useState("");
-  const [list, setList] = useState("");
-  const [card, setCard] = useState("");
-  const [buttons, setButtons] = useState("");
-  const [accordion, setAccordion] = useState("");
+  // all of this code might be helpful somewhere else in the preview page, but I want to get color working first!
+  // const emptyDiv = (
+  //   <>
+  //     <div
+  //       style={{
+  //         backgroundColor: "grey",
+  //         border: "1px solid lightgray",
+  //         borderRadius: ".5rem",
+  //       }}
+  //     />
+  //   </>
+  // );
+  // const [nav, setNavBar] = useState(emptyDiv);
+  // const [title, setTitle] = useState(emptyDiv);
+  // const [form, setForm] = useState(emptyDiv);
+  // const [list, setList] = useState(emptyDiv);
+  // const [card, setCard] = useState(emptyDiv);
+  // const [buttons, setButtons] = useState(emptyDiv);
+  // const [accordion, setAccordion] = useState(emptyDiv);
 
   useEffect(() => {
     dispatch(fetchComponents());
   }, []);
+
+  const handleOpenInPreview = (component) => {
+    console.log("component page", component);
+    // if (component.type === "navbar") {
+    //   setNavBar(component);
+    //   openInPreview(component);
+    // }
+    // if (component.type === "form") {
+    //   setForm(component);
+    openInPreview(component);
+    // }
+  };
 
   return (
     <div>
       <ul>
         {components
           ? components.map((component) => {
-              return <li key={component.id}>{component.type}</li>;
+              return (
+                <li
+                  key={component.id}
+                  onClick={() => handleOpenInPreview(component)}
+                >
+                  {component.type}
+                </li>
+              );
             })
           : ""}
       </ul>

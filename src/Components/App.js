@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Home from "./Home";
 import Nav from "./Nav";
 import Login from "./Login";
@@ -34,22 +34,32 @@ const App = () => {
     prevAuth.current = auth;
   });
 
+  const [form, setForm] = useState(null);
+  const [nav, setNavBar] = useState(null);
+
+  const handleOpenInPreview = (component) => {
+    console.log("in app page", component);
+    if (component.type === "navbar") {
+      setNavBar(component);
+    }
+    if (component.type === "form") {
+      setForm(component);
+    }
+  };
+
   return (
     <div>
-      <h1>ColorReactor: JSX Color Palette and Component Builder</h1>
       <Nav />
-      {auth.id ? <Home /> : <Login />}
-
       <div id="page-container-div">
         <div id="component-div">
-          <Components />
+          <Components openInPreview={handleOpenInPreview} />
         </div>
         <div id="page-container-right-divs">
           <div id="cpg-div">
             <ColorGenForm />
           </div>
           <div id="preview-pane-div">
-            <PreviewPane />
+            <PreviewPane form={form} nav={nav} />
           </div>
         </div>
       </div>

@@ -3,16 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchColorPalette } from "../store";
 import ColorPicker from "./ColorPicker";
 
-
 const ColorGenForm = () => {
-  
   const dispatch = useDispatch();
   const [format, setFormat] = useState("");
   const [hex, setHex] = useState("");
   const [mode, setMode] = useState("");
   const [count, setCount] = useState("");
   const [colorPalette, setColorPalette] = useState([]);
-
 
   const cpgModes = [
     "monochrome",
@@ -25,7 +22,7 @@ const ColorGenForm = () => {
     "quad",
   ];
 
-  const cpgCounts = [3, 4, 5, 6];
+  const cpgCounts = [3, 4, 5];
 
   const runCPG = async (ev) => {
     ev.preventDefault();
@@ -39,7 +36,7 @@ const ColorGenForm = () => {
       console.error(error);
     }
   };
-  
+
   // works with color picker
   const handleColorChange = (newHex) => {
     setHex(newHex);
@@ -88,25 +85,36 @@ const ColorGenForm = () => {
           {/* {console.log(colorPalette)} */}
           {colorPalette
             ? colorPalette.map((color, index) => {
-              const uniqueKey = `color-${index}`;
-              return (
-                <div
-                  id="cpg-color"
-                  key={uniqueKey}
-                  style={{
-                    boxSizing: "border-box",
-                    backgroundColor: color.hex.value,
-                    width: `calc(500px/${colorPalette.length})`,
-                    textAlign: "center",
-                  }}
-                >
-                  {color.name.value}
-                  <br />
-                  {color.hex.value}
-                </div>
-              );
-            })
-          : null}
+                const uniqueKey = `color-${index}`;
+                return (
+                  <div
+                    id="cpg-color"
+                    key={uniqueKey}
+                    style={{
+                      boxSizing: "border-box",
+                      backgroundColor: color.hex.value,
+                      alignItems: "center",
+                      width: `calc(500px/${colorPalette.length})`,
+                      textAlign: "center",
+                    }}
+                  >
+                    {color.hsv.v < 70 ? (
+                      <div style={{ color: "#FCFCFC" }}>
+                        {color.name.value}
+                        <br />
+                        {color.hex.value}
+                      </div>
+                    ) : (
+                      <div style={{ color: "#000000" }}>
+                        {color.name.value}
+                        <br />
+                        {color.hex.value}
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            : null}
         </div>
       </div>
       <div>
@@ -115,6 +123,5 @@ const ColorGenForm = () => {
     </div>
   );
 };
-
 
 export default ColorGenForm;
