@@ -16,13 +16,13 @@ const components = [
         <li>
             <a href="#contact">Contact</a>
         </li>
-      </ul>`
+      </ul>`,
   },
   {
     type: "form",
-    name: "plain form", 
+    name: "plain form",
     htmlText: `
-      <form>
+      <form style={{backgroundColor: primaryColor}}>
         <input placeholder='type something here'/>
         <div>
           <input type="checkbox">
@@ -34,9 +34,8 @@ const components = [
         </div>
         <button> Submit </button>
       </form>
-    `
+    `,
   },
-
-]
+];
 
 module.exports = components;

@@ -22,7 +22,7 @@ const ColorGenForm = () => {
     "quad",
   ];
 
-  const cpgCounts = [3, 4, 5, 6];
+  const cpgCounts = [3, 4, 5];
 
   const runCPG = async (ev) => {
     ev.preventDefault();
