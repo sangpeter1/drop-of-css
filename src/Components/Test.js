@@ -26,7 +26,8 @@ const Test = () => {
                       __html: sanitizer(component.htmlText),
                     }}
                   />
-                  {/* we should consider using something like https://www.npmjs.com/package/dompurify if we're going to have to use the tag "dangerouslySetInnerHTML" 
+                  {/* we should consider using something like https://www.npmjs.com/package/dompurify 
+                  if we're going to have to use the tag "dangerouslySetInnerHTML" 
                   the code is something like this
                   import DOMPurify from 'dompurify';
                   const sanitizer = DOMPurify.sanitize;
