@@ -3,13 +3,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchColorPalette } from "../store";
 import ColorPicker from "./ColorPicker";
 
-const ColorGenForm = () => {
+const ColorGenForm = ({openColorsInPreview}) => {
   const dispatch = useDispatch();
   const [format, setFormat] = useState("");
   const [hex, setHex] = useState("");
   const [mode, setMode] = useState("");
   const [count, setCount] = useState("");
   const [colorPalette, setColorPalette] = useState([]);
+  const [generatedColors, setGeneratedColors] = useState([]);
+
+  const handleGenColors = (generatedColors) => {
+    console.log("handle colors", generatedColors);
+    openColorsInPreview(generatedColors);
+  };
+
 
   const cpgModes = [
     "monochrome",
@@ -31,7 +38,8 @@ const ColorGenForm = () => {
       const search = { hex, mode, count }; // Create the search object with properties
       const response = await dispatch(fetchColorPalette(search));
       await setColorPalette(response.colors);
-      console.log(colorPalette);
+      //setGeneratedColors(response.colors);
+      handleGenColors(response.colors);
     } catch (error) {
       console.error(error);
     }

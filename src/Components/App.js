@@ -36,6 +36,7 @@ const App = () => {
 
   const [form, setForm] = useState(null);
   const [nav, setNavBar] = useState(null);
+  const [generatedColors, setGeneratedColors] = useState(null);
 
   const handleOpenInPreview = (component) => {
     console.log("in app page", component);
@@ -46,6 +47,8 @@ const App = () => {
       setForm(component);
     }
   };
+  
+
 
   return (
     <div>
@@ -53,14 +56,14 @@ const App = () => {
       <div id="page-container-div">
         <div id="page-container-right-divs">
           <div id="cpg-div">
-            <ColorGenForm />
+            <ColorGenForm openColorsInPreview={setGeneratedColors}/>
           </div>
-          <div id="component-div">
+          <div id="component-div"> 
             <Components openInPreview={handleOpenInPreview} />
           </div>
         </div>
         <div id="preview-pane-div">
-          <PreviewPane form={form} nav={nav} />
+          <PreviewPane form={form} nav={nav} generatedColors={generatedColors} />
         </div>
       </div>
 

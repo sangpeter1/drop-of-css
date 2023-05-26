@@ -5,14 +5,15 @@ import DOMPurify from "dompurify";
 
 const sanitizer = DOMPurify.sanitize;
 
-const PreviewPane = ({ form, nav }) => {
+const PreviewPane = ({ form, nav, generatedColors }) => {
   const { components } = useSelector((state) => state);
-  console.log("in the preview pane page!!!", form, nav);
+  console.log("in the preview pane page!!!", form, nav, generatedColors);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchComponents());
   }, []);
+  
 
   return (
     <div>
