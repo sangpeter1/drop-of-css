@@ -23,13 +23,30 @@ const PreviewPane = ({
     dispatch(fetchComponents());
   }, []);
 
+  //this is just a test!!!
+  const [bgColor, setBgColor] = useState("");
+
+  useEffect(() => {
+    try {
+      const bgColor = generatedColors[3].hex.value;
+      setBgColor(bgColor);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [generatedColors]);
+
   /*
   thing to think about with colors: 
     we'll probably have to have a consistent style, like lightest colors as background colors, boldest colors as accent pops, darkest colors as borders, lines, texts, etc? idk that's just my first thought when it comes to styling but i'm VERY open to messing around. 
    */
 
+  console.log("bg color", bgColor);
+
   return (
-    <div className="preview-pane-container">
+    <div
+      className="preview-pane-container"
+      style={{ backgroundColor: bgColor }}
+    >
       {title ? (
         <header
           id="previewTitle"
