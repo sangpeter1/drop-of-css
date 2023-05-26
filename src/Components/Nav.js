@@ -14,7 +14,6 @@ const Nav = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-start",
-
           backgroundColor: "#2d545e",
           borderBottom: "4px solid #12343b",
           borderBottomRightRadius: "1rem",
@@ -42,7 +41,13 @@ const Nav = () => {
             flexGrow: 1,
           }}
         >
-          <h1 style={{ margin: ".5rem", padding: 0 }}>
+          <h1
+            style={{
+              margin: ".5rem",
+              padding: 0,
+              ":hover": { color: "white" },
+            }}
+          >
             <Link to="/" style={{ color: "white", textDecoration: "none" }}>
               ColorReactor
             </Link>

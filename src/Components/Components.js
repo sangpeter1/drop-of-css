@@ -34,15 +34,7 @@ const Components = ({ openInPreview }) => {
   }, []);
 
   const handleOpenInPreview = (component) => {
-    console.log("component page", component);
-    // if (component.type === "navbar") {
-    //   setNavBar(component);
-    //   openInPreview(component);
-    // }
-    // if (component.type === "form") {
-    //   setForm(component);
     openInPreview(component);
-    // }
   };
 
   return (
