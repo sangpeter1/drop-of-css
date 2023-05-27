@@ -34,6 +34,20 @@ const PreviewPane = ({ form, nav, generatedColors }) => {
             })
           : ""}
       </ul>
+      <div>
+        <h5>Color Palette</h5>
+        <ul>
+        {generatedColors
+          ? generatedColors.map((color, index) => {
+            return (
+              <li key={index}>
+                { color.hex.value } - { color.rgb.value } - { color.name.value }
+              </li>
+            );
+          })
+        : ""}
+        </ul>
+      </div>
     </div>
   );
 };
