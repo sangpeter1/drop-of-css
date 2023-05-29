@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents } from "../store";
 import DOMPurify from "dompurify";
-
-const sanitizer = DOMPurify.sanitize;
+import { renderToStaticMarkup, renderToString } from "react-dom/server";
 
 const PreviewPane = ({
   form,
@@ -16,7 +15,7 @@ const PreviewPane = ({
   generatedColors,
 }) => {
   const { components } = useSelector((state) => state);
-  console.log("in the preview pane page!!!", form, nav, generatedColors);
+  // console.log("in the preview pane page!!!", form, nav, generatedColors);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,11 +24,25 @@ const PreviewPane = ({
 
   //this is just a test!!!
   const [bgColor, setBgColor] = useState("");
+  const [primaryColor, setPrimaryColor] = useState("");
+  const [secondaryColor, setSecondaryColor] = useState("");
 
   useEffect(() => {
     try {
-      const bgColor = generatedColors[3].hex.value;
-      setBgColor(bgColor);
+      generatedColors.map((color) => {
+        if (color.hsv.v > 80) {
+          setBgColor(color.hex.value);
+        }
+        if (color.hsv.s > 70) {
+          setPrimaryColor(color.hex.value);
+        }
+        if (color.hsv.s > 30) {
+          setSecondaryColor(color.hex.value);
+        }
+        if (!bgColor) {
+          setBgColor("#FAFAFA");
+        }
+      });
     } catch (err) {
       console.log(err);
     }
@@ -40,7 +53,21 @@ const PreviewPane = ({
     we'll probably have to have a consistent style, like lightest colors as background colors, boldest colors as accent pops, darkest colors as borders, lines, texts, etc? idk that's just my first thought when it comes to styling but i'm VERY open to messing around. 
    */
 
-  console.log("bg color", bgColor);
+  // console.log(title, bgColor, primaryColor, secondaryColor);
+
+  const sanitizer = (html) => {
+    return DOMPurify.sanitize(html, {
+      ADD_TAGS: ["style"],
+      ADD_ATTR: ["style"],
+    });
+  };
+  const render = renderToStaticMarkup;
+
+  if (title) {
+    console.log(JSON.stringify(title.htmlStyle));
+  }
+
+  // const parsedStyles = JSON.parse(`{${title.htmlStyle}}`);
 
   return (
     <div
@@ -48,14 +75,49 @@ const PreviewPane = ({
       style={{ backgroundColor: bgColor }}
     >
       {title ? (
-        <header
-          id="previewTitle"
-          dangerouslySetInnerHTML={{
-            __html: sanitizer(title.htmlText),
-          }}
-        />
+        <>
+          {(() => {
+            //this was a pain in the ass. i hope there's an easier way --jdb
+            const { htmlText, htmlStyle } = title;
+            htmlStyle.backgroundColor = bgColor;
+            htmlStyle.color = primaryColor;
+            htmlStyle.textDecoration = `underline ${secondaryColor}`;
+            console.log(
+              "in title",
+              bgColor,
+              primaryColor,
+              secondaryColor,
+              htmlStyle
+            );
+            return (
+              <header
+                dangerouslySetInnerHTML={{
+                  __html: htmlText,
+                }}
+                style={htmlStyle}
+              />
+            );
+          })()}
+        </>
       ) : (
-        <header id="previewTitle">Hey, here's the preview title!</header>
+        <h1
+          style={{
+            // backgroundColor: bgColor,
+            boxSizing: "border-box",
+            gridRow: 1,
+            gridColumn: "1 / 3",
+            fontSize: "32px",
+            // color: primaryColor,
+            fontWeight: "bold",
+            textAlign: "right",
+            margin: "20px 0",
+            textTransform: "uppercase",
+            letterSpacing: "2px",
+            // textDecoration: "underline" + secondaryColor,
+          }}
+        >
+          Your Website Title
+        </h1>
       )}
       {nav ? (
         <nav
@@ -137,7 +199,6 @@ const PreviewPane = ({
             })
           : ""}
       </ul> */}
-
     </div>
   );
 };

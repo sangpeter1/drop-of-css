@@ -47,7 +47,7 @@ const Components = ({ openInPreview }) => {
                   key={component.id}
                   onClick={() => handleOpenInPreview(component)}
                 >
-                  {component.type}
+                  {component.type}: {component.name}
                 </li>
               );
             })
