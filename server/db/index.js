@@ -3,7 +3,7 @@ const User = require("./User");
 const Component = require("./Component");
 const Template = require("./Template");
 const Palette = require("./Palette");
-const components = require("./components")
+const components = require("./components");
 
 Palette.belongsTo(Template);
 User.hasMany(Template);
@@ -18,9 +18,9 @@ const syncAndSeed = async () => {
   ]);
 
   const [navbar, form] = await Promise.all([
-    components.map(component => {
-      Component.create(component)
-    })
+    components.map((component) => {
+      Component.create(component);
+    }),
   ]);
 
   return {
@@ -31,7 +31,7 @@ const syncAndSeed = async () => {
     },
     components: {
       navbar,
-      form
+      form,
     },
   };
 };

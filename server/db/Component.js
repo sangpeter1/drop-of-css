@@ -1,5 +1,5 @@
 const conn = require("./conn");
-const { STRING, UUID, UUIDV4, TEXT, BOOLEAN } = conn.Sequelize;
+const { STRING, UUID, UUIDV4, TEXT, BOOLEAN, JSON } = conn.Sequelize;
 
 const Component = conn.define("component", {
   id: {
@@ -15,6 +15,9 @@ const Component = conn.define("component", {
   },
   htmlText: {
     type: TEXT,
+  },
+  htmlStyle: {
+    type: JSON,
   },
 });
 
