@@ -8,6 +8,9 @@ const Palette = conn.define("palette", {
     primaryKey: true,
     defaultValue: UUIDV4,
   },
+  bgColor: {
+    type: STRING,
+  },
   primaryColor: {
     type: STRING,
   },
