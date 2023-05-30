@@ -49,7 +49,7 @@ const App = () => {
         !!auth.id && (
           <div>
             <Routes>
-              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/" element={<Home />} />
               <Route path="/cpgform" element={<ColorGenForm />} />
               <Route path="/test" element={<Test />} />
               <Route path="/login" element={<Login />}/>
