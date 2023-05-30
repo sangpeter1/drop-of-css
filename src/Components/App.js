@@ -6,7 +6,7 @@ import Logout from "./Logout";
 import Test from "./Test";
 import ColorGenForm from "./ColorGenForm";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
 
 
@@ -37,10 +37,16 @@ const App = () => {
 
   return (
     <div>
-      {!!auth.id && (
-        <div> 
-          <Nav />
-          <Home />
+      {
+        !!auth.id && (
+          <div> 
+            <Nav />
+            <Home />
+          </div>
+        )
+      }
+      {
+        !!auth.id && (
           <div>
             <Routes>
               {/* <Route path="/" element={<Home />} /> */}
@@ -49,12 +55,14 @@ const App = () => {
               <Route path="/login" element={<Login />}/>
             </Routes>
           </div>
-        </div>
-      )}
-      { auth.id ? <Logout /> : <Login /> }
-      { /* ^ I just put this in to work on oauth and 
+        )
+      }
+      { 
+        auth.id ? <Logout /> : <Login /> 
+        /* ^ I just put this in to work on oauth and 
         to get the nav bar working, we can definitely change this
-        back later -MT*/}
+        back later -MT*/
+      }
     </div>
   );
 };
