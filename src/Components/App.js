@@ -2,15 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import Home from "./Home";
 import Nav from "./Nav";
 import Login from "./Login";
+import Logout from "./Logout";
 import Test from "./Test";
-import PreviewPane from "./PreviewPane";
-import Components from "./Components";
 import ColorGenForm from "./ColorGenForm";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Routes, Route } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
 
+
 const App = () => {
+  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const prevAuth = useRef(auth);
@@ -34,55 +35,26 @@ const App = () => {
     prevAuth.current = auth;
   });
 
-  const [form, setForm] = useState(null);
-  const [nav, setNavBar] = useState(null);
-  const [title, setTitle] = useState(null);
-  const [generatedColors, setGeneratedColors] = useState(null);
-
-  const handleOpenInPreview = (component) => {
-    console.log("in app page", component);
-    if (component.type === "navbar") {
-      setNavBar(component);
-    }
-    if (component.type === "form") {
-      setForm(component);
-    }
-    if (component.type === "title") {
-      setTitle(component);
-    }
-  };
-
   return (
     <div>
-      <Nav />
-      <div id="page-container-div">
-        <div id="page-container-right-divs">
-          <div id="cpg-div">
-            <ColorGenForm openColorsInPreview={setGeneratedColors} />
-          </div>
-          <div id="component-div">
-            <Components openInPreview={handleOpenInPreview} />
-          </div>
-        </div>
-        <div id="preview-pane-div">
-          <PreviewPane
-            form={form}
-            nav={nav}
-            title={title}
-            generatedColors={generatedColors}
-          />
-        </div>
-      </div>
-
       {!!auth.id && (
-        <div>
-          <Routes>
-            {/* <Route path="/" element={<Home />} /> */}
-            <Route path="/cpgform" element={<ColorGenForm />} />
-            <Route path="/test" element={<Test />} />
-          </Routes>
+        <div> 
+          <Nav />
+          <Home />
+          <div>
+            <Routes>
+              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/cpgform" element={<ColorGenForm />} />
+              <Route path="/test" element={<Test />} />
+              <Route path="/login" element={<Login />}/>
+            </Routes>
+          </div>
         </div>
       )}
+      { auth.id ? <Logout /> : <Login /> }
+      { /* ^ I just put this in to work on oauth and 
+        to get the nav bar working, we can definitely change this
+        back later -MT*/}
     </div>
   );
 };
