@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchColorPalette } from "../store";
 import ColorPicker from "./ColorPicker";
 
-const ColorGenForm = ({openColorsInPreview}) => {
+const ColorGenForm = ({ openColorsInPreview }) => {
   const dispatch = useDispatch();
   const [format, setFormat] = useState("");
   const [hex, setHex] = useState("");
@@ -16,7 +16,6 @@ const ColorGenForm = ({openColorsInPreview}) => {
     console.log("handle colors", generatedColors);
     openColorsInPreview(generatedColors);
   };
-
 
   const cpgModes = [
     "monochrome",

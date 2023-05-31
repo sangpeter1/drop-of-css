@@ -7,7 +7,6 @@ const Component = require("../db/Component");
 app.get("/", async (req, res, next) => {
   try {
     const comp = await Component.findAll();
-    console.log(comp);
     res.send(comp);
   } catch (err) {
     next(err);

@@ -26,18 +26,26 @@ const PreviewPane = ({
   const [bgColor, setBgColor] = useState("");
   const [primaryColor, setPrimaryColor] = useState("");
   const [secondaryColor, setSecondaryColor] = useState("");
+  const [tertiaryColor, setTertiaryColor] = useState("");
 
   useEffect(() => {
     try {
       generatedColors.map((color) => {
-        if (color.hsv.v > 80) {
+        setBgColor("");
+        setPrimaryColor("");
+        setSecondaryColor("");
+        setTertiaryColor("");
+        if (color.hsv.s < 25 && color.hsv.v > 75) {
           setBgColor(color.hex.value);
         }
-        if (color.hsv.s > 70) {
+        if (color.hsv.s > 91) {
           setPrimaryColor(color.hex.value);
         }
-        if (color.hsv.s > 30) {
+        if (color.hsv.s > 40) {
           setSecondaryColor(color.hex.value);
+        }
+        if (color.hsv.s > 0) {
+          setTertiaryColor(color.hex.value);
         }
         if (!bgColor) {
           setBgColor("#FAFAFA");
@@ -63,11 +71,25 @@ const PreviewPane = ({
   };
   const render = renderToStaticMarkup;
 
-  if (title) {
-    console.log(JSON.stringify(title.htmlStyle));
-  }
+  const renderedSubStyle = (style) => {
+    const words = style.split(" ");
+    for (let i = 0; i < words.length; i++) {
+      if (words[i] === "primaryColor;") {
+        words[i] = `${primaryColor};`;
+      }
+      if (words[i] === "secondaryColor;") {
+        words[i] = `${secondaryColor};`;
+      }
+      if (words[i] === "tertiaryColor;") {
+        words[i] = `${tertiaryColor};`;
+      }
+    }
+    return words.join(" ");
+  };
 
-  // const parsedStyles = JSON.parse(`{${title.htmlStyle}}`);
+  // if (title) {
+  //   console.log(JSON.stringify(title.htmlStyle));
+  // }
 
   return (
     <div
@@ -77,18 +99,11 @@ const PreviewPane = ({
       {title ? (
         <>
           {(() => {
-            //this was a pain in the ass. i hope there's an easier way --jdb
             const { htmlText, htmlStyle } = title;
             htmlStyle.backgroundColor = bgColor;
             htmlStyle.color = primaryColor;
-            htmlStyle.textDecoration = `underline ${secondaryColor}`;
-            console.log(
-              "in title",
-              bgColor,
-              primaryColor,
-              secondaryColor,
-              htmlStyle
-            );
+
+            console.log(htmlStyle);
             return (
               <header
                 dangerouslySetInnerHTML={{
@@ -100,54 +115,81 @@ const PreviewPane = ({
           })()}
         </>
       ) : (
-        <h1
-          style={{
-            // backgroundColor: bgColor,
-            boxSizing: "border-box",
-            gridRow: 1,
-            gridColumn: "1 / 3",
-            fontSize: "32px",
-            // color: primaryColor,
-            fontWeight: "bold",
-            textAlign: "right",
-            margin: "20px 0",
-            textTransform: "uppercase",
-            letterSpacing: "2px",
-            // textDecoration: "underline" + secondaryColor,
-          }}
-        >
-          Your Website Title
-        </h1>
+        <header id="previewTitle">Your Website Title</header>
       )}
       {nav ? (
-        <nav
-          id="previewNav"
-          dangerouslySetInnerHTML={{
-            __html: sanitizer(nav.htmlText),
-          }}
-        />
+        <>
+          {(() => {
+            const { htmlText, htmlStyle } = nav;
+            const { subStyleOne } = htmlStyle;
+            const updatedStyle = {
+              ...htmlStyle,
+              backgroundColor: bgColor,
+              color: primaryColor,
+              borderBottom: `5px solid ${tertiaryColor}`,
+            };
+
+            console.log("updated style", updatedStyle);
+
+            const updatedHtmlText = htmlText.replace(
+              "subStyleOne",
+              `${renderedSubStyle(subStyleOne)}`
+            );
+
+            return (
+              <div id="previewNav">
+                <div
+                  style={updatedStyle}
+                  dangerouslySetInnerHTML={{
+                    __html: updatedHtmlText,
+                  }}
+                />
+              </div>
+            );
+          })()}
+        </>
       ) : (
-        <nav id="previewNav">Nav</nav>
+        <nav id="previewNav">Preview Nav</nav>
       )}
       {sideNav ? (
-        <nav
-          id="previewSideNav"
-          dangerouslySetInnerHTML={{
-            __html: sanitizer(sideNav.htmlText),
-          }}
-        />
+        <>
+          {(() => {
+            const { htmlText, htmlStyle } = sideNav;
+            htmlStyle.backgroundColor = bgColor;
+            htmlStyle.color = primaryColor;
+            // htmlStyle.textDecoration = `underline ${secondaryColor}`;
+            return (
+              <nav
+                dangerouslySetInnerHTML={{
+                  __html: htmlText,
+                }}
+                style={htmlStyle}
+              />
+            );
+          })()}
+        </>
       ) : (
         <nav id="previewSideNav">Side Nav</nav>
       )}
 
       <main className="preview-pane-Main-Content">
         {card ? (
-          <div
-            id="previewCard"
-            dangerouslySetInnerHTML={{
-              __html: sanitizer(card.htmlText),
-            }}
-          />
+          <>
+            {(() => {
+              const { htmlText, htmlStyle } = card;
+              htmlStyle.backgroundColor = bgColor;
+              htmlStyle.color = primaryColor;
+              // htmlStyle.textDecoration = `underline ${secondaryColor}`;
+              return (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: htmlText,
+                  }}
+                  style={htmlStyle}
+                />
+              );
+            })()}
+          </>
         ) : (
           <div id="previewCard">Card</div>
         )}
@@ -162,22 +204,42 @@ const PreviewPane = ({
           <div id="previewCard">Card</div>
         )}
         {form ? (
-          <div
-            id="previewForm"
-            dangerouslySetInnerHTML={{
-              __html: sanitizer(form.htmlText),
-            }}
-          />
+          <>
+            {(() => {
+              const { htmlText, htmlStyle } = form;
+              htmlStyle.backgroundColor = bgColor;
+              htmlStyle.color = primaryColor;
+              // htmlStyle.textDecoration = `underline ${secondaryColor}`;
+              return (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: htmlText,
+                  }}
+                  style={htmlStyle}
+                />
+              );
+            })()}
+          </>
         ) : (
           <div id="previewForm">form</div>
         )}
         {button ? (
-          <div
-            id="previewButton"
-            dangerouslySetInnerHTML={{
-              __html: sanitizer(button.htmlText),
-            }}
-          />
+          <>
+            {(() => {
+              const { htmlText, htmlStyle } = button;
+              htmlStyle.backgroundColor = bgColor;
+              htmlStyle.color = primaryColor;
+              // htmlStyle.textDecoration = `underline ${secondaryColor}`;
+              return (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: htmlText,
+                  }}
+                  style={htmlStyle}
+                />
+              );
+            })()}
+          </>
         ) : (
           <div id="previewButton">Button</div>
         )}

@@ -1,38 +1,59 @@
 let bgColor;
 let primaryColor;
 let secondaryColor;
+let tertiaryColor;
 
 const components = [
   {
     type: "navbar",
     name: "plain nav bar",
     htmlText: `
-      <ul style="list-style: none;">
-        <li>
-          <a href="#home">Home</a>
+     <ul style=subStyleOne>
+        <li style="padding-left: 1rem; color: inherit">
+          <a href="#home" style="color: inherit">Home</a>
         </li>
-        <li>
-          <a href="#about">About</a>
+        <li style="padding-left: 1rem; color: inherit">
+          <a href="#about" style="color: inherit">About</a>
         </li>
-        <li>
-          <a href="#services">Services</a>
+        <li style="padding-left: 1rem; color: inherit">
+          <a href="#services" style="color: inherit">Services</a>
         </li>
-        <li>
-          <a href="#contact">Contact</a>
+        <li style="padding-left: 1rem; color: inherit">
+          <a href="#contact" style="color: inherit">Contact</a>
         </li>
-        <li>
+        <li style="padding-left: 1rem; color: inherit">
           <div class="dropdown">
             <button class="dropbtn">Dropdown
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
-              <a href="#">Link 1</a>
+              <a href="#" >Link 1</a>
               <a href="#">Link 2</a>
               <a href="#">Link 3</a>
             </div>
           </div>
         </li>
       </ul>`,
+    htmlStyle: {
+      backgroundColor: bgColor,
+      boxSizing: "content-box",
+      display: "grid",
+      gridAutoFlow: "row",
+      gridColumn: "1/3",
+      gridRow: 2,
+      fontSize: "1.2rem",
+      color: primaryColor,
+      textAlign: "center",
+      margin: 0,
+      height: "100%",
+      width: "100%",
+      verticalAlign: "center",
+      letterSpacing: "2px",
+      listStyle: "none",
+      borderBottom: `5px solid ${tertiaryColor}`,
+      textDecoration: `underline ${secondaryColor}`,
+      subStyleOne: `"background-color: secondaryColor; list-style-type: none; height: 100%; margin: 0; padding-left: 1rem; color: #FFFFFF; width: auto; display: flex; flex-direction: row; align-items: center; text-decoration: none"`,
+    },
   },
   {
     type: "form",
@@ -112,18 +133,18 @@ const components = [
         Your Website Title
       </h1>`,
     htmlStyle: {
-      backgroundColor: { bgColor },
+      backgroundColor: bgColor,
       boxSizing: "border-box",
       gridRow: 1,
       gridColumn: "1 / 3",
       fontSize: "32px",
-      color: { primaryColor },
+      color: primaryColor,
       fontWeight: "bold",
       textAlign: "right",
       margin: "20px 0",
       textTransform: "uppercase",
       letterSpacing: "2px",
-      textDecoration: "underline" + { secondaryColor },
+      textDecoration: `underline + ${secondaryColor}`,
     },
   },
 ];
