@@ -3,16 +3,17 @@ import PreviewPane from "./PreviewPane";
 import Components from "./Components";
 import ColorGenForm from "./ColorGenForm";
 
-
 const Home = () => {
-
   const [form, setForm] = useState(null);
   const [nav, setNavBar] = useState(null);
   const [title, setTitle] = useState(null);
+  const [sideNav, setSideNav] = useState(null);
+  const [card, setCard] = useState(null);
+  const [button, setButton] = useState(null);
   const [generatedColors, setGeneratedColors] = useState(null);
 
   const handleOpenInPreview = (component) => {
-    console.log("in app page", component);
+    // console.log("in app page", component);
     if (component.type === "navbar") {
       setNavBar(component);
     }
@@ -21,6 +22,15 @@ const Home = () => {
     }
     if (component.type === "title") {
       setTitle(component);
+    }
+    if (component.type === "sideNav") {
+      setSideNav(component);
+    }
+    if (component.type === "card") {
+      setCard(component);
+    }
+    if (component.type === "button") {
+      setButton(component);
     }
   };
 
@@ -40,11 +50,14 @@ const Home = () => {
             form={form}
             nav={nav}
             title={title}
+            sideNav={sideNav}
+            card={card}
+            button={button}
             generatedColors={generatedColors}
           />
         </div>
-      </div>  
-    </div>   
+      </div>
+    </div>
   );
 };
 

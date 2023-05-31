@@ -15,12 +15,12 @@ app.post("/", async (req, res, next) => {
   // let count = "5";
   //done testing. comment out when done
 
-  console.log(hex, mode, count);
+  // console.log(hex, mode, count);
   const url = `https://www.thecolorapi.com/scheme?hex=${hex}&format=json&mode=${mode}&count=${count}`;
   try {
     console.log(url);
     const response = await axios.get(url);
-    console.log(response.data);
+    // console.log(response.data);
     res.send(response.data);
   } catch (err) {
     next(err);
