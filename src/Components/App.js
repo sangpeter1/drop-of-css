@@ -59,9 +59,16 @@ const App = () => {
       }
       { 
         auth.id ? <Logout /> : <Login /> 
-        /* ^ I just put this in to work on oauth and 
-        to get the nav bar working, we can definitely change this
-        back later -MT*/
+      }
+      { 
+        !auth.id ?  
+          <div>
+            <a href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}>Login with Github</a>
+          </div> 
+          : 
+          <div> 
+            <Logout /> 
+          </div>
       }
     </div>
   );
