@@ -13,7 +13,6 @@ const Home = () => {
   const [generatedColors, setGeneratedColors] = useState(null);
 
   const handleOpenInPreview = (component) => {
-    // console.log("in app page", component);
     if (component.type === "navbar") {
       setNavBar(component);
     }
@@ -42,7 +41,10 @@ const Home = () => {
             <ColorGenForm openColorsInPreview={setGeneratedColors} />
           </div>
           <div id="component-div">
-            <Components openInPreview={handleOpenInPreview} />
+            <Components
+              openInPreview={handleOpenInPreview}
+              generatedColors={generatedColors}
+            />
           </div>
         </div>
         <div id="preview-pane-div">

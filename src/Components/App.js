@@ -9,9 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
 
-
 const App = () => {
-  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const prevAuth = useRef(auth);
@@ -24,7 +22,7 @@ const App = () => {
     if (!prevAuth.current.id && auth.id) {
       console.log(`${auth.username} is logged in`);
       dispatch(fetchComponents());
-      dispatch(fetchColorPalette({ hex: "FFFFFF", mode: "dark", count: 5 }));
+      // dispatch(fetchColorPalette({ hex: "FFFFFF", mode: "dark", count: 5 }));
     }
     if (prevAuth.current.id && !auth.id) {
       console.log("logged out");
@@ -37,6 +35,25 @@ const App = () => {
 
   return (
     <div>
+      {!!auth.id && (
+        <div>
+          <Nav />
+          <Home />
+        </div>
+      )}
+      {!!auth.id && (
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cpgform" element={<ColorGenForm />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
+      )}
+      {auth.id ? <Logout /> : <Login />}
+      {/* { 
+        !auth.id ?  
       {
         !!auth.id && (
           <div> 
@@ -59,6 +76,12 @@ const App = () => {
               Login with Github
             </a>
           </div> 
+
+          : 
+          <div> 
+            <Logout /> 
+          </div>
+      } */}
         )
       }
     </div>

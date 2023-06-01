@@ -3,12 +3,14 @@ let primaryColor;
 let secondaryColor;
 let tertiaryColor;
 
+//for html style, would have an object and then within the object we would have props, that are the same as className (like navbar, dropbtn)
+
 const components = [
   {
     type: "navbar",
     name: "plain nav bar",
     htmlText: `
-     <ul style=subStyleOne>
+     <ul class={navbar} style=subStyleOne>
         <li style="padding-left: 1rem; color: inherit">
           <a href="#home" style="color: inherit">Home</a>
         </li>
@@ -35,6 +37,7 @@ const components = [
         </li>
       </ul>`,
     htmlStyle: {
+      navbar: "border: 10px solid red",
       backgroundColor: bgColor,
       boxSizing: "content-box",
       display: "grid",
@@ -54,6 +57,47 @@ const components = [
       textDecoration: `underline ${secondaryColor}`,
       subStyleOne: `"background-color: secondaryColor; list-style-type: none; height: 100%; margin: 0; padding-left: 1rem; color: #FFFFFF; width: auto; display: flex; flex-direction: row; align-items: center; text-decoration: none"`,
     },
+    extraCSSForTemplateOutput: `      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+      
+      .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
+      
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }`,
+  },
+  {
+    type: "form",
+    name: "joe's test form",
+    htmlText: `
+    <div>
+      <form style={{backgroundColor: bgColor}}>
+        <input placeholder='type something here'/>
+        <div>
+          <input type="checkbox">
+          <label> I am a check box </label> 
+        </div>
+        <div>
+          <input type="radio">
+          <label> I am a radio </label>
+        </div>
+        <button style={{border: "15px solid secondaryColor"}> Submit </button>
+      </form>
+      </div>
+    `,
   },
   {
     type: "form",
@@ -107,6 +151,7 @@ const components = [
   </h1>
   );
   `,
+    htmlStyle: {},
   },
   {
     type: "title",
@@ -124,6 +169,14 @@ const components = [
   </h1>
   );
   `,
+    htmlStyle: {
+      fontSize: "32px",
+      color: { primaryColor },
+      fontWeight: "bold",
+      textAlign: "left",
+      margin: "10px 0",
+      textShadow: `2px 2px ${secondaryColor}`,
+    },
   },
   {
     type: "title",
