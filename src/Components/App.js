@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Home from "./Home";
 import Nav from "./Nav";
 import Login from "./Login";
-import Logout from "./Logout";
 import Test from "./Test";
+import Profile from "./Profile";
 import ColorGenForm from "./ColorGenForm";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
@@ -41,34 +41,25 @@ const App = () => {
         !!auth.id && (
           <div> 
             <Nav />
-            <Home />
-          </div>
-        )
-      }
-      {
-        !!auth.id && (
-          <div>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/cpgform" element={<ColorGenForm />} />
               <Route path="/test" element={<Test />} />
               <Route path="/login" element={<Login />}/>
+              <Route path="/profile" element={<Profile />}/>
             </Routes>
           </div>
         )
       }
       { 
-        auth.id ? <Logout /> : <Login /> 
-      }
-      { 
-        !auth.id ?  
+        !auth.id && (
           <div>
-            <a href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}>Login with Github</a>
+            <Login />
+            <a href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}>
+              Login with Github
+            </a>
           </div> 
-          : 
-          <div> 
-            <Logout /> 
-          </div>
+        )
       }
     </div>
   );
