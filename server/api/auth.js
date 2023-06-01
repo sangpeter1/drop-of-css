@@ -22,17 +22,17 @@ app.post("/register", async (req, res, next) => {
   }
 });
 
-app.get("/github", async(req, res, next)=> {
-  try{
+app.get("/github", async (req, res, next) => {
+  try {
     const { token } = await User.authenticateGithub(req.query.code);
+    console.log(token);
     res.send(`
       <script>
-        window.localStorage.setItem('token', '${ token }');
+        window.localStorage.setItem('token', '${token}');
         window.location = '/';
       </script>
     `);
-  }
-  catch(ex){
+  } catch (ex) {
     next(ex);
   }
 });

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { attemptLogin } from "../store";
 import { useDispatch } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -22,7 +21,7 @@ const Login = () => {
     dispatch(attemptLogin(credentials));
     //navigate(`/`);
   };
-  
+
   return (
     <div>
       <h2>Login</h2>
@@ -41,6 +40,14 @@ const Login = () => {
         />
         <button>Login</button>
       </form>
+
+      <div>
+        <a
+          href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}
+        >
+          Login with Github
+        </a>
+      </div>
     </div>
   );
 };
