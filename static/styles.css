@@ -24,7 +24,7 @@ h1 {
 
 #cpg-div {
   box-sizing: content-box;
-  border: 2px solid red;
+  /* border: 2px solid red;*/
   border-radius: 0.5rem;
   min-height: 55vh;
   width: 30vw;
@@ -33,7 +33,7 @@ h1 {
 
 #component-div {
   box-sizing: content-box;
-  border: 2px solid green;
+ /* border: 2px solid green;*/
   border-radius: 0.5rem;
   height: 60vh;
   width: 30vw;
@@ -42,7 +42,7 @@ h1 {
 
 #preview-pane-div {
   box-sizing: content-box;
-  border: 2px solid blue;
+  /* border: 2px solid blue;*/
   border-radius: 0.5rem;
   height: 100vh;
   width: 69vw;
@@ -174,4 +174,49 @@ main {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+
+
+/* Component list  -marie*/
+
+.componentlist {
+  text-align: center;
+}
+
+.componentlist  ul {
+  list-style: none;
+  padding: 0;
+}
+
+.componentlist ul li {
+  text-align: center;
+}
+
+.componentlist  ul  li:hover {
+  animation: rainbow 1.5s linear infinite;
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rainbow-header {
+  animation: rainbow 1.5s linear infinite;
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.componentlist h3 {
+  text-align: center;
+  margin: 4;
+}
+
+.header {
+  color: #2d545e
 }

@@ -17,8 +17,42 @@ const Components = ({ openInPreview }) => {
     openInPreview(component);
   };
 
+ const componentTypes = [...new Set(components.map((component) => component.type))];
+
+
   return (
-    <div>
+    <div className="componentlist">
+      <h3 className="header">
+        Select Components
+      </h3>
+      {componentTypes.map((type) => (
+        <div key={type}>
+          <h5>{type}</h5>
+          <ul>
+            {components
+              .filter((component) => component.type === type)
+              .map((component) => (
+                <li
+                  key={component.id}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleOpenInPreview(component)}
+                >
+                  {component.name}
+                </li>
+              ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+
+
+
+
+/*
+  return (
+    <div className="componentlist">
+      <h3 style={{ textAlign: "center", margin: 4 }} className="rainbow-header">Select Components</h3>
       <ul>
         {components
           ? components.map((component) => {
@@ -36,6 +70,10 @@ const Components = ({ openInPreview }) => {
       </ul>
     </div>
   );
+  */
+  
+  
+  
 };
 
 export default Components;
