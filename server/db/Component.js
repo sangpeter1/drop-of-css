@@ -19,6 +19,9 @@ const Component = conn.define("component", {
   htmlStyle: {
     type: JSON,
   },
+  extraCSSForTemplateOutput: {
+    type: TEXT,
+  },
 });
 
 module.exports = Component;

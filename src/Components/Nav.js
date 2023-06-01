@@ -20,7 +20,9 @@ const Nav = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-start",
-          backgroundColor: "#2d545e",
+          // backgroundColor: "#2d545e",
+          backgroundColor: "dodgerblue",
+          color: "cornsilk",
           borderBottom: "4px solid #12343b",
           borderBottomRightRadius: "1rem",
         }}
@@ -55,7 +57,7 @@ const Nav = () => {
             }}
           >
             <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-              ColorReactor
+              A Drop of CSS
             </Link>
           </h1>
           <h5 style={{ margin: ".5rem", padding: 0, color: "white" }}>

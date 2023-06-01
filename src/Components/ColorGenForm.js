@@ -32,12 +32,10 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   const runCPG = async (ev) => {
     ev.preventDefault();
-    console.log(hex, mode, count);
     try {
-      const search = { hex, mode, count }; // Create the search object with properties
+      const search = { hex, mode, count };
       const response = await dispatch(fetchColorPalette(search));
       await setColorPalette(response.colors);
-      //setGeneratedColors(response.colors);
       handleGenColors(response.colors);
     } catch (error) {
       console.error(error);
@@ -90,7 +88,9 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                   );
                 })}
               </select>
-              <button onClick={(ev) => runCPG(ev)}>Submit</button>
+              <button type="submit" onClick={(ev) => runCPG(ev)}>
+                Submit
+              </button>
             </form>
           </div>
         </div>
