@@ -8,13 +8,17 @@ import ColorGenForm from "./ColorGenForm";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
+
 const App = () => {
+  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const prevAuth = useRef(auth);
+  
   useEffect(() => {
     dispatch(loginWithToken());
   }, []);
+  
   useEffect(() => {
     if (!prevAuth.current.id && auth.id) {
       console.log(`${auth.username} is logged in`);
@@ -25,9 +29,11 @@ const App = () => {
       console.log("logged out");
     }
   }, [auth]);
+  
   useEffect(() => {
     prevAuth.current = auth;
   });
+  
   return (
     <div>
       {!!auth.id && (
@@ -44,17 +50,7 @@ const App = () => {
       )}
       {!auth.id && (
         <div>
-          <a
-            href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}
-          >
-            Login with Github
-          </a>
           <Login />
-          <a
-            href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}
-          >
-            Login with Github
-          </a>
         </div>
       )}
     </div>

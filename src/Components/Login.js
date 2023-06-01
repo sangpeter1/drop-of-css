@@ -40,7 +40,6 @@ const Login = () => {
         />
         <button>Login</button>
       </form>
-
       <div>
         <a
           href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}
