@@ -6,7 +6,6 @@ import DOMPurify from "dompurify";
 const sanitizer = DOMPurify.sanitize;
 
 const Components = ({ openInPreview, generatedColors }) => {
-
   const { components } = useSelector((state) => state);
   const [bgColor, setBgColor] = useState("");
   const [primaryColor, setPrimaryColor] = useState("");
@@ -82,13 +81,13 @@ const Components = ({ openInPreview, generatedColors }) => {
     }
   };
 
- const componentTypes = [...new Set(components.map((component) => component.type))];
+  const componentTypes = [
+    ...new Set(components.map((component) => component.type)),
+  ];
 
   return (
     <div className="componentlist">
-      <h3 className="header">
-        Select Components
-      </h3>
+      <h3 className="header">Select Components</h3>
       {componentTypes.map((type) => (
         <div key={type}>
           <h5>{type}</h5>
@@ -103,18 +102,12 @@ const Components = ({ openInPreview, generatedColors }) => {
                 >
                   {component.name}
                 </li>
-
-              );
-            })
-          : "No components found"}
-      </ul>
               ))}
           </ul>
         </div>
       ))}
     </div>
   );
-  
 };
 
 export default Components;
