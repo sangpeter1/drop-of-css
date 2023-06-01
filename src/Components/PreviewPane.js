@@ -90,6 +90,8 @@ const PreviewPane = ({
   };
 
   return (
+  <div>
+    <h3 className="header">Template Preview</h3>
     <div
       className="preview-pane-container"
       style={{ backgroundColor: bgColor }}
@@ -144,6 +146,7 @@ const PreviewPane = ({
         )}
       </main>
     </div>
+  </div>
   );
 };
 

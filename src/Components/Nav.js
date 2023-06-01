@@ -2,10 +2,16 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import colorWheelImage from "../images/colorwheel320.png";
+import { logout } from "../store";
+
 
 const Nav = () => {
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
+  
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <div>
@@ -60,22 +66,22 @@ const Nav = () => {
         </div>
         <div style={{ justifyContent: "flex-end" }}>
           <Link
-            to="/test"
+            to="/"
             style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
           >
-            Test
+            Home
           </Link>
           <Link
-            to="/cpgform"
+            to="/profile"
             style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
           >
-            Color Generator
+            Profile
           </Link>
           <Link
-            to="/login"
             style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
+            onClick={handleLogout}
           >
-            Login
+            Logout
           </Link>
         </div>
       </nav>
