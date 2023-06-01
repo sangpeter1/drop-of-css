@@ -51,7 +51,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   return (
     <>
-      <h3 style={{ textAlign: "center", margin: 4 }} className="header">Create Palette</h3>
+      <h3 className="header">Create Palette</h3>
       <div className="ColorGen">
         <div>
           <ColorPicker onColorChange={handleColorChange} />

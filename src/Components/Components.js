@@ -5,7 +5,9 @@ import DOMPurify from "dompurify";
 
 const sanitizer = DOMPurify.sanitize;
 
+
 const Components = ({ openInPreview }) => {
+  
   const { components } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -18,7 +20,6 @@ const Components = ({ openInPreview }) => {
   };
 
  const componentTypes = [...new Set(components.map((component) => component.type))];
-
 
   return (
     <div className="componentlist">
@@ -45,34 +46,6 @@ const Components = ({ openInPreview }) => {
       ))}
     </div>
   );
-
-
-
-
-/*
-  return (
-    <div className="componentlist">
-      <h3 style={{ textAlign: "center", margin: 4 }} className="rainbow-header">Select Components</h3>
-      <ul>
-        {components
-          ? components.map((component) => {
-              return (
-                <li
-                  key={component.id}
-                  style={{ ":hover": { cursor: "pointer" } }}
-                  onClick={() => handleOpenInPreview(component)}
-                >
-                  {component.type}: {component.name}
-                </li>
-              );
-            })
-          : ""}
-      </ul>
-    </div>
-  );
-  */
-  
-  
   
 };
 
