@@ -43,7 +43,7 @@ const Components = ({ openInPreview, generatedColors }) => {
         setTertiaryColor("#71BC1E");
       }
       if (!bgColor) {
-        setBgColor("#FAFAFA");
+        setBgColor("#9013fe");
       }
     } catch (err) {
       console.log(err);
@@ -68,13 +68,16 @@ const Components = ({ openInPreview, generatedColors }) => {
             secondaryColor,
             tertiaryColor,
           })
-        ).then((colorsOnComponents) => {
-          openInPreview(colorsOnComponents);
-          console.log(
-            "open in preview function",
-            openInPreview(colorsOnComponents)
-          );
-        });
+        )
+          .then((colorsOnComponents) => {
+            openInPreview(colorsOnComponents);
+          })
+          .then((colorsOnComponents) => {
+            console.log(
+              "open in preview function",
+              openInPreview(colorsOnComponents)
+            );
+          });
       }
     } catch (err) {
       console.log(err);

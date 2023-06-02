@@ -69,8 +69,8 @@ const PreviewPane = ({
 
   const jsxGenerator = (component) => {
     const { htmlText, htmlStyle } = component;
-    console.log(parse(htmlText));
-    return parse(htmlText);
+    console.log("parse html", parse(htmlText));
+    return htmlText;
   };
 
   const renderedSubStyle = (style) => {
@@ -90,63 +90,72 @@ const PreviewPane = ({
   };
 
   return (
-  <div>
-    <h3 className="header">Template Preview</h3>
-    <div
-      className="preview-pane-container"
-      style={{ backgroundColor: bgColor }}
-    >
-      {title ? (
-        <div id="previewTitle">
-          <div
-            style={updatedStyle}
-            dangerouslySetInnerHTML={{
-              __html: jsxGenerator(title),
-            }}
-          />
-        </div>
-      ) : (
-        <header id="previewTitle">Your Website Title</header>
-      )}
-      {nav ? (
-        <div id="previewTitle">
-          <div
-            style={updatedStyle}
-            dangerouslySetInnerHTML={{
-              __html: jsxGenerator(nav),
-            }}
-          />
-        </div>
-      ) : (
-        <nav id="previewNav">Preview Nav</nav>
-      )}
-      {sideNav ? (
-        "you've got a sidenav. cool"
-      ) : (
-        <nav id="previewSideNav">Side Nav</nav>
-      )}
+    <div>
+      <h3 className="header">Template Preview</h3>
+      <div
+        className="preview-pane-container"
+        style={{ backgroundColor: bgColor }}
+      >
+        {title ? (
+          <div id="previewTitle">
+            <div
+              style={updatedStyle}
+              dangerouslySetInnerHTML={{
+                __html: jsxGenerator(title),
+              }}
+            />
+          </div>
+        ) : (
+          <header id="previewTitle">Your Website Title</header>
+        )}
+        {nav ? (
+          <div id="previewTitle">
+            <div
+              style={updatedStyle}
+              dangerouslySetInnerHTML={{
+                __html: jsxGenerator(nav),
+              }}
+            />
+          </div>
+        ) : (
+          <nav id="previewNav">Preview Nav</nav>
+        )}
+        {sideNav ? (
+          "you've got a sidenav. cool"
+        ) : (
+          <nav id="previewSideNav">Side Nav</nav>
+        )}
 
-      <main className="preview-pane-Main-Content">
-        {card ? "you've got a card. cool" : <div id="previewCard">Card</div>}
-        {card ? (
-          <div
-            id="previewCard"
-            dangerouslySetInnerHTML={{
-              __html: sanitizer(card.htmlText),
-            }}
-          />
-        ) : (
-          <div id="previewCard">Card</div>
-        )}
-        {form ? jsxGenerator(form) : <div id="previewForm">form</div>}
-        {button ? (
-          "you've got a button. cool"
-        ) : (
-          <div id="previewButton">Button</div>
-        )}
-      </main>
+        <main className="preview-pane-Main-Content">
+          {card ? "you've got a card. cool" : <div id="previewCard">Card</div>}
+          {card ? (
+            <div
+              id="previewCard"
+              dangerouslySetInnerHTML={{
+                __html: sanitizer(card.htmlText),
+              }}
+            />
+          ) : (
+            <div id="previewCard">Card</div>
+          )}
+          {form ? (
+            <div
+              id="previewCard"
+              dangerouslySetInnerHTML={{
+                __html: jsxGenerator(form),
+              }}
+            />
+          ) : (
+            <div id="previewForm">form</div>
+          )}
+          {button ? (
+            "you've got a button. cool"
+          ) : (
+            <div id="previewButton">Button</div>
+          )}
+        </main>
+      </div>
     </div>
-  </div>
   );
 };
 
