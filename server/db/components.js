@@ -5,6 +5,8 @@ let tertiaryColor;
 
 //for html style, would have an object and then within the object we would have props, that are the same as className (like navbar, dropbtn)
 
+// type, name, html text with classes and actual color (eg "style=background-color: primaryColor"), css for export (preferably in JSX object format)
+
 const components = [
   {
     type: "navbar",
@@ -28,7 +30,8 @@ const components = [
             <button class="dropbtn">Dropdown
               <i class="fa fa-caret-down"></i>
             </button>
-            <div class="dropdown-content">
+            <div class="dropdown-content" "style=background-color: primaryColor";
+            >
               <a href="#" >Link 1</a>
               <a href="#">Link 2</a>
               <a href="#">Link 3</a>
@@ -57,10 +60,12 @@ const components = [
       textDecoration: `underline ${secondaryColor}`,
       subStyleOne: `"background-color: secondaryColor; list-style-type: none; height: 100%; margin: 0; padding-left: 1rem; color: #FFFFFF; width: auto; display: flex; flex-direction: row; align-items: center; text-decoration: none"`,
     },
-    extraCSSForTemplateOutput: `      .dropdown-content {
+    extraCSSForTemplateOutput: ` 
+
+    .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #f9f9f9;
+        // background-color: #f9f9f9;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
@@ -82,9 +87,10 @@ const components = [
   {
     type: "form",
     name: "joe's test form",
+    //front end preview window html
     htmlText: `
     <div>
-      <form style={{backgroundColor: bgColor}}>
+      <form style="background-color: bgColor">
         <input placeholder='type something here'/>
         <div>
           <input type="checkbox">
@@ -94,10 +100,11 @@ const components = [
           <input type="radio">
           <label> I am a radio </label>
         </div>
-        <button style={{border: "15px solid secondaryColor"}> Submit </button>
+        <button style="border: 15px solid secondaryColor"> Submit </button>
       </form>
       </div>
     `,
+    parentDivCSS: { display: flex },
   },
   {
     type: "form",
