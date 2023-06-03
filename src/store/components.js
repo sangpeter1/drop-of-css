@@ -21,8 +21,8 @@ export const fetchComponents = () => {
 export const setColorsOnComponents = (search) => {
   return async (dispatch) => {
     // console.log("search", search);
-    const { primaryColor, secondaryColor, tertiaryColor, bgColor, component } =
-      search;
+    const { colors, component } = search;
+    const { bgColor, primaryColor, secondaryColor, tertiaryColor } = colors;
     // console.log(
     //   "components store colors",
     //   component,

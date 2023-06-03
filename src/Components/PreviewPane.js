@@ -30,63 +30,16 @@ const PreviewPane = ({
     dispatch(fetchComponents());
   }, []);
 
-  const [bgColor, setBgColor] = useState("");
-  const [primaryColor, setPrimaryColor] = useState("");
-  const [secondaryColor, setSecondaryColor] = useState("");
-  const [tertiaryColor, setTertiaryColor] = useState("");
+  const [colors, setColors] = useState("");
 
-  if (form) {
-    console.log("form", form);
-  }
-
-  useEffect(() => {
-    try {
-      generatedColors.map((color) => {
-        setBgColor("");
-        setPrimaryColor("");
-        setSecondaryColor("");
-        setTertiaryColor("");
-        if (color.hsv.s < 25 && color.hsv.v > 75) {
-          setBgColor(color.hex.value);
-        }
-        if (color.hsv.s > 91) {
-          setPrimaryColor(color.hex.value);
-        }
-        if (color.hsv.s > 40) {
-          setSecondaryColor(color.hex.value);
-        }
-        if (color.hsv.s > 0) {
-          setTertiaryColor(color.hex.value);
-        }
-        if (!bgColor) {
-          setBgColor("#FAFAFA");
-        }
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }, [generatedColors]);
+  // if (form) {
+  //   console.log("form", form);
+  // }
 
   const jsxGenerator = (component) => {
     const { htmlText, htmlStyle } = component;
-    console.log("parse html", parse(htmlText));
+    // console.log("parse html", parse(htmlText));
     return htmlText;
-  };
-
-  const renderedSubStyle = (style) => {
-    const words = style.split(" ");
-    for (let i = 0; i < words.length; i++) {
-      if (words[i] === "primaryColor;") {
-        words[i] = `${primaryColor};`;
-      }
-      if (words[i] === "secondaryColor;") {
-        words[i] = `${secondaryColor};`;
-      }
-      if (words[i] === "tertiaryColor;") {
-        words[i] = `${tertiaryColor};`;
-      }
-    }
-    return words.join(" ");
   };
 
   return (
@@ -94,7 +47,7 @@ const PreviewPane = ({
       <h3 className="header">Template Preview</h3>
       <div
         className="preview-pane-container"
-        style={{ backgroundColor: bgColor }}
+        style={{ backgroundColor: colors.bgColor }}
       >
         {title ? (
           <div id="previewTitle">
@@ -140,7 +93,7 @@ const PreviewPane = ({
           )}
           {form ? (
             <div
-              id="previewCard"
+              id="previewForm"
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(form),
               }}
