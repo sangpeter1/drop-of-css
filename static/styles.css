@@ -207,12 +207,51 @@ main {
 }
 
 
-/* Headers with Navbar color & rainbow -mt*/
+/* Headers with Navbar color -mt*/
 
 .header {
   color: #2d545e;
   text-align: center; 
   margin: 4;
+}
+
+
+/*Profile*/
+
+.profile {
+  display: flex;
+  margin: 1rem;
+  justify-content: space-between; 
+}
+
+.custom-icon {
+  color: #2d545e;
+}
+
+
+/*Rainbow components*/
+
+.rainbowBtn {
+  display: inline-block;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+  background-color: #2d545e;
+}
+
+.rainbowBtn:hover {
+  background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+  color: white;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.rainbowBtn {
+  animation: rainbow 3s linear infinite;
 }
 
 .rainbow-header {
@@ -228,14 +267,10 @@ main {
 }
 
 
-/*Profile*/
+/* login page */
 
-.profile {
-  display: flex;
-  margin: 1rem;
-  justify-content: space-between; 
-}
-
-.custom-icon {
-  color: #2d545e;
+.login {
+  margin-left: 8rem;
+  margin-right: 8rem;
+  margin-top: 2rem;
 }

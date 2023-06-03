@@ -43,7 +43,9 @@ const UserUpdate = () => {
           placeholder="email"
           name="email" 
         />
-        <button>Update Account</button>
+        <button className="rainbowBtn">
+          Update Account
+        </button>
       </form>
     </div>
   );

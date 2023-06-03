@@ -36,19 +36,17 @@ const App = () => {
   
   return (
     <div>
-      {!!auth.id && (
+      <Nav />
+      {auth.id ? (
         <div>
-          <Nav />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cpgform" element={<ColorGenForm />} />
             <Route path="/test" element={<Test />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
-      )}
-      {!auth.id && (
+      ) : (
         <div>
           <Login />
         </div>

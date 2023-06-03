@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { attemptLogin } from "../store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import UserCreate from "./UserCreate";
+
 
 const Login = () => {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,8 +26,8 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login">
+      <h3 className="header">Login</h3>
       <form onSubmit={login}>
         <input
           placeholder="username"
@@ -38,7 +41,7 @@ const Login = () => {
           value={credentials.password}
           onChange={onChange}
         />
-        <button>Login</button>
+        <button className="rainbowBtn">Login</button>
       </form>
       <div>
         <a
@@ -47,6 +50,7 @@ const Login = () => {
           Login with Github
         </a>
       </div>
+      <UserCreate />
     </div>
   );
 };
