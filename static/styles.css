@@ -270,5 +270,7 @@ main {
 /* login page */
 
 .login {
-  margin: 4rem;
+  margin-left: 8rem;
+  margin-right: 8rem;
+  margin-top: 2rem;
 }

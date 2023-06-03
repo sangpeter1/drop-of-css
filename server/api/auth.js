@@ -45,6 +45,7 @@ app.get("/", isLoggedIn, (req, res, next) => {
   }
 });
 
+// update
 app.put("/", isLoggedIn, async (req, res, next) => {
   try {
     const user = req.user;
@@ -82,3 +83,24 @@ app.put("/", isLoggedIn, async (req, res, next) => {
 });
 */
 
+// create
+app.post('/', async(req, res, next) => {
+  try{
+    res.status(201).send(await User.create(req.body));
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
+//delete
+app.delete('/:id', async(req, res, next) => {
+  try{
+    const user = await User.findByPk(req.params.id);
+    await user.destroy();
+    res.send(204);
+  }
+  catch(ex){
+    next(ex);
+  }
+});

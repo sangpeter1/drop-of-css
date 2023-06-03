@@ -4,6 +4,12 @@ const auth = (state = {}, action) => {
   if (action.type === "SET_AUTH") {
     return action.auth;
   }
+  if (action.type === "CREATE_AUTH") {
+    return [...state, action.auth];
+  }
+  if(action.type === 'DELETE_AUTH'){
+    return state.filter(auth => auth.id !== action.auth.id);
+  }
   return state;
 };
 
@@ -51,6 +57,20 @@ export const updateAuth = (auth)=> {
       }
     });
     dispatch({ type: 'SET_AUTH', auth: response.data });
+  };
+};
+
+export const createUser = (auth) => {
+  return async (dispatch) => {
+    const response = await axios.post("/api/auth", auth);
+    dispatch({ type: "CREATE_AUTH", auth: response.data });
+  };
+};
+
+export const deleteUser = (auth)=> {
+  return async(dispatch)=> {
+    await axios.delete(`/api/auth/${auth.id}`);
+    dispatch({ type: 'DELETE_AUTH', auth});
   };
 };
 

@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { attemptLogin } from "../store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import UserCreate from "./UserCreate";
+
 
 const Login = () => {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,6 +50,7 @@ const Login = () => {
           Login with Github
         </a>
       </div>
+      <UserCreate />
     </div>
   );
 };
