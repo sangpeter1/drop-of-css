@@ -110,8 +110,12 @@ const components = [
     type: "form",
     name: "plain form",
     htmlText: `
-      <form style={{backgroundColor: {bgColor}}}>
-        <input placeholder='type something here'/>
+    <div>
+      <form style="backgroundColor: bgColor">
+        <input 
+          placeholder='type something here'
+          style="border-radius: .5rem; border:2px solid primaryColor"
+        />
         <div>
           <input type="checkbox">
           <label> I am a check box </label> 
@@ -120,16 +124,21 @@ const components = [
           <input type="radio">
           <label> I am a radio </label>
         </div>
-        <button> Submit </button>
+        <button style="border: .5rem dotted secondaryColor"> Submit </button>
       </form>
+    </div>
     `,
   },
   {
     type: "form",
-    name: "plain form",
+    name: "plain form two",
     htmlText: `
-      <form style={{backgroundColor: {primaryColor}}}>
-        <input placeholder='type something here'/>
+    <div>
+      <form style="backgroundColor: bgColor">
+        <input 
+          placeholder='type something here'
+          style="border-radius: .5rem; border:2px solid primaryColor"
+        />
         <div>
           <input type="checkbox">
           <label> I am a check box </label> 
@@ -138,25 +147,27 @@ const components = [
           <input type="radio">
           <label> I am a radio </label>
         </div>
-        <button> Submit </button>
+        <button style="border: .5rem dashed secondaryColor"> Submit </button>
       </form>
+    </div>
     `,
   },
   {
     type: "title",
     name: "main title",
     htmlText: `
-    <h1 style={{
-        fontSize: '32px',
-        color: {primaryColor},
-        fontWeight: 'bold',
-        textAlign: 'center',
-        margin: '20px 0',
-        borderBottom: "{secondaryColor} 2px solid"
-      }}>
+    <div>
+    <h1 style="
+        fontSize: 32px;
+        color: primaryColor;
+        fontWeight: bold;
+        textAlign: center;
+        margin: 20px 0
+       "
+      >
     Your Website Title
   </h1>
-  );
+  <div>
   `,
     htmlStyle: {},
   },
@@ -164,17 +175,16 @@ const components = [
     type: "title",
     name: "text shadow",
     htmlText: `
-    <h1 style={{
-        fontSize: '32px',
-        color: {primaryColor},
-        fontWeight: 'bold',
-        textAlign: 'left',
-        margin: '10px 0',
-        textShadow:"2px 2px {secondaryColor}",
-      }}>
-    Your Website Title
-  </h1>
-  );
+    <h1 style="
+        fontSize: 32px;
+        color: primaryColor;
+        fontWeight: bold;
+        textAlign: left;
+        margin: 10px 0;
+        textShadow: 2px 2px secondaryColor;
+    ">
+      Your Website Title
+    </h1>
   `,
     htmlStyle: {
       fontSize: "32px",
@@ -188,8 +198,16 @@ const components = [
   {
     type: "title",
     name: "text uppercase",
-    htmlText: `<h1
-      >
+    htmlText: `
+      <h1 style="
+        fontSize: 32px;
+        color: primaryColor;
+        fontWeight: bold;
+        textAlign: left;
+        margin: 10px 0;
+        textShadow: 2px 2px secondaryColor;
+        text-transform: uppercase;
+      ">
         Your Website Title
       </h1>`,
     htmlStyle: {
