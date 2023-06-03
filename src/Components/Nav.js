@@ -64,6 +64,8 @@ const Nav = () => {
           </h5>
         </div>
         <div style={{ justifyContent: "flex-end" }}>
+         {auth.id && (
+          <div>
           <Link
             to="/"
             style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
@@ -82,6 +84,8 @@ const Nav = () => {
           >
             Logout
           </Link>
+          </div>
+          )}
         </div>
       </nav>
     </div>

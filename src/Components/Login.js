@@ -23,8 +23,8 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login">
+      <h3 className="header">Login</h3>
       <form onSubmit={login}>
         <input
           placeholder="username"
@@ -38,7 +38,7 @@ const Login = () => {
           value={credentials.password}
           onChange={onChange}
         />
-        <button>Login</button>
+        <button className="rainbowBtn">Login</button>
       </form>
       <div>
         <a

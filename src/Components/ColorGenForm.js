@@ -88,7 +88,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                   );
                 })}
               </select>
-              <button type="submit" onClick={(ev) => runCPG(ev)}>
+              <button className="rainbowBtn" type="submit" onClick={(ev) => runCPG(ev)}>
                 Submit
               </button>
             </form>

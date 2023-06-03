@@ -37,7 +37,7 @@ const User = conn.define("user", {
     validate: {
       notEmpty: {
         msg: 'Email address required.'
-      },
+      }
       isEmail: {
         msg: 'Must be a valid email address.'
       }
