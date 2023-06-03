@@ -91,7 +91,7 @@ const components = [
     htmlText: `
     <div>
       <form style="background-color: bgColor">
-        <input placeholder='type something here'/>
+        <input placeholder='type something here'/ style="border-radius: .5rem; border:4px solid primaryColor">
         <div>
           <input type="checkbox">
           <label> I am a check box </label> 
@@ -100,11 +100,11 @@ const components = [
           <input type="radio">
           <label> I am a radio </label>
         </div>
-        <button style="border: 15px solid secondaryColor"> Submit </button>
+        <button style="border: .5rem solid secondaryColor"> Submit </button>
       </form>
       </div>
     `,
-    parentDivCSS: { display: flex },
+    // parentDivCSS: { display: flex },
   },
   {
     type: "form",
