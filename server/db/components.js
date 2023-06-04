@@ -104,7 +104,6 @@ const components = [
       </form>
       </div>
     `,
-    // parentDivCSS: { display: flex },
   },
   {
     type: "form",
@@ -154,22 +153,24 @@ const components = [
   },
   {
     type: "title",
-    name: "main title",
+    name: "jdb test title",
     htmlText: `
     <div>
     <h1 style="
         fontSize: 32px;
         color: primaryColor;
-        fontWeight: bold;
-        textAlign: center;
-        margin: 20px 0
+        font-weight: bold;
+        text-align: center;
+        margin: 20px 0;
+        underline: secondaryColor;
+        box-shadow: 2rem 2rem 2rem tertiaryColor;
+
        "
       >
     Your Website Title
   </h1>
   <div>
   `,
-    htmlStyle: {},
   },
   {
     type: "title",

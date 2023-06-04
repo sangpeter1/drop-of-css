@@ -34,7 +34,6 @@ const Components = ({ openInPreview, generatedColors }) => {
             return new Promise((resolve) => {
               setColors((prevColors) => {
                 const updatedColors = { ...prevColors };
-                console.log("before ifs", updatedColors);
                 if (color.hsv.s > 70) {
                   console.log("primary", color);
                   updatedColors.primaryColor = color.hex.value;
@@ -60,20 +59,15 @@ const Components = ({ openInPreview, generatedColors }) => {
             });
           })
         );
-
-        // console.log("after promise", colors);
       } catch (err) {
         console.log(err);
       }
     };
 
-    // console.log("failed promise", colors);
-
     updateColors();
   }, [generatedColors]);
   //useEffect gives each color a default if the colors come up empty
   useEffect(() => {
-    // console.log("updated colors", colors);
     if (!colors.bgColor) {
       setColors((prevColors) => ({
         ...prevColors,
@@ -100,28 +94,21 @@ const Components = ({ openInPreview, generatedColors }) => {
     }
   }, [colors]);
 
-  const handleOpenInPreview = (component) => {
+  const handleOpenInPreview = async (component) => {
     try {
       if (component) {
-        // console.log(component, colors);
-        const colorsOnComponents = dispatch(
+        const colorsOnComponents = await dispatch(
           setColorsOnComponents({
             component,
             colors,
           })
-        )
-          .then((colorsOnComponents) => {
-            openInPreview(colorsOnComponents);
-          })
-          .then((colorsOnComponents) => {
-            console.log(
-              "open in preview function",
-              openInPreview(colorsOnComponents)
-            );
-          });
+        );
+        openInPreview(colorsOnComponents);
+        console.log("open in preview function", colorsOnComponents);
       }
     } catch (err) {
       console.log(err);
+      console.log("what the fuck");
     }
   };
 

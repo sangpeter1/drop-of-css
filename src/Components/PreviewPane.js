@@ -32,13 +32,8 @@ const PreviewPane = ({
 
   const [colors, setColors] = useState("");
 
-  // if (form) {
-  //   console.log("form", form);
-  // }
-
   const jsxGenerator = (component) => {
     const { htmlText, htmlStyle } = component;
-    // console.log("parse html", parse(htmlText));
     return htmlText;
   };
 
@@ -50,9 +45,11 @@ const PreviewPane = ({
         style={{ backgroundColor: colors.bgColor }}
       >
         {title ? (
-          <div id="previewTitle">
+          <div
+            id="previewTitle"
+            style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+          >
             <div
-              style={updatedStyle}
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(title),
               }}
@@ -94,6 +91,7 @@ const PreviewPane = ({
           {form ? (
             <div
               id="previewForm"
+              style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(form),
               }}

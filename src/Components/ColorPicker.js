@@ -10,7 +10,7 @@ const ColorPicker = ({ onColorChange }) => {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: "1rem", flex: 1 }}>
       <SketchPicker color={color} onChange={handleChange} />
       {/* <p>Selected color: {color}</p> */}
     </div>
