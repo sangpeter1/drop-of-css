@@ -15,7 +15,7 @@ h1 {
   margin: 0.1rem;
 }
 
-#page-container-right-divs {
+#page-container-left-divs {
   display: flex;
   flex-direction: column;
 }
@@ -23,7 +23,7 @@ h1 {
 #cpg-div {
   box-sizing: content-box;
   border-radius: 0.5rem;
-  min-height: 55vh;
+  min-height: 50vh;
   width: 30vw;
   margin: 0.25rem;
 }
@@ -50,7 +50,7 @@ form {
 }
 
 form > * {
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 nav {
@@ -59,39 +59,51 @@ nav {
 }
 
 #cpg-container {
-  box-sizing: border-box;
-  width: 30vw;
+  box-sizing: content-box;
+  max-width: 30vw;
+  min-width: 25vw;
   margin-top: 1rem;
-  height: 8vh;
-  border: 2px blanchedalmond solid;
-  border-radius: 1rem;
+  height: 30vh;
+  padding: 0.2rem;
+  box-shadow: inset 1px 1px 1rem 1px rgba(100, 100, 100, 0.2);
+  border-radius: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 #cpg-color {
-  min-height: 8vh;
-  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 28vw;
+  margin: 4px;
+  min-height: 5vh;
+  border-radius: 0.5rem;
 }
 
-.colorGen {
+.ColorGen {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
 }
-
 
 /* PREVIEW PANE DIVS */
 
 .preview-pane-container {
+  z-index: -1;
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 8vh 8vh 1fr auto;
   grid-gap: 10px;
   height: 100vh;
+  border: 0.1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 1rem;
 }
 #previewTitle {
+  z-index: -1;
   background-color: lightgray;
   border: 2px solid darkgray;
   border-radius: 0.25rem;
@@ -100,6 +112,7 @@ nav {
   grid-column: 1 / 3;
 }
 #previewNav {
+  z-index: -1;
   background-color: lightgray;
   border: 2px solid darkgray;
   border-radius: 0.25rem;
@@ -109,6 +122,7 @@ nav {
   display: flex;
 }
 #previewSideNav {
+  z-index: -1;
   background-color: lightgray;
   border: 2px solid darkgray;
   border-radius: 0.25rem;
@@ -126,12 +140,14 @@ main {
   grid-gap: 10px;
 }
 #previewCard {
+  z-index: -1;
   background-color: lightgray;
   border: 2px solid darkgray;
   border-radius: 0.25rem;
   box-sizing: border-box;
 }
 #previewForm {
+  z-index: -1;
   background-color: lightgray;
   border: 2px solid darkgray;
   border-radius: 0.25rem;
@@ -141,6 +157,7 @@ main {
 }
 
 #previewButton {
+  z-index: -1;
   background-color: lightgray;
   border: 2px solid darkgray;
   border-radius: 0.25rem;
@@ -172,33 +189,44 @@ main {
   display: block;
 }
 
-
-
 /* Component list  -mt*/
 
 .componentlist {
   text-align: center;
 }
 
-.componentlist  ul {
+.componentlist ul {
   list-style: none;
-  padding: 0;
+  padding: 8;
 }
 
 .componentlist ul li {
   text-align: center;
 }
 
-.componentlist  ul  li:hover {
+.componentlist ul li:hover {
   animation: rainbow 1.5s linear infinite;
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  background: linear-gradient(
+    to right,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 @keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .componentlist h3 {
@@ -206,28 +234,25 @@ main {
   margin: 4;
 }
 
-
 /* Headers with Navbar color -mt*/
 
 .header {
   color: #2d545e;
-  text-align: center; 
-  margin: 4;
+  text-align: center;
+  margin: 4=6;
 }
-
 
 /*Profile*/
 
 .profile {
   display: flex;
   margin: 1rem;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 .custom-icon {
   color: #2d545e;
 }
-
 
 /*Rainbow components*/
 
@@ -244,7 +269,16 @@ main {
 }
 
 .rainbowBtn:hover {
-  background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+  background: linear-gradient(
+    to right,
+    violet,
+    indigo,
+    blue,
+    green,
+    yellow,
+    orange,
+    red
+  );
   color: white;
   border-radius: 4px;
   border: 1px solid #ccc;
@@ -256,16 +290,28 @@ main {
 
 .rainbow-header {
   animation: rainbow 1.5s linear infinite;
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  background: linear-gradient(
+    to right,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 @keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
-
 
 /* login page */
 

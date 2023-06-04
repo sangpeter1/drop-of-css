@@ -37,7 +37,7 @@ const Home = () => {
   return (
     <div>
       <div id="page-container-div">
-        <div id="page-container-right-divs">
+        <div id="page-container-left-divs">
           <div id="cpg-div">
             <ColorGenForm openColorsInPreview={setGeneratedColors} />
           </div>
