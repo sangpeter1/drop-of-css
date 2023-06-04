@@ -73,7 +73,7 @@ nav {
   flex-wrap: wrap;
 }
 
-#cpg-color {
+.cpg-color {
   display: flex;
   align-items: center;
   width: 28vw;

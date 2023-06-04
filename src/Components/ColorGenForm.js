@@ -6,6 +6,10 @@ import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import LockIcon from "@mui/icons-material/Lock";
+import ShuffleIcon from "@mui/icons-material/Shuffle";
+import { color } from "@mui/system";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,7 +30,8 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   const [count, setCount] = useState("");
   const [colorPalette, setColorPalette] = useState([]);
   const [generatedColors, setGeneratedColors] = useState([]);
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = useState(true);
+  const [lockedColors, setLockedColors] = useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -65,6 +70,45 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   // works with color picker
   const handleColorChange = (newHex) => {
     setHex(newHex);
+  };
+
+  const toggleColorLock = async (index, color) => {
+    await setLockedColors((prevLockedColors) => {
+      if (prevLockedColors.includes(index)) {
+        return prevLockedColors.filter((lockedIndex) => lockedIndex !== index);
+      } else {
+        return [...prevLockedColors, index, color];
+      }
+    });
+    await console.log("locked colors function", index, color);
+  };
+
+  const regenerateColors = async (color) => {
+    console.log("shuffle the colors");
+    // const response = lockedColors.includes(color)
+    //   ? "no can do, boss. this one's locked"
+    //   : await dispatch(
+    //       fetchColorPalette({
+    //         hex: color.hex.clean,
+    //         mode: "monochrome",
+    //         count: 1,
+    //       })
+    //     );
+    // response ? console.log(response) : "";
+    // lockedColors
+    //   ? console.log(lockedColors, color)
+    //   : "no locked colors i think?";
+
+    const newCp = colorPalette.filter(
+      (_color) => _color.hex.clean !== color.hex.clean
+    );
+
+    console.log("new Cp", newCp);
+    let newCP = [...newCp, response];
+    console.log("new CP", newCP);
+    await setColorPalette(newCP);
+    handleGenColors(colorPalette);
+    console.log(colorPalette);
   };
 
   return (
@@ -161,30 +205,53 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         {/* {console.log(colorPalette)} */}
         {colorPalette.length > 0 ? (
           <div id="cpg-container">
-            {console.log("but is there a cp????", colorPalette)}
             {colorPalette.map((color, index) => {
               const uniqueKey = `color-${index}`;
+              const isLocked = lockedColors.includes(index) ? (
+                <LockIcon
+                  sx={{ color: color.hsl.l < 65 ? "white" : "black" }}
+                />
+              ) : (
+                <LockOpenIcon
+                  sx={{ color: color.hsl.l < 65 ? "white" : "black" }}
+                />
+              );
+
               return (
                 <div
-                  id="cpg-color"
+                  className="cpg-color"
+                  id={uniqueKey}
                   key={uniqueKey}
                   style={{
+                    display: "flex",
                     backgroundColor: color.hex.value,
                     alignItems: "center",
                     textAlign: "left",
+                    height: `calc(24vh / ${colorPalette.length})`,
                   }}
                 >
-                  {color.hsl.l < 50 ? (
-                    <div style={{ color: "#FCFCFC", alignItems: "center" }}>
-                      {color.name.value}
-                      {color.hex.value}
-                    </div>
-                  ) : (
-                    <div style={{ color: "#000000" }}>
-                      {color.name.value}
-                      {color.hex.value}
-                    </div>
-                  )}
+                  <div
+                    style={{
+                      paddingLeft: "1rem",
+                      color: color.hsl.l < 65 ? "#FCFCFC" : "#000000",
+                      flexGrow: 1,
+                    }}
+                  >
+                    {color.name.value} {color.hex.value}
+                  </div>
+
+                  <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
+                    <ShuffleIcon
+                      style={{
+                        color: color.hsl.l < 65 ? "white" : "black",
+                        marginRight: "1rem",
+                      }}
+                      onClick={() => regenerateColors(color)}
+                    />
+                    <span onClick={() => toggleColorLock(index, color)}>
+                      {isLocked}
+                    </span>
+                  </div>
                 </div>
               );
             })}
