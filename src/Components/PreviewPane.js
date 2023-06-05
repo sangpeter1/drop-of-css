@@ -13,16 +13,7 @@ import parse from "html-react-parser";
 // };
 // const render = renderToStaticMarkup;
 
-const PreviewPane = ({
-  form,
-  nav,
-  title,
-  sideNav,
-  card,
-  button,
-  accordion,
-  generatedColors,
-}) => {
+const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, generatedColors }) => {
   const { components } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -40,15 +31,9 @@ const PreviewPane = ({
   return (
     <div>
       <h3 className="header">Template Preview</h3>
-      <div
-        className="preview-pane-container"
-        style={{ backgroundColor: colors.bgColor }}
-      >
+      <div className="preview-pane-container" style={{ backgroundColor: colors.bgColor }}>
         {title ? (
-          <div
-            id="previewTitle"
-            style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-          >
+          <div id="previewTitle" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}>
             <div
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(title),
@@ -70,11 +55,7 @@ const PreviewPane = ({
         ) : (
           <nav id="previewNav">Preview Nav</nav>
         )}
-        {sideNav ? (
-          "you've got a sidenav. cool"
-        ) : (
-          <nav id="previewSideNav">Side Nav</nav>
-        )}
+        {sideNav ? "you've got a sidenav. cool" : <nav id="previewSideNav">Side Nav</nav>}
 
         <main className="preview-pane-Main-Content">
           {card ? "you've got a card. cool" : <div id="previewCard">Card</div>}
@@ -100,7 +81,13 @@ const PreviewPane = ({
             <div id="previewForm">form</div>
           )}
           {button ? (
-            "you've got a button. cool"
+            <div id="previewButton">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: jsxGenerator(button),
+                }}
+              />
+            </div>
           ) : (
             <div id="previewButton">Button</div>
           )}
