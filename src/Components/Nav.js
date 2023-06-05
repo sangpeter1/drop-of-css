@@ -84,6 +84,12 @@ const Nav = () => {
           >
             Logout
           </Link>
+          <Link
+            style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
+            to='/test'          
+          >
+            Test
+          </Link>
           </div>
           )}
         </div>
