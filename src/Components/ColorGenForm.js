@@ -44,6 +44,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       try {
         const parsedColorPalette = JSON.parse(storedColorPalette);
         setColorPalette(parsedColorPalette);
+        handleGenColors(parsedColorPalette);
       } catch (error) {
         console.error("Error parsing stored color palette:", error);
       }

@@ -95,6 +95,7 @@ const Components = ({ openInPreview, generatedColors }) => {
   }, [colors]);
 
   const handleOpenInPreview = async (component) => {
+    console.log("handle open in preview", component, colors);
     try {
       if (component) {
         const colorsOnComponents = await dispatch(
