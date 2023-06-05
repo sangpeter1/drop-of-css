@@ -17,10 +17,10 @@ const cpg = (state = [], action) => {
     return [action.color[0], ...state];
   }
   if (action.type === "DELETE_COLOR") {
-    console.log("action.color", action.color);
+    console.log("action.color", action.colorOrColors);
     console.log(state);
     return state.filter((_color) => {
-      return _color.hex !== action.color.hex;
+      return _color.hex !== action.colorOrColors.hex;
     });
   }
   return state;
@@ -37,13 +37,14 @@ export const fetchColorPalette = (search) => {
 
 export const updateColorPalette = (search) => {
   return async (dispatch) => {
-    const { color, hex, mode, count } = search;
-    console.log("color to delete in update func", color);
+    const { hex, mode, count } = search;
+    const colorOrColors = search.color ? search.color : search.unlocked;
+    console.log("color to delete in update func", colorOrColors);
     const response = await axios.put("/api/cpg", { hex, mode, count });
-    console.log("color to replace in update func", response.data.colors);
-    dispatch({ type: "DELETE_COLOR", color });
+    console.log("colors to replace in update func", response.data.colors);
+    dispatch({ type: "DELETE_COLOR", colorOrColors });
     dispatch({ type: "UPDATE_COLORPALETTE", color: response.data.colors });
-    return response.data.colors[randomNum];
+    return response.data.colors;
   };
 };
 
