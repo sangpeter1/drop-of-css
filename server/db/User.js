@@ -91,7 +91,7 @@ User.authenticateGithub = async function(code){
     throw error;
   }
   response = await axios.get(
-    'https.//api.github.com/user',
+    'https://api.github.com/user',
       {
         headers: {
           Authorization: `Bearer ${ response.data.access_token}`
