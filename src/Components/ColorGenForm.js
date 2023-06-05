@@ -38,7 +38,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   };
 
   const handleGenColors = (generatedColors) => {
-    console.log("handle colors", generatedColors);
+    // console.log("handle colors", generatedColors);
     openColorsInPreview(generatedColors);
   };
 
@@ -62,11 +62,21 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   const runCPG = async (ev) => {
     ev.preventDefault();
+    const locked = lockedColors.filter((_color) => typeof _color === "object");
     try {
-      const search = { hex, mode, count };
+      const search = {
+        hex,
+        mode,
+      };
+      console.log(locked.length);
+      const updatedCount = locked.length > 0 ? 5 - locked.length : count;
+      search.count = updatedCount;
+      console.log("search", search);
       const response = await dispatch(fetchColorPalette(search));
-      await setColorPalette(response);
-      handleGenColors(response);
+      const updatedColorPalette = [...locked, ...response];
+      await setColorPalette(updatedColorPalette);
+      await handleGenColors(updatedColorPalette);
+      console.log("runCPG", colorPalette);
     } catch (error) {
       console.error(error);
     }
@@ -78,6 +88,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   };
 
   const toggleColorLock = async (index, color) => {
+    console.log("color locked", color.hex.value);
     await setLockedColors((prevLockedColors) => {
       if (prevLockedColors.includes(index)) {
         return prevLockedColors.filter((lockedIndex) => lockedIndex !== index);
@@ -85,18 +96,44 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         return [...prevLockedColors, index, color];
       }
     });
-    await console.log("locked colors function", index, color);
   };
 
-  const regenerateColors = async (color) => {
-    console.log("shuffle the colors");
+  const shuffleUnlockedColors = async () => {
+    const locked = lockedColors.filter((_color) => typeof _color === "object");
+    try {
+      const unlocked = colorPalette.filter((_color) => !locked.includes(_color));
+      const rgbVals = unlocked
+        .filter((_color) => _color.hsl.s > 20)
+        .map((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b)
+        .sort((a, b) => b - a);
+      const brightest = unlocked.find(
+        (_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b === rgbVals[0]
+      );
+      const response = await dispatch(
+        updateColorPalette({
+          unlocked,
+          hex: brightest.hex.clean,
+          mode: randomMode,
+          count: unlocked.length,
+        })
+      );
+
+      const updatedColorPalette = [...locked, ...response];
+      setColorPalette(updatedColorPalette);
+      handleGenColors(updatedColorPalette);
+      console.log("newcp -- shuffle", updatedColorPalette, "colors that are still locked", locked);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const regenColor = async (color) => {
+    console.log("change one color");
     if (lockedColors.includes(color)) {
-      console.log("No can do, boss. This one's locked.");
+      console.log("This color's locked.");
       return;
     }
-
     try {
-      console.log(color.hex.clean);
       const response = await dispatch(
         updateColorPalette({
           color,
@@ -105,26 +142,20 @@ const ColorGenForm = ({ openColorsInPreview }) => {
           count: 5,
         })
       );
-
-      console.log("front end shuff response", response);
-
       const updatedColorPalette = colorPalette.map((_color) =>
         _color.hex.clean === color.hex.clean ? response : _color
       );
-
       setColorPalette(updatedColorPalette);
       handleGenColors(updatedColorPalette);
-      console.log("new color palette", updatedColorPalette);
+      console.log("newcp -- single color change", updatedColorPalette);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    console.log("use effect", colorPalette);
-    // Perform actions when colorPalette changes
     if (colorPalette.length > 0) {
-      console.log(colorPalette);
+      console.log("use effect cp length >0", colorPalette);
     } else {
       console.log("empty", colorPalette);
     }
@@ -217,54 +248,72 @@ const ColorGenForm = ({ openColorsInPreview }) => {
           </Collapse>
         </div>
         {/* END COLLAPSE HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */}
-        {/* {console.log(colorPalette)} */}
-        {colorPalette.length > 0 ? (
-          <div id="cpg-container">
-            {colorPalette.map((color, index) => {
-              const uniqueKey = `color-${index}`;
-              const isLocked = lockedColors.includes(index) ? (
-                <LockIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
-              ) : (
-                <LockOpenIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
-              );
 
-              return (
-                <div
-                  className="cpg-color"
-                  id={uniqueKey}
-                  key={uniqueKey}
-                  style={{
-                    display: "flex",
-                    backgroundColor: color.hex.value,
-                    alignItems: "center",
-                    textAlign: "left",
-                    height: `calc(24vh / ${colorPalette.length})`,
-                  }}
-                >
+        {console.log("color palette in return statement", colorPalette)}
+        {colorPalette.length > 0 ? (
+          <>
+            <div style={{ flex: "1 1 100%", margin: "auto" }}>
+              <ShuffleIcon
+                style={{
+                  margin: "auto",
+                  // flexBasis: 100,
+                  flexGrow: 1,
+                  ":onHover": {
+                    cursor: "pointer",
+                  },
+                }}
+                onClick={() => shuffleUnlockedColors()}
+                placeholder="shuffle unlocked colors"
+              />
+              shuffle unlocked colors
+            </div>
+            <div id="cpg-container">
+              {colorPalette.map((color, index) => {
+                const uniqueKey = `color-${index}`;
+                const isLocked = lockedColors.includes(index) ? (
+                  <LockIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
+                ) : (
+                  <LockOpenIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
+                );
+
+                return (
                   <div
+                    className="cpg-color"
+                    id={uniqueKey}
+                    key={uniqueKey}
                     style={{
-                      paddingLeft: "1rem",
-                      color: color.hsl.l < 65 ? "#FCFCFC" : "#000000",
-                      flexGrow: 1,
+                      display: "flex",
+                      backgroundColor: color.hex.value,
+                      alignItems: "center",
+                      textAlign: "left",
+                      height: `calc(24vh / ${colorPalette.length})`,
                     }}
                   >
-                    {color.name.value} {color.hex.value}
-                  </div>
-
-                  <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
-                    <ShuffleIcon
+                    <div
                       style={{
-                        color: color.hsl.l < 65 ? "white" : "black",
-                        marginRight: "1rem",
+                        paddingLeft: "1rem",
+                        color: color.hsl.l < 65 ? "#FCFCFC" : "#000000",
+                        flexGrow: 1,
                       }}
-                      onClick={() => regenerateColors(color)}
-                    />
-                    <span onClick={() => toggleColorLock(index, color)}>{isLocked}</span>
+                    >
+                      {color.name.value} {color.hex.value}
+                    </div>
+
+                    <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
+                      <ShuffleIcon
+                        style={{
+                          color: color.hsl.l < 65 ? "white" : "black",
+                          marginRight: "1rem",
+                        }}
+                        onClick={() => regenColor(color)}
+                      />
+                      <span onClick={() => toggleColorLock(index, color)}>{isLocked}</span>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </>
         ) : (
           <div id="cpg-container" style={{ height: "2rem", fontStyle: "italic" }}>
             select a color, please!

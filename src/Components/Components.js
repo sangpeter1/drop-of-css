@@ -35,22 +35,22 @@ const Components = ({ openInPreview, generatedColors }) => {
               setColors((prevColors) => {
                 const updatedColors = { ...prevColors };
                 if (color.hsv.s > 70) {
-                  console.log("primary", color);
+                  // console.log("primary", color);
                   updatedColors.primaryColor = color.hex.value;
                 } else if (color.hsv.s > 40) {
-                  console.log("secondary", color);
+                  // console.log("secondary", color);
 
                   updatedColors.secondaryColor = color.hex.value;
                 } else if (color.hsv.s > 10) {
-                  console.log("tertiary", color);
+                  // console.log("tertiary", color);
 
                   updatedColors.tertiaryColor = color.hex.value;
                 } else if (color.hsv.s <= 25 && color.hsv.v >= 75) {
-                  console.log("bg", color);
+                  // console.log("bg", color);
 
                   updatedColors.bgColor = color.hex.value;
                 }
-                console.log("after ifs", updatedColors);
+                // console.log("after ifs", updatedColors);
 
                 return updatedColors;
               });
@@ -104,7 +104,7 @@ const Components = ({ openInPreview, generatedColors }) => {
           })
         );
         openInPreview(colorsOnComponents);
-        console.log("open in preview function", colorsOnComponents);
+        // console.log("open in preview function", colorsOnComponents);
       }
     } catch (err) {
       console.log(err);
@@ -112,9 +112,7 @@ const Components = ({ openInPreview, generatedColors }) => {
     }
   };
 
-  const componentTypes = [
-    ...new Set(components.map((component) => component.type)),
-  ];
+  const componentTypes = [...new Set(components.map((component) => component.type))];
 
   return (
     <div className="componentlist">
