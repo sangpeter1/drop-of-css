@@ -89,6 +89,10 @@ nav {
   align-items: center;
 }
 
+.pointer-on-hover {
+  cursor: pointer;
+}
+
 /* PREVIEW PANE DIVS */
 
 .preview-pane-container {

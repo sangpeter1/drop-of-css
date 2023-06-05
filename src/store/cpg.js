@@ -1,11 +1,13 @@
 import axios from "axios";
 
-function getRandomNumber() {
+function getRandomNumber(count) {
+  if (count === 0) {
+    return 0;
+  }
   const randomDecimal = Math.random();
   const randomNumber = Math.floor(randomDecimal * 5);
   return randomNumber;
 }
-const randomNum = getRandomNumber();
 
 const cpg = (state = [], action) => {
   if (action.type === "SET_COLORPALETTE") {
@@ -13,13 +15,14 @@ const cpg = (state = [], action) => {
     return action.cpg;
   }
   if (action.type === "UPDATE_COLORPALETTE") {
-    console.log("state before update", state, action.color[randomNum]);
-    return [action.color[0], ...state];
+    console.log("state before update", state, action.color);
+    return [action.color, ...state];
   }
   if (action.type === "DELETE_COLOR") {
     console.log("action.color", action.colorOrColors);
     console.log(state);
     return state.filter((_color) => {
+      console.log(_color);
       return _color.hex !== action.colorOrColors.hex;
     });
   }
@@ -42,6 +45,7 @@ export const updateColorPalette = (search) => {
     console.log("color to delete in update func", colorOrColors);
     const response = await axios.put("/api/cpg", { hex, mode, count });
     console.log("colors to replace in update func", response.data.colors);
+    const randomNum = getRandomNumber(count);
     dispatch({ type: "DELETE_COLOR", colorOrColors });
     dispatch({ type: "UPDATE_COLORPALETTE", color: response.data.colors });
     return response.data.colors;
