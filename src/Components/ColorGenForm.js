@@ -37,7 +37,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-/*
+  /*
   useEffect(() => {
     const storedColorPalette = localStorage.getItem("colorPalette");
     if (storedColorPalette) {
@@ -54,7 +54,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   }, []);
 */
   const handleGenColors = (colorPalette) => {
-    console.log("open in preview...", colorPalette);
+    // console.log("open in preview...", colorPalette);
     openColorsInPreview(colorPalette);
   };
 
@@ -101,7 +101,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   };
 
   const toggleColorLock = async (index, color) => {
-    console.log("color locked", color.hex.value);
+    // console.log("color locked", color.hex.value);
     await setLockedColors((prevLockedColors) => {
       if (prevLockedColors.includes(index)) {
         return prevLockedColors.filter((lockedIndex) => lockedIndex !== index);
@@ -113,7 +113,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   const shuffleUnlockedColors = async () => {
     const locked = lockedColors.filter((_color) => typeof _color === "object");
-    console.log("locked colors in shuffle func", locked);
+    // console.log("locked colors in shuffle func", locked);
     try {
       const unlocked = colorPalette.filter((_color) => !locked.includes(_color));
       const rgbVals = unlocked
@@ -123,7 +123,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       const brightest = unlocked.find(
         (_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b === rgbVals[0]
       );
-      console.log("unlocked", unlocked, "unlocked length", unlocked.length, "brightest", brightest);
+      // console.log("unlocked", unlocked, "unlocked length", unlocked.length, "brightest", brightest);
       const response = await dispatch(
         updateColorPalette({
           unlocked,
@@ -135,8 +135,8 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       const updatedColorPalette = [...locked, ...response];
       setColorPalette(updatedColorPalette);
       handleGenColors(updatedColorPalette);
-      console.log("newcp -- shuffle", updatedColorPalette, "colors that are still locked", locked);
-     // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
+      // console.log("newcp -- shuffle", updatedColorPalette, "colors that are still locked", locked);
+      // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
     }
@@ -170,13 +170,13 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   //   }
   // };
 
-  useEffect(() => {
-    if (colorPalette.length > 0) {
-      console.log("use effect cp length >0", colorPalette);
-    } else {
-      console.log("empty", colorPalette);
-    }
-  }, [colorPalette]);
+  // useEffect(() => {
+  //   if (colorPalette.length > 0) {
+  //     console.log("use effect cp length >0", colorPalette);
+  //   } else {
+  //     console.log("empty", colorPalette);
+  //   }
+  // }, [colorPalette]);
 
   return (
     <>
@@ -264,9 +264,8 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             </div>
           </Collapse>
         </div>
-        {/* END COLLAPSE HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */}
 
-        {console.log("color palette in return statement", colorPalette)}
+        {/* {console.log("color palette in return statement", colorPalette)} */}
         {colorPalette.length > 0 ? (
           <>
             <div
@@ -276,7 +275,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-evenly",
-                fontSize: "1rem",
+                fontSize: "calc(8px + .5vw)",
               }}
             >
               <div
@@ -293,7 +292,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                 <ShuffleIcon />
                 <span
                   style={{
-                    fontSize: "1rem",
+                    fontSize: "calc(8px + .5vw)",
                   }}
                 >
                   shuffle colors
@@ -313,7 +312,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                 <DeleteOutlineIcon />
                 <span
                   style={{
-                    fontSize: "1rem",
+                    fontSize: "calc(8px + .5vw)",
                   }}
                 >
                   clear all colors
@@ -347,6 +346,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                         paddingLeft: "1rem",
                         color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
                         flexGrow: 1,
+                        fontSize: "calc(8px + .5vw)",
                       }}
                     >
                       {color.name.value} {color.hex.value}
