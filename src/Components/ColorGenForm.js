@@ -37,7 +37,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+/*
   useEffect(() => {
     const storedColorPalette = localStorage.getItem("colorPalette");
     if (storedColorPalette) {
@@ -52,7 +52,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       setColorPalette(null);
     }
   }, []);
-
+*/
   const handleGenColors = (colorPalette) => {
     console.log("open in preview...", colorPalette);
     openColorsInPreview(colorPalette);
@@ -89,7 +89,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       const updatedColorPalette = [...locked, ...response];
       await setColorPalette(updatedColorPalette);
       await handleGenColors(updatedColorPalette);
-      localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
+      //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (error) {
       console.log(error);
     }
@@ -136,7 +136,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       setColorPalette(updatedColorPalette);
       handleGenColors(updatedColorPalette);
       console.log("newcp -- shuffle", updatedColorPalette, "colors that are still locked", locked);
-      localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
+     // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
     }
