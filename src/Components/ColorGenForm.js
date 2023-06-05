@@ -10,6 +10,7 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import LockIcon from "@mui/icons-material/Lock";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { color } from "@mui/system";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -37,9 +38,23 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     setExpanded(!expanded);
   };
 
-  const handleGenColors = (generatedColors) => {
-    // console.log("handle colors", generatedColors);
-    openColorsInPreview(generatedColors);
+  useEffect(() => {
+    const storedColorPalette = localStorage.getItem("colorPalette");
+    if (storedColorPalette) {
+      try {
+        const parsedColorPalette = JSON.parse(storedColorPalette);
+        setColorPalette(parsedColorPalette);
+      } catch (error) {
+        console.error("Error parsing stored color palette:", error);
+      }
+    } else {
+      setColorPalette(null);
+    }
+  }, []);
+
+  const handleGenColors = (colorPalette) => {
+    console.log("open in preview...", colorPalette);
+    openColorsInPreview(colorPalette);
   };
 
   const cpgModes = [
@@ -57,7 +72,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     return options[randomIndex];
   };
   const randomMode = getRandomOption(cpgModes);
-
   const cpgCounts = [3, 4, 5];
 
   const runCPG = async (ev) => {
@@ -68,17 +82,15 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         hex,
         mode,
       };
-      console.log(locked.length);
       const updatedCount = locked.length > 0 ? 5 - locked.length : count;
       search.count = updatedCount;
-      console.log("search", search);
       const response = await dispatch(fetchColorPalette(search));
       const updatedColorPalette = [...locked, ...response];
       await setColorPalette(updatedColorPalette);
       await handleGenColors(updatedColorPalette);
-      console.log("runCPG", colorPalette);
+      localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -100,6 +112,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   const shuffleUnlockedColors = async () => {
     const locked = lockedColors.filter((_color) => typeof _color === "object");
+    console.log("locked colors in shuffle func", locked);
     try {
       const unlocked = colorPalette.filter((_color) => !locked.includes(_color));
       const rgbVals = unlocked
@@ -109,6 +122,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       const brightest = unlocked.find(
         (_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b === rgbVals[0]
       );
+      console.log("unlocked", unlocked, "unlocked length", unlocked.length, "brightest", brightest);
       const response = await dispatch(
         updateColorPalette({
           unlocked,
@@ -117,41 +131,43 @@ const ColorGenForm = ({ openColorsInPreview }) => {
           count: unlocked.length,
         })
       );
-
       const updatedColorPalette = [...locked, ...response];
       setColorPalette(updatedColorPalette);
       handleGenColors(updatedColorPalette);
       console.log("newcp -- shuffle", updatedColorPalette, "colors that are still locked", locked);
+      localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
     }
   };
 
-  const regenColor = async (color) => {
-    console.log("change one color");
-    if (lockedColors.includes(color)) {
-      console.log("This color's locked.");
-      return;
-    }
-    try {
-      const response = await dispatch(
-        updateColorPalette({
-          color,
-          hex: color.hex.clean,
-          mode: randomMode,
-          count: 5,
-        })
-      );
-      const updatedColorPalette = colorPalette.map((_color) =>
-        _color.hex.clean === color.hex.clean ? response : _color
-      );
-      setColorPalette(updatedColorPalette);
-      handleGenColors(updatedColorPalette);
-      console.log("newcp -- single color change", updatedColorPalette);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //function is broken.
+  // const regenColor = async (color) => {
+  //   console.log("change one color");
+  //   if (lockedColors.includes(color)) {
+  //     console.log("This color's locked.");
+  //     return;
+  //   }
+  //   try {
+  //     const response = await dispatch(
+  //       updateColorPalette({
+  //         color,
+  //         hex: color.hex.clean,
+  //         mode: randomMode,
+  //         count: 5,
+  //       })
+  //     );
+  //     const updatedColorPalette = colorPalette.map((_color) =>
+  //       _color.hex.clean === color.hex.clean ? response : _color
+  //     );
+  //     setColorPalette(updatedColorPalette);
+  //     handleGenColors(updatedColorPalette);
+  //     localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
+  //     console.log("newcp -- single color change", updatedColorPalette);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   useEffect(() => {
     if (colorPalette.length > 0) {
@@ -252,25 +268,61 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         {console.log("color palette in return statement", colorPalette)}
         {colorPalette.length > 0 ? (
           <>
-            <div style={{ flex: "1 1 100%", margin: "auto" }}>
-              <ShuffleIcon
+            <div
+              style={{
+                flex: "1 1 100%",
+                margin: "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                fontSize: "1rem",
+              }}
+            >
+              <div
+                className="pointer-on-hover"
                 style={{
-                  margin: "auto",
-                  // flexBasis: 100,
-                  flexGrow: 1,
-                  ":onHover": {
+                  display: "flex",
+                  alignItems: "center",
+                  ":hover": {
                     cursor: "pointer",
                   },
                 }}
                 onClick={() => shuffleUnlockedColors()}
-                placeholder="shuffle unlocked colors"
-              />
-              shuffle unlocked colors
+              >
+                <ShuffleIcon />
+                <span
+                  style={{
+                    fontSize: "1rem",
+                  }}
+                >
+                  shuffle colors
+                </span>
+              </div>
+              <div
+                className="pointer-on-hover"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  ":hover": {
+                    cursor: "pointer",
+                  },
+                }}
+                onClick={() => setColorPalette([])}
+              >
+                <DeleteOutlineIcon />
+                <span
+                  style={{
+                    fontSize: "1rem",
+                  }}
+                >
+                  clear all colors
+                </span>
+              </div>
             </div>
             <div id="cpg-container">
               {colorPalette.map((color, index) => {
                 const uniqueKey = `color-${index}`;
-                const isLocked = lockedColors.includes(index) ? (
+                const isLocked = lockedColors.includes(color) ? (
                   <LockIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
                 ) : (
                   <LockOpenIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
@@ -292,21 +344,25 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                     <div
                       style={{
                         paddingLeft: "1rem",
-                        color: color.hsl.l < 65 ? "#FCFCFC" : "#000000",
+                        color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
                         flexGrow: 1,
                       }}
                     >
                       {color.name.value} {color.hex.value}
                     </div>
 
-                    <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
-                      <ShuffleIcon
+                    <div
+                      className="pointer-on-hover"
+                      style={{ marginLeft: "auto", marginRight: "1rem" }}
+                    >
+                      {/* <ShuffleIcon
                         style={{
                           color: color.hsl.l < 65 ? "white" : "black",
                           marginRight: "1rem",
                         }}
-                        onClick={() => regenColor(color)}
-                      />
+                        //regen is broken
+                        // onClick={() => regenColor(color)}
+                      /> */}
                       <span onClick={() => toggleColorLock(index, color)}>{isLocked}</span>
                     </div>
                   </div>
