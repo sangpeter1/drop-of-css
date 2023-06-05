@@ -40,49 +40,68 @@ const components = [
         </li>
       </ul>`,
     htmlStyle: {
-      navbar: "border: 10px solid red",
-      backgroundColor: bgColor,
-      boxSizing: "content-box",
-      display: "grid",
-      gridAutoFlow: "row",
-      gridColumn: "1/3",
-      gridRow: 2,
-      fontSize: "1.2rem",
-      color: primaryColor,
-      textAlign: "center",
-      margin: 0,
-      height: "100%",
-      width: "100%",
-      verticalAlign: "center",
-      letterSpacing: "2px",
-      listStyle: "none",
-      borderBottom: `5px solid ${tertiaryColor}`,
-      textDecoration: `underline ${secondaryColor}`,
-      subStyleOne: `"background-color: secondaryColor; list-style-type: none; height: 100%; margin: 0; padding-left: 1rem; color: #FFFFFF; width: auto; display: flex; flex-direction: row; align-items: center; text-decoration: none"`,
+      colors: {
+        primaryColor,
+        secondaryColor,
+        tertiaryColor,
+        bgColor,
+      },
+      styles: {
+        navbar: {
+          navbar: "border: 10px solid red",
+          backgroundColor: `{bgColor}`,
+          boxSizing: "content-box",
+          display: "grid",
+          gridAutoFlow: "row",
+          gridColumn: "1/3",
+          gridRow: 2,
+          fontSize: "1.2rem",
+          color: `{primaryColor}`,
+          textAlign: "center",
+          margin: 0,
+          height: "100%",
+          width: "100%",
+          verticalAlign: "center",
+          letterSpacing: "2px",
+          listStyle: "none",
+          borderBottom: `5px solid {tertiaryColor}`,
+          textDecoration: `underline {secondaryColor}`,
+        },
+      
+        ul: {
+          backgroundColor: `{secondaryColor}`,
+          listStyleType: 'none',
+          height: '100%',
+          margin: '0',
+          paddingLeft: '1rem',
+          color: '#FFFFFF',
+          width: 'auto',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          textDecoration: 'none',
+        },
+        
+        dropdownContent: {
+          display: 'none',
+          position: 'absolute',
+          minWidth: '160px',
+          boxShadow: '0px 8px 16px 0px rgba(0, 0, 0, 0.2)',
+          zIndex: '1',
+        },
+        'dropdownContent a': {
+          float: 'none',
+          color: 'black',
+          padding: '12px 16px',
+          textDecoration: 'none',
+          display: 'block',
+          textAlign: 'left',
+        },
+        'dropdown:hover .dropdownContent': {
+          display: 'block',
+        },
+      },  
     },
-    extraCSSForTemplateOutput: ` 
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        // background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
-      
-      .dropdown-content a {
-        float: none;
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-      }
-      
-      .dropdown:hover .dropdown-content {
-        display: block;
-      }`,
   },
   
   //FORMS 
