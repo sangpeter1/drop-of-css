@@ -24,7 +24,7 @@ h1 {
   box-sizing: content-box;
   border-radius: 0.5rem;
   min-height: 50vh;
-  width: 30vw;
+  width: 25vw;
   margin: 0.25rem;
 }
 
@@ -32,7 +32,7 @@ h1 {
   box-sizing: content-box;
   border-radius: 0.5rem;
   height: 60vh;
-  width: 30vw;
+  width: 25vw;
   margin: 0.25rem;
 }
 
@@ -40,7 +40,7 @@ h1 {
   box-sizing: content-box;
   border-radius: 0.5rem;
   height: 100vh;
-  width: 69vw;
+  width: 74vw;
   margin: 0.25rem;
 }
 
@@ -60,8 +60,8 @@ nav {
 
 #cpg-container {
   box-sizing: content-box;
-  max-width: 30vw;
-  min-width: 25vw;
+  max-width: 25vw;
+  min-width: 20vw;
   margin-top: 1rem;
   height: 30vh;
   padding: 0.2rem;
@@ -76,8 +76,8 @@ nav {
 .cpg-color {
   display: flex;
   align-items: center;
-  width: 28vw;
-  margin: 4px;
+  width: 24vw;
+  margin: 2px;
   min-height: 5vh;
   border-radius: 0.5rem;
 }
@@ -227,14 +227,29 @@ main {
 .componentlist h3 {
   text-align: center;
   margin: 4;
+  font-size: calc(12px + 0.5vw);
+}
+
+.componentlist ul {
+  margin: 0.2rem;
+  padding: 0.2rem;
+}
+
+.componentlist li {
+  font-size: calc(8px + 0.5vw);
 }
 
 /* Headers with Navbar color -mt*/
 
 .header {
   color: #2d545e;
+  font-size: calc(12px + 0.5vw);
   text-align: center;
   margin: 4=6;
+}
+
+h5 {
+  font-size: calc(8px + 0.5vw);
 }
 
 /*Profile*/
