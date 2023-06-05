@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchColorPalette } from "../store";
+import { fetchColorPalette, updateColorPalette } from "../store";
 import ColorPicker from "./ColorPicker";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -52,6 +52,11 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     "triad",
     "quad",
   ];
+  const getRandomOption = (options) => {
+    const randomIndex = Math.floor(Math.random() * options.length);
+    return options[randomIndex];
+  };
+  const randomMode = getRandomOption(cpgModes);
 
   const cpgCounts = [3, 4, 5];
 
@@ -60,8 +65,8 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     try {
       const search = { hex, mode, count };
       const response = await dispatch(fetchColorPalette(search));
-      await setColorPalette(response.colors);
-      handleGenColors(response.colors);
+      await setColorPalette(response);
+      handleGenColors(response);
     } catch (error) {
       console.error(error);
     }
@@ -85,31 +90,45 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   const regenerateColors = async (color) => {
     console.log("shuffle the colors");
-    // const response = lockedColors.includes(color)
-    //   ? "no can do, boss. this one's locked"
-    //   : await dispatch(
-    //       fetchColorPalette({
-    //         hex: color.hex.clean,
-    //         mode: "monochrome",
-    //         count: 1,
-    //       })
-    //     );
-    // response ? console.log(response) : "";
-    // lockedColors
-    //   ? console.log(lockedColors, color)
-    //   : "no locked colors i think?";
+    if (lockedColors.includes(color)) {
+      console.log("No can do, boss. This one's locked.");
+      return;
+    }
 
-    const newCp = colorPalette.filter(
-      (_color) => _color.hex.clean !== color.hex.clean
-    );
+    try {
+      console.log(color.hex.clean);
+      const response = await dispatch(
+        updateColorPalette({
+          color,
+          hex: color.hex.clean,
+          mode: randomMode,
+          count: 5,
+        })
+      );
 
-    console.log("new Cp", newCp);
-    let newCP = [...newCp, response];
-    console.log("new CP", newCP);
-    await setColorPalette(newCP);
-    handleGenColors(colorPalette);
-    console.log(colorPalette);
+      console.log("front end shuff response", response);
+
+      const updatedColorPalette = colorPalette.map((_color) =>
+        _color.hex.clean === color.hex.clean ? response : _color
+      );
+
+      setColorPalette(updatedColorPalette);
+      handleGenColors(updatedColorPalette);
+      console.log("new color palette", updatedColorPalette);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    console.log("use effect", colorPalette);
+    // Perform actions when colorPalette changes
+    if (colorPalette.length > 0) {
+      console.log(colorPalette);
+    } else {
+      console.log("empty", colorPalette);
+    }
+  }, [colorPalette]);
 
   return (
     <>
@@ -190,11 +209,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                     );
                   })}
                 </select>
-                <button
-                  className="rainbowBtn"
-                  type="submit"
-                  onClick={(ev) => runCPG(ev)}
-                >
+                <button className="rainbowBtn" type="submit" onClick={(ev) => runCPG(ev)}>
                   Submit
                 </button>
               </form>
@@ -208,13 +223,9 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             {colorPalette.map((color, index) => {
               const uniqueKey = `color-${index}`;
               const isLocked = lockedColors.includes(index) ? (
-                <LockIcon
-                  sx={{ color: color.hsl.l < 65 ? "white" : "black" }}
-                />
+                <LockIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
               ) : (
-                <LockOpenIcon
-                  sx={{ color: color.hsl.l < 65 ? "white" : "black" }}
-                />
+                <LockOpenIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
               );
 
               return (
@@ -248,19 +259,14 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                       }}
                       onClick={() => regenerateColors(color)}
                     />
-                    <span onClick={() => toggleColorLock(index, color)}>
-                      {isLocked}
-                    </span>
+                    <span onClick={() => toggleColorLock(index, color)}>{isLocked}</span>
                   </div>
                 </div>
               );
             })}
           </div>
         ) : (
-          <div
-            id="cpg-container"
-            style={{ height: "2rem", fontStyle: "italic" }}
-          >
+          <div id="cpg-container" style={{ height: "2rem", fontStyle: "italic" }}>
             select a color, please!
           </div>
         )}

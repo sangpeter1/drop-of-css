@@ -13,5 +13,16 @@ app.post("/", async (req, res, next) => {
     next(err);
   }
 });
+app.put("/", async (req, res, next) => {
+  const { hex, mode, count } = req.body;
+  const url = `https://www.thecolorapi.com/scheme?hex=${hex}&format=json&mode=${mode}&count=${count}`;
+  try {
+    const newColor = await axios.get(url);
+    console.log("new color", newColor.data);
+    res.send(newColor.data);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = app;
