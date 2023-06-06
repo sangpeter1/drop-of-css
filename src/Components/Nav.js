@@ -1,20 +1,23 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import colorWheelImage from "../images/colorwheel320.png";
 import { logout } from "../store";
 
 
 const Nav = () => {
+  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/');
   };
 
-  return (
-    <div>
+   return (
+    <>
       <nav
         style={{
           display: "flex",
@@ -64,38 +67,45 @@ const Nav = () => {
           </h5>
         </div>
         <div style={{ justifyContent: "flex-end" }}>
-         {auth.id && (
-          <div>
-          <Link
-            to="/"
-            style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
-          >
-            Home
-          </Link>
-          <Link
-            to="/profile"
-            style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
-          >
-            Profile
-          </Link>
-          <Link
-            style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
-            onClick={handleLogout}
-          >
-            Logout
-          </Link>
-          <Link
-            style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
-            to='/test'          
-          >
-            Test
-          </Link>
-          </div>
+        <div>
+          {auth.id && (
+            <div>
+              <Link
+                to="/"
+                style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
+              >
+                Home
+              </Link>
+              <Link
+                to="/profile"
+                style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
+              >
+                Profile
+              </Link>
+              <Link
+                style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Link>
+            </div>
           )}
+          </div>
+          <div>
+          {!auth.id && (
+            <Link
+              style={{ color: "white", textDecoration: "none", margin: ".5rem" }}
+              to="/login"
+            >
+              Login
+            </Link>
+          )}
+          </div>
         </div>
       </nav>
-    </div>
+    </>
   );
+  
 };
 
 export default Nav;

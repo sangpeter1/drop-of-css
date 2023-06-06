@@ -22,7 +22,7 @@ const Login = () => {
   const login = (ev) => {
     ev.preventDefault();
     dispatch(attemptLogin(credentials));
-    //navigate(`/`);
+    navigate('/');
   };
 
   return (
