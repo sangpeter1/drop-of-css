@@ -21,7 +21,12 @@ export const fetchComponents = () => {
 export const setColorsOnComponents = (search) => {
   return async (dispatch) => {
     const { colors, component } = search;
-    const { bgColor, primaryColor, secondaryColor, tertiaryColor } = colors;
+    let { bgColor, primaryColor, secondaryColor, tertiaryColor } = colors;
+    primaryColor = primaryColor.hex.value;
+    secondaryColor = secondaryColor.hex.value;
+    tertiaryColor = tertiaryColor.hex.value;
+    bgColor = bgColor.hex.value;
+    console.log("in store", bgColor, primaryColor, secondaryColor, tertiaryColor);
     const response = await axios.post("/api/components/", {
       component,
       primaryColor,

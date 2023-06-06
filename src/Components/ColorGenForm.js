@@ -211,10 +211,10 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     await setColorPalette(updatedItems);
     await handleGenColors(updatedItems);
 
-    console.log(
-      "color palette AFTER DRAGGING",
-      colorPalette.map((color) => color.name.value)
-    );
+    // console.log(
+    //   "color palette AFTER DRAGGING",
+    //   colorPalette.map((color) => color.name.value)
+    // );
   };
 
   return (
@@ -358,10 +358,10 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             </div>
             <div id="cpg-container">
               {/* reorder stuff beginning */}
-              {console.log(
+              {/* {console.log(
                 "color palette BEFORE DRAGGING",
                 colorPalette.map((color) => color.name.value)
-              )}
+              )} */}
 
               <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="droppable">

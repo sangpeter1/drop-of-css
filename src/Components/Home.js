@@ -42,10 +42,7 @@ const Home = () => {
             <ColorGenForm openColorsInPreview={setGeneratedColors} />
           </div>
           <div id="component-div">
-            <Components
-              openInPreview={handleOpenInPreview}
-              generatedColors={generatedColors}
-            />
+            <Components openInPreview={handleOpenInPreview} generatedColors={generatedColors} />
           </div>
         </div>
         <div id="preview-pane-div">

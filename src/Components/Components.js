@@ -7,11 +7,8 @@ const sanitizer = DOMPurify.sanitize;
 
 const Components = ({ openInPreview, generatedColors }) => {
   const { components } = useSelector((state) => state);
-  const [colors, setColors] = useState("");
-  const [bgColor, setBgColor] = useState("");
-  const [primaryColor, setPrimaryColor] = useState("");
-  const [secondaryColor, setSecondaryColor] = useState("");
-  const [tertiaryColor, setTertiaryColor] = useState("");
+  const [colors, setColors] = useState([]);
+  const [latestGeneratedColors, setLatestGeneratedColors] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,90 +17,33 @@ const Components = ({ openInPreview, generatedColors }) => {
 
   //useEffect checks for changes in colors
   useEffect(() => {
-    // console.log("beginning of component component", colors);
-
     const updateColors = async () => {
       try {
-        setColors((prevColors) => ({
-          ...prevColors,
-          bgColor: bgColor || prevColors.bgColor || "",
-          primaryColor: primaryColor || prevColors.primaryColor || "",
-          secondaryColor: secondaryColor || prevColors.secondaryColor || "",
-          tertiaryColor: tertiaryColor || prevColors.tertiaryColor || "",
-        }));
-
-        generatedColors
-          ? console.log(generatedColors.map((color) => color.name.value))
-          : console.log("none yet");
-
-        await Promise.all(
-          generatedColors.map((color) => {
-            return new Promise((resolve) => {
-              setColors((prevColors) => {
-                const updatedColors = { ...prevColors };
-                if (color.hsv.s > 70) {
-                  // console.log("primary", color);
-                  updatedColors.primaryColor = color.hex.value;
-                } else if (color.hsv.s > 40) {
-                  // console.log("secondary", color);
-
-                  updatedColors.secondaryColor = color.hex.value;
-                } else if (color.hsv.s > 10) {
-                  // console.log("tertiary", color);
-
-                  updatedColors.tertiaryColor = color.hex.value;
-                } else if (color.hsv.s <= 25 && color.hsv.v >= 75) {
-                  // console.log("bg", color);
-
-                  updatedColors.bgColor = color.hex.value;
-                }
-                // console.log("after ifs", updatedColors);
-
-                return updatedColors;
-              });
-
-              resolve();
-            });
-          })
-        );
+        let updatedColors = { ...colors };
+        updatedColors.primaryColor = generatedColors?.[0] || "";
+        updatedColors.secondaryColor = generatedColors?.[1] || "";
+        updatedColors.tertiaryColor = generatedColors?.[2] || "";
+        updatedColors.bgColor = generatedColors?.[3] || "";
+        setColors(updatedColors);
       } catch (err) {
         console.log(err);
       }
     };
-
     updateColors();
+    console.log("after update colors", colors);
+  }, [generatedColors, latestGeneratedColors]);
+
+  // Use the latestGeneratedColors in a separate useEffect
+  useEffect(() => {
+    console.log("latest generated colors", latestGeneratedColors);
+  }, [latestGeneratedColors]);
+
+  // Update the latestGeneratedColors whenever generatedColors changes
+  useEffect(() => {
+    setLatestGeneratedColors(generatedColors);
   }, [generatedColors]);
 
-  //useEffect gives each color a default if the colors come up empty
-  useEffect(() => {
-    if (!colors.bgColor) {
-      setColors((prevColors) => ({
-        ...prevColors,
-        bgColor: "#F0F0F0",
-      }));
-    }
-    if (!colors.primaryColor) {
-      setColors((prevColors) => ({
-        ...prevColors,
-        primaryColor: "#000000",
-      }));
-    }
-    if (!colors.secondaryColor) {
-      setColors((prevColors) => ({
-        ...prevColors,
-        secondaryColor: "#3C6311",
-      }));
-    }
-    if (!colors.tertiaryColor) {
-      setColors((prevColors) => ({
-        ...prevColors,
-        tertiaryColor: "#71BC1E",
-      }));
-    }
-  }, [colors]);
-
   const handleOpenInPreview = async (component) => {
-    console.log("handle open in preview", component, colors);
     try {
       if (component) {
         const colorsOnComponents = await dispatch(
@@ -113,11 +53,9 @@ const Components = ({ openInPreview, generatedColors }) => {
           })
         );
         openInPreview(colorsOnComponents);
-        // console.log("open in preview function", colorsOnComponents);
       }
     } catch (err) {
       console.log(err);
-      console.log("what the fuck");
     }
   };
 
