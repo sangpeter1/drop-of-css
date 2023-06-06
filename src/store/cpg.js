@@ -47,8 +47,8 @@ export const updateColorPalette = (search) => {
     console.log("colors to replace in update func", response.data.colors);
     const randomNum = getRandomNumber(count);
     dispatch({ type: "DELETE_COLOR", colorOrColors });
-    dispatch({ type: "UPDATE_COLORPALETTE", color: response.data.colors });
-    return response.data.colors;
+    dispatch({ type: "UPDATE_COLORPALETTE", color: response.data.colors || response.data });
+    return response.data.colors || response.data;
   };
 };
 

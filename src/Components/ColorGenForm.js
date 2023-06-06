@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelect, useDispatch } from "react-redux";
 import { fetchColorPalette, updateColorPalette } from "../store";
 import ColorPicker from "./ColorPicker";
 import { styled } from "@mui/material/styles";
@@ -181,6 +181,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
           count: unlocked.length,
         })
       );
+
       const updatedColorPalette = [...lockedColors, ...response];
       const trimmedPalette = trimColorPalette(updatedColorPalette);
 
@@ -193,40 +194,38 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   };
 
   //function is broken. this is the func that shuffles just one color
-  // const regenColor = async (color) => {
-  //   console.log("change one color");
-  //   if (lockedColors.includes(color)) {
-  //     console.log("This color's locked.");
-  //     return;
-  //   }
-  //   try {
-  //     const response = await dispatch(
-  //       updateColorPalette({
-  //         color,
-  //         hex: color.hex.clean,
-  //         mode: randomMode,
-  //         count: 5,
-  //       })
-  //     );
-  //     const updatedColorPalette = colorPalette.map((_color) =>
-  //       _color.hex.clean === color.hex.clean ? response : _color
-  //     );
-  //     setColorPalette(updatedColorPalette);
-  //     handleGenColors(updatedColorPalette);
-  //     localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
-  //     console.log("newcp -- single color change", updatedColorPalette);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const regenColor = async (color) => {
+    console.log("change one color");
 
-  // useEffect(() => {
-  //   if (colorPalette.length > 0) {
-  //     console.log("use effect cp length >0", colorPalette);
-  //   } else {
-  //     console.log("empty", colorPalette);
-  //   }
-  // }, [colorPalette]);
+    if (lockedColors.includes(color)) {
+      console.log("This color's locked.");
+      return;
+    }
+    try {
+      const response = await dispatch(
+        updateColorPalette({
+          color,
+          hex: color.hex.clean,
+          mode: randomMode,
+          count: 1,
+        })
+      );
+
+      console.log("change one color", response);
+      const updatedColorPalette = colorPalette.map((_color) =>
+        _color === color ? response : _color
+      );
+
+      const trimmedPalette = trimColorPalette(updatedColorPalette);
+
+      await setColorPalette(trimmedPalette);
+      await handleGenColors(trimmedPalette);
+      // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
+      console.log("newcp -- single color change", updatedColorPalette);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   //reorder functions
   const onDragEnd = async (result) => {
@@ -434,14 +433,14 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                                     className="pointer-on-hover"
                                     style={{ marginLeft: "auto", marginRight: "1rem" }}
                                   >
-                                    {/* <ShuffleIcon
-                        style={{
-                          color: color.hsl.l < 65 ? "white" : "black",
-                          marginRight: "1rem",
-                        }}
-                        //regen is broken
-                        // onClick={() => regenColor(color)}
-                      /> */}
+                                    <ShuffleIcon
+                                      style={{
+                                        color: color.hsl.l < 65 ? "white" : "black",
+                                        marginRight: "1rem",
+                                      }}
+                                      //regen is broken
+                                      onClick={() => regenColor(color)}
+                                    />
                                     <span onClick={() => toggleColorLock(index, color)}>
                                       {isLocked}
                                     </span>
