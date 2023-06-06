@@ -10,6 +10,7 @@ import { Routes, Route } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
 
 const App = () => {
+  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const prevAuth = useRef(auth);
@@ -33,10 +34,10 @@ const App = () => {
     prevAuth.current = auth;
   });
 
-  return (
+/*  return (
     <div>
       <Nav />
-      {auth.id ? (
+      {!auth.id ? (
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -51,6 +52,34 @@ const App = () => {
         </div>
       )}
     </div>
+  );*/
+  
+  return (
+    <div>
+      <Nav />
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {!auth.id && (
+            <>
+              <Route path="/login" element={<Login />} />
+              <Route path="/cpgform" element={<ColorGenForm />} />
+              <Route path="/test" element={<Test />} />
+            </>
+          )}
+          {auth.id && (
+            <>
+              <Route path="/cpgform" element={<ColorGenForm />} />
+              <Route path="/test" element={<Test />} />
+              <Route path="/profile" element={<Profile />} />
+            </>
+          )}
+        </Routes>
+      </div>
+    </div>
   );
+  
 };
+
+
 export default App;
