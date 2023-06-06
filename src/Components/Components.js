@@ -17,8 +17,11 @@ const Components = ({ openInPreview, generatedColors }) => {
   useEffect(() => {
     dispatch(fetchComponents());
   }, []);
+
   //useEffect checks for changes in colors
   useEffect(() => {
+    // console.log("beginning of component component", colors);
+
     const updateColors = async () => {
       try {
         setColors((prevColors) => ({
@@ -28,6 +31,10 @@ const Components = ({ openInPreview, generatedColors }) => {
           secondaryColor: secondaryColor || prevColors.secondaryColor || "",
           tertiaryColor: tertiaryColor || prevColors.tertiaryColor || "",
         }));
+
+        generatedColors
+          ? console.log(generatedColors.map((color) => color.name.value))
+          : console.log("none yet");
 
         await Promise.all(
           generatedColors.map((color) => {
@@ -66,6 +73,7 @@ const Components = ({ openInPreview, generatedColors }) => {
 
     updateColors();
   }, [generatedColors]);
+
   //useEffect gives each color a default if the colors come up empty
   useEffect(() => {
     if (!colors.bgColor) {

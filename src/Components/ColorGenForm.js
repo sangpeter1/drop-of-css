@@ -11,6 +11,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { color } from "@mui/system";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -23,6 +24,27 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+//reorder functions
+// a little function to help us with reordering the result
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  // change background colour if dragging
+  background: isDragging ? "lightgreen" : "grey",
+  // styles we need to apply on draggables
+  ...draggableStyle,
+  userSelect: "none",
+});
+
+const getListStyle = (isDraggingOver) => ({
+  background: isDraggingOver ? "lightblue" : "lightgrey",
+});
+
 const ColorGenForm = ({ openColorsInPreview }) => {
   const dispatch = useDispatch();
   const [format, setFormat] = useState("");
@@ -33,6 +55,8 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   const [generatedColors, setGeneratedColors] = useState([]);
   const [expanded, setExpanded] = useState(true);
   const [lockedColors, setLockedColors] = useState([]);
+  //might need to be colorPalette? idk
+  const [items, setItems] = useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -113,7 +137,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   const shuffleUnlockedColors = async () => {
     const locked = lockedColors.filter((_color) => typeof _color === "object");
-    // console.log("locked colors in shuffle func", locked);
     try {
       const unlocked = colorPalette.filter((_color) => !locked.includes(_color));
       const rgbVals = unlocked
@@ -123,7 +146,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       const brightest = unlocked.find(
         (_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b === rgbVals[0]
       );
-      // console.log("unlocked", unlocked, "unlocked length", unlocked.length, "brightest", brightest);
+
       const response = await dispatch(
         updateColorPalette({
           unlocked,
@@ -135,7 +158,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       const updatedColorPalette = [...locked, ...response];
       setColorPalette(updatedColorPalette);
       handleGenColors(updatedColorPalette);
-      // console.log("newcp -- shuffle", updatedColorPalette, "colors that are still locked", locked);
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
@@ -177,6 +199,23 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   //     console.log("empty", colorPalette);
   //   }
   // }, [colorPalette]);
+
+  //reorder functions
+  const onDragEnd = async (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const updatedItems = reorder(colorPalette, result.source.index, result.destination.index);
+
+    await setColorPalette(updatedItems);
+    await handleGenColors(updatedItems);
+
+    console.log(
+      "color palette AFTER DRAGGING",
+      colorPalette.map((color) => color.name.value)
+    );
+  };
 
   return (
     <>
@@ -264,8 +303,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             </div>
           </Collapse>
         </div>
-
-        {/* {console.log("color palette in return statement", colorPalette)} */}
         {colorPalette.length > 0 ? (
           <>
             <div
@@ -320,43 +357,68 @@ const ColorGenForm = ({ openColorsInPreview }) => {
               </div>
             </div>
             <div id="cpg-container">
-              {colorPalette.map((color, index) => {
-                const uniqueKey = `color-${index}`;
-                const isLocked = lockedColors.includes(color) ? (
-                  <LockIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
-                ) : (
-                  <LockOpenIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
-                );
+              {/* reorder stuff beginning */}
+              {console.log(
+                "color palette BEFORE DRAGGING",
+                colorPalette.map((color) => color.name.value)
+              )}
 
-                return (
-                  <div
-                    className="cpg-color"
-                    id={uniqueKey}
-                    key={uniqueKey}
-                    style={{
-                      display: "flex",
-                      backgroundColor: color.hex.value,
-                      alignItems: "center",
-                      textAlign: "left",
-                      height: `calc(24vh / ${colorPalette.length})`,
-                    }}
-                  >
+              <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable">
+                  {(provided, snapshot) => (
                     <div
-                      style={{
-                        paddingLeft: "1rem",
-                        color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
-                        flexGrow: 1,
-                        fontSize: "calc(8px + .5vw)",
-                      }}
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      style={getListStyle(snapshot.isDraggingOver)}
                     >
-                      {color.name.value} {color.hex.value}
-                    </div>
+                      {colorPalette.map((color, index) => {
+                        const uniqueKey = `color-${index}`;
+                        const isLocked = lockedColors.includes(color) ? (
+                          <LockIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
+                        ) : (
+                          <LockOpenIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
+                        );
+                        return (
+                          <Draggable key={uniqueKey} draggableId={uniqueKey} index={index}>
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                // style={getItemStyle(
+                                //   snapshot.isDragging,
+                                //   provided.draggableProps.style
+                                // )}
+                              >
+                                {/* content */}
+                                <div
+                                  className="cpg-color"
+                                  id={uniqueKey}
+                                  key={uniqueKey}
+                                  style={{
+                                    display: "flex",
+                                    backgroundColor: color.hex.value,
+                                    alignItems: "center",
+                                    textAlign: "left",
+                                    height: `calc(24vh / ${colorPalette.length})`,
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      paddingLeft: "1rem",
+                                      color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
+                                      flexGrow: 1,
+                                      fontSize: "calc(8px + .5vw)",
+                                    }}
+                                  >
+                                    {color.name.value} {color.hex.value}
+                                  </div>
 
-                    <div
-                      className="pointer-on-hover"
-                      style={{ marginLeft: "auto", marginRight: "1rem" }}
-                    >
-                      {/* <ShuffleIcon
+                                  <div
+                                    className="pointer-on-hover"
+                                    style={{ marginLeft: "auto", marginRight: "1rem" }}
+                                  >
+                                    {/* <ShuffleIcon
                         style={{
                           color: color.hsl.l < 65 ? "white" : "black",
                           marginRight: "1rem",
@@ -364,11 +426,24 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                         //regen is broken
                         // onClick={() => regenColor(color)}
                       /> */}
-                      <span onClick={() => toggleColorLock(index, color)}>{isLocked}</span>
+                                    <span onClick={() => toggleColorLock(index, color)}>
+                                      {isLocked}
+                                    </span>
+                                  </div>
+                                </div>
+                                {/* content end */}
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
                     </div>
-                  </div>
-                );
-              })}
+                  )}
+                </Droppable>
+              </DragDropContext>
+
+              {/* reorder end */}
             </div>
           </>
         ) : (

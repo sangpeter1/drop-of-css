@@ -25,8 +25,14 @@ const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, gener
 
   const jsxGenerator = (component) => {
     const { htmlText, htmlStyle } = component;
+    console.log(htmlText);
     return htmlText;
   };
+
+  // const export = (components) => {
+  //   components = {form, nav, title}
+  //   dispatch(createTemplate(form nav title))
+  // }
 
   return (
     <div>
