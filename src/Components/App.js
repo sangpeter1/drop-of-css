@@ -10,30 +10,29 @@ import { Routes, Route } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
 
 const App = () => {
-  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const prevAuth = useRef(auth);
-  
+
   useEffect(() => {
     dispatch(loginWithToken());
   }, []);
-  
+
   useEffect(() => {
     if (!prevAuth.current.id && auth.id) {
       console.log(`${auth.username} is logged in`);
       dispatch(fetchComponents());
-      dispatch(fetchColorPalette({ hex: "FFFFFF", mode: "dark", count: 5 }));
+      // dispatch(fetchColorPalette({ hex: "FFFFFF", mode: "dark", count: 5 }));
     }
     if (prevAuth.current.id && !auth.id) {
       console.log("logged out");
     }
   }, [auth]);
-  
+
   useEffect(() => {
     prevAuth.current = auth;
   });
-  
+
   return (
     <div>
       <Nav />
@@ -49,7 +48,7 @@ const App = () => {
       ) : (
         <div>
           <Login />
-        </div> 
+        </div>
       )}
     </div>
   );

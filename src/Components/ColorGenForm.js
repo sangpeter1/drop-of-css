@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { fetchColorPalette, updateColorPalette } from "../store";
 import ColorPicker from "./ColorPicker";
 import { styled } from "@mui/material/styles";
@@ -9,7 +9,6 @@ import Collapse from "@mui/material/Collapse";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import LockIcon from "@mui/icons-material/Lock";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
-import { color } from "@mui/system";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -33,16 +32,14 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-  // styles we need to apply on draggables
-  ...draggableStyle,
-  userSelect: "none",
-});
+// const getItemStyle = (isDragging, draggableStyle) => ({
+//   ...draggableStyle,
+//   userSelect: "none",
+// });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
+  background: isDraggingOver ? "lightgray" : "",
+  borderRadius: isDraggingOver ? ".5rem" : "",
 });
 
 const ColorGenForm = ({ openColorsInPreview }) => {
@@ -52,16 +49,16 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   const [mode, setMode] = useState("");
   const [count, setCount] = useState("");
   const [colorPalette, setColorPalette] = useState([]);
-  const [generatedColors, setGeneratedColors] = useState([]);
+  // const [generatedColors, setGeneratedColors] = useState([]);
   const [expanded, setExpanded] = useState(true);
   const [lockedColors, setLockedColors] = useState([]);
-  //might need to be colorPalette? idk
   const [items, setItems] = useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   /*
+  local storage functions. would be nice to get this going
   useEffect(() => {
     const storedColorPalette = localStorage.getItem("colorPalette");
     if (storedColorPalette) {
@@ -97,22 +94,26 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     return options[randomIndex];
   };
   const randomMode = getRandomOption(cpgModes);
-  const cpgCounts = [3, 4, 5];
+  const cpgCounts = [2, 3, 4];
 
   const runCPG = async (ev) => {
     ev.preventDefault();
-    const locked = lockedColors.filter((_color) => typeof _color === "object");
+    // const locked = lockedColors.filter((_color) => typeof _color === "object");
     try {
       const search = {
         hex,
         mode,
       };
-      const updatedCount = locked.length > 0 ? 5 - locked.length : count;
+      const updatedCount =
+        lockedColors.filter((_color) => typeof _color === "object").length > 0
+          ? 4 - lockedColors.filter((_color) => typeof _color === "object").length
+          : count;
       search.count = updatedCount;
       const response = await dispatch(fetchColorPalette(search));
-      const updatedColorPalette = [...locked, ...response];
-      await setColorPalette(updatedColorPalette);
-      await handleGenColors(updatedColorPalette);
+      const updatedColorPalette = [...lockedColors, ...response];
+      const trimmedPalette = trimColorPalette(updatedColorPalette);
+      await setColorPalette(trimmedPalette);
+      await handleGenColors(trimmedPalette);
       //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (error) {
       console.log(error);
@@ -124,21 +125,46 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     setHex(newHex);
   };
 
-  const toggleColorLock = async (index, color) => {
-    // console.log("color locked", color.hex.value);
-    await setLockedColors((prevLockedColors) => {
-      if (prevLockedColors.includes(index)) {
-        return prevLockedColors.filter((lockedIndex) => lockedIndex !== index);
+  //for bugs -- keeps the color palette length at 4, but keeps the indicies of locked colors.
+  const trimColorPalette = (updatedColorPalette) => {
+    const output = [];
+    let objCount = 0;
+    for (let item of updatedColorPalette) {
+      if (typeof item == "number") {
+        output.push(item);
+      }
+      if (typeof item == "object") {
+        if (objCount !== 4) {
+          output.push(item);
+          objCount++;
+        } else {
+          break;
+        }
+      }
+    }
+    return output;
+  };
+
+  //new lock func
+  const toggleColorLock = (index, color) => {
+    setLockedColors((prevLockedColors) => {
+      const colorIndex = prevLockedColors.indexOf(color);
+      if (colorIndex >= 0) {
+        // Color is already locked, so remove it from lockedColors
+        return prevLockedColors.filter((_color) => _color !== color);
       } else {
-        return [...prevLockedColors, index, color];
+        // Color is not locked, so add it to lockedColors
+        // console.log("whatever this fucking thing is", [...prevLockedColors, color]);
+        return [...prevLockedColors, color];
       }
     });
   };
 
+  //this needs work -- can't read hex. maybe needs an argument for if there's only one color
   const shuffleUnlockedColors = async () => {
-    const locked = lockedColors.filter((_color) => typeof _color === "object");
+    // const locked = lockedColors.filter((_color) => typeof _color === "object");
     try {
-      const unlocked = colorPalette.filter((_color) => !locked.includes(_color));
+      const unlocked = colorPalette.filter((_color) => !lockedColors.includes(_color));
       const rgbVals = unlocked
         .filter((_color) => _color.hsl.s > 20)
         .map((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b)
@@ -155,16 +181,18 @@ const ColorGenForm = ({ openColorsInPreview }) => {
           count: unlocked.length,
         })
       );
-      const updatedColorPalette = [...locked, ...response];
-      setColorPalette(updatedColorPalette);
-      handleGenColors(updatedColorPalette);
+      const updatedColorPalette = [...lockedColors, ...response];
+      const trimmedPalette = trimColorPalette(updatedColorPalette);
+
+      setColorPalette(trimmedPalette);
+      handleGenColors(trimmedPalette);
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
     }
   };
 
-  //function is broken.
+  //function is broken. this is the func that shuffles just one color
   // const regenColor = async (color) => {
   //   console.log("change one color");
   //   if (lockedColors.includes(color)) {
@@ -210,11 +238,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
     await setColorPalette(updatedItems);
     await handleGenColors(updatedItems);
-
-    // console.log(
-    //   "color palette AFTER DRAGGING",
-    //   colorPalette.map((color) => color.name.value)
-    // );
   };
 
   return (
@@ -358,10 +381,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             </div>
             <div id="cpg-container">
               {/* reorder stuff beginning */}
-              {/* {console.log(
-                "color palette BEFORE DRAGGING",
-                colorPalette.map((color) => color.name.value)
-              )} */}
 
               <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="droppable">
@@ -385,10 +404,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
-                                // style={getItemStyle(
-                                //   snapshot.isDragging,
-                                //   provided.draggableProps.style
-                                // )}
                               >
                                 {/* content */}
                                 <div
@@ -397,10 +412,11 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                                   key={uniqueKey}
                                   style={{
                                     display: "flex",
+                                    margin: "2px",
                                     backgroundColor: color.hex.value,
                                     alignItems: "center",
                                     textAlign: "left",
-                                    height: `calc(24vh / ${colorPalette.length})`,
+                                    height: `calc(28vh / ${colorPalette.length})`,
                                   }}
                                 >
                                   <div

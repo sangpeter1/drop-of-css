@@ -4,7 +4,10 @@ const axios = require("axios");
 
 // prefix for this page is /colorgenerator
 app.post("/", async (req, res, next) => {
-  const { hex, mode, count } = req.body;
+  let { hex, mode, count } = req.body;
+  if (!count) {
+    count = 4;
+  }
   const url = `https://www.thecolorapi.com/scheme?hex=${hex}&format=json&mode=${mode}&count=${count}`;
   try {
     const response = await axios.get(url);
