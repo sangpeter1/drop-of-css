@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchComponents, setColorsOnComponents } from "../store";
-import DOMPurify from "dompurify";
-import { renderToStaticMarkup, renderToString } from "react-dom/server";
-import parse from "html-react-parser";
-
-// const sanitizer = (html) => {
-//   return DOMPurify.sanitize(html, {
-//     ADD_TAGS: ["style"],
-//     ADD_ATTR: ["style"],
-//   });
-// };
-// const render = renderToStaticMarkup;
+import { fetchComponents } from "../store";
 
 const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, generatedColors }) => {
   const { components } = useSelector((state) => state);
@@ -28,11 +17,6 @@ const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, gener
     console.log(htmlText);
     return htmlText;
   };
-
-  // const export = (components) => {
-  //   components = {form, nav, title}
-  //   dispatch(createTemplate(form nav title))
-  // }
 
   return (
     <div>
