@@ -33,26 +33,6 @@ const App = () => {
   useEffect(() => {
     prevAuth.current = auth;
   });
-
-/*  return (
-    <div>
-      <Nav />
-      {!auth.id ? (
-        <div>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cpgform" element={<ColorGenForm />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </div>
-      ) : (
-        <div>
-          <Login />
-        </div>
-      )}
-    </div>
-  );*/
   
   return (
     <div>
