@@ -12,33 +12,23 @@ const components = [
     type: "navbar",
     name: "plain nav bar",
     htmlText: `
-     <ul class={navbar} style=subStyleOne>
-        <li style="padding-left: 1rem; color: inherit">
-          <a href="#home" style="color: inherit">Home</a>
-        </li>
-        <li style="padding-left: 1rem; color: inherit">
-          <a href="#about" style="color: inherit">About</a>
-        </li>
-        <li style="padding-left: 1rem; color: inherit">
-          <a href="#services" style="color: inherit">Services</a>
-        </li>
-        <li style="padding-left: 1rem; color: inherit">
-          <a href="#contact" style="color: inherit">Contact</a>
-        </li>
-        <li style="padding-left: 1rem; color: inherit">
-          <div class="dropdown">
-            <button class="dropbtn">Dropdown
-              <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content" "style=background-color: primaryColor";
-            >
-              <a href="#" >Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-            </div>
-          </div>
-        </li>
-      </ul>`,
+    <html>
+    <div class="navbar">
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <div class="dropdown">
+      <button class="dropbtn">Dropdown 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div> 
+  </div>
+  </html>
+  `,
     htmlStyle: {
       colors: {
         primaryColor,
@@ -67,45 +57,45 @@ const components = [
           borderBottom: `5px solid {tertiaryColor}`,
           textDecoration: `underline {secondaryColor}`,
         },
-      
+
         ul: {
           backgroundColor: `{secondaryColor}`,
-          listStyleType: 'none',
-          height: '100%',
-          margin: '0',
-          paddingLeft: '1rem',
-          color: '#FFFFFF',
-          width: 'auto',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          textDecoration: 'none',
+          listStyleType: "none",
+          height: "100%",
+          margin: "0",
+          paddingLeft: "1rem",
+          color: "#FFFFFF",
+          width: "auto",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          textDecoration: "none",
         },
-        
+
         dropdownContent: {
-          display: 'none',
-          position: 'absolute',
-          minWidth: '160px',
-          boxShadow: '0px 8px 16px 0px rgba(0, 0, 0, 0.2)',
-          zIndex: '1',
+          display: "none",
+          position: "absolute",
+          minWidth: "160px",
+          boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
+          zIndex: "1",
         },
-        'dropdownContent a': {
-          float: 'none',
-          color: 'black',
-          padding: '12px 16px',
-          textDecoration: 'none',
-          display: 'block',
-          textAlign: 'left',
+        "dropdownContent a": {
+          float: "none",
+          color: "black",
+          padding: "12px 16px",
+          textDecoration: "none",
+          display: "block",
+          textAlign: "left",
         },
-        'dropdown:hover .dropdownContent': {
-          display: 'block',
+        "dropdown:hover .dropdownContent": {
+          display: "block",
         },
-      },  
+      },
     },
   },
-  
-  //FORMS 
-  
+
+  //FORMS
+
   {
     type: "form",
     name: "joe's test form",
@@ -178,9 +168,9 @@ const components = [
     `,
   },
   {
-  type: "form",
-  name: "form three",
-  htmlText: `
+    type: "form",
+    name: "form three",
+    htmlText: `
     <div>
       <form style="background-color: bgColor; padding: 1rem;">
         <div style="margin-bottom: 1rem;">
@@ -203,9 +193,9 @@ const components = [
   `,
   },
   {
-  type: "form",
-  name: "form four",
-  htmlText: `
+    type: "form",
+    name: "form four",
+    htmlText: `
     <div>
       <form style="background-color: secondaryColor; padding: 1rem;">
         <div style="margin-bottom: 1rem;">
@@ -228,9 +218,9 @@ const components = [
   `,
   },
   {
-  type: "form",
-  name: "plain form five",
-  htmlText: `
+    type: "form",
+    name: "plain form five",
+    htmlText: `
     <div>
       <form style="background-color: bgColor; padding: 1rem;">
         <div style="margin-bottom: 1rem;">
@@ -252,9 +242,9 @@ const components = [
     </div>
   `,
   },
-  
+
   //TITLES
-  
+
   {
     type: "title",
     name: "jdb test title",
@@ -275,10 +265,10 @@ const components = [
   <div>
   `,
   },
-{
-  type: "title",
-  name: "text shadow",
-  htmlText: `
+  {
+    type: "title",
+    name: "text shadow",
+    htmlText: `
     <h1 style="
       fontSize: 32px;
       color: primaryColor;
@@ -290,14 +280,14 @@ const components = [
       Your Website Title
     </h1>
   `,
-  htmlStyle: {
-    fontSize: "32px",
-    color: `${primaryColor}`,
-    fontWeight: "bold",
-    textAlign: "left",
-    margin: "10px 0",
-    textShadow: `2px 2px 4px ${secondaryColor}`,
-  },
+    htmlStyle: {
+      fontSize: "32px",
+      color: `${primaryColor}`,
+      fontWeight: "bold",
+      textAlign: "left",
+      margin: "10px 0",
+      textShadow: `2px 2px 4px ${secondaryColor}`,
+    },
   },
   {
     type: "title",
@@ -330,9 +320,9 @@ const components = [
     },
   },
   {
-  type: "title",
-  name: "neon style",
-  htmlText: `
+    type: "title",
+    name: "neon style",
+    htmlText: `
     <h1 style="
       font-size: 32px;
       color: primaryColor;
@@ -345,8 +335,8 @@ const components = [
       Your Website Title
     </h1>
   `,
-  htmlStyle: {
-    fontSize: "32px",
+    htmlStyle: {
+      fontSize: "32px",
       color: `${primaryColor}`,
       textShadow: `
         0 0 5px ${secondaryColor},
@@ -354,12 +344,12 @@ const components = [
         0 0 40px ${secondaryColor},
         0 0 80px ${secondaryColor}
       `,
+    },
   },
-},
-{
-  type: "title",
-  name: "underline-style",
-  htmlText: `
+  {
+    type: "title",
+    name: "underline-style",
+    htmlText: `
     <h1 style="
       font-size: 32px;
       color: primaryColor;
@@ -368,16 +358,16 @@ const components = [
       Your Website Title
     </h1>
   `,
-  htmlStyle: {
-    fontSize: "32px",
-    color: `${primaryColor}`,
-    textDecoration: "underline",
+    htmlStyle: {
+      fontSize: "32px",
+      color: `${primaryColor}`,
+      textDecoration: "underline",
+    },
   },
-},
-{
-  type: "title",
-  name: "italic-style",
-  htmlText: `
+  {
+    type: "title",
+    name: "italic-style",
+    htmlText: `
     <h1 style="
       font-size: 32px;
       color: primaryColor;
@@ -386,18 +376,18 @@ const components = [
       Your Website Title
     </h1>
   `,
-  htmlStyle: {
-    fontSize: "32px",
-    color: `${primaryColor}`,
-    fontStyle: "italic",
+    htmlStyle: {
+      fontSize: "32px",
+      color: `${primaryColor}`,
+      fontStyle: "italic",
+    },
   },
-},
 
-//BUTTONS
-{
-  type: "button",
-  name: "default-button",
-  htmlText: `
+  //BUTTONS
+  {
+    type: "button",
+    name: "default-button",
+    htmlText: `
     <button style="
       background-color: primaryColor;
       color: white;
@@ -410,20 +400,20 @@ const components = [
       Click Me
     </button>
   `,
-  htmlStyle: {
-    backgroundColor: `${primaryColor}`,
-    color: "white",
-    fontSize: "16px",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
+    htmlStyle: {
+      backgroundColor: `${primaryColor}`,
+      color: "white",
+      fontSize: "16px",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+    },
   },
-},
-{
-  type: "button",
-  name: "outline-button",
-  htmlText: `
+  {
+    type: "button",
+    name: "outline-button",
+    htmlText: `
     <button style="
       background-color: transparent;
       color: primaryColor;
@@ -436,20 +426,20 @@ const components = [
       Click Me
     </button>
   `,
-  htmlStyle: {
-    backgroundColor: "transparent",
-    color: `${primaryColor}`,
-    fontSize: "16px",
-    padding: "10px 20px",
-    border: `2px solid ${primaryColor}`,
-    borderRadius: "5px",
-    cursor: "pointer",
+    htmlStyle: {
+      backgroundColor: "transparent",
+      color: `${primaryColor}`,
+      fontSize: "16px",
+      padding: "10px 20px",
+      border: `2px solid ${primaryColor}`,
+      borderRadius: "5px",
+      cursor: "pointer",
+    },
   },
-},
-{
-  type: "button",
-  name: "rounded-button",
-  htmlText: `
+  {
+    type: "button",
+    name: "rounded-button",
+    htmlText: `
     <button style="
       background-color: primaryColor;
       color: white;
@@ -462,20 +452,20 @@ const components = [
       Click Me
     </button>
   `,
-  htmlStyle: {
-    backgroundColor: `${primaryColor}`,
-    color: "white",
-    fontSize: "16px",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "25px",
-    cursor: "pointer",
+    htmlStyle: {
+      backgroundColor: `${primaryColor}`,
+      color: "white",
+      fontSize: "16px",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "25px",
+      cursor: "pointer",
+    },
   },
-},
-{
-  type: "button",
-  name: "hover-button",
-  htmlText: `
+  {
+    type: "button",
+    name: "hover-button",
+    htmlText: `
     <button style="
       background-color: primaryColor;
       color: white;
@@ -489,21 +479,21 @@ const components = [
       Click Me
     </button>
   `,
-  htmlStyle: {
-    backgroundColor: `${primaryColor}`,
-    color: "white",
-    fontSize: "16px",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
+    htmlStyle: {
+      backgroundColor: `${primaryColor}`,
+      color: "white",
+      fontSize: "16px",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      transition: "background-color 0.3s ease",
+    },
   },
-},
-{
-  type: "button",
-  name: "disabled-button",
-  htmlText: `
+  {
+    type: "button",
+    name: "disabled-button",
+    htmlText: `
     <button style="
       background-color: primaryColor;
       color: white;
@@ -517,19 +507,118 @@ const components = [
       Click Me
     </button>
   `,
-  htmlStyle: {
-    backgroundColor: `${primaryColor}`,
-    color: "white",
-    fontSize: "16px",
-    padding: "10px 20px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "not-allowed",
-    opacity: 0.5,
+    htmlStyle: {
+      backgroundColor: `${primaryColor}`,
+      color: "white",
+      fontSize: "16px",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "not-allowed",
+      opacity: 0.5,
+    },
   },
-}
+  {
+    type: "card",
+    name: "test card",
+    htmlText: `
+    <style>
+    .card {
+      min-height: 50vh;
+      width: 20vw;
+      border: 2px solid primaryColor;
+      background-color: bgColor;
+      border-radius: 6px;
+      padding: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-sizing: content-box;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
+    img{
 
+      max-height: 30vh;
+      max-width: 100%;
+      aspect-ratio: 1/1;
+      flex: 1 1 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 1px 1px 1rem secondaryColor;
+      margin: 1rem .5rem;
+    }
+    
+    .cardcontent{
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(8px+.5vw);
+
+    }
+    
+    .action-items{
+      display: flex;
+      justify-content: space-evenly;
+
+    }
+
+    .button {
+      font-size: calc(8px+.5vw);
+      justify-content: space-evenly;
+      background-color: secondaryColor;
+      color: white;
+      padding: 4px;
+      border-radius: 5px;
+    }
+    
+    </style>
+
+    <div class="card"> 
+    <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png"></img>
+
+    <div class="cardcontent">Here's some fun text about whatever item you're putting in here. 
+    <div class="action-items">
+       <div class="button">Learn More!</div>
+       <div class="button">Add to Cart!</div>
+       <div class="button">&#x2665;</div>
+      </div>
+    </div>
+    </div>
+
+    `,
+  },
+  {
+    type: "sideNav",
+    name: "test sidenav",
+    htmlText: `
+    <style>
+    .sidebar {
+      margin: 0;
+      padding: 0;
+      min-width: 10vw;
+      background-color: bgColor;
+      height: 100%;
+      overflow: auto;
+      border: 2px solid primaryColor;
+    }
+    
+    /* Sidebar links */
+    .sidebar a {
+      display: block;
+      color: black;
+      padding: 16px;
+      text-decoration: none;
+    }
+    </style>
+    <div class="sidebar">
+  <a class="active" href="#home">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</div>
+    `,
+  },
 ];
 
 module.exports = components;

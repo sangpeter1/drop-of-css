@@ -282,6 +282,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
               <ColorPicker onColorChange={handleColorChange} />
             </div>
             <div
+              className="cpg-form-div"
               style={{
                 flex: 1,
               }}
@@ -291,11 +292,17 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                   value={hex}
                   onChange={(ev) => setHex(ev.target.value)}
                   placeholder="Insert Hex Code"
+                  style={{
+                    fontSize: "calc(8px + .5vw)",
+                  }}
                 />
                 <select
                   value={mode}
                   onChange={(ev) => setMode(ev.target.value)}
                   placeholder="Select Mode"
+                  style={{
+                    fontSize: "calc(8px + .5vw)",
+                  }}
                 >
                   {cpgModes.map((mode) => {
                     return (
@@ -309,6 +316,9 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                   value={count}
                   onChange={(ev) => setCount(ev.target.value)}
                   placeholder="Select Count"
+                  style={{
+                    fontSize: "calc(8px + .5vw)",
+                  }}
                 >
                   {cpgCounts.map((count) => {
                     return (
@@ -392,9 +402,19 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                       {colorPalette.map((color, index) => {
                         const uniqueKey = `color-${index}`;
                         const isLocked = lockedColors.includes(color) ? (
-                          <LockIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
+                          <LockIcon
+                            sx={{
+                              fontSize: "calc(10px + .5vw)",
+                              color: color.hsl.l < 65 ? "white" : "black",
+                            }}
+                          />
                         ) : (
-                          <LockOpenIcon sx={{ color: color.hsl.l < 65 ? "white" : "black" }} />
+                          <LockOpenIcon
+                            sx={{
+                              fontSize: "calc(10px + .5vw)",
+                              color: color.hsl.l < 65 ? "white" : "black",
+                            }}
+                          />
                         );
                         return (
                           <Draggable key={uniqueKey} draggableId={uniqueKey} index={index}>
@@ -420,7 +440,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                                 >
                                   <div
                                     style={{
-                                      paddingLeft: "1rem",
+                                      paddingLeft: "1vw",
                                       color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
                                       flexGrow: 1,
                                       fontSize: "calc(8px + .5vw)",
@@ -431,12 +451,17 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
                                   <div
                                     className="pointer-on-hover"
-                                    style={{ marginLeft: "auto", marginRight: "1rem" }}
+                                    style={{
+                                      marginLeft: "auto",
+                                      marginRight: "1vw",
+                                      fontSize: "calc(8px + .5vw)",
+                                    }}
                                   >
                                     <ShuffleIcon
                                       style={{
                                         color: color.hsl.l < 65 ? "white" : "black",
-                                        marginRight: "1rem",
+                                        marginRight: "1vw",
+                                        fontSize: "calc(10px + .5vw)",
                                       }}
                                       //regen is broken
                                       onClick={() => regenColor(color)}
@@ -462,7 +487,10 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             </div>
           </>
         ) : (
-          <div id="cpg-container" style={{ height: "2rem", fontStyle: "italic" }}>
+          <div
+            id="cpg-container"
+            style={{ height: "2rem", fontStyle: "italic", fontSize: "calc(8px + .5vw)" }}
+          >
             select a color, please!
           </div>
         )}

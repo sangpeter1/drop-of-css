@@ -22,15 +22,18 @@ const ColorPicker = ({ onColorChange }) => {
   const styles = reactCSS({
     default: {
       color: {
-        float: "center",
-        textAlign: "center",
-        justifyContent: "center",
-        width: "calc(10px + 10vw)",
+        boxSizing: "border-box",
+        width: "100%",
+        // width: "calc(10px + 10vw)",
         height: "14px",
         borderRadius: "2px",
         background: `${color ? color : "#ffffff"}`,
       },
       swatch: {
+        boxSizing: "border-box",
+        width: "100%",
+        // maxWidth: "20vw",
+        // minWidth: "15vw",
         padding: "5px",
         background: "#fff",
         borderRadius: "1px",
