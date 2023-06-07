@@ -22,11 +22,11 @@ const Login = () => {
   const login = (ev) => {
     ev.preventDefault();
     dispatch(attemptLogin(credentials));
-    navigate('/');
+    //navigate(`/`);
   };
 
   return (
-    <div className="login">
+    <div className="login" style={{width: "33%", height: "33%",justifyContent: "center", alignItems: "center"}}>
       <h3 className="header">Login</h3>
       <form onSubmit={login}>
         <input
@@ -42,17 +42,19 @@ const Login = () => {
           onChange={onChange}
         />
         <button className="rainbowBtn">Login</button>
-      </form>
-      <div>
+        <div className="rainbowBtn">
         <a
           href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}
+          style= {{ fontSize: "13.33333px", fontFamily: "Arial, sans-serif", color: "white", textDecoration: "none"}}
         >
           Login with Github
         </a>
       </div>
+      </form>
+      
       <UserCreate />
     </div>
   );
 };
 
-export default Login;
+export default Login;``
