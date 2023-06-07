@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateAuth } from "../store";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,7 @@ const UserUpdate = () => {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
+  const isOAuthUser = useSelector((state) => state.auth.isOAuthUser);
   
   const updateUser = async (ev) => {
     ev.preventDefault();
@@ -20,7 +21,11 @@ const UserUpdate = () => {
     setEmail("");
     navigate("/profile");
   };
-
+  
+   if (isOAuthUser) {
+    return <div>You are logged in via Github. Email and password updates are not allowed.</div>;
+  }
+ 
   return (
     <div>
       <form onSubmit={ updateUser }>
