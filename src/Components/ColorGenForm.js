@@ -1,6 +1,12 @@
-import React, { useState } from "react";
-import { useSelect, useDispatch } from "react-redux";
-import { fetchColorPalette, updateColorPalette } from "../store";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, getState } from "react-redux";
+import {
+  deleteColor,
+  deleteColorPalette,
+  fetchColorPalette,
+  updateColorPalette,
+  deleteAndUpdateColorPalette,
+} from "../store";
 import ColorPicker from "./ColorPicker";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -23,6 +29,18 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+const getRandomHexCode = () => {
+  const characters = "0123456789ABCDEF";
+  let hexCode = "#";
+
+  for (let i = 0; i < 6; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    hexCode += characters[randomIndex];
+  }
+
+  return hexCode;
+};
+
 //reorder functions
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -44,6 +62,7 @@ const getListStyle = (isDraggingOver) => ({
 
 const ColorGenForm = ({ openColorsInPreview }) => {
   const dispatch = useDispatch();
+  const { cpg } = useSelector((state) => state);
   const [format, setFormat] = useState("");
   const [hex, setHex] = useState("");
   const [mode, setMode] = useState("");
@@ -53,6 +72,11 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   const [expanded, setExpanded] = useState(true);
   const [lockedColors, setLockedColors] = useState([]);
   const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    console.log(cpg, "in useEffect, every time cpg changes");
+    setColorPalette(cpg);
+  }, [cpg]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -74,9 +98,9 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     }
   }, []);
 */
-  const handleGenColors = (colorPalette) => {
+  const handleGenColors = (cpg) => {
     // console.log("open in preview...", colorPalette);
-    openColorsInPreview(colorPalette);
+    openColorsInPreview(cpg);
   };
 
   const cpgModes = [
@@ -98,27 +122,63 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   const runCPG = async (ev) => {
     ev.preventDefault();
-    // const locked = lockedColors.filter((_color) => typeof _color === "object");
-    try {
-      const search = {
-        hex,
-        mode,
-      };
-      const updatedCount =
-        lockedColors.filter((_color) => typeof _color === "object").length > 0
-          ? 4 - lockedColors.filter((_color) => typeof _color === "object").length
-          : count;
-      search.count = updatedCount;
-      const response = await dispatch(fetchColorPalette(search));
-      const updatedColorPalette = [...lockedColors, ...response];
-      const trimmedPalette = trimColorPalette(updatedColorPalette);
-      await setColorPalette(trimmedPalette);
-      await handleGenColors(trimmedPalette);
-      //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
-    } catch (error) {
-      console.log(error);
+    if (cpg.length === 0) {
+      try {
+        const search = {
+          hex,
+          mode,
+          count,
+        };
+        // const response =
+        console.log("runCPG func", search);
+        await dispatch(fetchColorPalette(search));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (cpg.length > 0) {
+      try {
+        const search = {
+          hex,
+          mode,
+        };
+        search.count =
+          lockedColors.filter((_color) => typeof _color === "object").length > 0
+            ? 4 - lockedColors.filter((_color) => typeof _color === "object").length
+            : count;
+        search.unlocked = colorPalette.filter((_color) => !lockedColors.includes(_color));
+        await dispatch(updateColorPalette(search));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+  // const locked = lockedColors.filter((_color) => typeof _color === "object");
+
+  // const updatedColorPalette = [...lockedColors, ...response];
+  // const trimmedPalette = trimColorPalette(updatedColorPalette);
+  // navbar = trimmedPalette[1]
+  //find navbars in dom, change bg color,
+  // this is hacky as fuck per stanley. don't ever do this irl.
+  // const navbar = document.querySelector(".navbar");
+  // if (navbar) {
+  //   var css = `.dropdown-content a:hover {background-color: ${trimmedPalette[0]}}`;
+  //   var style = document.createElement("style");
+
+  //   if (style.styleSheet) {
+  //     style.styleSheet.cssText = css;
+  //   } else {
+  //     style.appendChild(document.createTextNode(css));
+  //   }
+
+  //   navbar.appendChild(style);
+  // }
+
+  // end of code that is "so terrible"
+
+  // await setColorPalette(trimmedPalette);
+  // await handleGenColors(trimmedPalette);
+  //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
 
   // works with color picker
   const handleColorChange = (newHex) => {
@@ -147,6 +207,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   //new lock func
   const toggleColorLock = (index, color) => {
+    console.log("locked", color.name.value);
     setLockedColors((prevLockedColors) => {
       const colorIndex = prevLockedColors.indexOf(color);
       if (colorIndex >= 0) {
@@ -164,29 +225,33 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   const shuffleUnlockedColors = async () => {
     // const locked = lockedColors.filter((_color) => typeof _color === "object");
     try {
-      const unlocked = colorPalette.filter((_color) => !lockedColors.includes(_color));
-      const rgbVals = unlocked
-        .filter((_color) => _color.hsl.s > 20)
-        .map((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b)
-        .sort((a, b) => b - a);
-      const brightest = unlocked.find(
-        (_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b === rgbVals[0]
-      );
+      const unlocked = cpg.filter((_color) => !lockedColors.includes(_color));
+      const length = unlocked.length;
+      console.log(length);
+      let rgbVals =
+        unlocked
+          .filter((_color) => _color.hsl.s >= 10)
+          .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b > 200)
+          .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b < 500)
+          .sort((a, b) => b - a) || console.log("rgbVals", rgbVals);
 
-      const response = await dispatch(
-        updateColorPalette({
-          unlocked,
-          hex: brightest.hex.clean,
-          mode: randomMode,
-          count: unlocked.length,
-        })
-      );
+      if (rgbVals.length > 0) {
+        const hex = rgbVals[Math.floor(Math.random()) * rgbVals.length].hex.clean;
+      } else {
+        const hex = getRandomHexCode();
+      }
 
-      const updatedColorPalette = [...lockedColors, ...response];
-      const trimmedPalette = trimColorPalette(updatedColorPalette);
+      console.log("shuffle unlocked colors func unlocked colors", unlocked, hex);
 
-      setColorPalette(trimmedPalette);
-      handleGenColors(trimmedPalette);
+      const search = {
+        hex: hex,
+        mode: randomMode,
+        count: length,
+        unlocked: unlocked,
+      };
+
+      await dispatch(updateColorPalette(search));
+
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
@@ -202,19 +267,20 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       return;
     }
     try {
-      const response = await dispatch(
+      const colorHex = color.hex.clean;
+      const response = await dispatch(deleteColor({ color }));
+      await dispatch(
         updateColorPalette({
-          color,
-          hex: color.hex.clean,
+          hex: colorHex,
           mode: randomMode,
           count: 1,
         })
       );
 
-      console.log("change one color", response);
-      const updatedColorPalette = colorPalette.map((_color) =>
-        _color === color ? response : _color
-      );
+      // console.log("change one color", response);
+      // const updatedColorPalette = colorPalette.map((_color) =>
+      //   _color === color ? response : _color
+      // );
 
       const trimmedPalette = trimColorPalette(updatedColorPalette);
 
@@ -405,14 +471,14 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                           <LockIcon
                             sx={{
                               fontSize: "calc(10px + .5vw)",
-                              color: color.hsl.l < 65 ? "white" : "black",
+                              color: color.contrast.value,
                             }}
                           />
                         ) : (
                           <LockOpenIcon
                             sx={{
                               fontSize: "calc(10px + .5vw)",
-                              color: color.hsl.l < 65 ? "white" : "black",
+                              color: color.contrast.value,
                             }}
                           />
                         );

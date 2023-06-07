@@ -35,7 +35,7 @@ const Components = ({ openInPreview, generatedColors }) => {
 
   // Use the latestGeneratedColors in a separate useEffect
   useEffect(() => {
-    console.log("latest generated colors", latestGeneratedColors);
+    console.log("component page -- latest generated colors", latestGeneratedColors);
   }, [latestGeneratedColors]);
 
   // Update the latestGeneratedColors whenever generatedColors changes

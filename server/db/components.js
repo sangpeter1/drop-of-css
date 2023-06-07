@@ -13,7 +13,7 @@ const components = [
     name: "plain nav bar",
     htmlText: `
     <html>
-    <div class="navbar">
+    <div class="navbar" style="background-color: bgColor">
     <a href="#home">Home</a>
     <a href="#news">News</a>
     <div class="dropdown">
@@ -519,6 +519,7 @@ const components = [
     },
   },
   {
+    // THIS IS BROKEN. IT DOES WEIRD SHIT TO THE MAIN NAV ON THE SCREEN
     type: "card",
     name: "test card",
     htmlText: `
@@ -537,7 +538,7 @@ const components = [
       justify-content: center;
     }
 
-    img{
+    .card > img{
 
       max-height: 30vh;
       max-width: 100%;
@@ -566,9 +567,11 @@ const components = [
     .button {
       font-size: calc(8px+.5vw);
       justify-content: space-evenly;
+      align-items: center;
       background-color: secondaryColor;
       color: white;
       padding: 4px;
+      margin: 4px;
       border-radius: 5px;
     }
     
