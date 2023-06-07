@@ -34,9 +34,8 @@ const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, gener
           <header id="previewTitle">Your Website Title</header>
         )}
         {nav ? (
-          <div id="previewTitle">
+          <div id="previewNav">
             <div
-              style={updatedStyle}
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(nav),
               }}
@@ -45,15 +44,36 @@ const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, gener
         ) : (
           <nav id="previewNav">Preview Nav</nav>
         )}
-        {sideNav ? "you've got a sidenav. cool" : <nav id="previewSideNav">Side Nav</nav>}
+        {sideNav ? (
+          <div
+            id="previewSideNav"
+            style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+            dangerouslySetInnerHTML={{
+              __html: jsxGenerator(sideNav),
+            }}
+          />
+        ) : (
+          <div id="previewSideNav">Side Nav</div>
+        )}
 
         <main className="preview-pane-Main-Content">
-          {card ? "you've got a card. cool" : <div id="previewCard">Card</div>}
           {card ? (
             <div
               id="previewCard"
+              style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
               dangerouslySetInnerHTML={{
-                __html: sanitizer(card.htmlText),
+                __html: jsxGenerator(card),
+              }}
+            />
+          ) : (
+            <div id="previewCard">Card</div>
+          )}{" "}
+          {card ? (
+            <div
+              id="previewCard"
+              style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+              dangerouslySetInnerHTML={{
+                __html: jsxGenerator(card),
               }}
             />
           ) : (
