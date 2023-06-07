@@ -67,6 +67,9 @@ app.put("/", isLoggedIn, async (req, res, next) => {
     const user = req.user;
     const { username, password, email } = req.body;
 
+    if (user.isOAuthUser) {
+      return res.status(403).json({ error: 'OAuth users cannot update their email and password.' });
+    }
     if (username) {
       user.username = username;
     }
