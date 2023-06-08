@@ -16,5 +16,6 @@ app.get("/", (req, res) => {
 app.use("/api/auth", require("./api/auth"));
 app.use("/api/cpg", require("./api/cpg"));
 app.use("/api/components", require("./api/components"));
+app.use("/api/templates", require("./api/templates"));
 
 module.exports = app;
