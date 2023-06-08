@@ -5,7 +5,7 @@ import {
   deleteColorPalette,
   fetchColorPalette,
   updateColorPalette,
-  deleteAndUpdateColorPalette,
+  reorderColorPalette,
 } from "../store";
 import ColorPicker from "./ColorPicker";
 import { styled } from "@mui/material/styles";
@@ -50,14 +50,9 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-// const getItemStyle = (isDragging, draggableStyle) => ({
-//   ...draggableStyle,
-//   userSelect: "none",
-// });
-
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightgray" : "",
-  borderRadius: isDraggingOver ? ".5rem" : "",
+  // background: isDraggingOver ? "lightgray" : "",
+  // borderRadius: isDraggingOver ? ".5rem" : "",
 });
 
 const ColorGenForm = ({ openColorsInPreview }) => {
@@ -99,7 +94,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   }, []);
 */
   const handleGenColors = (cpg) => {
-    // console.log("open in preview...", colorPalette);
     openColorsInPreview(cpg);
   };
 
@@ -153,30 +147,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       }
     }
   };
-  // const locked = lockedColors.filter((_color) => typeof _color === "object");
-
-  // const updatedColorPalette = [...lockedColors, ...response];
-  // const trimmedPalette = trimColorPalette(updatedColorPalette);
-  // navbar = trimmedPalette[1]
-  //find navbars in dom, change bg color,
-  // this is hacky as fuck per stanley. don't ever do this irl.
-  // const navbar = document.querySelector(".navbar");
-  // if (navbar) {
-  //   var css = `.dropdown-content a:hover {background-color: ${trimmedPalette[0]}}`;
-  //   var style = document.createElement("style");
-
-  //   if (style.styleSheet) {
-  //     style.styleSheet.cssText = css;
-  //   } else {
-  //     style.appendChild(document.createTextNode(css));
-  //   }
-
-  //   navbar.appendChild(style);
-  // }
-
-  // end of code that is "so terrible"
-
-  // await setColorPalette(trimmedPalette);
   // await handleGenColors(trimmedPalette);
   //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
 
@@ -221,7 +191,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     });
   };
 
-  //this needs work -- can't read hex. maybe needs an argument for if there's only one color
   const shuffleUnlockedColors = async () => {
     // const locked = lockedColors.filter((_color) => typeof _color === "object");
     try {
@@ -269,18 +238,14 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     try {
       const colorHex = color.hex.clean;
       const response = await dispatch(deleteColor({ color }));
-      await dispatch(
+      //put the delete inside of the update function
+      await updateColor(
         updateColorPalette({
           hex: colorHex,
           mode: randomMode,
           count: 1,
         })
       );
-
-      // console.log("change one color", response);
-      // const updatedColorPalette = colorPalette.map((_color) =>
-      //   _color === color ? response : _color
-      // );
 
       const trimmedPalette = trimColorPalette(updatedColorPalette);
 
@@ -298,12 +263,13 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     if (!result.destination) {
       return;
     }
-
-    const updatedItems = reorder(colorPalette, result.source.index, result.destination.index);
-
-    await setColorPalette(updatedItems);
-    await handleGenColors(updatedItems);
+    const reorderedItems = reorder(colorPalette, result.source.index, result.destination.index);
+    console.log("reordereditems", reorderedItems);
+    dispatch(reorderColorPalette(reorderedItems));
+    setColorPalette(reorderedItems);
   };
+
+  const colorClass = ["primary color", "secondary color", "tertiary color", "background color"];
 
   return (
     <>
@@ -463,7 +429,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                     <div
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      style={getListStyle(snapshot.isDraggingOver)}
+                      // style={getListStyle(snapshot.isDraggingOver)}
                     >
                       {colorPalette.map((color, index) => {
                         const uniqueKey = `color-${index}`;
@@ -483,64 +449,76 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                           />
                         );
                         return (
-                          <Draggable key={uniqueKey} draggableId={uniqueKey} index={index}>
-                            {(provided, snapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                {/* content */}
+                          <>
+                            <div
+                              style={{
+                                fontStyle: "italic",
+                                fontStretch: "expanded",
+                                fontSize: "calc(5px + .5vw)",
+                              }}
+                            >
+                              {colorClass[index]}:
+                            </div>
+                            <Draggable key={uniqueKey} draggableId={uniqueKey} index={index}>
+                              {(provided, snapshot) => (
                                 <div
-                                  className="cpg-color"
-                                  id={uniqueKey}
-                                  key={uniqueKey}
-                                  style={{
-                                    display: "flex",
-                                    margin: "2px",
-                                    backgroundColor: color.hex.value,
-                                    alignItems: "center",
-                                    textAlign: "left",
-                                    height: `calc(28vh / ${colorPalette.length})`,
-                                  }}
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
                                 >
-                                  <div
-                                    style={{
-                                      paddingLeft: "1vw",
-                                      color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
-                                      flexGrow: 1,
-                                      fontSize: "calc(8px + .5vw)",
-                                    }}
-                                  >
-                                    {color.name.value} {color.hex.value}
-                                  </div>
+                                  {/* content */}
 
                                   <div
-                                    className="pointer-on-hover"
+                                    className="cpg-color"
+                                    id={uniqueKey}
+                                    key={uniqueKey}
                                     style={{
-                                      marginLeft: "auto",
-                                      marginRight: "1vw",
-                                      fontSize: "calc(8px + .5vw)",
+                                      display: "flex",
+                                      margin: "2px",
+                                      backgroundColor: color.hex.value,
+                                      alignItems: "center",
+                                      textAlign: "left",
+                                      height: `calc(28vh / ${colorPalette.length})`,
                                     }}
                                   >
-                                    <ShuffleIcon
+                                    <div
                                       style={{
-                                        color: color.hsl.l < 65 ? "white" : "black",
-                                        marginRight: "1vw",
-                                        fontSize: "calc(10px + .5vw)",
+                                        paddingLeft: "1vw",
+                                        color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
+                                        flexGrow: 1,
+                                        fontSize: "calc(8px + .5vw)",
                                       }}
-                                      //regen is broken
-                                      onClick={() => regenColor(color)}
-                                    />
-                                    <span onClick={() => toggleColorLock(index, color)}>
-                                      {isLocked}
-                                    </span>
+                                    >
+                                      {color.name.value} {color.hex.value}
+                                    </div>
+
+                                    <div
+                                      className="pointer-on-hover"
+                                      style={{
+                                        marginLeft: "auto",
+                                        marginRight: "1vw",
+                                        fontSize: "calc(8px + .5vw)",
+                                      }}
+                                    >
+                                      <ShuffleIcon
+                                        style={{
+                                          color: color.hsl.l < 65 ? "white" : "black",
+                                          marginRight: "1vw",
+                                          fontSize: "calc(10px + .5vw)",
+                                        }}
+                                        //regen is broken
+                                        onClick={() => regenColor(color)}
+                                      />
+                                      <span onClick={() => toggleColorLock(index, color)}>
+                                        {isLocked}
+                                      </span>
+                                    </div>
                                   </div>
+                                  {/* content end */}
                                 </div>
-                                {/* content end */}
-                              </div>
-                            )}
-                          </Draggable>
+                              )}
+                            </Draggable>
+                          </>
                         );
                       })}
                       {provided.placeholder}

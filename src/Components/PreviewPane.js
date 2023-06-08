@@ -10,7 +10,7 @@ const PreviewPane = ({
   card,
   button /*accordion, generatedColors*/,
 }) => {
-  const { components } = useSelector((state) => state);
+  const { components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   // useEffect(() => {

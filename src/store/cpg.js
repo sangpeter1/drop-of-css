@@ -33,14 +33,21 @@ const cpg = (state = [], action) => {
     console.log(action.cpg, "action cpg");
     return action.cpg;
   }
+  if (action.type === "REORDER_COLORPALETTE") {
+    console.log(action.colors, "reorder cpg");
+    return [...action.colors];
+  }
   if (action.type === "UPDATE_COLORPALETTE") {
     console.log("store cp update state", state, action.remove, action.colors);
     const deletedColorIds = action.remove.map((color) => color.hex.clean);
     state = state.filter((color) => !deletedColorIds.includes(color.hex.clean));
-    if ([...state, ...action.colors].length > 4) {
-      trimColorPalette([...state, ...action.colors]);
+    if (!action.colors.length) {
+      return trimColorPalette([...state, action.colors]);
+    } else if ([...state, ...action.colors].length > 4) {
+      return trimColorPalette([...state, ...action.colors]);
+    } else {
+      return [...state, ...action.colors];
     }
-    return [...state, ...action.colors];
   }
   if (action.type === "UPDATE_COLOR") {
     console.log("individual color state before update", state, action.color);
@@ -65,9 +72,11 @@ export const fetchColorPalette = (search) => {
   };
 };
 
-//need a couple of things here to make this cleaner. we need updateColor, updateColorPalette, deleteColor, deleteColorPalette, reorderColors
-//react components are too messy with things that should be in the store
-//stop using return and just update the state
+export const reorderColorPalette = (reorderedItems) => {
+  return async (dispatch) => {
+    dispatch({ type: "REORDER_COLORPALETTE", colors: reorderedItems });
+  };
+};
 
 export const updateColorPalette = (search) => {
   //this should add new colors to the remaining available slots of colors
@@ -76,11 +85,15 @@ export const updateColorPalette = (search) => {
     const colorsToRemove = search.unlocked;
     console.log("updateColorPalette in store", colorsToRemove);
     const response = await axios.put("/api/cpg", { hex, mode, count });
-    console.log("colors to replace in update func", response.data.colors);
+    console.log("colors to replace in update func", response.data);
+    if (!response.data.colors) {
+      dispatch({ type: "UPDATE_COLORPALETTE", remove: colorsToRemove, colors: response.data });
+    }
     dispatch({ type: "UPDATE_COLORPALETTE", remove: colorsToRemove, colors: response.data.colors });
   };
 };
 
+//gotta add a delete to the previous color
 export const updateColor = (search) => {
   return async (dispatch) => {
     const { hex, mode, count } = search;
