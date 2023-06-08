@@ -63,6 +63,7 @@ const Home = () => {
 
 export default Home;
 
+/*
 module.exports = {
   form,
   nav,
@@ -72,3 +73,4 @@ module.exports = {
   button,
   generatedColors
 }
+*/
