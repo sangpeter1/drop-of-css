@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express.Router();
 const axios = require("axios");
-const Component = require("../db/Component");
+const Template = require("../db/Template");
+const User = require("../db/User");
+
 
 app.get("/", async (req, res, next) => {
   try {
@@ -16,11 +18,11 @@ app.get("/", async (req, res, next) => {
   }
 });
 
-app.post("/", async (req, res, next) => {
+app.post("/",  async (req, res, next) => {
   try {
-    const response = await Template.create( {
-      userId: req.user.id,
-      htmlText: req.body
+    const response = await Template.create({
+      userId: req.body.userId,
+      htmlText: req.body.htmlText
     });
 
     res.status(200).send(response.data);
@@ -54,4 +56,6 @@ app.delete("/:templateId", async (req, res, next) => {
     next(err);
   }
 });
+
+
 module.exports = app;

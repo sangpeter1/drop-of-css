@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 
 const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, generatedColors }) => {
-  const { components, auth } = useSelector((state) => state);
+ 
+  const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchComponents());
-    //dispatch(createTemplate({ htmlText: jsxGenerator(title) }));
   }, []);
 
   const [colors, setColors] = useState("");
@@ -22,7 +22,7 @@ const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, gener
   
  /*mt*/
   const saveComponent = (componentType) => {
-    const userId = auth.id; 
+    const userId = auth.id;
     const componentData = {
       htmlText: jsxGenerator(componentType),
       userId: userId,
@@ -57,8 +57,6 @@ const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, gener
     }
     return null;
   };
-  
-  
   
 
   return (
