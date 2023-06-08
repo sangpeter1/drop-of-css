@@ -12,6 +12,9 @@ const Home = () => {
   const [card, setCard] = useState(null);
   const [button, setButton] = useState(null);
   const [generatedColors, setGeneratedColors] = useState(null);
+  const [wholePageBackground, setWholePageBackground] = useState("");
+
+  console.log("home", wholePageBackground);
 
   const handleOpenInPreview = (component) => {
     console.log("handle open in preview on home page", component);
@@ -40,7 +43,11 @@ const Home = () => {
       <div id="page-container-div">
         <div id="page-container-left-divs">
           <div id="cpg-div">
-            <ColorGenForm openColorsInPreview={setGeneratedColors} />
+            <ColorGenForm
+              openColorsInPreview={setGeneratedColors}
+              wholePageBackground={wholePageBackground}
+              setWholePageBackground={setWholePageBackground}
+            />
           </div>
           <div id="component-div">
             <Components openInPreview={handleOpenInPreview} generatedColors={generatedColors} />
@@ -48,6 +55,7 @@ const Home = () => {
         </div>
         <div id="preview-pane-div">
           <PreviewPane
+            wholePageBackground={wholePageBackground}
             form={form}
             nav={nav}
             title={title}
@@ -74,4 +82,3 @@ export default Home;
 //   button,
 //   generatedColors
 // }
-

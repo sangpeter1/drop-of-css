@@ -18,6 +18,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import WallpaperIcon from "@mui/icons-material/Wallpaper";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -56,7 +57,7 @@ const getListStyle = (isDraggingOver) => ({
   // borderRadius: isDraggingOver ? ".5rem" : "",
 });
 
-const ColorGenForm = ({ openColorsInPreview }) => {
+const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBackground }) => {
   const dispatch = useDispatch();
   const { cpg } = useSelector((state) => state);
   const [format, setFormat] = useState("");
@@ -147,6 +148,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         console.log(error);
       }
     }
+    setExpanded(false);
   };
   // await handleGenColors(trimmedPalette);
   //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
@@ -227,7 +229,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     }
   };
 
-  //function is broken. this is the func that shuffles just one color
   const regenColor = async (color) => {
     console.log("change one color");
 
@@ -252,13 +253,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
           count: 1,
         })
       );
-
-      // const trimmedPalette = trimColorPalette(updatedColorPalette);
-
-      // await setColorPalette(trimmedPalette);
-      // await handleGenColors(trimmedPalette);
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
-      // console.log("newcp -- single color change", updatedColorPalette);
     } catch (error) {
       console.error(error);
     }
@@ -462,6 +457,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                                 fontStyle: "italic",
                                 fontStretch: "expanded",
                                 fontSize: "calc(5px + .5vw)",
+                                paddingLeft: "1rem",
                               }}
                             >
                               {colorClass[index]}:
@@ -485,13 +481,13 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                                       backgroundColor: color.hex.value,
                                       alignItems: "center",
                                       textAlign: "left",
-                                      height: `calc(28vh / ${colorPalette.length})`,
+                                      height: `calc(20vh / ${colorPalette.length})`,
                                     }}
                                   >
                                     <div
                                       style={{
                                         paddingLeft: "1vw",
-                                        color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
+                                        color: color.contrast.value,
                                         flexGrow: 1,
                                         fontSize: "calc(8px + .5vw)",
                                       }}
@@ -507,13 +503,21 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                                         fontSize: "calc(8px + .5vw)",
                                       }}
                                     >
-                                      <ShuffleIcon
+                                      {/* INSERT AN ICON HERE THAT SAYS APPLY TO BACKGROUND? */}
+                                      <WallpaperIcon
                                         style={{
-                                          color: color.hsl.l < 65 ? "white" : "black",
+                                          color: color.contrast.value,
                                           marginRight: "1vw",
                                           fontSize: "calc(10px + .5vw)",
                                         }}
-                                        //regen is broken
+                                        onClick={() => setWholePageBackground(color)}
+                                      />
+                                      <ShuffleIcon
+                                        style={{
+                                          color: color.contrast.value,
+                                          marginRight: "1vw",
+                                          fontSize: "calc(10px + .5vw)",
+                                        }}
                                         onClick={() => regenColor(color)}
                                       />
                                       <span onClick={() => toggleColorLock(index, color)}>

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 
 const PreviewPane = ({
+  wholePageBackground,
   form,
   nav,
   title,
@@ -10,7 +11,7 @@ const PreviewPane = ({
   card,
   button /*accordion, generatedColors*/,
 }) => {
-  const { components, componentColors } = useSelector((state) => state);
+  const { auth, components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -24,9 +25,8 @@ const PreviewPane = ({
     console.log(htmlText);
     return htmlText;
   };
-  
-  
- /*mt*/
+
+  /*mt*/
   const saveComponent = (componentType) => {
     const userId = auth.id;
     const componentData = {
@@ -35,40 +35,37 @@ const PreviewPane = ({
     };
     dispatch(createTemplate(componentData));
   };
- 
+
   const renderSaveButtons = () => {
     if (auth.id) {
       return (
         <div>
-          {title && (
-            <button onClick={() => saveComponent(title)}>Save Title</button>
-          )}
-          {nav && (
-            <button onClick={() => saveComponent(nav)}>Save Nav</button>
-          )}
-          {sideNav && (
-            <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>
-          )}
-          {card && (
-            <button onClick={() => saveComponent(card)}>Save Card</button>
-          )}
-          {form && (
-            <button onClick={() => saveComponent(form)}>Save Form</button>
-          )}
-          {button && (
-            <button onClick={() => saveComponent(button)}>Save Button</button>
-          )}
+          {title && <button onClick={() => saveComponent(title)}>Save Title</button>}
+          {nav && <button onClick={() => saveComponent(nav)}>Save Nav</button>}
+          {sideNav && <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>}
+          {card && <button onClick={() => saveComponent(card)}>Save Card</button>}
+          {form && <button onClick={() => saveComponent(form)}>Save Form</button>}
+          {button && <button onClick={() => saveComponent(button)}>Save Button</button>}
         </div>
       );
     }
     return null;
   };
-  
+
+  if (wholePageBackground) {
+    console.log("whole background", wholePageBackground);
+  }
 
   return (
     <div>
       <h3 className="header">Template Preview</h3>
-      <div className="preview-pane-container" style={{ backgroundColor: colors.bgColor }}>
+      <div
+        className="preview-pane-container"
+        style={{
+          zIndex: -20,
+          backgroundColor: wholePageBackground ? `${wholePageBackground.hex.value}` : "#F0F0F0",
+        }}
+      >
         {title ? (
           <div id="previewTitle" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}>
             <div
