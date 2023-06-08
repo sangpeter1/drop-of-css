@@ -5,6 +5,7 @@ import {
   deleteColorPalette,
   fetchColorPalette,
   updateColorPalette,
+  updateColor,
   reorderColorPalette,
 } from "../store";
 import ColorPicker from "./ColorPicker";
@@ -125,7 +126,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         };
         // const response =
         console.log("runCPG func", search);
-        await dispatch(fetchColorPalette(search));
+        dispatch(fetchColorPalette(search));
       } catch (error) {
         console.log(error);
       }
@@ -141,7 +142,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             ? 4 - lockedColors.filter((_color) => typeof _color === "object").length
             : count;
         search.unlocked = colorPalette.filter((_color) => !lockedColors.includes(_color));
-        await dispatch(updateColorPalette(search));
+        dispatch(updateColorPalette(search));
       } catch (error) {
         console.log(error);
       }
@@ -185,7 +186,6 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         return prevLockedColors.filter((_color) => _color !== color);
       } else {
         // Color is not locked, so add it to lockedColors
-        // console.log("whatever this fucking thing is", [...prevLockedColors, color]);
         return [...prevLockedColors, color];
       }
     });
@@ -219,7 +219,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         unlocked: unlocked,
       };
 
-      await dispatch(updateColorPalette(search));
+      dispatch(updateColorPalette(search));
 
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
@@ -237,22 +237,28 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     }
     try {
       const colorHex = color.hex.clean;
-      const response = await dispatch(deleteColor({ color }));
+      // const response = await dispatch(deleteColor({ color }));
       //put the delete inside of the update function
-      await updateColor(
-        updateColorPalette({
+
+      const colorIndex = cpg.indexOf(color);
+      console.log("color's index", color, colorIndex);
+
+      dispatch(
+        updateColor({
+          color,
+          colorIndex,
           hex: colorHex,
           mode: randomMode,
           count: 1,
         })
       );
 
-      const trimmedPalette = trimColorPalette(updatedColorPalette);
+      // const trimmedPalette = trimColorPalette(updatedColorPalette);
 
-      await setColorPalette(trimmedPalette);
-      await handleGenColors(trimmedPalette);
+      // await setColorPalette(trimmedPalette);
+      // await handleGenColors(trimmedPalette);
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
-      console.log("newcp -- single color change", updatedColorPalette);
+      // console.log("newcp -- single color change", updatedColorPalette);
     } catch (error) {
       console.error(error);
     }
@@ -408,7 +414,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                     cursor: "pointer",
                   },
                 }}
-                onClick={() => setColorPalette([])}
+                onClick={() => dispatch(deleteColorPalette(cpg))}
               >
                 <DeleteOutlineIcon />
                 <span
@@ -451,6 +457,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                         return (
                           <>
                             <div
+                              key={`colorClass-${index}`}
                               style={{
                                 fontStyle: "italic",
                                 fontStretch: "expanded",
@@ -531,12 +538,13 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             </div>
           </>
         ) : (
-          <div
-            id="cpg-container"
-            style={{ height: "2rem", fontStyle: "italic", fontSize: "calc(8px + .5vw)" }}
-          >
-            select a color, please!
-          </div>
+          // <div
+          //   id="cpg-container"
+          //   style={{ height: "2rem", fontStyle: "italic", fontSize: "calc(8px + .5vw)" }}
+          // >
+          //   select a color, please!
+          // </div>
+          <></>
         )}
       </div>
     </>

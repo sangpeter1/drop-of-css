@@ -21,9 +21,10 @@ h1 {
 }
 
 #cpg-div {
-  box-sizing: content-box;
+  box-sizing: fit-content;
   border-radius: 0.5rem;
-  min-height: 50vh;
+  min-height: 20vh;
+  max-height: fit-content;
   width: 25vw;
   margin: 0.25rem;
 }
@@ -63,7 +64,8 @@ nav {
   max-width: 25vw;
   min-width: 20vw;
   margin-top: 0.5rem;
-  height: 42vh;
+  min-height: 20vh;
+  max-height: 42vh;
   padding: 0.2rem;
   box-shadow: inset 1px 1px 1rem 1px rgba(100, 100, 100, 0.2);
   border-radius: 0.8rem;
