@@ -7,7 +7,12 @@ const sanitizer = DOMPurify.sanitize;
 
 const Components = ({ openInPreview }) => {
   const { components, cpg } = useSelector((state) => state);
-  // const [latestGeneratedColors, setLatestGeneratedColors] = useState([]);
+  const [activeType, setActiveType] = useState(null);
+
+  const handleTypeClick = (type) => {
+    setActiveType(type === activeType ? null : type);
+  };
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,29 +22,6 @@ const Components = ({ openInPreview }) => {
   if (!components) {
     return null;
   }
-
-  //useEffect checks for changes in colors
-  // useEffect(() => {
-  //   const updateColors = async () => {
-  //     try {
-  //       let updatedColors = { ...colors };
-  //       updatedColors.primaryColor = generatedColors?.[0] || "";
-  //       updatedColors.secondaryColor = generatedColors?.[1] || "";
-  //       updatedColors.tertiaryColor = generatedColors?.[2] || "";
-  //       updatedColors.bgColor = generatedColors?.[3] || "";
-  //       setColors(updatedColors);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   updateColors();
-  //   console.log("after update colors", colors);
-  // }, [generatedColors, latestGeneratedColors]);
-
-  // Use the latestGeneratedColors in a separate useEffect
-  // useEffect(() => {
-  //   console.log("component page -- latest generated colors", latestGeneratedColors);
-  // }, [latestGeneratedColors]);
 
   useEffect(() => {
     console.log("Components useEffect", cpg);
@@ -64,30 +46,55 @@ const Components = ({ openInPreview }) => {
   };
 
   const componentTypes = [...new Set(components.map((component) => component.type))];
-  console.log("component types", componentTypes);
+  // console.log("component types", componentTypes);
+  if (cpg.length > 0) {
+    console.log(`rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.3)`);
+  }
 
   return (
-    <div className="componentlist">
+    <>
       <h3 className="header">Select Components</h3>
-      {componentTypes.map((type) => (
-        <div key={type}>
-          <h5>{type}</h5>
-          <ul>
-            {components
-              .filter((component) => component.type === type)
-              .map((component) => (
-                <li
-                  key={component.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleOpenInPreview(component)}
-                >
-                  {component.name}
-                </li>
-              ))}
-          </ul>
+      <div className="componentlist">
+        <div className="componentContainer">
+          <div className="componentTypes">
+            {componentTypes.map((type) => (
+              <div key={type} onClick={() => handleTypeClick(type)}>
+                <h5>{type} &#x1F826;</h5>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
+        <div className="componentContainer">
+          <div
+            className="componentNamesContainer"
+            style={{
+              backgroundColor:
+                cpg.length > 0
+                  ? `rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.2)`
+                  : "",
+            }}
+          >
+            {componentTypes.map((type) => (
+              <div
+                className={`componentNames ${type === activeType ? "active" : ""}`}
+                key={type}
+                style={{ marginTop: 6 }}
+              >
+                <ul>
+                  {components
+                    .filter((component) => component.type === type)
+                    .map((component) => (
+                      <li key={component.id} onClick={() => handleOpenInPreview(component)}>
+                        {component.name}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
