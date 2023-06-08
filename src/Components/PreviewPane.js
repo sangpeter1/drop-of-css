@@ -79,12 +79,12 @@ const PreviewPane = ({
         )}
         {nav ? (
           <div id="previewNav">
-            {/* <div
+            <div
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(nav),
               }}
-            /> */}
-            <Navbar />
+            />
+            {/* <Navbar /> */}
           </div>
         ) : (
           <nav id="previewNav">Preview Nav</nav>
@@ -100,30 +100,42 @@ const PreviewPane = ({
         ) : (
           <div id="previewSideNav">Side Nav</div>
         )}
-
         <main className="preview-pane-Main-Content">
-          {card ? (
-            <div
-              id="previewCard"
-              style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-              dangerouslySetInnerHTML={{
-                __html: jsxGenerator(card),
-              }}
-            />
-          ) : (
-            <div id="previewCard">Card</div>
-          )}{" "}
-          {card ? (
-            <div
-              id="previewCard"
-              style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-              dangerouslySetInnerHTML={{
-                __html: jsxGenerator(card),
-              }}
-            />
-          ) : (
-            <div id="previewCard">Card</div>
-          )}
+          <div id="previewCardContainer">
+            {card ? (
+              <div
+                id="previewCard"
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{
+                  __html: jsxGenerator(card),
+                }}
+              />
+            ) : (
+              <div id="previewCard">Card</div>
+            )}{" "}
+            {card ? (
+              <div
+                id="previewCard"
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{
+                  __html: jsxGenerator(card),
+                }}
+              />
+            ) : (
+              <div id="previewCard">Card</div>
+            )}
+            {card ? (
+              <div
+                id="previewCard"
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{
+                  __html: jsxGenerator(card),
+                }}
+              />
+            ) : (
+              <div id="previewCard">Card</div>
+            )}
+          </div>
           {form ? (
             <div
               id="previewForm"
@@ -135,17 +147,19 @@ const PreviewPane = ({
           ) : (
             <div id="previewForm">form</div>
           )}
-          {button ? (
-            <div id="previewButton">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: jsxGenerator(button),
-                }}
-              />
-            </div>
-          ) : (
-            <div id="previewButton">Button</div>
-          )}
+          <div id="previewButtonContainer">
+            {button ? (
+              <div id="previewButton">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: jsxGenerator(button),
+                  }}
+                />
+              </div>
+            ) : (
+              <div id="previewButton">Button</div>
+            )}
+          </div>
         </main>
         {renderSaveButtons()}
       </div>

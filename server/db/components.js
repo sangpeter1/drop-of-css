@@ -93,6 +93,84 @@ const components = [
       },
     },
   },
+  {
+    type: "navbar",
+    name: "dropdown nav bar",
+    htmlText: `
+    <style>
+    .dropdownNav {
+      // width: 100%;
+      // height: 100%;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: primaryColor;
+      // display: flex;
+      // justify-content: space-between;
+    }
+    
+    #drop-li {
+      float: left;
+    }
+    
+    #drop-li a, .dropbtn {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 1.1rem;
+      text-decoration: none;
+    }
+    
+   #drop-li a:hover, .dropdown:hover .dropbtn {
+      background-color: tertiaryColor;
+    }
+    
+   #drop-li > .dropdown {
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdownNav .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+    
+    .dropdown-content a:hover {background-color: primaryColor; color: white;}
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    </style>
+    <body>
+    
+    <ul class="dropdownNav">
+      <li id="drop-li"><a href="#home">Home</a></li>
+      <li id="drop-li"><a href="#news">News</a></li>
+      <li class="dropdown" id="drop-li">
+        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+        <div class="dropdown-content">
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </div>
+      </li>
+    </ul>
+    
+    </body>
+    </html>
+  `,
+  },
 
   //FORMS
 
@@ -251,7 +329,7 @@ const components = [
     htmlText: `
     <div>
     <h1 style="
-        fontSize: 32px;
+        font-size: calc(32px + 1vw);
         color: primaryColor;
         font-weight: bold;
         text-align: center;
@@ -270,7 +348,7 @@ const components = [
     name: "text shadow",
     htmlText: `
     <h1 style="
-      fontSize: 32px;
+    font-size: calc(32px + 1vw);
       color: primaryColor;
       font-weight: bold;
       text-align: left;
@@ -294,8 +372,8 @@ const components = [
     name: "text uppercase",
     htmlText: `
       <h1 style="
-        fontSize: 32px;
-        color: primaryColor;
+      font-size: calc(32px + 1vw);
+      color: primaryColor;
         fontWeight: bold;
         textAlign: left;
         margin: 10px 0;
@@ -324,8 +402,8 @@ const components = [
     name: "neon style",
     htmlText: `
     <h1 style="
-      font-size: 32px;
-      color: primaryColor;
+    font-size: calc(32px + 1vw);
+    color: primaryColor;
       text-shadow:
         0 0 5px secondaryColor,
         0 0 20px secondaryColor,
@@ -351,9 +429,9 @@ const components = [
     name: "underline-style",
     htmlText: `
     <h1 style="
-      font-size: 32px;
-      color: primaryColor;
-      text-decoration: underline;
+    font-size: calc(32px + 1vw);
+    color: primaryColor;
+    text-decoration: underline;
     ">
       Your Website Title
     </h1>
@@ -369,7 +447,7 @@ const components = [
     name: "italic-style",
     htmlText: `
     <h1 style="
-      font-size: 32px;
+    font-size: calc(32px + 1vw);
       color: primaryColor;
       font-style: italic;
     ">
@@ -415,9 +493,14 @@ const components = [
     name: "outline-button",
     htmlText: `
     <button style="
-      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 7vw;
+      height: 3.5vh;
+      background-color: 0;
       color: primaryColor;
-      font-size: 16px;
+      font-size: calc(12px+.5vw);
       padding: 10px 20px;
       border: 2px solid primaryColor;
       border-radius: 5px;
@@ -519,19 +602,19 @@ const components = [
     },
   },
   {
-    // THIS IS BROKEN. IT DOES WEIRD SHIT TO THE MAIN NAV ON THE SCREEN
     type: "card",
-    name: "test card",
+    name: "product card",
     htmlText: `
     <style>
     .card {
-      min-height: 50vh;
-      width: 20vw;
+      min-height: 40vh;
+      max-height: 100%
+      max-width: 15vw;
       border: 2px solid primaryColor;
       background-color: bgColor;
       border-radius: 6px;
       padding: 4px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
       box-sizing: content-box;
       display: flex;
       flex-wrap: wrap;
@@ -554,25 +637,31 @@ const components = [
       flex-grow: 1;
       text-align: center;
       justify-content: center;
-      font-size: calc(8px+.5vw);
+      font-size: calc(8px + 0.5vw);
 
     }
     
-    .action-items{
+    .action-items {
       display: flex;
       justify-content: space-evenly;
+      align-items: center;
+      margin-top: .5rem;
 
     }
 
     .button {
-      font-size: calc(8px+.5vw);
+      font-size: calc(4px + 0.5vw);
       justify-content: space-evenly;
       align-items: center;
-      background-color: secondaryColor;
+      background-color: tertiaryColor;
+      border: 1px solid secondaryColor;
       color: white;
       padding: 4px;
       margin: 4px;
       border-radius: 5px;
+    }
+    .button:hover{
+      background-color: bgColor;
     }
     
     </style>
@@ -580,7 +669,7 @@ const components = [
     <div class="card"> 
     <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png"></img>
 
-    <div class="cardcontent">Here's some fun text about whatever item you're putting in here. 
+    <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
     <div class="action-items">
        <div class="button">Learn More!</div>
        <div class="button">Add to Cart!</div>
@@ -592,8 +681,393 @@ const components = [
     `,
   },
   {
+    type: "card",
+    name: "product card two",
+    htmlText: `
+      <style>
+        .card {
+          min-height: 40vh;
+          max-height: 100%;
+          max-width: 15vw;
+          border: 2px solid secondaryColor;
+          background-image: linear-gradient(to right, secondaryColor, tertiaryColor);
+          border-radius: 6px;
+          padding: 4px;
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+          box-sizing: border-box;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+  
+        .card > img {
+          max-height: 30vh;
+          max-width: 100%;
+          aspect-ratio: 1/1;
+          flex: 1 1 100%;
+          flex-wrap: wrap;
+          justify-content: center;
+          box-shadow: 1px 1px 1rem bgColor;
+          margin: 1rem 0.5rem;
+        }
+  
+        .cardcontent {
+          flex-grow: 1;
+          text-align: center;
+          justify-content: center;
+          font-size: calc(12px + 0.5vw);
+        }
+  
+        .action-items {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          margin-top: .5rem;
+        }
+  
+        .button {
+          font-size: calc(8px + 0.5vw);
+          justify-content: space-evenly;
+          align-items: center;
+          background-color: 0;
+          border: 1px solid secondaryColor;
+          color: white;
+          padding: 4px;
+          margin: 4px;
+          border-radius: 5px;
+        }
+      </style>
+  
+      <div class="card">
+        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
+  
+        <div class="cardcontent">
+          Here's some fun text about whatever item you're putting in here!
+          <div class="action-items">
+            <div class="button">Learn More!</div>
+            <div class="button">Add to Cart!</div>
+            <div class="button">&#x2665;</div>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+  {
+    type: "card",
+    name: "product card three",
+    htmlText: `
+      <style>
+        .card {
+          min-height: 40vh;
+          max-height: 100%;
+          max-width: 15vw;
+          border: 2px solid secondaryColor;
+          background-image: linear-gradient(45deg, secondaryColor, tertiaryColor);
+          border-radius: 6px;
+          padding: 4px;
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+          box-sizing: border-box;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+    
+        .card > img {
+          max-height: 30vh;
+          max-width: 100%;
+          aspect-ratio: 1/1;
+          flex: 1 1 100%;
+          flex-wrap: wrap;
+          justify-content: center;
+          box-shadow: 1px 1px 1rem bgColor;
+          margin: 1rem 0.5rem;
+        }
+    
+        .cardcontent {
+          flex-grow: 1;
+          text-align: center;
+          justify-content: center;
+          font-size: calc(12px + 0.5vw);
+        }
+    
+        .action-items {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          margin-top: .5rem;
+        }
+    
+        .button {
+          font-size: calc(8px + 0.5vw);
+          justify-content: space-evenly;
+          align-items: center;
+          background-color: tertiaryColor;
+          border: 1px solid secondaryColor;
+          color: white;
+          padding: 4px;
+          margin: 4px;
+          border-radius: 5px;
+        }
+        .button:hover{
+          background-color: bgColor;
+        }
+      </style>
+    
+      <div class="card">
+        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
+    
+        <div class="cardcontent">
+          Here's some fun text about whatever item you're putting in here!
+          <div class="action-items">
+            <div class="button">Learn More!</div>
+            <div class="button">Add to Cart!</div>
+            <div class="button">&#x2665;</div>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+  {
+    type: "card",
+    name: "product card four",
+    htmlText: `
+      <style>
+        .card {
+          min-height: 40vh;
+          max-height: 100%;
+          max-width: 15vw;
+          border: 2px solid secondaryColor;
+          background-image: linear-gradient(235deg, secondaryColor, tertiaryColor);
+          border-radius: 6px;
+          padding: 4px;
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+          box-sizing: border-box;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+  
+        .card > img {
+          max-height: 30vh;
+          max-width: 100%;
+          aspect-ratio: 1/1;
+          flex: 1 1 100%;
+          flex-wrap: wrap;
+          justify-content: center;
+          box-shadow: 1px 1px 1rem bgColor;
+          margin: 1rem 0.5rem;
+        }
+  
+        .cardcontent {
+          flex-grow: 1;
+          text-align: center;
+          justify-content: center;
+          font-size: calc(12px + 0.5vw);
+        }
+  
+        .action-items {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          margin-top: .5rem;
+    
+        }
+    
+        .button {
+          font-size: calc(4px + 0.5vw);
+          justify-content: space-evenly;
+          align-items: center;
+          background-color: tertiaryColor;
+          border: 1px solid secondaryColor;
+          color: white;
+          padding: 4px;
+          margin: 4px;
+          border-radius: 5px;
+        }
+        .button:hover{
+          background-color: 0;
+        }
+        
+      </style>
+  
+      <div class="card">
+        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
+  
+        <div class="cardcontent">
+          Here's some fun text about whatever item you're putting in here!
+          <div class="action-items">
+            <div class="button">Learn More!</div>
+            <div class="button">Add to Cart!</div>
+            <div class="button">&#x2665;</div>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+  {
+    type: "card",
+    name: "shopping card",
+    htmlText: `
+      <style>
+        .card {
+          box-sizing: border-box;
+          min-height: 30vh;
+          max-height: 100%;
+          max-width: 20vw;
+          border: 2px solid secondaryColor;
+          background-color: bgColor;
+          border-radius: 10px;
+          padding: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          text-align: center;
+        }
+  
+        .card > img {
+          max-height: 50%;
+          max-width: 100%;
+          object-fit: cover;
+          border-radius: 10px;
+        }
+  
+        .card-content {
+          flex-grow: 1;
+          padding: 8px;
+          color: secondaryColor;
+        }
+  
+        .card-title {
+          font-size: calc(14px + 0.5vw);
+          font-weight: bold;
+          margin-bottom: 4px;
+        }
+  
+        .card-description {
+          font-size: calc(8px + 0.5vw);
+          margin-bottom: 8px;
+        }
+  
+        .card-price {
+          font-size: calc(10px + 0.5vw);
+          font-weight: bold;
+        }
+  
+        .button {
+          box-sizing: border-box;
+
+          font-size: 14px;
+          background-color: tertiaryColor;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          padding: 8px 16px;
+          cursor: pointer;
+        }
+        .button:hover{
+          box-sizing: border-box;
+          padding: 6.5px 16px;
+          background-color: bgColor;
+          border: 2px solid tertiaryColor
+        }
+      </style>
+  
+      <div class="card">
+      <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
+      <div class="card-content">
+          <h2 class="card-title">Product Title</h2>
+          <p class="card-description">Product description goes here.</p>
+          <p class="card-price">$19.99</p>
+        </div>
+        <button class="button">Add to Cart</button>
+      </div>
+    `,
+  },
+  {
+    type: "card",
+    name: "Shopping Card 2",
+    htmlText: `
+      <style>
+        .card {
+          min-height: 30vh;
+          max-height: 100%;
+          max-width: 20vw;
+          border: 2px solid secondaryColor;
+          background-color: bgColor;
+          border-radius: 10px;
+          padding: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          text-align: center;
+          transition: transform 0.3s ease;
+        }
+  
+        .card:hover {
+          transform: scale(1.01);
+        }
+  
+        .card > img {
+          max-height: 50%;
+          max-width: 100%;
+          object-fit: cover;
+          border-radius: 10px;
+        }
+  
+        .card-content {
+          flex-grow: 1;
+          padding: 8px;
+          color: secondaryColor;
+        }
+  
+        .card-title {
+          font-size: calc(14px + 0.5vw);
+          font-weight: bold;
+          margin-bottom: 4px;
+        }
+  
+        .card-description {
+          font-size: calc(8px + 0.5vw);
+          margin-bottom: 8px;
+        }
+  
+        .card-price {
+          font-size: calc(10px + 0.5vw);
+          font-weight: bold;
+        }
+  
+        .button {
+          font-size: 14px;
+          background-color: tertiaryColor;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          padding: 8px 16px;
+          cursor: pointer;
+        }
+      </style>
+  
+      <div class="card">
+      <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
+        <div class="card-content">
+          <h2 class="card-title">Product Title</h2>
+          <p class="card-description">Product description goes here. And look, this card grows on hover.</p>
+          <p class="card-price">$19.99</p>
+        </div>
+        <button class="button">Add to Cart</button>
+      </div>
+    `,
+  },
+
+  {
     type: "sideNav",
-    name: "test sidenav",
+    name: "Side Nav",
     htmlText: `
     <style>
     .sidebar {
@@ -620,6 +1094,207 @@ const components = [
   <a href="#contact">Contact</a>
   <a href="#about">About</a>
 </div>
+    `,
+  },
+  {
+    type: "sideNav",
+    name: "SideNav 2",
+    htmlText: `
+      <style>
+        @media screen and (max-width: 900px) {
+          .sidebar {
+            display: none;
+          }
+        }
+  
+        .sidebar {
+          margin: 0;
+          padding: 0;
+          min-width: 10vw;
+          max-width: 100%;
+          background-color: bgColor;
+          height: 100%;
+          overflow: auto;
+          border: 2px solid primaryColor;
+        }
+  
+        /* Sidebar links */
+        .sidebar a {
+          display: block;
+          color: black;
+          padding: 16px;
+          text-decoration: none;
+          transition: background-color 0.3s ease;
+        }
+  
+        .sidebar a:hover {
+          background-color: secondaryColor;
+          color: white;
+        }
+      </style>
+  
+      <div class="sidebar">
+        <a class="active" href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+      </div>
+    `,
+  },
+  {
+    type: "sideNav",
+    name: "Side Nav 3",
+    htmlText: `
+      <style>
+        @media screen and (max-width: 900px) {
+          .sidebar {
+            display: none;
+          }
+        }
+  
+        .sidebar {
+          width: 200px;
+          background-color: bgColor;
+          height: 100%;
+          overflow: auto;
+          border-right: 2px solid primaryColor;
+          padding-top: 20px;
+        }
+  
+        .sidebar a {
+          display: block;
+          color: secondaryColor;
+          border-bottom: 2px solid bgColor;
+          padding: .3rem .7rem;
+
+          text-decoration: none;
+          transition: background-color 0.3s ease;
+        }
+  
+        .sidebar a:hover {
+          background-color: tertiaryColor;
+          border-bottom: 2px solid secondaryColor;
+          color: white;
+        }
+      </style>
+  
+      <div class="sidebar">
+      <a class="active" href="#home">Home</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#blog">Blog</a>
+      <a href="#shop">Shop</a>
+      <a href="#events">Events</a>
+      <a href="#team">Team</a>
+      <a href="#faq">FAQ</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact-us">Contact Us</a>
+      </div>
+    `,
+  },
+  {
+    type: "sideNav",
+    name: "Dropdown SideNav",
+    htmlText: `
+      <style>
+        @media screen and (max-width: 900px) {
+          .sidebar {
+            display: none;
+          }
+        }
+  
+        .sidebar {
+          width: 200px;
+          background-color: bgColor;
+          height: 100%;
+          overflow: auto;
+          border-right: 2px solid primaryColor;
+          padding: 10px;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          position: relative;
+        }
+  
+        .sidebar a {
+          display: block;
+          color: secondaryColor;
+          padding: 10px;
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+  
+        .sidebar a:hover {
+          color: tertiaryColor;
+          background-color: bgColor;
+        }
+  
+        .sidebar a.active {
+          color: tertiaryColor;
+          background-color: secondaryColor;
+        }
+  
+        .sidebar .dropdown {
+          position: relative;
+        }
+  
+        .sidebar a.has-dropdown::after {
+          content: ' ▼';
+          margin-left: 5px;
+        }
+  
+        .sidebar a.has-dropdown:hover::after {
+          color: tertiaryColor;
+        }
+  
+        .sidebar .dropdown-content {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 100%;
+          margin-top: -1px;
+          min-width: 10vw;
+          background-color: bgColor;
+          border: 2px solid primaryColor;
+          z-index: 1;
+        }
+  
+        .sidebar .dropdown-content a {
+          display: block;
+          padding: 8px 16px;
+          color: black;
+          text-decoration: none;
+          transition: background-color 0.3s ease;
+        }
+  
+        .sidebar .dropdown-content a:hover {
+          background-color: secondaryColor;
+          color: tertiaryColor;
+        }
+  
+        .sidebar .dropdown:hover .dropdown-content {
+          display: block;
+        }
+      </style>
+  
+      <div class="sidebar">
+        <a class="active" href="#home">Home</a>
+        <a href="#news">News</a>
+        <div class="dropdown">
+          <a class="has-dropdown" href="#contact">Contact</a>
+          <div class="dropdown-content">
+            <a href="#">Sublink 1</a>
+            <a href="#">Sublink 2</a>
+          </div>
+        </div>
+        <a href="#about">About</a>
+        <a href="#blog">Blog</a>
+        <a href="#testimonials">Testimonials</a>
+      </div>
     `,
   },
 ];
