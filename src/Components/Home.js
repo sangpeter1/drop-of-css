@@ -72,3 +72,4 @@ export default Home;
 //   button,
 //   generatedColors
 // }
+
