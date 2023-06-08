@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { useSelect, useDispatch } from "react-redux";
-import { fetchColorPalette, updateColorPalette } from "../store";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, getState } from "react-redux";
+import {
+  deleteColor,
+  deleteColorPalette,
+  fetchColorPalette,
+  updateColorPalette,
+  updateColor,
+  reorderColorPalette,
+} from "../store";
 import ColorPicker from "./ColorPicker";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -23,6 +30,18 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+const getRandomHexCode = () => {
+  const characters = "0123456789ABCDEF";
+  let hexCode = "#";
+
+  for (let i = 0; i < 6; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    hexCode += characters[randomIndex];
+  }
+
+  return hexCode;
+};
+
 //reorder functions
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -32,18 +51,14 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-// const getItemStyle = (isDragging, draggableStyle) => ({
-//   ...draggableStyle,
-//   userSelect: "none",
-// });
-
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightgray" : "",
-  borderRadius: isDraggingOver ? ".5rem" : "",
+  // background: isDraggingOver ? "lightgray" : "",
+  // borderRadius: isDraggingOver ? ".5rem" : "",
 });
 
 const ColorGenForm = ({ openColorsInPreview }) => {
   const dispatch = useDispatch();
+  const { cpg } = useSelector((state) => state);
   const [format, setFormat] = useState("");
   const [hex, setHex] = useState("");
   const [mode, setMode] = useState("");
@@ -53,6 +68,11 @@ const ColorGenForm = ({ openColorsInPreview }) => {
   const [expanded, setExpanded] = useState(true);
   const [lockedColors, setLockedColors] = useState([]);
   const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    console.log(cpg, "in useEffect, every time cpg changes");
+    setColorPalette(cpg);
+  }, [cpg]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -74,9 +94,8 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     }
   }, []);
 */
-  const handleGenColors = (colorPalette) => {
-    // console.log("open in preview...", colorPalette);
-    openColorsInPreview(colorPalette);
+  const handleGenColors = (cpg) => {
+    openColorsInPreview(cpg);
   };
 
   const cpgModes = [
@@ -98,27 +117,39 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   const runCPG = async (ev) => {
     ev.preventDefault();
-    // const locked = lockedColors.filter((_color) => typeof _color === "object");
-    try {
-      const search = {
-        hex,
-        mode,
-      };
-      const updatedCount =
-        lockedColors.filter((_color) => typeof _color === "object").length > 0
-          ? 4 - lockedColors.filter((_color) => typeof _color === "object").length
-          : count;
-      search.count = updatedCount;
-      const response = await dispatch(fetchColorPalette(search));
-      const updatedColorPalette = [...lockedColors, ...response];
-      const trimmedPalette = trimColorPalette(updatedColorPalette);
-      await setColorPalette(trimmedPalette);
-      await handleGenColors(trimmedPalette);
-      //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
-    } catch (error) {
-      console.log(error);
+    if (cpg.length === 0) {
+      try {
+        const search = {
+          hex,
+          mode,
+          count,
+        };
+        // const response =
+        console.log("runCPG func", search);
+        dispatch(fetchColorPalette(search));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (cpg.length > 0) {
+      try {
+        const search = {
+          hex,
+          mode,
+        };
+        search.count =
+          lockedColors.filter((_color) => typeof _color === "object").length > 0
+            ? 4 - lockedColors.filter((_color) => typeof _color === "object").length
+            : count;
+        search.unlocked = colorPalette.filter((_color) => !lockedColors.includes(_color));
+        dispatch(updateColorPalette(search));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+  // await handleGenColors(trimmedPalette);
+  //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
 
   // works with color picker
   const handleColorChange = (newHex) => {
@@ -147,6 +178,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
 
   //new lock func
   const toggleColorLock = (index, color) => {
+    console.log("locked", color.name.value);
     setLockedColors((prevLockedColors) => {
       const colorIndex = prevLockedColors.indexOf(color);
       if (colorIndex >= 0) {
@@ -154,39 +186,41 @@ const ColorGenForm = ({ openColorsInPreview }) => {
         return prevLockedColors.filter((_color) => _color !== color);
       } else {
         // Color is not locked, so add it to lockedColors
-        // console.log("whatever this fucking thing is", [...prevLockedColors, color]);
         return [...prevLockedColors, color];
       }
     });
   };
 
-  //this needs work -- can't read hex. maybe needs an argument for if there's only one color
   const shuffleUnlockedColors = async () => {
     // const locked = lockedColors.filter((_color) => typeof _color === "object");
     try {
-      const unlocked = colorPalette.filter((_color) => !lockedColors.includes(_color));
-      const rgbVals = unlocked
-        .filter((_color) => _color.hsl.s > 20)
-        .map((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b)
-        .sort((a, b) => b - a);
-      const brightest = unlocked.find(
-        (_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b === rgbVals[0]
-      );
+      const unlocked = cpg.filter((_color) => !lockedColors.includes(_color));
+      const length = unlocked.length;
+      console.log(length);
+      let rgbVals =
+        unlocked
+          .filter((_color) => _color.hsl.s >= 10)
+          .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b > 200)
+          .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b < 500)
+          .sort((a, b) => b - a) || console.log("rgbVals", rgbVals);
 
-      const response = await dispatch(
-        updateColorPalette({
-          unlocked,
-          hex: brightest.hex.clean,
-          mode: randomMode,
-          count: unlocked.length,
-        })
-      );
+      if (rgbVals.length > 0) {
+        const hex = rgbVals[Math.floor(Math.random()) * rgbVals.length].hex.clean;
+      } else {
+        const hex = getRandomHexCode();
+      }
 
-      const updatedColorPalette = [...lockedColors, ...response];
-      const trimmedPalette = trimColorPalette(updatedColorPalette);
+      console.log("shuffle unlocked colors func unlocked colors", unlocked, hex);
 
-      setColorPalette(trimmedPalette);
-      handleGenColors(trimmedPalette);
+      const search = {
+        hex: hex,
+        mode: randomMode,
+        count: length,
+        unlocked: unlocked,
+      };
+
+      dispatch(updateColorPalette(search));
+
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
@@ -202,26 +236,29 @@ const ColorGenForm = ({ openColorsInPreview }) => {
       return;
     }
     try {
-      const response = await dispatch(
-        updateColorPalette({
+      const colorHex = color.hex.clean;
+      // const response = await dispatch(deleteColor({ color }));
+      //put the delete inside of the update function
+
+      const colorIndex = cpg.indexOf(color);
+      console.log("color's index", color, colorIndex);
+
+      dispatch(
+        updateColor({
           color,
-          hex: color.hex.clean,
+          colorIndex,
+          hex: colorHex,
           mode: randomMode,
           count: 1,
         })
       );
 
-      console.log("change one color", response);
-      const updatedColorPalette = colorPalette.map((_color) =>
-        _color === color ? response : _color
-      );
+      // const trimmedPalette = trimColorPalette(updatedColorPalette);
 
-      const trimmedPalette = trimColorPalette(updatedColorPalette);
-
-      await setColorPalette(trimmedPalette);
-      await handleGenColors(trimmedPalette);
+      // await setColorPalette(trimmedPalette);
+      // await handleGenColors(trimmedPalette);
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
-      console.log("newcp -- single color change", updatedColorPalette);
+      // console.log("newcp -- single color change", updatedColorPalette);
     } catch (error) {
       console.error(error);
     }
@@ -232,12 +269,13 @@ const ColorGenForm = ({ openColorsInPreview }) => {
     if (!result.destination) {
       return;
     }
-
-    const updatedItems = reorder(colorPalette, result.source.index, result.destination.index);
-
-    await setColorPalette(updatedItems);
-    await handleGenColors(updatedItems);
+    const reorderedItems = reorder(colorPalette, result.source.index, result.destination.index);
+    console.log("reordereditems", reorderedItems);
+    dispatch(reorderColorPalette(reorderedItems));
+    setColorPalette(reorderedItems);
   };
+
+  const colorClass = ["primary color", "secondary color", "tertiary color", "background color"];
 
   return (
     <>
@@ -376,7 +414,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                     cursor: "pointer",
                   },
                 }}
-                onClick={() => setColorPalette([])}
+                onClick={() => dispatch(deleteColorPalette(cpg))}
               >
                 <DeleteOutlineIcon />
                 <span
@@ -397,7 +435,7 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                     <div
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      style={getListStyle(snapshot.isDraggingOver)}
+                      // style={getListStyle(snapshot.isDraggingOver)}
                     >
                       {colorPalette.map((color, index) => {
                         const uniqueKey = `color-${index}`;
@@ -405,76 +443,89 @@ const ColorGenForm = ({ openColorsInPreview }) => {
                           <LockIcon
                             sx={{
                               fontSize: "calc(10px + .5vw)",
-                              color: color.hsl.l < 65 ? "white" : "black",
+                              color: color.contrast.value,
                             }}
                           />
                         ) : (
                           <LockOpenIcon
                             sx={{
                               fontSize: "calc(10px + .5vw)",
-                              color: color.hsl.l < 65 ? "white" : "black",
+                              color: color.contrast.value,
                             }}
                           />
                         );
                         return (
-                          <Draggable key={uniqueKey} draggableId={uniqueKey} index={index}>
-                            {(provided, snapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                {/* content */}
+                          <>
+                            <div
+                              key={`colorClass-${index}`}
+                              style={{
+                                fontStyle: "italic",
+                                fontStretch: "expanded",
+                                fontSize: "calc(5px + .5vw)",
+                              }}
+                            >
+                              {colorClass[index]}:
+                            </div>
+                            <Draggable key={uniqueKey} draggableId={uniqueKey} index={index}>
+                              {(provided, snapshot) => (
                                 <div
-                                  className="cpg-color"
-                                  id={uniqueKey}
-                                  key={uniqueKey}
-                                  style={{
-                                    display: "flex",
-                                    margin: "2px",
-                                    backgroundColor: color.hex.value,
-                                    alignItems: "center",
-                                    textAlign: "left",
-                                    height: `calc(28vh / ${colorPalette.length})`,
-                                  }}
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
                                 >
-                                  <div
-                                    style={{
-                                      paddingLeft: "1vw",
-                                      color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
-                                      flexGrow: 1,
-                                      fontSize: "calc(8px + .5vw)",
-                                    }}
-                                  >
-                                    {color.name.value} {color.hex.value}
-                                  </div>
+                                  {/* content */}
 
                                   <div
-                                    className="pointer-on-hover"
+                                    className="cpg-color"
+                                    id={uniqueKey}
+                                    key={uniqueKey}
                                     style={{
-                                      marginLeft: "auto",
-                                      marginRight: "1vw",
-                                      fontSize: "calc(8px + .5vw)",
+                                      display: "flex",
+                                      margin: "2px",
+                                      backgroundColor: color.hex.value,
+                                      alignItems: "center",
+                                      textAlign: "left",
+                                      height: `calc(28vh / ${colorPalette.length})`,
                                     }}
                                   >
-                                    <ShuffleIcon
+                                    <div
                                       style={{
-                                        color: color.hsl.l < 65 ? "white" : "black",
-                                        marginRight: "1vw",
-                                        fontSize: "calc(10px + .5vw)",
+                                        paddingLeft: "1vw",
+                                        color: color.hsl.l < 50 ? "#FCFCFC" : "#000000",
+                                        flexGrow: 1,
+                                        fontSize: "calc(8px + .5vw)",
                                       }}
-                                      //regen is broken
-                                      onClick={() => regenColor(color)}
-                                    />
-                                    <span onClick={() => toggleColorLock(index, color)}>
-                                      {isLocked}
-                                    </span>
+                                    >
+                                      {color.name.value} {color.hex.value}
+                                    </div>
+
+                                    <div
+                                      className="pointer-on-hover"
+                                      style={{
+                                        marginLeft: "auto",
+                                        marginRight: "1vw",
+                                        fontSize: "calc(8px + .5vw)",
+                                      }}
+                                    >
+                                      <ShuffleIcon
+                                        style={{
+                                          color: color.hsl.l < 65 ? "white" : "black",
+                                          marginRight: "1vw",
+                                          fontSize: "calc(10px + .5vw)",
+                                        }}
+                                        //regen is broken
+                                        onClick={() => regenColor(color)}
+                                      />
+                                      <span onClick={() => toggleColorLock(index, color)}>
+                                        {isLocked}
+                                      </span>
+                                    </div>
                                   </div>
+                                  {/* content end */}
                                 </div>
-                                {/* content end */}
-                              </div>
-                            )}
-                          </Draggable>
+                              )}
+                            </Draggable>
+                          </>
                         );
                       })}
                       {provided.placeholder}
@@ -487,12 +538,13 @@ const ColorGenForm = ({ openColorsInPreview }) => {
             </div>
           </>
         ) : (
-          <div
-            id="cpg-container"
-            style={{ height: "2rem", fontStyle: "italic", fontSize: "calc(8px + .5vw)" }}
-          >
-            select a color, please!
-          </div>
+          // <div
+          //   id="cpg-container"
+          //   style={{ height: "2rem", fontStyle: "italic", fontSize: "calc(8px + .5vw)" }}
+          // >
+          //   select a color, please!
+          // </div>
+          <></>
         )}
       </div>
     </>

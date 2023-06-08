@@ -2,14 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 
-const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, generatedColors }) => {
- 
-  const { auth } = useSelector((state) => state);
+const PreviewPane = ({
+  form,
+  nav,
+  title,
+  sideNav,
+  card,
+  button /*accordion, generatedColors*/,
+}) => {
+  const { components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchComponents());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchComponents());
+  // }, []);
 
   const [colors, setColors] = useState("");
 
@@ -76,11 +82,12 @@ const PreviewPane = ({ form, nav, title, sideNav, card, button, accordion, gener
         )}
         {nav ? (
           <div id="previewNav">
-            <div
+            {/* <div
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(nav),
               }}
-            />
+            /> */}
+            <Navbar />
           </div>
         ) : (
           <nav id="previewNav">Preview Nav</nav>

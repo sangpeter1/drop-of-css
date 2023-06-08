@@ -5,43 +5,47 @@ import DOMPurify from "dompurify";
 
 const sanitizer = DOMPurify.sanitize;
 
-const Components = ({ openInPreview, generatedColors }) => {
-  const { components } = useSelector((state) => state);
-  const [colors, setColors] = useState([]);
-  const [latestGeneratedColors, setLatestGeneratedColors] = useState([]);
+const Components = ({ openInPreview }) => {
+  const { components, cpg } = useSelector((state) => state);
+  // const [latestGeneratedColors, setLatestGeneratedColors] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchComponents());
   }, []);
 
+  if (!components) {
+    return null;
+  }
+
   //useEffect checks for changes in colors
-  useEffect(() => {
-    const updateColors = async () => {
-      try {
-        let updatedColors = { ...colors };
-        updatedColors.primaryColor = generatedColors?.[0] || "";
-        updatedColors.secondaryColor = generatedColors?.[1] || "";
-        updatedColors.tertiaryColor = generatedColors?.[2] || "";
-        updatedColors.bgColor = generatedColors?.[3] || "";
-        setColors(updatedColors);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    updateColors();
-    console.log("after update colors", colors);
-  }, [generatedColors, latestGeneratedColors]);
+  // useEffect(() => {
+  //   const updateColors = async () => {
+  //     try {
+  //       let updatedColors = { ...colors };
+  //       updatedColors.primaryColor = generatedColors?.[0] || "";
+  //       updatedColors.secondaryColor = generatedColors?.[1] || "";
+  //       updatedColors.tertiaryColor = generatedColors?.[2] || "";
+  //       updatedColors.bgColor = generatedColors?.[3] || "";
+  //       setColors(updatedColors);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   updateColors();
+  //   console.log("after update colors", colors);
+  // }, [generatedColors, latestGeneratedColors]);
 
   // Use the latestGeneratedColors in a separate useEffect
-  useEffect(() => {
-    console.log("latest generated colors", latestGeneratedColors);
-  }, [latestGeneratedColors]);
+  // useEffect(() => {
+  //   console.log("component page -- latest generated colors", latestGeneratedColors);
+  // }, [latestGeneratedColors]);
 
-  // Update the latestGeneratedColors whenever generatedColors changes
   useEffect(() => {
-    setLatestGeneratedColors(generatedColors);
-  }, [generatedColors]);
+    console.log("Components useEffect", cpg);
+  }, [cpg]);
+
+  console.log("Components OUTSIDE useEffect", cpg);
 
   const handleOpenInPreview = async (component) => {
     try {
@@ -49,7 +53,7 @@ const Components = ({ openInPreview, generatedColors }) => {
         const colorsOnComponents = await dispatch(
           setColorsOnComponents({
             component,
-            colors,
+            cpg,
           })
         );
         openInPreview(colorsOnComponents);
@@ -60,6 +64,7 @@ const Components = ({ openInPreview, generatedColors }) => {
   };
 
   const componentTypes = [...new Set(components.map((component) => component.type))];
+  console.log("component types", componentTypes);
 
   return (
     <div className="componentlist">

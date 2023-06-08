@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PreviewPane from "./PreviewPane";
 import Components from "./Components";
 import ColorGenForm from "./ColorGenForm";
+import UserNavBar from "./UserNavBar";
 
 const Home = () => {
   const [form, setForm] = useState(null);
@@ -55,6 +56,7 @@ const Home = () => {
             button={button}
             generatedColors={generatedColors}
           />
+          <UserNavBar />
         </div>
       </div>
     </div>
