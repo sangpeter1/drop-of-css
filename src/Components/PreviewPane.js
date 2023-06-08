@@ -33,6 +33,7 @@ const PreviewPane = ({
       htmlText: jsxGenerator(componentType),
       userId: userId,
     };
+    console.log('SAVE COMP FUNCTION', componentData);
     dispatch(createTemplate(componentData));
   };
 
