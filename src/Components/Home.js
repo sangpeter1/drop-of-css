@@ -64,3 +64,14 @@ const Home = () => {
 };
 
 export default Home;
+
+// module.exports = {
+//   form,
+//   nav,
+//   title,
+//   sideNav,
+//   card,
+//   button,
+//   generatedColors
+// }
+

@@ -43,6 +43,10 @@ const User = conn.define("user", {
       }
     }*/
   },
+    isOAuthUser: {
+      type: BOOLEAN,
+      defaultValue: false,
+  },
 });
 
 User.addHook("beforeSave", async (user) => {
@@ -106,7 +110,8 @@ User.authenticateGithub = async function(code){
     });
     if(!user){
       user = await User.create({
-        username: login
+        username: login,
+        isOAuthUser: true
       });
     }
     return user.generateToken();

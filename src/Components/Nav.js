@@ -88,6 +88,10 @@ const Nav = () => {
           </div>
           <div>
             {!auth.id && (
+            <div>
+              <Link to="/" style={{ color: "white", textDecoration: "none", margin: ".5rem" }}>
+                  Home
+              </Link>
               <Link
                 style={{
                   color: "white",
@@ -98,6 +102,7 @@ const Nav = () => {
               >
                 Login
               </Link>
+            </div>
             )}
           </div>
         </div>
