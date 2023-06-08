@@ -27,6 +27,7 @@ export const createTemplate = (template) => {
     const updatedTemplate = { userId, htmlText };
     try {
       const response = await axios.post("/api/templates", updatedTemplate);
+      console.log(response);
       dispatch({ type: "CREATE_TEMPLATE", template: response.data });
     } catch (error) {
       console.error("Error creating template:", error);

@@ -20,12 +20,11 @@ app.get("/", async (req, res, next) => {
 
 app.post("/",  async (req, res, next) => {
   try {
-    const response = await Template.create({
+    const template = await Template.create({
       userId: req.body.userId,
       htmlText: req.body.htmlText
     });
-
-    res.status(200).send(response.data);
+    res.status(200).send(template.dataValues);
   } catch (err) {
     next(err);
   }
@@ -33,12 +32,10 @@ app.post("/",  async (req, res, next) => {
 
 app.put("/:templateId", async (req, res, next) => {
   try {
-    const template = await Template.findByPk(req.params.id);
-
-    const response = await template.update( {
-      htmlText: req.body
-    },);
-
+    const template = await Template.findByPk(req.params.templateId);
+    await template.update({
+      htmlText: req.body.htmlText
+    });
     res.sendStatus(200);
   } catch (err) {
     next(err);
@@ -47,11 +44,9 @@ app.put("/:templateId", async (req, res, next) => {
 
 app.delete("/:templateId", async (req, res, next) => {
   try {
-    const template = await Template.findByPk(req.params.id);
-
-    template.destroy();
+    const template = await Template.findByPk(req.params.templateId);
+    await template.destroy();
     res.sendStatus(200);
-
   } catch (err) {
     next(err);
   }

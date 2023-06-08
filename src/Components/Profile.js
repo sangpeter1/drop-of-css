@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FaUser, FaEnvelope } from 'react-icons/fa';
+import TemplateList from './TemplateList';
 import UserUpdate from './UserUpdate';
 
 
 const Profile = () => {
   
   const { auth } = useSelector((state) => state);
+  
+   if (!auth.id) {
+    return <p>Please log in to view your profile.</p>;
+  }
 
   return (
     <div>
@@ -31,7 +36,7 @@ const Profile = () => {
           <UserUpdate />
         </div>
         <div>
-          <h4 className="header" >My Templates</h4>
+          <TemplateList />
         </div>
       </div>
     </div>
