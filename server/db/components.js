@@ -333,19 +333,36 @@ const components = [
     type: "title",
     name: "jdb test title",
     htmlText: `
-    <div>
-    <h1 style="
-        font-size: calc(32px + 1vw);
+    <style>
+    .title-header{
+      display: flex;
+
+      float: left;
         color: primaryColor;
         font-weight: bold;
-        text-align: center;
-        margin: 20px 0;
-        underline: secondaryColor;
-        box-shadow: 2rem 2rem 2rem tertiaryColor;
-       "
-      >
-    Your Website Title
-  </h1>
+        text-align: left;
+        margin: 2px;
+        flex-grow: 1;
+        flex-direction: column;
+    }
+    .title-header > h1{
+      margin: 1px;
+      padding: 1px;
+      font-size: calc(22px + 0.5vw);
+      display:block;
+    }
+    .title-header > h2{
+      margin: 0px;
+      padding: 0px;
+      font-size: calc(8px + 0.5vw);
+      display:block;
+
+    }
+    </style>
+
+    <div class="title-header">
+    <h1>Your Website Title</h1>
+    <h2>Your Website Subtitle</h2>
   <div>
   `,
   },
@@ -353,31 +370,27 @@ const components = [
     type: "title",
     name: "text shadow",
     htmlText: `
-    <h1 style="
-    font-size: calc(32px + 1vw);
+    <style>
+    .title-header{
+      font-size: calc(32px + 1vw);
       color: primaryColor;
       font-weight: bold;
       text-align: left;
       margin: 10px 0;
       text-shadow: 2px 2px 4px secondaryColor;
-    ">
+    }
+    </style >
+    <h1 class="title-header">
       Your Website Title
     </h1>
   `,
-    htmlStyle: {
-      fontSize: "32px",
-      color: `${primaryColor}`,
-      fontWeight: "bold",
-      textAlign: "left",
-      margin: "10px 0",
-      textShadow: `2px 2px 4px ${secondaryColor}`,
-    },
   },
   {
     type: "title",
     name: "text uppercase",
     htmlText: `
-      <h1 style="
+    <style>
+    .title-header{
       font-size: calc(32px + 1vw);
       color: primaryColor;
         fontWeight: bold;
@@ -385,86 +398,119 @@ const components = [
         margin: 10px 0;
         textShadow: 2px 2px secondaryColor;
         text-transform: uppercase;
-      ">
-        Your Website Title
-      </h1>`,
-    htmlStyle: {
-      backgroundColor: bgColor,
-      boxSizing: "border-box",
-      gridRow: 1,
-      gridColumn: "1 / 3",
-      fontSize: "32px",
-      color: `${primaryColor}`,
-      fontWeight: "bold",
-      textAlign: "right",
-      margin: "20px 0",
-      textTransform: "uppercase",
-      letterSpacing: "2px",
-      textDecoration: `underline + ${secondaryColor}`,
-    },
+    }
+    </style >
+    <h1 class="title-header">
+      Your Website Title
+    </h1>
+  `,
   },
   {
     type: "title",
     name: "neon style",
     htmlText: `
-    <h1 style="
-    font-size: calc(32px + 1vw);
-    color: primaryColor;
-      text-shadow:
-        0 0 5px secondaryColor,
-        0 0 20px secondaryColor,
-        0 0 40px secondaryColor,
-        0 0 80px secondaryColor;
-    ">
+    <style>
+    .title-header{
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      font-size: calc(32px + 1vw);
+      color: primaryColor;
+        text-shadow:
+          0 0 5px secondaryColor,
+          0 0 20px secondaryColor,
+          0 0 40px secondaryColor,
+          0 0 80px secondaryColor;
+    }
+    </style >
+    <h1 class="title-header">
       Your Website Title
     </h1>
   `,
-    htmlStyle: {
-      fontSize: "32px",
-      color: `${primaryColor}`,
-      textShadow: `
-        0 0 5px ${secondaryColor},
-        0 0 20px ${secondaryColor},
-        0 0 40px ${secondaryColor},
-        0 0 80px ${secondaryColor}
-      `,
-    },
   },
   {
     type: "title",
     name: "underline-style",
     htmlText: `
-    <h1 style="
-    font-size: calc(32px + 1vw);
-    color: primaryColor;
-    text-decoration: underline;
-    ">
+    <style>
+    .title-header{
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      font-size: calc(32px + 1vw);
+      color: primaryColor;
+      text-decoration: underline;
+    }
+    </style >
+    <h1 class="title-header">
       Your Website Title
     </h1>
   `,
-    htmlStyle: {
-      fontSize: "32px",
-      color: `${primaryColor}`,
-      textDecoration: "underline",
-    },
   },
   {
     type: "title",
     name: "italic-style",
     htmlText: `
-    <h1 style="
-    font-size: calc(32px + 1vw);
-      color: primaryColor;
-      font-style: italic;
-    ">
+    <style>
+    .title-header{
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      font-size: calc(32px + 1vw);
+        color: primaryColor;
+        font-style: italic;
+    }
+    </style >
+    <h1 class="title-header">
       Your Website Title
     </h1>
   `,
-    htmlStyle: {
-      fontSize: "32px",
-      color: `${primaryColor}`,
-      fontStyle: "italic",
-    },
+  },
+  {
+    type: "title",
+    name: "border-top",
+    htmlText: `
+    <style>
+    .title-header{
+      border-top: 4px solid secondaryColor;
+      height: 100%;
+      
+      margin: 0;
+      padding-left: 2rem;
+      font-size: calc(22px + 1vw);
+      text-align: left;
+      color: primaryColor;
+      font-variant-caps: all-small-caps;
+    }
+    </style >
+    <h1 class="title-header">
+      Your Website Title
+    </h1>
+  `,
+  },
+  {
+    type: "title",
+    name: "border-gradiant",
+    htmlText: `
+    <style>
+    .title-header{
+      border-bottom: 6px solid;
+      border-image: linear-gradient(to right, bgColor, secondaryColor) 1;
+
+      height: 100%;
+      
+      margin: 0;
+      padding-left: 2rem;
+      font-size: calc(22px + 1vw);
+      text-align: left;
+      color: primaryColor;
+      font-variant-caps: all-small-caps;
+    }
+    </style >
+    <h1 class="title-header">
+      Your Website Title
+    </h1>
+  `,
   },
 
   //BUTTONS
@@ -613,9 +659,10 @@ const components = [
     htmlText: `
     <style>
     .card {
-      min-height: 40vh;
-      max-height: 100%
-      max-width: 15vw;
+      aspect-ratio: 9/16;
+          min-height: 35vh;
+          max-height: 100%;
+          max-width: 20vw;
       border: 2px solid primaryColor;
       background-color: bgColor;
       border-radius: 6px;
@@ -668,8 +715,15 @@ const components = [
     }
     .button:hover{
       background-color: bgColor;
+      cursor: pointer;
     }
     
+          @media screen and (max-width: 768px) {
+        .card{
+          aspect-ratio: 9/16;
+        min-height: 50vh;
+        min-width: 40vw;
+      }
     </style>
 
     <div class="card"> 
@@ -692,9 +746,10 @@ const components = [
     htmlText: `
       <style>
         .card {
-          min-height: 40vh;
+          aspect-ratio: 9/16;
+          min-height: 35vh;
           max-height: 100%;
-          max-width: 15vw;
+          max-width: 25vw;
           border: 2px solid primaryColor;
           background-image: linear-gradient(to right, secondaryColor, tertiaryColor);
           border-radius: 6px;
@@ -742,6 +797,13 @@ const components = [
           margin: 4px;
           border-radius: 5px;
         }
+
+              @media screen and (max-width: 768px) {
+        .card{
+          aspect-ratio: 9/16;
+        min-height: 50vh;
+        min-width: 40vw;
+      }
       </style>
   
       <div class="card">
@@ -764,9 +826,10 @@ const components = [
     htmlText: `
       <style>
         .card {
-          min-height: 40vh;
+          aspect-ratio: 9/16;
+          min-height: 30vh;
           max-height: 100%;
-          max-width: 15vw;
+          max-width: 20vw;
           border: 2px solid primaryColor;
           background-image: linear-gradient(45deg, secondaryColor, tertiaryColor);
           border-radius: 6px;
@@ -816,7 +879,15 @@ const components = [
         }
         .button:hover{
           background-color: bgColor;
+          cursor: pointer;
         }
+      @media screen and (max-width: 768px) {
+        .card{
+          aspect-ratio: 9/16;
+        min-height: 50vh;
+        min-width: 40vw;
+      }
+      
       </style>
     
       <div class="card">
@@ -839,9 +910,10 @@ const components = [
     htmlText: `
       <style>
         .card {
-          min-height: 40vh;
+          aspect-ratio: 9/16;
+          min-height: 30vh;
           max-height: 100%;
-          max-width: 15vw;
+          max-width: 20vw;
           border: 2px solid primaryColor;
           background-image: linear-gradient(235deg, secondaryColor, tertiaryColor);
           border-radius: 6px;
@@ -892,7 +964,14 @@ const components = [
         }
         .button:hover{
           background-color: 0;
+          cursor: pointer;
         }
+              @media screen and (max-width: 768px) {
+        .card{
+          aspect-ratio: 9/16;
+        min-height: 50vh;
+        min-width: 40vw;
+      }
         
       </style>
   
@@ -917,11 +996,12 @@ const components = [
       <style>
         .card {
           box-sizing: border-box;
+          aspect-ratio: 9/16;
           min-height: 30vh;
           max-height: 100%;
           max-width: 20vw;
           border: 2px solid primaryColor;
-          background-color: bgColor;
+          background-color: bgColor26;
           border-radius: 10px;
           padding: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -974,11 +1054,28 @@ const components = [
           cursor: pointer;
         }
         .button:hover{
+          cursor: pointer;
+
           box-sizing: border-box;
           padding: 6.5px 16px;
           background-color: bgColor;
           border: 2px solid tertiaryColor
         }
+              @media screen and (max-width: 768px) {
+        .card{
+          aspect-ratio: 9/16;
+        min-height: 50vh;
+        min-width: 40vw;
+      }
+
+      @media screen and (max-width: 768px) {
+        .card{
+          aspect-ratio: 9/16;
+        min-height: 50vh;
+        min-width: 40vw;
+      }
+    }    
+
       </style>
   
       <div class="card">
@@ -998,7 +1095,8 @@ const components = [
     htmlText: `
       <style>
         .card {
-          min-height: 30vh;
+          aspect-ratio: 9/16;
+          min-height: 35vh;
           max-height: 100%;
           max-width: 20vw;
           border: 2px solid primaryColor;
@@ -1057,6 +1155,14 @@ const components = [
           padding: 8px 16px;
           cursor: pointer;
         }
+        @media screen and (max-width: 768px) {
+          .card{
+            aspect-ratio: 9/16;
+          min-height: 50vh;
+          min-width: 40vw;
+        }
+      }    
+  
       </style>
   
       <div class="card">
@@ -1069,6 +1175,93 @@ const components = [
         <button class="button">Add to Cart</button>
       </div>
     `,
+  },
+  {
+    type: "card",
+    name: "Photo Card 1",
+
+    htmlText: `
+      <style>
+
+      main > #previewCardContainer{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        aspect-ratio: 1/1;
+      }
+  .card {
+
+    grid-gap: 0.5vw;
+    justify-items: center;
+    aspect-ratio: 1/1;
+    min-width: 25vw;
+    max-width: 100%;
+    min-height: 0;
+    border: 2px solid primaryColor;
+    background-color: white;
+    border-radius: 2px;
+    padding: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.01);
+  }
+
+  .card > img {
+    aspect-ratio: 16/9
+    max-height: 80%;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .card-content {
+    flex-grow: 1;
+    padding: 4px;
+    color: secondaryColor;
+  }
+
+  .card-title {
+    font-size: calc(12px + 0.5vw);
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .card-description {
+    font-size: calc(8px + 0.5vw);
+    margin-bottom: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    main > #previewCardContainer{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      aspect-ratio: 1/1;
+    }
+    .card {
+      aspect-ratio: 1/1;
+      min-width: 50vw;
+      min-height: 0;
+    }
+  }
+</style>
+
+<div class="card">
+  <img src="https://www.moatrek.com/sites/default/files/styles/1200_x_630/public/2016-10/Nature-Cruise-Milford-Sound.jpg?itok=fT2KvZs6" />
+  <div class="card-content">
+    <h2 class="card-title">Location</h2>
+    <p class="card-description">Location description goes here. And look, this card grows on hover.</p>
+  </div>
+</div>`,
   },
 
   {
@@ -1159,7 +1352,6 @@ const components = [
         }
   
         .sidebar {
-          width: 200px;
           background-color: bgColor;
           height: 100%;
           overflow: auto;
