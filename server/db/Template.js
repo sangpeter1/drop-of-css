@@ -8,6 +8,9 @@ const Template = conn.define("template", {
     primaryKey: true,
     defaultValue: UUIDV4,
   },
+  name: {
+    type: STRING,
+  },
   userId: {
 	  type: UUID,
 	//allowNull: false,
