@@ -27,6 +27,8 @@ h1 {
   max-height: fit-content;
   width: 25vw;
   margin: 0.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(100, 100, 100, 0.4);
 }
 
 #component-div {
@@ -102,6 +104,26 @@ nav {
   border-radius: 0.2rem;
   padding: 2px;
   margin: 2px;
+}
+
+.setBackgroundButton {
+  width: 100%;
+  margin: 2px 0;
+  padding: 4px 2px;
+  border: 1px solid #2d545e;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #2d545e;
+  background-color: 0;
+}
+.setBackgroundButton:hover {
+  cursor: pointer;
+  color: white;
+  border-radius: 4px;
+  background-color: #2d545e;
+  border: 1px solid #ccc;
 }
 
 .pointer-on-hover {

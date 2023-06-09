@@ -203,7 +203,7 @@ const components = [
       <form style="background-color: primaryColor; padding: 1rem;">
         <div style="margin-bottom: 1rem;">
           <label for="inputField" style="color: tertiaryColor;">Type something here:</label>
-          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid secondaryColor; padding: 0.5rem; outline: none;">
+          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid primaryColor; padding: 0.5rem; outline: none;">
         </div>
         <div style="margin-bottom: 1rem;">
           <input type="checkbox" id="checkbox">
@@ -689,7 +689,7 @@ const components = [
           min-height: 40vh;
           max-height: 100%;
           max-width: 15vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-image: linear-gradient(to right, secondaryColor, tertiaryColor);
           border-radius: 6px;
           padding: 4px;
@@ -761,7 +761,7 @@ const components = [
           min-height: 40vh;
           max-height: 100%;
           max-width: 15vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-image: linear-gradient(45deg, secondaryColor, tertiaryColor);
           border-radius: 6px;
           padding: 4px;
@@ -836,7 +836,7 @@ const components = [
           min-height: 40vh;
           max-height: 100%;
           max-width: 15vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-image: linear-gradient(235deg, secondaryColor, tertiaryColor);
           border-radius: 6px;
           padding: 4px;
@@ -854,7 +854,7 @@ const components = [
           flex: 1 1 100%;
           flex-wrap: wrap;
           justify-content: center;
-          box-shadow: 1px 1px 1rem bgColor;
+          box-shadow: 1px 1px 1rem primaryColor;
           margin: 1rem 0.5rem;
         }
   
@@ -878,7 +878,7 @@ const components = [
           justify-content: space-evenly;
           align-items: center;
           background-color: tertiaryColor;
-          border: 1px solid secondaryColor;
+          border: 1px solid primaryColor;
           color: white;
           padding: 4px;
           margin: 4px;
@@ -914,7 +914,7 @@ const components = [
           min-height: 30vh;
           max-height: 100%;
           max-width: 20vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-color: bgColor;
           border-radius: 10px;
           padding: 8px;
@@ -995,7 +995,7 @@ const components = [
           min-height: 30vh;
           max-height: 100%;
           max-width: 20vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-color: bgColor;
           border-radius: 10px;
           padding: 8px;
@@ -1209,7 +1209,7 @@ const components = [
         }
   
         .sidebar {
-          width: 200px;
+          width: 150px;
           background-color: bgColor;
           height: 100%;
           overflow: auto;
@@ -1222,19 +1222,19 @@ const components = [
   
         .sidebar a {
           display: block;
-          color: secondaryColor;
+          color: primaryColor;
           padding: 10px;
           text-decoration: none;
           transition: color 0.3s ease;
         }
   
         .sidebar a:hover {
-          color: tertiaryColor;
-          background-color: bgColor;
+          color: bgColor;
+          background-color: primaryColor;
         }
   
         .sidebar a.active {
-          color: tertiaryColor;
+          color: bgColor;
           background-color: secondaryColor;
         }
   
