@@ -510,14 +510,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                         fontSize: "calc(8px + .5vw)",
                                       }}
                                     >
-                                      {/* INSERT AN ICON HERE THAT SAYS APPLY TO BACKGROUND? */}
-                                      <WallpaperIcon
-                                        style={{
-                                          color: color.contrast.value,
-                                          marginRight: "1vw",
-                                          fontSize: "calc(10px + .5vw)",
-                                        }}
-                                      />
                                       <ShuffleIcon
                                         style={{
                                           color: color.contrast.value,

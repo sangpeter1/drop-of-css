@@ -99,15 +99,16 @@ const components = [
     htmlText: `
     <style>
     .dropdownNav {
-      // width: 100%;
-      // height: 100%;
+      /* width: 100%;
+      height: 100%;*/
+      font-size: calc(10px + 0.5vw);
       list-style-type: none;
       margin: 0;
       padding: 0;
       overflow: hidden;
       background-color: primaryColor;
-      // display: flex;
-      // justify-content: space-between;
+      /* display: flex;
+      justify-content: space-between;*/
     }
     
     #drop-li {
@@ -118,12 +119,15 @@ const components = [
       display: inline-block;
       color: white;
       text-align: center;
-      padding: 1.1rem;
+      padding: 16px;
       text-decoration: none;
     }
     
    #drop-li a:hover, .dropdown:hover .dropbtn {
-      background-color: tertiaryColor;
+      background-color: bgColor;
+      font-size: calc(12px + 0.5vw);
+
+      color: primaryColor;
     }
     
    #drop-li > .dropdown {
@@ -133,12 +137,13 @@ const components = [
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #f9f9f9;
+      background-color: bgColor;
+      color: primaryColor;
       min-width: 160px;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;
     }
-    .dropdownNav .dropdown-content a {
+    .dropdown-content > a {
       color: black;
       padding: 12px 16px;
       text-decoration: none;
@@ -148,8 +153,9 @@ const components = [
     
     .dropdown-content a:hover {background-color: primaryColor; color: white;}
     
-    .dropdown:hover .dropdown-content {
+  .dropdown:hover .dropdown-content {
       display: block;
+      color: primaryColor;
     }
     </style>
     <body>
@@ -158,7 +164,7 @@ const components = [
       <li id="drop-li"><a href="#home">Home</a></li>
       <li id="drop-li"><a href="#news">News</a></li>
       <li class="dropdown" id="drop-li">
-        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+        <a class="dropbtn">Dropdown</a>
         <div class="dropdown-content">
           <a href="#">Link 1</a>
           <a href="#">Link 2</a>
