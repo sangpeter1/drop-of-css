@@ -99,15 +99,16 @@ const components = [
     htmlText: `
     <style>
     .dropdownNav {
-      // width: 100%;
-      // height: 100%;
+      /* width: 100%;
+      height: 100%;*/
+      font-size: calc(10px + 0.5vw);
       list-style-type: none;
       margin: 0;
       padding: 0;
       overflow: hidden;
       background-color: primaryColor;
-      // display: flex;
-      // justify-content: space-between;
+      /* display: flex;
+      justify-content: space-between;*/
     }
     
     #drop-li {
@@ -118,12 +119,15 @@ const components = [
       display: inline-block;
       color: white;
       text-align: center;
-      padding: 1.1rem;
+      padding: 16px;
       text-decoration: none;
     }
     
    #drop-li a:hover, .dropdown:hover .dropbtn {
-      background-color: tertiaryColor;
+      background-color: bgColor;
+      font-size: calc(12px + 0.5vw);
+
+      color: primaryColor;
     }
     
    #drop-li > .dropdown {
@@ -133,12 +137,13 @@ const components = [
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #f9f9f9;
+      background-color: bgColor;
+      color: primaryColor;
       min-width: 160px;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;
     }
-    .dropdownNav .dropdown-content a {
+    .dropdown-content > a {
       color: black;
       padding: 12px 16px;
       text-decoration: none;
@@ -148,8 +153,9 @@ const components = [
     
     .dropdown-content a:hover {background-color: primaryColor; color: white;}
     
-    .dropdown:hover .dropdown-content {
+  .dropdown:hover .dropdown-content {
       display: block;
+      color: primaryColor;
     }
     </style>
     <body>
@@ -158,7 +164,7 @@ const components = [
       <li id="drop-li"><a href="#home">Home</a></li>
       <li id="drop-li"><a href="#news">News</a></li>
       <li class="dropdown" id="drop-li">
-        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+        <a class="dropbtn">Dropdown</a>
         <div class="dropdown-content">
           <a href="#">Link 1</a>
           <a href="#">Link 2</a>
@@ -203,7 +209,7 @@ const components = [
       <form style="background-color: primaryColor; padding: 1rem;">
         <div style="margin-bottom: 1rem;">
           <label for="inputField" style="color: tertiaryColor;">Type something here:</label>
-          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid secondaryColor; padding: 0.5rem; outline: none;">
+          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid primaryColor; padding: 0.5rem; outline: none;">
         </div>
         <div style="margin-bottom: 1rem;">
           <input type="checkbox" id="checkbox">
@@ -689,7 +695,7 @@ const components = [
           min-height: 40vh;
           max-height: 100%;
           max-width: 15vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-image: linear-gradient(to right, secondaryColor, tertiaryColor);
           border-radius: 6px;
           padding: 4px;
@@ -761,7 +767,7 @@ const components = [
           min-height: 40vh;
           max-height: 100%;
           max-width: 15vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-image: linear-gradient(45deg, secondaryColor, tertiaryColor);
           border-radius: 6px;
           padding: 4px;
@@ -836,7 +842,7 @@ const components = [
           min-height: 40vh;
           max-height: 100%;
           max-width: 15vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-image: linear-gradient(235deg, secondaryColor, tertiaryColor);
           border-radius: 6px;
           padding: 4px;
@@ -854,7 +860,7 @@ const components = [
           flex: 1 1 100%;
           flex-wrap: wrap;
           justify-content: center;
-          box-shadow: 1px 1px 1rem bgColor;
+          box-shadow: 1px 1px 1rem primaryColor;
           margin: 1rem 0.5rem;
         }
   
@@ -878,7 +884,7 @@ const components = [
           justify-content: space-evenly;
           align-items: center;
           background-color: tertiaryColor;
-          border: 1px solid secondaryColor;
+          border: 1px solid primaryColor;
           color: white;
           padding: 4px;
           margin: 4px;
@@ -914,7 +920,7 @@ const components = [
           min-height: 30vh;
           max-height: 100%;
           max-width: 20vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-color: bgColor;
           border-radius: 10px;
           padding: 8px;
@@ -995,7 +1001,7 @@ const components = [
           min-height: 30vh;
           max-height: 100%;
           max-width: 20vw;
-          border: 2px solid secondaryColor;
+          border: 2px solid primaryColor;
           background-color: bgColor;
           border-radius: 10px;
           padding: 8px;
@@ -1209,7 +1215,7 @@ const components = [
         }
   
         .sidebar {
-          width: 200px;
+          width: 150px;
           background-color: bgColor;
           height: 100%;
           overflow: auto;
@@ -1222,19 +1228,19 @@ const components = [
   
         .sidebar a {
           display: block;
-          color: secondaryColor;
+          color: primaryColor;
           padding: 10px;
           text-decoration: none;
           transition: color 0.3s ease;
         }
   
         .sidebar a:hover {
-          color: tertiaryColor;
-          background-color: bgColor;
+          color: bgColor;
+          background-color: primaryColor;
         }
   
         .sidebar a.active {
-          color: tertiaryColor;
+          color: bgColor;
           background-color: secondaryColor;
         }
   

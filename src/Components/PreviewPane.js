@@ -33,7 +33,7 @@ const PreviewPane = ({
       htmlText: jsxGenerator(componentType),
       userId: userId,
     };
-    console.log('SAVE COMP FUNCTION', componentData);
+    console.log("SAVE COMP FUNCTION", componentData);
     dispatch(createTemplate(componentData));
   };
 
@@ -64,7 +64,7 @@ const PreviewPane = ({
         className="preview-pane-container"
         style={{
           zIndex: -20,
-          backgroundColor: wholePageBackground ? `${wholePageBackground.hex.value}` : "#F0F0F0",
+          backgroundColor: wholePageBackground ? `#${wholePageBackground}` : "#F0F0F0",
         }}
       >
         {title ? (

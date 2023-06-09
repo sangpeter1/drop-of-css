@@ -118,6 +118,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   const runCPG = async (ev) => {
     ev.preventDefault();
+    console.log("runcpg ev", hex);
     if (cpg.length === 0) {
       try {
         const search = {
@@ -345,7 +346,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     );
                   })}
                 </select>
-                <select
+                {/* <select
                   value={count}
                   onChange={(ev) => setCount(ev.target.value)}
                   placeholder="Select Count"
@@ -360,11 +361,17 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                       </option>
                     );
                   })}
-                </select>
+                </select> */}
                 <button className="rainbowBtn" type="submit" onClick={(ev) => runCPG(ev)}>
                   Submit
                 </button>
               </form>
+              <button
+                className="setBackgroundButton"
+                onClick={(ev) => setWholePageBackground(`${hex}`)}
+              >
+                set page background
+              </button>
             </div>
           </Collapse>
         </div>
@@ -503,15 +510,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                         fontSize: "calc(8px + .5vw)",
                                       }}
                                     >
-                                      {/* INSERT AN ICON HERE THAT SAYS APPLY TO BACKGROUND? */}
-                                      <WallpaperIcon
-                                        style={{
-                                          color: color.contrast.value,
-                                          marginRight: "1vw",
-                                          fontSize: "calc(10px + .5vw)",
-                                        }}
-                                        onClick={() => setWholePageBackground(color)}
-                                      />
                                       <ShuffleIcon
                                         style={{
                                           color: color.contrast.value,
