@@ -408,18 +408,6 @@ h5 {
   margin: 0.5rem;
 }
 
-/*Profile*/
-
-.profile {
-  display: flex;
-  margin: 1rem;
-  justify-content: space-between;
-}
-
-.custom-icon {
-  color: #2d545e;
-}
-
 /*Rainbow components*/
 
 .rainbowBtn {
@@ -481,4 +469,21 @@ h5 {
     min-width: 18vw;
     max-width: 20vw;
   }
+}
+
+
+/*Profile Page*/
+
+.profile {
+  display: flex;
+  margin: 1rem;
+  justify-content: space-between;
+}
+
+.custom-icon {
+  color: #2d545e;
+}
+
+.template-list-container {
+  display: flex;
 }

@@ -34,7 +34,8 @@ app.put("/:templateId", async (req, res, next) => {
   try {
     const template = await Template.findByPk(req.params.templateId);
     await template.update({
-      htmlText: req.body.htmlText
+      htmlText: req.body.htmlText,
+      name: req.body.name,
     });
     res.sendStatus(200);
   } catch (err) {
