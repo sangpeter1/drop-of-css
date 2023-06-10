@@ -3,7 +3,7 @@ import Home from "./Home";
 import Nav from "./Nav";
 import Login from "./Login";
 import Test from "./Test";
-import Profile from "./Profile";
+import { Profile, ProfileAccount, ProfileComponents } from "./Profile";
 import ColorGenForm from "./ColorGenForm";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
@@ -51,7 +51,11 @@ const App = () => {
             <>
               <Route path="/cpgform" element={<ColorGenForm />} />
               <Route path="/test" element={<Test />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile" element={<Profile />}>
+                <Route index element={<ProfileAccount />} />
+                <Route path="account" element={<ProfileAccount />} />
+                <Route path="components" element={<ProfileComponents />} />
+              </Route>
             </>
           )}
         </Routes>
