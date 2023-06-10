@@ -125,7 +125,6 @@ const components = [
     
    #drop-li a:hover, .dropdown:hover .dropbtn {
       background-color: bgColor;
-      font-size: calc(12px + 0.5vw);
 
       color: primaryColor;
     }
@@ -182,25 +181,384 @@ const components = [
 
   {
     type: "form",
-    name: "joe's test form",
+    name: "contact us",
     //front end preview window html
     htmlText: `
-    <div>
-      <form style="background-color: bgColor">
-        <input placeholder='type something here'/ style="border-radius: .5rem; border:4px solid primaryColor">
-        <div>
-          <input type="checkbox">
-          <label> I am a check box </label> 
-        </div>
-        <div>
-          <input type="radio">
-          <label> I am a radio </label>
-        </div>
-        <button style="border: .5rem solid secondaryColor"> Submit </button>
-      </form>
+    <style>
+    .formComponent {
+      background-color: bgColor26;
+      border: 2px solid primaryColor;
+      border-radius: 2px;
+      width: 50vw;
+      min-height: 45vh;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 2rem 2rem 1fr;
+      grid-column-gap: 4px;
+      grid-row-gap: 4px;
+    }
+  
+    .formComponent > h1 {
+      grid-column: 1/ span 2;
+      grid-row: 1;
+      text-align: center;
+      font-size: calc(12px + 0.5vw);
+      margin-top: 4px;
+      padding: 0;
+    }
+  
+    .formComponent > h2 {
+      grid-column: 1/ span 2;
+      grid-row: 2;
+      text-align: center;
+      font-size: calc(8px + 0.5vw);
+      margin: 0;
+      padding: 0;
+    }
+  
+    .formComponent > form {
+      width: 80%;
+      grid-column: 1;
+      grid-row: 3/ span 3;
+      font-size: calc(8px + 0.5vw);
+      padding: 1rem;
+    }
+    .formComponent > form > input{
+      border-radius: 4px; 
+      border:2px solid primaryColor;
+    }
+    .formComponent > form > textarea{
+      border-radius: 4px; 
+      border:2px solid primaryColor;
+      height: 2rem;
+      resize: vertical; 
+    }
+
+    .formComponent > p {
+      grid-column: 2;
+      grid-row: 3/ span 3;
+      font-size: calc(8px + 0.5vw);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 2px;
+      margin-top: 0;
+      padding-top: 0;
+      word-wrap: break-word;
+    }
+  
+    .formComponent > p > span {
+      display: flex;
+      align-items: center;
+      margin-right: 5px;
+      word-wrap: break-word;
+    }
+  
+    #icon {
+      padding: 1rem;
+      font-size: calc(22px + 0.5vw);
+      text-align: center;
+      justify-content: center;
+    }
+  </style>
+  
+  <div class="formComponent">
+    <h1>contact us!</h1>
+    <h2>we'd love to hear from you</h2>
+  
+    <form>
+      <input placeholder="Name"/>
+      <input placeholder="Email Address"/>
+      <input placeholder="Phone Number"/>
+      <textarea placeholder="Message">
+      </textarea>
+      <div>
+      <label> How should we contact you?
+        <input type="checkbox" />
+        <label>Phone</label>
+        <input type="checkbox" />
+        <label>Email</label>
+      </label>
       </div>
+      <div>
+        <input type="radio" />
+        <label>Agree to be contacted?</label>
+      </div>
+    </form>
+    <p>
+      <span id="icon">&#128382;</span>
+      <span>phone</span>
+      <span>(917) 867-5309</span>
+      <span id="icon">&#x2709;</span>
+      <span>email</span>
+      <span>peter@peter.com</span>
+    </p>
+  </div>
+
     `,
   },
+  {
+    type: "form",
+    name: "contact us 2",
+    //front end preview window html
+    htmlText: `
+    <style>
+    .formComponent {
+      background-color: secondaryColor;
+      border: 2px solid primaryColor;
+      color: white;
+      border-radius: 2px;
+      width: 50vw;
+      min-height: 45vh;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 2rem 2rem 1fr;
+      grid-column-gap: 4px;
+      grid-row-gap: 4px;
+    }
+  
+    .formComponent > h1 {
+      grid-column: 1/ span 2;
+      grid-row: 1;
+      text-align: center;
+      font-size: calc(12px + 0.5vw);
+      margin-top: 4px;
+      padding: 0;
+      color: white;
+    }
+  
+    .formComponent > h2 {
+      grid-column: 1/ span 2;
+      grid-row: 2;
+      text-align: center;
+      font-size: calc(8px + 0.5vw);
+      margin: 0;
+      padding: 0;
+
+    }
+  
+    .formComponent > form {
+      width: 80%;
+      grid-column: 1;
+      grid-row: 3/ span 3;
+      font-size: calc(8px + 0.5vw);
+      padding: 1rem;
+    }
+    .formComponent > form > input{
+      border-radius: 4px; 
+      border:2px solid primaryColor;
+    }
+    .formComponent > form > textarea{
+      border-radius: 4px; 
+      border:2px solid primaryColor;
+      height: 2rem;
+      resize: vertical; 
+    }
+
+    .formComponent > p {
+      grid-column: 2;
+      grid-row: 3/ span 3;
+      font-size: calc(8px + 0.5vw);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 2px;
+      margin-top: 0;
+      padding-top: 0;
+      word-wrap: break-word;
+    }
+  
+    .formComponent > p > span {
+      display: flex;
+      align-items: center;
+      margin-right: 5px;
+      word-wrap: break-word;
+    }
+  
+    #icon {
+      padding: 1rem;
+      font-size: calc(22px + 0.5vw);
+      text-align: center;
+      justify-content: center;
+    }
+  </style>
+  
+  <div class="formComponent">
+    <h1>contact us!</h1>
+    <h2>we'd love to hear from you</h2>
+  
+    <form>
+      <input placeholder="Name"/>
+      <input placeholder="Email Address"/>
+      <input placeholder="Phone Number"/>
+      <textarea placeholder="Message">
+      </textarea>
+      <div>
+      <label> How should we contact you?
+        <input type="checkbox" />
+        <label>Phone</label>
+        <input type="checkbox" />
+        <label>Email</label>
+      </label>
+      </div>
+      <div>
+        <input type="radio" />
+        <label>Agree to be contacted?</label>
+      </div>
+    </form>
+    <p>
+      <span id="icon">&#128382;</span>
+      <span>phone</span>
+      <span>(917) 867-5309</span>
+      <span id="icon">&#x2709;</span>
+      <span>email</span>
+      <span>peter@peter.com</span>
+    </p>
+  </div>
+
+    `,
+  },
+  {
+    type: "form",
+    name: "login with oauth",
+    htmlText: `
+    <style>
+    .loginWithOauth {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid tertiaryColor;
+      border-radius: 4px;
+    }
+
+    .login-container input[type="text"]:focus,
+    .login-container input[type="password"]:focus {
+      border: 2px solid secondaryColor;
+      outline: none;
+    }
+
+    .login-container button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: secondaryColor;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .oauth-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items:center;
+    }
+
+    .oauth-buttons button {
+      margin: 0 10px;
+      padding: 10px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+    
+.google-btn {
+  margin: 25px;
+  width: 80%;
+  min-width: 184px;
+  max-width: 184px;
+  height: 42px;
+  background-color: #fcfcfc;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .2);
+  cursor: pointer;
+  cursor: hand;
+  align-self: center;
+  user-select: none;
+  transition: all 400ms ease 0s;
+  display: flex;
+}
+.google-btn .google-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  user-select: none;
+}
+.google-btn .google-icon-svg {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 11px;
+  width: 18px;
+  height: 18px;
+  user-select: none
+}
+.google-btn .btn-text {
+  float: right;
+  margin: 11px 14px 40px 40px;
+  color: #757575;
+  font-size: 11px;
+  align-items: center;
+  letter-spacing: .2px;
+  font-family: Roboto;
+  user-select: none;
+}
+.google-btn:hover {
+  box-shadow: 0 3px 8px secondaryColor;
+  user-select: none;
+}
+  </style>
+
+    <div class="loginWithOauth">
+    
+      <div class="login-container">
+        <input type="text" placeholder="Username" />
+        <input type="password" placeholder="Password" />
+        <button>Login</button>
+        <div class="oauth-buttons">
+          <div class="google-btn">
+          <div class="google-icon-wrapper">
+            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+          </div>
+          <p class="btn-text"><b>Sign in with Google</b></p>
+        </div>
+          <div class="google-btn">
+          <div class="google-icon-wrapper">
+            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/91/036-facebook.png"/>
+          </div>
+          <p class="btn-text"><b>Sign in with Facebook</b></p>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+    `,
+  },
+
   {
     type: "form",
     name: "form one",
@@ -787,7 +1145,7 @@ const components = [
         }
   
         .button {
-          font-size: calc(8px + 0.5vw);
+          font-size: calc(7px + 0.5vw);
           justify-content: space-evenly;
           align-items: center;
           background-color: 0;
@@ -796,6 +1154,12 @@ const components = [
           padding: 4px;
           margin: 4px;
           border-radius: 5px;
+        }
+
+        .button:hover{
+          cursor: pointer;
+          color: bgColor;
+          border: 1px solid primaryColor;
         }
 
               @media screen and (max-width: 768px) {
@@ -867,7 +1231,7 @@ const components = [
         }
     
         .button {
-          font-size: calc(8px + 0.5vw);
+          font-size: calc(6px + 0.5vw);
           justify-content: space-evenly;
           align-items: center;
           background-color: tertiaryColor;
