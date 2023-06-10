@@ -5,6 +5,7 @@ import colorWheelImage from "../images/colorwheel320.png";
 import { logout } from "../store";
 
 const Nav = () => {
+  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Nav = () => {
     dispatch(logout());
     navigate("/");
   };
-
+  
   return (
     <>
       <nav

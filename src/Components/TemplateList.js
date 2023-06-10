@@ -60,23 +60,25 @@ const TemplateList = () => {
   
   return (
     <div className="template-list-container">
-      <div className="content">
-          {selectedComponent && (
+      <div className="templatesidebar">
+        <h4 className="header">My Components</h4>
+        <ul>
+          {templates
+            .filter((template) => template.userId === auth.id)
+            .map((template) => (
+              <li
+                key={template.id}
+                onClick={() => handleComponentClick(template)}
+              >
+                {renderTemplateName(template)} 
+              </li>
+            ))}
+        </ul>
+      </div>
+      <div>
+        {selectedComponent && (
             <div>
-              <h5>Name:</h5>
-                <div>{renderTemplateName(selectedComponent)}</div>
-                <br />
-                <input
-                  type="text"
-                  value={editedTemplateName}
-                  onChange={handleTemplateNameChange}
-                />
-                <button 
-                onClick={updateTemplateNameHandler}
-                className="rainbowBtn"
-                >
-                  Update Name
-                </button>
+              <h4 className="header">{renderTemplateName(selectedComponent)}</h4>
               <h5>Component:</h5>
                 <div
                    className="profilecomppreview"
@@ -91,25 +93,33 @@ const TemplateList = () => {
                 <button onClick={copyHtmlTextToClipboard} className="rainbowBtn">
                   Copy HTML
                 </button>
-            </div>
+            </div> 
           )}
-      </div>
-      <div className="templatesidebar">
-        <h4 className="header">My Templates</h4>
-        <ul>
-          {templates
-            .filter((template) => template.userId === auth.id)
-            .map((template) => (
-              <li
-                key={template.id}
-                onClick={() => handleComponentClick(template)}
-              >
-                {renderTemplateName(template)} 
-              </li>
-            ))}
-        </ul>
-      </div>
-
+        </div>
+        <div>
+          {selectedComponent && (
+            <div >
+              <h4 className="header">Details</h4>
+              <h5>Name:</h5>
+              <div>{renderTemplateName(selectedComponent)}</div>
+              <br />
+              <h5>Edit Name:</h5>
+              <input
+                type="text"
+                value={editedTemplateName}
+                onChange={handleTemplateNameChange}
+                className="comp-name-input"
+              />
+              <br />
+              <button 
+                onClick={updateTemplateNameHandler}
+                className="rainbowBtn"
+                >
+                  Update
+              </button>
+            </div> 
+          )}
+        </div>
       </div>
   );
 };

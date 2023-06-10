@@ -469,7 +469,7 @@ h5 {
 .profile {
   display: flex;
   margin: 1rem;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .custom-icon {
@@ -478,24 +478,31 @@ h5 {
 
 .template-list-container {
   display: flex;
+  margin: 1rem;
+  justify-content: space-around;
 }
 
-.profilecomppreview {
-  width: 500px; /* Set the desired width */
-  height: 400px; /* Set the desired height */
-  overflow: auto; /* Enable scrollbars if the content exceeds the size */
-  border: 1px solid #ccc; /* Add a border for visual separation */
-  padding: 8px;  /*Add some padding for spacing */
+.profilecomppreview, .profilehtmlpreview {
+  width: 500px; 
+  height: 400px; 
+  overflow: auto; 
+  border: 1px solid #ccc; 
+  padding: 8px;  
 }
 
-.profilehtmlpreview {
-  width: 500px; /* Set the desired width */
-  height: 400px; /* Set the desired height */
-  overflow: auto; /* Enable scrollbars if the content exceeds the size */
-  border: 1px solid #ccc; /* Add a border for visual separation */
-  padding: 8px;  /*Add some padding for spacing */
+.profile-main {
+  text-align: center;
 }
 
+.comp-name-input {
+  margin-bottom: 4px;
+}
+
+.profile-links {
+  display: flex;
+  margin: 1rem;
+  justify-content: space-around;
+}
 
 
 
