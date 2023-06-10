@@ -29,25 +29,26 @@ const TemplateList = () => {
     setEditedTemplateName(event.target.value);
   }; //create name for component
   
-  /*
-  const _updateTemplateName = (templateId) => {
-    dispatch(updateTemplateName(templateId, editedTemplateName));
-    setEditedTemplateName("");
-  }; // updates name*/
-  
-    const updateTemplateNameHandler = () => {
+  const updateTemplateNameHandler = () => {
     if (!selectedComponent) return;
-
     dispatch(updateTemplateName(selectedComponent.id, editedTemplateName));
-    
-    // Update the template name in the selected component object
     setSelectedComponent((prevComponent) => ({
       ...prevComponent,
       name: editedTemplateName,
     }));
+    setEditedTemplateName("");
   };
 
-   const renderTemplateName = (template) => {
+  const copyHtmlTextToClipboard = () => {
+    const textarea = document.createElement("textarea");
+    textarea.value = selectedComponent.htmlText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+  }; // copy html to clipboard
+  
+  const renderTemplateName = (template) => {
     if (template.name) {
       return template.name;
     } else {
@@ -70,17 +71,26 @@ const TemplateList = () => {
                   value={editedTemplateName}
                   onChange={handleTemplateNameChange}
                 />
-                <button onClick={updateTemplateNameHandler}>
+                <button 
+                onClick={updateTemplateNameHandler}
+                className="rainbowBtn"
+                >
                   Update Name
                 </button>
               <h5>Component:</h5>
                 <div
+                   className="profilecomppreview"
                    dangerouslySetInnerHTML={{
                    __html: cleanUpHTML(selectedComponent.htmlText),
                    }}
                 />
               <h5>HTML:</h5>
-                <div>{selectedComponent.htmlText}</div>
+                <div className="profilehtmlpreview">
+                  {selectedComponent.htmlText}
+                </div>
+                <button onClick={copyHtmlTextToClipboard} className="rainbowBtn">
+                  Copy HTML
+                </button>
             </div>
           )}
       </div>
@@ -105,5 +115,4 @@ const TemplateList = () => {
 };
 
 export default TemplateList;
-
 

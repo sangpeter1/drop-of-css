@@ -480,9 +480,41 @@ h5 {
   display: flex;
 }
 
+.profilecomppreview {
+  width: 500px; /* Set the desired width */
+  height: 400px; /* Set the desired height */
+  overflow: auto; /* Enable scrollbars if the content exceeds the size */
+  border: 1px solid #ccc; /* Add a border for visual separation */
+  padding: 8px;  /*Add some padding for spacing */
+}
+
+.profilehtmlpreview {
+  width: 500px; /* Set the desired width */
+  height: 400px; /* Set the desired height */
+  overflow: auto; /* Enable scrollbars if the content exceeds the size */
+  border: 1px solid #ccc; /* Add a border for visual separation */
+  padding: 8px;  /*Add some padding for spacing */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* For screens with a width of 576px or less */
 /*@media screen and (max-width: 576px) {
   main {
     grid-template-columns: 1fr;
   }
 } */
+
