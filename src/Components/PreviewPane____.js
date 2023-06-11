@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 
 // Importing components from PreviewComponents
-
+// This is a copy of the PreviewPane that is being used for the custom npm package. Currently under works!
 
 
 import PreviewTitle from "./PreviewComponents/PreviewTitle";
@@ -79,72 +79,35 @@ const jsxGenerator = (component) => {
           backgroundColor: wholePageBackground ? `${wholePageBackground.hex.value}` : "#F0F0F0",
         }}
       >
-        {title ? (
-          <div id="previewTitle" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: jsxGenerator(title),
-              }}
-            />
-          </div>
-        ) : (
-          <header id="previewTitle">Your Website Title</header>
-        )}
-        {nav ? (
-          <div id="previewNav">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: jsxGenerator(nav),
-              }}
-            />
-            {/* <Navbar /> */}
-          </div>
-        ) : (
-          <nav id="previewNav">Preview Nav</nav>
-        )}
-        {sideNav ? (
-          <div
-            id="previewSideNav"
-            style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-            dangerouslySetInnerHTML={{
-              __html: jsxGenerator(sideNav),
-            }}
-          />
-        ) : (
-          <div id="previewSideNav">Side Nav</div>
-        )}
+        <PreviewTitle title={title} jsxGenerator={jsxGenerator}/>
+        <PreviewNav nav={nav} jsxGenerator={jsxGenerator}/>
+        <PreviewSideNav sideNav={sideNav} jsxGenerator={jsxGenerator} />
         <main className="preview-pane-Main-Content">
           <div id="previewCardContainer">
             {card ? (
-              <div id="previewCard" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-              dangerouslySetInnerHTML={{__html: jsxGenerator(card),}}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
             ) : (
               <div id="previewCard">Card</div>
             )}{" "}
             {card ? (
-              <div id="previewCard" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-              dangerouslySetInnerHTML={{__html: jsxGenerator(card),}}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
             ) : (
               <div id="previewCard">Card</div>
             )}
             {card ? (
-              <div id="previewCard" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-              dangerouslySetInnerHTML={{__html: jsxGenerator(card),}}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
             ) : (
               <div id="previewCard">Card</div>
             )}
           </div>
           {form ? (
-          <div id="previewForm" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-          dangerouslySetInnerHTML={{__html: jsxGenerator(form),}}/>
+            <PreviewForm form={form} jsxGenerator={jsxGenerator}/>
           ) : (
             <div id="previewForm">form</div>
           )}
           <div id="previewButtonContainer">
             {button ? (
-            <div id="previewButton">
-              <div dangerouslySetInnerHTML={{__html: jsxGenerator(button),}}/>
-              </div>
+              <PreviewButton button={button} jsxGenerator={jsxGenerator}/>
             ) : (
               <div id="previewButton">Button</div>
             )}
