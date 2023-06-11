@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch, getState } from "react-redux";
 import {
   deleteColor,
@@ -9,6 +9,8 @@ import {
   reorderColorPalette,
 } from "../store";
 import ColorPicker from "./ColorPicker";
+
+import Popover from "@mui/material/Popover";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
@@ -18,6 +20,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Typography from "@mui/material/Typography";
+
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
 
 const ExpandMore = styled((props) => {
@@ -58,7 +62,6 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBackground }) => {
-  const dispatch = useDispatch();
   const { cpg } = useSelector((state) => state);
   const [format, setFormat] = useState("");
   const [hex, setHex] = useState("");
@@ -69,6 +72,8 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   const [expanded, setExpanded] = useState(true);
   const [lockedColors, setLockedColors] = useState([]);
   const [items, setItems] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log(cpg, "in useEffect, every time cpg changes");
@@ -235,13 +240,11 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
     if (lockedColors.includes(color)) {
       console.log("This color's locked.");
+
       return;
     }
     try {
       const colorHex = color.hex.clean;
-      // const response = await dispatch(deleteColor({ color }));
-      //put the delete inside of the update function
-
       const colorIndex = cpg.indexOf(color);
       console.log("color's index", color, colorIndex);
 
@@ -273,9 +276,25 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   const colorClass = ["primary color", "secondary color", "tertiary color", "background color"];
 
+  const [showInstructions, setShowInstructions] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowInstructions(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowInstructions(false);
+  };
+
+  const open = Boolean(anchorEl);
+
   return (
     <>
-      <h3 className="header">Create Palette</h3>
+      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
+        <h3 className="header">Create Palette</h3>
+        <div className="instructions">first your color palette, then a component!</div>
+      </div>
+
       <ExpandMore
         expand={expanded}
         onClick={handleExpandClick}
@@ -398,15 +417,19 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                 }}
                 onClick={() => shuffleUnlockedColors()}
               >
-                <ShuffleIcon />
-                <span
-                  style={{
-                    fontSize: "calc(8px + .5vw)",
-                  }}
-                >
-                  shuffle colors
-                </span>
+                <div className="button-container">
+                  <ShuffleIcon />
+                  <span
+                    style={{
+                      fontSize: "calc(8px + .5vw)",
+                    }}
+                  >
+                    shuffle
+                  </span>
+                  <div className="instructions">shuffle only unlocked colors</div>
+                </div>
               </div>
+
               <div
                 className="pointer-on-hover"
                 style={{
@@ -418,14 +441,17 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                 }}
                 onClick={() => dispatch(deleteColorPalette(cpg))}
               >
-                <DeleteOutlineIcon />
-                <span
-                  style={{
-                    fontSize: "calc(8px + .5vw)",
-                  }}
-                >
-                  clear all colors
-                </span>
+                <div className="button-container">
+                  <DeleteOutlineIcon />
+                  <span
+                    style={{
+                      fontSize: "calc(8px + .5vw)",
+                    }}
+                  >
+                    clear all
+                  </span>
+                  <div className="instructions">clear all colors, even locked ones</div>
+                </div>
               </div>
             </div>
             <div id="cpg-container">
@@ -441,7 +467,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     >
                       {colorPalette.map((color, index) => {
                         const uniqueKey = `color-${index}`;
-                        const isLocked = lockedColors.includes(color) ? (
+                        let isLocked = lockedColors.includes(color) ? (
                           <LockIcon
                             sx={{
                               fontSize: "calc(10px + .5vw)",
@@ -510,17 +536,29 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                         fontSize: "calc(8px + .5vw)",
                                       }}
                                     >
-                                      <ShuffleIcon
-                                        style={{
-                                          color: color.contrast.value,
-                                          marginRight: "1vw",
-                                          fontSize: "calc(10px + .5vw)",
-                                        }}
-                                        onClick={() => regenColor(color)}
-                                      />
-                                      <span onClick={() => toggleColorLock(index, color)}>
-                                        {isLocked}
-                                      </span>
+                                      <div className="button-container">
+                                        <ShuffleIcon
+                                          style={{
+                                            color: lockedColors.includes(color)
+                                              ? "darkgray"
+                                              : color.contrast.value,
+                                            marginRight: "1vw",
+                                            marginLeft: "1vw",
+                                            fontSize: "calc(10px + .5vw)",
+                                            cursor: lockedColors.includes(color)
+                                              ? "auto"
+                                              : "pointer",
+                                          }}
+                                          onClick={() => regenColor(color)}
+                                        />
+                                        <div className="instructions">shuffle color</div>
+                                      </div>
+                                      <div className="button-container">
+                                        <span onClick={() => toggleColorLock(index, color)}>
+                                          {isLocked}
+                                        </span>
+                                        <div className="instructions">lock color</div>
+                                      </div>
                                     </div>
                                   </div>
                                   {/* content end */}

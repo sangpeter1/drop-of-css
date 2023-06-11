@@ -8,8 +8,8 @@ import { fetchComponents, createTemplate } from "../store";
 
 import PreviewTitle from "./PreviewComponents/PreviewTitle";
 import PreviewNav from "./PreviewComponents/PreviewNav";
-import PreviewSideNav from './PreviewComponents/PreviewSideNav';
-import PreviewCard from './PreviewComponents/PreviewCard';
+import PreviewSideNav from "./PreviewComponents/PreviewSideNav";
+import PreviewCard from "./PreviewComponents/PreviewCard";
 import PreviewForm from "./PreviewComponents/PreviewForm";
 import PreviewButton from "./PreviewComponents/PreviewButton";
 //
@@ -32,11 +32,11 @@ const PreviewPane = ({
 
   const [colors, setColors] = useState("");
 
-const jsxGenerator = (component) => {
-  const { htmlText, htmlStyle } = component;
-  console.log(htmlText);
-  return htmlText;
-};
+  const jsxGenerator = (component) => {
+    const { htmlText, htmlStyle } = component;
+    console.log(htmlText);
+    return htmlText;
+  };
 
   /*mt*/
   const saveComponent = (componentType) => {
@@ -45,7 +45,7 @@ const jsxGenerator = (component) => {
       htmlText: jsxGenerator(componentType),
       userId: userId,
     };
-    console.log('SAVE COMP FUNCTION', componentData);
+    console.log("SAVE COMP FUNCTION", componentData);
     dispatch(createTemplate(componentData));
   };
 
@@ -79,6 +79,7 @@ const jsxGenerator = (component) => {
           backgroundColor: wholePageBackground ? `${wholePageBackground.hex.value}` : "#F0F0F0",
         }}
       >
+
         {title ? (
           <div id="previewTitle" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}>
             <div
@@ -122,12 +123,14 @@ const jsxGenerator = (component) => {
               <div id="previewCard">Card</div>
             )}{" "}
             {card ? (
+
               <div id="previewCard" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
               dangerouslySetInnerHTML={{__html: jsxGenerator(card),}}/>
             ) : (
               <div id="previewCard">Card</div>
             )}
             {card ? (
+
               <div id="previewCard" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
               dangerouslySetInnerHTML={{__html: jsxGenerator(card),}}/>
             ) : (
@@ -135,6 +138,7 @@ const jsxGenerator = (component) => {
             )}
           </div>
           {form ? (
+
           <div id="previewForm" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
           dangerouslySetInnerHTML={{__html: jsxGenerator(form),}}/>
           ) : (
@@ -157,6 +161,7 @@ const jsxGenerator = (component) => {
 };
 
 export default PreviewPane;
+
 /*
 export const PreviewPaneConfig = {
   wholePageBackground,
