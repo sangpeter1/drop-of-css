@@ -6,8 +6,8 @@ import { fetchComponents, createTemplate } from "../store";
 
 import PreviewTitle from "./PreviewComponents/PreviewTitle";
 import PreviewNav from "./PreviewComponents/PreviewNav";
-import PreviewSideNav from './PreviewComponents/PreviewSideNav';
-import PreviewCard from './PreviewComponents/PreviewCard';
+import PreviewSideNav from "./PreviewComponents/PreviewSideNav";
+import PreviewCard from "./PreviewComponents/PreviewCard";
 import PreviewForm from "./PreviewComponents/PreviewForm";
 import PreviewButton from "./PreviewComponents/PreviewButton";
 //
@@ -30,11 +30,11 @@ const PreviewPane = ({
 
   const [colors, setColors] = useState("");
 
-const jsxGenerator = (component) => {
-  const { htmlText, htmlStyle } = component;
-  console.log(htmlText);
-  return htmlText;
-};
+  const jsxGenerator = (component) => {
+    const { htmlText, htmlStyle } = component;
+    console.log(htmlText);
+    return htmlText;
+  };
 
   /*mt*/
   const saveComponent = (componentType) => {
@@ -43,7 +43,7 @@ const jsxGenerator = (component) => {
       htmlText: jsxGenerator(componentType),
       userId: userId,
     };
-    console.log('SAVE COMP FUNCTION', componentData);
+    console.log("SAVE COMP FUNCTION", componentData);
     dispatch(createTemplate(componentData));
   };
 
@@ -77,35 +77,35 @@ const jsxGenerator = (component) => {
           backgroundColor: wholePageBackground ? `${wholePageBackground.hex.value}` : "#F0F0F0",
         }}
       >
-        <PreviewTitle title={title} jsxGenerator={jsxGenerator}/>
-        <PreviewNav nav={nav} jsxGenerator={jsxGenerator}/>
+        <PreviewTitle title={title} jsxGenerator={jsxGenerator} />
+        <PreviewNav nav={nav} jsxGenerator={jsxGenerator} />
         <PreviewSideNav sideNav={sideNav} jsxGenerator={jsxGenerator} />
         <main className="preview-pane-Main-Content">
           <div id="previewCardContainer">
             {card ? (
-              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator} />
             ) : (
               <div id="previewCard">Card</div>
             )}{" "}
             {card ? (
-              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator} />
             ) : (
               <div id="previewCard">Card</div>
             )}
             {card ? (
-              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator} />
             ) : (
               <div id="previewCard">Card</div>
             )}
           </div>
           {form ? (
-            <PreviewForm form={form} jsxGenerator={jsxGenerator}/>
+            <PreviewForm form={form} jsxGenerator={jsxGenerator} />
           ) : (
             <div id="previewForm">form</div>
           )}
           <div id="previewButtonContainer">
             {button ? (
-              <PreviewButton button={button} jsxGenerator={jsxGenerator}/>
+              <PreviewButton button={button} jsxGenerator={jsxGenerator} />
             ) : (
               <div id="previewButton">Button</div>
             )}
@@ -119,13 +119,13 @@ const jsxGenerator = (component) => {
 
 export default PreviewPane;
 
-export const PreviewPaneConfig = {
-  wholePageBackground,
-  form,
-  nav,
-  title,
-  sideNav,
-  card,
-  button,
-  jsxGenerator
-}
+// export const PreviewPaneConfig = {
+//   wholePageBackground,
+//   form,
+//   nav,
+//   title,
+//   sideNav,
+//   card,
+//   button,
+//   jsxGenerator,
+// };

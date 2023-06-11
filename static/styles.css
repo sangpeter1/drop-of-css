@@ -8,6 +8,43 @@ h1 {
   font-size: 1.5rem;
 }
 
+.button-container {
+  position: relative;
+  display: inline-block;
+}
+
+.instructions {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid black;
+  width: fit-content;
+  height: 2vh;
+  background-color: rgba(15, 35, 50, 0.8);
+  box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem/3rem;
+  padding: 0.5rem;
+  font-size: calc(4px + 0.5vw);
+  color: white;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.button-container:hover .instructions {
+  opacity: 1;
+  pointer-events: auto;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: 0;
+}
+
 #page-container-div {
   display: flex;
   box-sizing: content-box;
