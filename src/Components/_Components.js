@@ -8,30 +8,28 @@ import parse from "html-react-parser";
 
 const sanitizer = DOMPurify.sanitize;
 
-const { components } = useSelector((state => state));
+const { components } = useSelector((state) => state);
 const dispatch = useDispatch();
 
-useEffect (() => {
+useEffect(() => {
   dispatch(fetchComponents());
-},[]);
+}, []);
 
-export const Navbar = ({generatedColors}) => {
+export const Navbar = ({ generatedColors }) => {
   const { components } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  useEffect (() => {
+  useEffect(() => {
     dispatch(fetchComponents());
-  },[]);
+  }, []);
 
-  const navbar = components.find(component => component.type === "navbar");
+  const navbar = components.find((component) => component.type === "navbar");
 
-  return navbar ? 
-  <NavbarWithStyles navbar={navbar} /> : null;
-}
+  return navbar ? <NavbarWithStyles navbar={navbar} /> : null;
+};
 
 export const NavbarWithStyles = ({ navbar }) => {
   const useStyles = createUseStyles(navbar.htmlStyle.styles);
-  console.log("navbar styles", navbar.htmlStyle.styles);
   // const { primaryColor, secondarycolor} = generatedColors;
 
   // const styles = JSON.stringify(navbar.htmlStyle.styles)
@@ -39,16 +37,16 @@ export const NavbarWithStyles = ({ navbar }) => {
   // .replace(/{colors.secondaryColor}/g, secondaryColor);
 
   const classes = useStyles();
-  console.log("classes", classes)
+  console.log("classes", classes);
 
   const parseNode = (domNode, classes) => {
-    if (domNode.type === 'tag') {
-      const children = domNode.children.map(childNode => parseNode(childNode, classes));
-  
-      if (domNode.name === 'ul') {
-        console.log("ul", domNode.name)
+    if (domNode.type === "tag") {
+      const children = domNode.children.map((childNode) => parseNode(childNode, classes));
+
+      if (domNode.name === "ul") {
+        console.log("ul", domNode.name);
         return React.createElement(
-          'div',
+          "div",
           {
             className: classes.ul,
             style: { color: navbar.htmlStyle.colors.secondaryColor },
@@ -57,11 +55,11 @@ export const NavbarWithStyles = ({ navbar }) => {
           children
         );
       }
-  
-      if (domNode.name === 'ul' && domNode.attribs.class === 'navbar') {
-        console.log("ul", domNode.attribs.class)
+
+      if (domNode.name === "ul" && domNode.attribs.class === "navbar") {
+        console.log("ul", domNode.attribs.class);
         return React.createElement(
-          'div',
+          "div",
           {
             className: classes.ul,
             style: { color: "black" },
@@ -71,11 +69,11 @@ export const NavbarWithStyles = ({ navbar }) => {
         );
       }
 
-      if (domNode.name === 'div' && domNode.attribs.class === "dropdown-content") {
-        console.log("dropdown-content", domNode.attribs.class)
+      if (domNode.name === "div" && domNode.attribs.class === "dropdown-content") {
+        console.log("dropdown-content", domNode.attribs.class);
 
         return React.createElement(
-          'div',
+          "div",
           {
             className: classes.dropdownContent,
             style: { color: navbar.htmlStyle.colors.secondaryColor },
@@ -86,46 +84,39 @@ export const NavbarWithStyles = ({ navbar }) => {
       }
 
       // Add more conditions for other tags and styles as needed
-  
-      return React.createElement(
-        domNode.name,
-        { ...domNode.attribs },
-        children
-      );
+
+      return React.createElement(domNode.name, { ...domNode.attribs }, children);
     }
-  
-    if (domNode.type === 'text') {
+
+    if (domNode.type === "text") {
       return domNode.data;
     }
-  
+
     // Handle other types of nodes as needed
-  
+
     return null;
   };
-  
+
   const jsxGenerator = (component, classes) => {
     const { htmlText } = component;
     const sanitizedHtml = DOMPurify.sanitize(htmlText);
     console.log(JSON.stringify(sanitizedHtml, null, "2"));
     const domTree = parse(sanitizedHtml);
-  
+
     return parseNode(domTree, classes);
   };
-  
+
   console.log("parsedHtml", jsxGenerator(navbar, classes));
 
   return navbar ? (
-        <div
-          className= {classes.navbar}
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(navbar.htmlText),
-          }}
-        />
+    <div
+      className={classes.navbar}
+      dangerouslySetInnerHTML={{
+        __html: DOMPurify.sanitize(navbar.htmlText),
+      }}
+    />
   ) : null;
-}
-
-
-
+};
 
 //code from Marie
 // htmlStyle: {

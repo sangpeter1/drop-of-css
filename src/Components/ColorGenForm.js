@@ -37,7 +37,7 @@ const ExpandMore = styled((props) => {
 
 const getRandomHexCode = () => {
   const characters = "0123456789ABCDEF";
-  let hexCode = "#";
+  let hexCode = "";
 
   for (let i = 0; i < 6; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
@@ -76,7 +76,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(cpg, "in useEffect, every time cpg changes");
+    // console.log(cpg, "in useEffect, every time cpg changes");
     setColorPalette(cpg);
   }, [cpg]);
 
@@ -106,14 +106,17 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   const cpgModes = [
     "monochrome",
-    "monochrome-dark",
+    "primary accent",
+    "complementary accent",
     "monochrome-light",
     "analogic",
     "complement",
     "analogic-complement",
     "triad",
     "quad",
+    "pastel",
   ];
+
   const getRandomOption = (options) => {
     const randomIndex = Math.floor(Math.random() * options.length);
     return options[randomIndex];
@@ -124,6 +127,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   const runCPG = async (ev) => {
     ev.preventDefault();
     console.log("runcpg ev", hex);
+
     if (cpg.length === 0) {
       try {
         const search = {
@@ -138,7 +142,23 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
         console.log(error);
       }
     }
-    if (cpg.length > 0) {
+
+    if (cpg.length > 0 && lockedColors.length === 0) {
+      try {
+        const search = {
+          hex,
+          mode,
+          count,
+        };
+        // const response =
+        console.log("runCPG func", search);
+        dispatch(fetchColorPalette(search));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (cpg.length > 0 && lockedColors.length > 0) {
       try {
         const search = {
           hex,
@@ -186,7 +206,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   //new lock func
   const toggleColorLock = (index, color) => {
-    console.log("locked", color.name.value);
+    // console.log("locked", color.name.value);
     setLockedColors((prevLockedColors) => {
       const colorIndex = prevLockedColors.indexOf(color);
       if (colorIndex >= 0) {
@@ -200,35 +220,45 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   };
 
   const shuffleUnlockedColors = async () => {
-    // const locked = lockedColors.filter((_color) => typeof _color === "object");
     try {
-      const unlocked = cpg.filter((_color) => !lockedColors.includes(_color));
-      const length = unlocked.length;
-      console.log(length);
-      let rgbVals =
-        unlocked
-          .filter((_color) => _color.hsl.s >= 10)
-          .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b > 200)
-          .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b < 500)
-          .sort((a, b) => b - a) || console.log("rgbVals", rgbVals);
-
-      if (rgbVals.length > 0) {
-        const hex = rgbVals[Math.floor(Math.random()) * rgbVals.length].hex.clean;
+      if (lockedColors.length === 0) {
+        let hex = getRandomHexCode();
+        const search = {
+          hex,
+          mode,
+          count,
+        };
+        // const response =
+        console.log("runCPG func", search);
+        dispatch(fetchColorPalette(search));
       } else {
-        const hex = getRandomHexCode();
+        const unlocked = cpg.filter((_color) => !lockedColors.includes(_color));
+        const length = unlocked.length;
+        console.log("shuffle unlocked", lockedColors, length);
+        // let rgbVals =
+        //   unlocked
+        //     .filter((_color) => _color.hsl.s >= 10)
+        //     .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b > 200)
+        //     .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b < 500)
+        //     .sort((a, b) => b - a) || console.log("rgbVals", rgbVals);
+
+        // if (rgbVals.length > 0) {
+        //   const hex = rgbVals[Math.floor(Math.random()) * rgbVals.length].hex.clean;
+        // } else {
+        //   const hex = getRandomHexCode();
+        // }
+
+        // console.log("shuffle unlocked colors func unlocked colors", unlocked, hex);
+
+        let search = {
+          hex: getRandomHexCode(),
+          mode: randomMode,
+          count: length,
+          unlocked: unlocked,
+        };
+        console.log("search", search);
+        dispatch(updateColorPalette(search));
       }
-
-      console.log("shuffle unlocked colors func unlocked colors", unlocked, hex);
-
-      const search = {
-        hex: hex,
-        mode: randomMode,
-        count: length,
-        unlocked: unlocked,
-      };
-
-      dispatch(updateColorPalette(search));
-
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
@@ -236,7 +266,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   };
 
   const regenColor = async (color) => {
-    console.log("change one color");
+    // console.log("change one color");
 
     if (lockedColors.includes(color)) {
       console.log("This color's locked.");
@@ -246,7 +276,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     try {
       const colorHex = color.hex.clean;
       const colorIndex = cpg.indexOf(color);
-      console.log("color's index", color, colorIndex);
+      // console.log("color's index", color, colorIndex);
 
       dispatch(
         updateColor({
@@ -269,7 +299,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       return;
     }
     const reorderedItems = reorder(colorPalette, result.source.index, result.destination.index);
-    console.log("reordereditems", reorderedItems);
+    // console.log("reordereditems", reorderedItems);
     dispatch(reorderColorPalette(reorderedItems));
     setColorPalette(reorderedItems);
   };
@@ -365,6 +395,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     );
                   })}
                 </select>
+
                 {/* <select
                   value={count}
                   onChange={(ev) => setCount(ev.target.value)}
@@ -415,14 +446,14 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     cursor: "pointer",
                   },
                 }}
-                onClick={() => shuffleUnlockedColors()}
               >
-                <div className="button-container">
+                <div className="button-container" style={{ display: "flex", alignItems: "center" }}>
                   <ShuffleIcon />
                   <span
                     style={{
                       fontSize: "calc(8px + .5vw)",
                     }}
+                    onClick={() => shuffleUnlockedColors()}
                   >
                     shuffle
                   </span>
@@ -439,14 +470,14 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     cursor: "pointer",
                   },
                 }}
-                onClick={() => dispatch(deleteColorPalette(cpg))}
               >
-                <div className="button-container">
+                <div className="button-container" style={{ display: "flex", alignItems: "center" }}>
                   <DeleteOutlineIcon />
                   <span
                     style={{
                       fontSize: "calc(8px + .5vw)",
                     }}
+                    onClick={() => dispatch(deleteColorPalette(cpg))}
                   >
                     clear all
                   </span>
@@ -458,7 +489,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
               {/* reorder stuff beginning */}
 
               <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable">
+                <Droppable droppableId="droppable" key={"1"}>
                   {(provided, snapshot) => (
                     <div
                       {...provided.droppableProps}

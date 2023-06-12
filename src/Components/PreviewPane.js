@@ -4,8 +4,6 @@ import { fetchComponents, createTemplate } from "../store";
 
 // Importing components from PreviewComponents
 
-
-
 import PreviewTitle from "./PreviewComponents/PreviewTitle";
 import PreviewNav from "./PreviewComponents/PreviewNav";
 import PreviewSideNav from "./PreviewComponents/PreviewSideNav";
@@ -71,15 +69,19 @@ const PreviewPane = ({
 
   return (
     <div>
-      <h3 className="header">Template Preview</h3>
+      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
+        <h3 className="header">Template Preview</h3>
+        <div className="instructions">
+          your preview template. you can save individual components or the template as a whole
+        </div>
+      </div>
       <div
         className="preview-pane-container"
         style={{
           zIndex: -20,
-          backgroundColor: wholePageBackground ? `${wholePageBackground.hex.value}` : "#F0F0F0",
+          backgroundColor: wholePageBackground ? `#${wholePageBackground}` : "#F0F0F0",
         }}
       >
-
         {title ? (
           <div id="previewTitle" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}>
             <div
@@ -117,37 +119,46 @@ const PreviewPane = ({
         <main className="preview-pane-Main-Content">
           <div id="previewCardContainer">
             {card ? (
-              <div id="previewCard" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-              dangerouslySetInnerHTML={{__html: jsxGenerator(card),}}/>
+              <div
+                id="previewCard"
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
+              />
             ) : (
               <div id="previewCard">Card</div>
             )}{" "}
             {card ? (
-
-              <div id="previewCard" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-              dangerouslySetInnerHTML={{__html: jsxGenerator(card),}}/>
+              <div
+                id="previewCard"
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
+              />
             ) : (
               <div id="previewCard">Card</div>
             )}
             {card ? (
-
-              <div id="previewCard" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-              dangerouslySetInnerHTML={{__html: jsxGenerator(card),}}/>
+              <div
+                id="previewCard"
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
+              />
             ) : (
               <div id="previewCard">Card</div>
             )}
           </div>
           {form ? (
-
-          <div id="previewForm" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-          dangerouslySetInnerHTML={{__html: jsxGenerator(form),}}/>
+            <div
+              id="previewForm"
+              style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+              dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
+            />
           ) : (
             <div id="previewForm">form</div>
           )}
           <div id="previewButtonContainer">
             {button ? (
-            <div id="previewButton">
-              <div dangerouslySetInnerHTML={{__html: jsxGenerator(button),}}/>
+              <div id="previewButton">
+                <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
               </div>
             ) : (
               <div id="previewButton">Button</div>
