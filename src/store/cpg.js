@@ -67,11 +67,11 @@ const cpg = (state = [], action) => {
 
 export const fetchColorPalette = (search) => {
   return async (dispatch) => {
-    const { hex, mode, count } = search;
-    // console.log("fetch in store", hex, mode, count);
-    const response = await axios.post("/api/cpg", { hex, mode, count });
-    dispatch({ type: "SET_COLORPALETTE", cpg: response.data.colors });
-    // return response.data.colors;
+    const { hex, mode } = search;
+    console.log("fetch in store", hex, mode);
+    const response = await axios.post("/api/cpg", { hex, mode });
+    console.log("in the store response", response.data);
+    dispatch({ type: "SET_COLORPALETTE", cpg: response.data });
   };
 };
 
@@ -82,13 +82,10 @@ export const reorderColorPalette = (reorderedItems) => {
 };
 
 export const updateColorPalette = (search) => {
-  //this should add new colors to the remaining available slots of colors
   return async (dispatch) => {
     const { hex, mode, count } = search;
     const colorsToRemove = search.unlocked;
-    // console.log("updateColorPalette in store", colorsToRemove);
     const response = await axios.put("/api/cpg", { hex, mode, count });
-    // console.log("colors to replace in update func", response.data);
     if (!response.data.colors) {
       dispatch({ type: "UPDATE_COLORPALETTE", remove: colorsToRemove, colors: response.data });
     }
@@ -96,7 +93,6 @@ export const updateColorPalette = (search) => {
   };
 };
 
-//gotta add a delete to the previous color
 export const updateColor = (search) => {
   return async (dispatch) => {
     const { color, colorIndex, hex, mode, count } = search;
