@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
-
+import {  useNavigate } from "react-router-dom";
 // Importing components from PreviewComponents
 
 import PreviewTitle from "./PreviewComponents/PreviewTitle";
@@ -23,7 +23,8 @@ const PreviewPane = ({
 }) => {
   const { auth, components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  
   // useEffect(() => {
   //   dispatch(fetchComponents());
   // }, []);
@@ -46,17 +47,27 @@ const PreviewPane = ({
     console.log("SAVE COMP FUNCTION", componentData);
     dispatch(createTemplate(componentData));
   };
+  
+    const goToUserComponents = () => {
+    navigate("/profile/components"); // Use navigate to go to "/user/components" URL
+  };
 
   const renderSaveButtons = () => {
     if (auth.id) {
       return (
         <div>
-          {title && <button onClick={() => saveComponent(title)}>Save Title</button>}
-          {nav && <button onClick={() => saveComponent(nav)}>Save Nav</button>}
-          {sideNav && <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>}
-          {card && <button onClick={() => saveComponent(card)}>Save Card</button>}
-          {form && <button onClick={() => saveComponent(form)}>Save Form</button>}
-          {button && <button onClick={() => saveComponent(button)}>Save Button</button>}
+          <h3 className="header">Save Components</h3> 
+          <div>
+            {title && <button onClick={() => saveComponent(title)}>Save Title</button>}
+            {nav && <button onClick={() => saveComponent(nav)}>Save Nav</button>}
+            {sideNav && <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>}
+            {card && <button onClick={() => saveComponent(card)}>Save Card</button>}
+            {form && <button onClick={() => saveComponent(form)}>Save Form</button>}
+            {button && <button onClick={() => saveComponent(button)}>Save Button</button>}
+          </div>
+          <button onClick={goToUserComponents} className="rainbowBtn">
+            Go to My Components
+          </button>
         </div>
       );
     }
@@ -165,8 +176,8 @@ const PreviewPane = ({
             )}
           </div>
         </main>
-        {renderSaveButtons()}
       </div>
+      {renderSaveButtons()}
     </div>
   );
 };
