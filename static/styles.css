@@ -2,6 +2,9 @@ body {
   font-family: verdana;
   background-color: #fafafa;
   margin: 0;
+  min-width: 600px; /* Suppose you want minimum width of 1000px */
+  width: auto !important; /* Firefox will set width as auto */
+  width: 600px; /* As IE6 ignores !important it will set width as 1000px; */
 }
 
 h1 {
@@ -16,12 +19,12 @@ h1 {
 .button-container:hover {
   position: relative;
   display: inline-block;
-  outline: 0.1px solid rgba(200, 200, 200, 0.5);
+  /* outline: 0.1px solid rgba(200, 200, 200, 0.5);
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin-left: -0.5rem;
   margin-right: -0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem; */
 }
 
 .instructions {
@@ -45,7 +48,6 @@ h1 {
   color: white;
   transition: opacity 0.3s ease;
   transition-delay: 0.3s;
-
   white-space: nowrap;
 }
 
@@ -100,10 +102,12 @@ h1 {
 form {
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 form > * {
-  margin: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 nav {
@@ -144,7 +148,7 @@ nav {
 }
 
 .cpg-form-div > form {
-  /* border: 10px solid red; */
+  margin: 2px auto;
   max-width: 20vw;
   min-width: 10vw;
 }
@@ -186,7 +190,7 @@ nav {
   /* z-index: -1; */
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: 4rem 3rem 8fr;
+  grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) 8fr;
   grid-gap: 10px;
   height: fit-content;
   border: 0.1px solid rgba(0, 0, 0, 0.2);
@@ -308,6 +312,8 @@ main > #previewButtonContainer {
 /* Component list  -mt*/
 
 .componentlist {
+  box-sizing: content-box;
+  width: fit-content;
   border: 1px solid rgba(100, 100, 100, 0.2);
   border-radius: 1rem;
   text-align: center;
@@ -325,6 +331,7 @@ main > #previewButtonContainer {
 .componentContainer {
   display: flex;
   flex-direction: column;
+  min-height: calc(100%-2vh);
 }
 .componentTypes {
   display: flex;
@@ -342,8 +349,9 @@ main > #previewButtonContainer {
   margin-bottom: 1vh;
   display: flex;
   flex-direction: column;
-  min-width: 10vw;
-  min-height: 28vh;
+  min-width: 15vw;
+  margin-right: 1vw;
+  min-height: calc(100% - 2vh);
   border-radius: 1rem;
 }
 .componentNames {
@@ -361,8 +369,10 @@ main > #previewButtonContainer {
 }
 
 .componentNames li {
+  text-align: left;
   cursor: pointer;
   margin-bottom: 5px;
+  padding: 0 0.5vw;
 }
 
 .componentlist ul li:hover {
@@ -396,9 +406,38 @@ main > #previewButtonContainer {
   float: center;
 }
 
+/* for the h3s only */
+.header:hover {
+  position: relative;
+  display: inline-block;
+  color: #2d545e;
+  position: relative;
+}
+.header:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #2d545e;
+  animation: underline 0.1s linear;
+  animation-iteration-count: 1;
+}
+
+@keyframes underline {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
 h5 {
   font-size: calc(8px + 0.5vw);
-  margin: 0.5rem;
+  text-align: left;
+  margin: 0.3rem 0 0.3rem 0.3rem;
 }
 
 /*Rainbow components*/
