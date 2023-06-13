@@ -588,15 +588,69 @@ h5 {
   text-align: center;
 }
 
-.comp-name-input {
-  margin-bottom: 4px;
-}
-
 .profile-links {
   display: flex;
   margin: 1rem;
   justify-content: space-around;
 }
+
+.profile-comp-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-comp-list li:hover {
+  animation: rainbow 1.5s linear infinite;
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  /*-webkit-text-fill-color: transparent;*/
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.profile-comp-list .selected {
+  animation: rainbow 1.5s linear infinite;
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  /*-webkit-text-fill-color: transparent;*/
+}
+
+.template-name {
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon {
+  margin-left: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: gray;
+}
+
+.comp-name-input {
+  color: black !important;
+  width: 150px;
+  height: 15px;
+  padding: 5px;
+}
+
+
+
+
+
+
+
+
 
 /* For screens with a width of 576px or less */
 /*@media screen and (max-width: 576px) {
