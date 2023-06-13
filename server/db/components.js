@@ -29,69 +29,6 @@ const components = [
   </div>
   </html>
   `,
-    htmlStyle: {
-      colors: {
-        primaryColor,
-        secondaryColor,
-        tertiaryColor,
-        bgColor,
-      },
-      styles: {
-        navbar: {
-          navbar: "border: 10px solid red",
-          backgroundColor: `{bgColor}`,
-          boxSizing: "content-box",
-          display: "grid",
-          gridAutoFlow: "row",
-          gridColumn: "1/3",
-          gridRow: 2,
-          fontSize: "1.2rem",
-          color: `{primaryColor}`,
-          textAlign: "center",
-          margin: 0,
-          height: "100%",
-          width: "100%",
-          verticalAlign: "center",
-          letterSpacing: "2px",
-          listStyle: "none",
-          borderBottom: `5px solid {tertiaryColor}`,
-          textDecoration: `underline {secondaryColor}`,
-        },
-
-        ul: {
-          backgroundColor: `{secondaryColor}`,
-          listStyleType: "none",
-          height: "100%",
-          margin: "0",
-          paddingLeft: "1rem",
-          color: "#FFFFFF",
-          width: "auto",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          textDecoration: "none",
-        },
-
-        dropdownContent: {
-          display: "none",
-          position: "absolute",
-          minWidth: "160px",
-          boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
-          zIndex: "1",
-        },
-        "dropdownContent a": {
-          float: "none",
-          color: "black",
-          padding: "12px 16px",
-          textDecoration: "none",
-          display: "block",
-          textAlign: "left",
-        },
-        "dropdown:hover .dropdownContent": {
-          display: "block",
-        },
-      },
-    },
   },
   {
     type: "navbar",
@@ -99,16 +36,12 @@ const components = [
     htmlText: `
     <style>
     .dropdownNav {
-      /* width: 100%;
-      height: 100%;*/
       font-size: calc(10px + 0.5vw);
       list-style-type: none;
       margin: 0;
       padding: 0;
       overflow: hidden;
       background-color: primaryColor;
-      /* display: flex;
-      justify-content: space-between;*/
     }
     
     #drop-li {
@@ -125,12 +58,12 @@ const components = [
     
    #drop-li a:hover, .dropdown:hover .dropbtn {
       background-color: bgColor;
-
       color: primaryColor;
     }
     
    #drop-li > .dropdown {
       display: inline-block;
+      position: relative;
     }
     
     .dropdown-content {
@@ -138,10 +71,12 @@ const components = [
       position: absolute;
       background-color: bgColor;
       color: primaryColor;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      max-width: 120px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 1;
+
     }
+
     .dropdown-content > a {
       color: black;
       padding: 12px 16px;
@@ -155,6 +90,17 @@ const components = [
   .dropdown:hover .dropdown-content {
       display: block;
       color: primaryColor;
+    }
+
+    @media screen and (max-width: 900px) {
+      .dropdownNav {
+        font-size: calc(16px + 0.5vw);
+        display: flex;
+        justify-content: center;
+      }
+      #drop-li {
+        float: center;
+      }
     }
     </style>
     <body>
