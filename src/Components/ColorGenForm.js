@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch, getState } from "react-redux";
 import {
   deleteColor,
@@ -9,6 +9,8 @@ import {
   reorderColorPalette,
 } from "../store";
 import ColorPicker from "./ColorPicker";
+
+import Popover from "@mui/material/Popover";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
@@ -18,6 +20,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Typography from "@mui/material/Typography";
+
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
 
 const ExpandMore = styled((props) => {
@@ -33,7 +37,7 @@ const ExpandMore = styled((props) => {
 
 const getRandomHexCode = () => {
   const characters = "0123456789ABCDEF";
-  let hexCode = "#";
+  let hexCode = "";
 
   for (let i = 0; i < 6; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
@@ -58,7 +62,6 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBackground }) => {
-  const dispatch = useDispatch();
   const { cpg } = useSelector((state) => state);
   const [format, setFormat] = useState("");
   const [hex, setHex] = useState("");
@@ -69,9 +72,11 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   const [expanded, setExpanded] = useState(true);
   const [lockedColors, setLockedColors] = useState([]);
   const [items, setItems] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(cpg, "in useEffect, every time cpg changes");
+    // console.log(cpg, "in useEffect, every time cpg changes");
     setColorPalette(cpg);
   }, [cpg]);
 
@@ -101,14 +106,17 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   const cpgModes = [
     "monochrome",
-    "monochrome-dark",
+    "primary accent",
+    "complementary accent",
     "monochrome-light",
     "analogic",
     "complement",
     "analogic-complement",
     "triad",
     "quad",
+    "pastel",
   ];
+
   const getRandomOption = (options) => {
     const randomIndex = Math.floor(Math.random() * options.length);
     return options[randomIndex];
@@ -119,6 +127,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   const runCPG = async (ev) => {
     ev.preventDefault();
     console.log("runcpg ev", hex);
+
     if (cpg.length === 0) {
       try {
         const search = {
@@ -133,7 +142,23 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
         console.log(error);
       }
     }
-    if (cpg.length > 0) {
+
+    if (cpg.length > 0 && lockedColors.length === 0) {
+      try {
+        const search = {
+          hex,
+          mode,
+          count,
+        };
+        // const response =
+        console.log("runCPG func", search);
+        dispatch(fetchColorPalette(search));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (cpg.length > 0 && lockedColors.length > 0) {
       try {
         const search = {
           hex,
@@ -181,7 +206,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   //new lock func
   const toggleColorLock = (index, color) => {
-    console.log("locked", color.name.value);
+    // console.log("locked", color.name.value);
     setLockedColors((prevLockedColors) => {
       const colorIndex = prevLockedColors.indexOf(color);
       if (colorIndex >= 0) {
@@ -195,35 +220,45 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   };
 
   const shuffleUnlockedColors = async () => {
-    // const locked = lockedColors.filter((_color) => typeof _color === "object");
     try {
-      const unlocked = cpg.filter((_color) => !lockedColors.includes(_color));
-      const length = unlocked.length;
-      console.log(length);
-      let rgbVals =
-        unlocked
-          .filter((_color) => _color.hsl.s >= 10)
-          .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b > 200)
-          .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b < 500)
-          .sort((a, b) => b - a) || console.log("rgbVals", rgbVals);
-
-      if (rgbVals.length > 0) {
-        const hex = rgbVals[Math.floor(Math.random()) * rgbVals.length].hex.clean;
+      if (lockedColors.length === 0) {
+        let hex = getRandomHexCode();
+        const search = {
+          hex,
+          mode,
+          count,
+        };
+        // const response =
+        console.log("runCPG func", search);
+        dispatch(fetchColorPalette(search));
       } else {
-        const hex = getRandomHexCode();
+        const unlocked = cpg.filter((_color) => !lockedColors.includes(_color));
+        const length = unlocked.length;
+        console.log("shuffle unlocked", lockedColors, length);
+        // let rgbVals =
+        //   unlocked
+        //     .filter((_color) => _color.hsl.s >= 10)
+        //     .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b > 200)
+        //     .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b < 500)
+        //     .sort((a, b) => b - a) || console.log("rgbVals", rgbVals);
+
+        // if (rgbVals.length > 0) {
+        //   const hex = rgbVals[Math.floor(Math.random()) * rgbVals.length].hex.clean;
+        // } else {
+        //   const hex = getRandomHexCode();
+        // }
+
+        // console.log("shuffle unlocked colors func unlocked colors", unlocked, hex);
+
+        let search = {
+          hex: getRandomHexCode(),
+          mode: randomMode,
+          count: length,
+          unlocked: unlocked,
+        };
+        console.log("search", search);
+        dispatch(updateColorPalette(search));
       }
-
-      console.log("shuffle unlocked colors func unlocked colors", unlocked, hex);
-
-      const search = {
-        hex: hex,
-        mode: randomMode,
-        count: length,
-        unlocked: unlocked,
-      };
-
-      dispatch(updateColorPalette(search));
-
       // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
@@ -231,19 +266,17 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   };
 
   const regenColor = async (color) => {
-    console.log("change one color");
+    // console.log("change one color");
 
     if (lockedColors.includes(color)) {
       console.log("This color's locked.");
+
       return;
     }
     try {
       const colorHex = color.hex.clean;
-      // const response = await dispatch(deleteColor({ color }));
-      //put the delete inside of the update function
-
       const colorIndex = cpg.indexOf(color);
-      console.log("color's index", color, colorIndex);
+      // console.log("color's index", color, colorIndex);
 
       dispatch(
         updateColor({
@@ -266,16 +299,32 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       return;
     }
     const reorderedItems = reorder(colorPalette, result.source.index, result.destination.index);
-    console.log("reordereditems", reorderedItems);
+    // console.log("reordereditems", reorderedItems);
     dispatch(reorderColorPalette(reorderedItems));
     setColorPalette(reorderedItems);
   };
 
   const colorClass = ["primary color", "secondary color", "tertiary color", "background color"];
 
+  const [showInstructions, setShowInstructions] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowInstructions(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowInstructions(false);
+  };
+
+  const open = Boolean(anchorEl);
+
   return (
     <>
-      <h3 className="header">Create Palette</h3>
+      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
+        <h3 className="header">Create Palette</h3>
+        <div className="instructions">first your color palette, then a component!</div>
+      </div>
+
       <ExpandMore
         expand={expanded}
         onClick={handleExpandClick}
@@ -318,7 +367,10 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
             <div
               className="cpg-form-div"
               style={{
+                // display: "flex",
                 flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <form onSubmit={runCPG}>
@@ -346,6 +398,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     );
                   })}
                 </select>
+
                 {/* <select
                   value={count}
                   onChange={(ev) => setCount(ev.target.value)}
@@ -396,17 +449,21 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     cursor: "pointer",
                   },
                 }}
-                onClick={() => shuffleUnlockedColors()}
               >
-                <ShuffleIcon />
-                <span
-                  style={{
-                    fontSize: "calc(8px + .5vw)",
-                  }}
-                >
-                  shuffle colors
-                </span>
+                <div className="button-container" style={{ display: "flex", alignItems: "center" }}>
+                  <ShuffleIcon />
+                  <span
+                    style={{
+                      fontSize: "calc(8px + .5vw)",
+                    }}
+                    onClick={() => shuffleUnlockedColors()}
+                  >
+                    shuffle
+                  </span>
+                  <div className="instructions">shuffle only unlocked colors</div>
+                </div>
               </div>
+
               <div
                 className="pointer-on-hover"
                 style={{
@@ -416,23 +473,26 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     cursor: "pointer",
                   },
                 }}
-                onClick={() => dispatch(deleteColorPalette(cpg))}
               >
-                <DeleteOutlineIcon />
-                <span
-                  style={{
-                    fontSize: "calc(8px + .5vw)",
-                  }}
-                >
-                  clear all colors
-                </span>
+                <div className="button-container" style={{ display: "flex", alignItems: "center" }}>
+                  <DeleteOutlineIcon />
+                  <span
+                    style={{
+                      fontSize: "calc(8px + .5vw)",
+                    }}
+                    onClick={() => dispatch(deleteColorPalette(cpg))}
+                  >
+                    clear all
+                  </span>
+                  <div className="instructions">clear all colors, even locked ones</div>
+                </div>
               </div>
             </div>
             <div id="cpg-container">
               {/* reorder stuff beginning */}
 
               <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable">
+                <Droppable droppableId="droppable" key={"1"}>
                   {(provided, snapshot) => (
                     <div
                       {...provided.droppableProps}
@@ -441,7 +501,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     >
                       {colorPalette.map((color, index) => {
                         const uniqueKey = `color-${index}`;
-                        const isLocked = lockedColors.includes(color) ? (
+                        let isLocked = lockedColors.includes(color) ? (
                           <LockIcon
                             sx={{
                               fontSize: "calc(10px + .5vw)",
@@ -510,17 +570,35 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                         fontSize: "calc(8px + .5vw)",
                                       }}
                                     >
-                                      <ShuffleIcon
-                                        style={{
-                                          color: color.contrast.value,
-                                          marginRight: "1vw",
-                                          fontSize: "calc(10px + .5vw)",
-                                        }}
-                                        onClick={() => regenColor(color)}
-                                      />
-                                      <span onClick={() => toggleColorLock(index, color)}>
-                                        {isLocked}
-                                      </span>
+                                      <div className="button-container">
+                                        <ShuffleIcon
+                                          style={{
+                                            color: lockedColors.includes(color)
+                                              ? "darkgray"
+                                              : color.contrast.value,
+                                            marginRight: ".5vw",
+                                            marginLeft: ".5vw",
+                                            fontSize: "calc(10px + .5vw)",
+                                            cursor: lockedColors.includes(color)
+                                              ? "auto"
+                                              : "pointer",
+                                          }}
+                                          onClick={() => regenColor(color)}
+                                        />
+                                        <div className="instructions">shuffle color</div>
+                                      </div>
+                                      <span
+                                        style={{ marginRight: ".5vw", marginLeft: ".5vw" }}
+                                      ></span>
+                                      <div className="button-container">
+                                        <span
+                                          style={{ marginRight: ".5vw", marginLeft: ".5vw" }}
+                                          onClick={() => toggleColorLock(index, color)}
+                                        >
+                                          {isLocked}
+                                        </span>
+                                        <div className="instructions">lock color</div>
+                                      </div>
                                     </div>
                                   </div>
                                   {/* content end */}

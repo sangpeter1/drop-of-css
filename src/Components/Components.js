@@ -24,10 +24,10 @@ const Components = ({ openInPreview }) => {
   }
 
   useEffect(() => {
-    console.log("Components useEffect", cpg);
+    // console.log("Components useEffect", cpg);
   }, [cpg]);
 
-  console.log("Components OUTSIDE useEffect", cpg);
+  // console.log("Components OUTSIDE useEffect", cpg);
 
   const handleOpenInPreview = async (component) => {
     try {
@@ -48,6 +48,8 @@ const Components = ({ openInPreview }) => {
   const componentTypes = [...new Set(components.map((component) => component.type))];
   // console.log("component types", componentTypes);
   if (cpg.length > 0) {
+    console.log("cpg?", cpg);
+    console.log("cpg zero?", cpg[0]);
     console.log(`rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.3)`);
   }
 
@@ -55,7 +57,10 @@ const Components = ({ openInPreview }) => {
 
   return (
     <>
-      <h3 className="header">Select Components</h3>
+      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
+        <h3 className="header">Select Components</h3>
+        <div className="instructions">next, add components to your template!</div>
+      </div>
       <div className="componentlist">
         <div className="componentContainer">
           <div className="componentTypes">

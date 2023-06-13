@@ -5,11 +5,10 @@ import { fetchComponents, createTemplate } from "../store";
 // Importing components from PreviewComponents
 // This is a copy of the PreviewPane that is being used for the custom npm package. Currently under works!
 
-
 import PreviewTitle from "./PreviewComponents/PreviewTitle";
 import PreviewNav from "./PreviewComponents/PreviewNav";
-import PreviewSideNav from './PreviewComponents/PreviewSideNav';
-import PreviewCard from './PreviewComponents/PreviewCard';
+import PreviewSideNav from "./PreviewComponents/PreviewSideNav";
+import PreviewCard from "./PreviewComponents/PreviewCard";
 import PreviewForm from "./PreviewComponents/PreviewForm";
 import PreviewButton from "./PreviewComponents/PreviewButton";
 //
@@ -59,11 +58,11 @@ const PreviewPane = ({
 
   const [colors, setColors] = useState("");
 
-const jsxGenerator = (component) => {
-  const { htmlText, htmlStyle } = component;
-  console.log(htmlText);
-  return htmlText;
-};
+  const jsxGenerator = (component) => {
+    const { htmlText, htmlStyle } = component;
+    // console.log(htmlText);
+    return htmlText;
+  };
 
   /*mt*/
   const saveComponent = (componentType) => {
@@ -72,7 +71,7 @@ const jsxGenerator = (component) => {
       htmlText: jsxGenerator(componentType),
       userId: userId,
     };
-    console.log('SAVE COMP FUNCTION', componentData);
+    // console.log('SAVE COMP FUNCTION', componentData);
     dispatch(createTemplate(componentData));
   };
 
@@ -98,7 +97,12 @@ const jsxGenerator = (component) => {
 
   return (
     <div>
-      <h3 className="header">Template Preview</h3>
+      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
+        <h3 className="header">Template Preview</h3>
+        <div className="instructions">
+          your preview template. you can save individual components or the template as a whole
+        </div>
+      </div>
       <div
         className="preview-pane-container"
         style={{
@@ -106,35 +110,35 @@ const jsxGenerator = (component) => {
           backgroundColor: wholePageBackground ? `${wholePageBackground.hex.value}` : "#F0F0F0",
         }}
       >
-        <PreviewTitle title={title} jsxGenerator={jsxGenerator}/>
-        <PreviewNav nav={nav} jsxGenerator={jsxGenerator}/>
+        <PreviewTitle title={title} jsxGenerator={jsxGenerator} />
+        <PreviewNav nav={nav} jsxGenerator={jsxGenerator} />
         <PreviewSideNav sideNav={sideNav} jsxGenerator={jsxGenerator} />
         <main className="preview-pane-Main-Content">
           <div id="previewCardContainer">
             {card ? (
-              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator} />
             ) : (
               <div id="previewCard">Card</div>
             )}{" "}
             {card ? (
-              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator} />
             ) : (
               <div id="previewCard">Card</div>
             )}
             {card ? (
-              <PreviewCard card={card} jsxGenerator={jsxGenerator}/>
+              <PreviewCard card={card} jsxGenerator={jsxGenerator} />
             ) : (
               <div id="previewCard">Card</div>
             )}
           </div>
           {form ? (
-            <PreviewForm form={form} jsxGenerator={jsxGenerator}/>
+            <PreviewForm form={form} jsxGenerator={jsxGenerator} />
           ) : (
             <div id="previewForm">form</div>
           )}
           <div id="previewButtonContainer">
             {button ? (
-              <PreviewButton button={button} jsxGenerator={jsxGenerator}/>
+              <PreviewButton button={button} jsxGenerator={jsxGenerator} />
             ) : (
               <div id="previewButton">Button</div>
             )}
@@ -147,5 +151,5 @@ const jsxGenerator = (component) => {
 };
 
 export default PreviewPane;
-
 export const PreviewPaneConfig = config;
+
