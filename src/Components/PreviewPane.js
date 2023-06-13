@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
+import store from "../store";
 import { useNavigate } from "react-router-dom";
+
 
 // Importing components from PreviewComponents
 
@@ -11,7 +13,36 @@ import PreviewSideNav from "./PreviewComponents/PreviewSideNav";
 import PreviewCard from "./PreviewComponents/PreviewCard";
 import PreviewForm from "./PreviewComponents/PreviewForm";
 import PreviewButton from "./PreviewComponents/PreviewButton";
+import { jsx } from "@emotion/react";
+
 //
+
+const jsxGenerator = (component) => {
+  if(!component.htmlText){
+    component.htmlText = ''
+  }
+  const { htmlText, htmlStyle } = component;
+  console.log(htmlText);
+  return htmlText;
+};
+
+
+// Handling change of components field from redux store outside of the React component
+
+
+const config = {}
+
+const handleComponentChange = () => {
+  const config = {};
+  const components = store.getState().components;
+  components.forEach(component => {
+    config[components.type] = jsxGenerator(component)
+  })
+};
+
+const unsubscribe = store.subscribe(handleComponentChange);
+//unsubscribe();
+
 
 const PreviewPane = ({
   wholePageBackground,
@@ -32,12 +63,6 @@ const PreviewPane = ({
 
   const [colors, setColors] = useState("");
   const [savedComponents, setSavedComponents] = useState([]);
-
-  const jsxGenerator = (component) => {
-    const { htmlText, htmlStyle } = component;
-    console.log(htmlText);
-    return htmlText;
-  };
 
   const saveComponent = (componentType) => {
     const userId = auth.id;
@@ -91,7 +116,6 @@ const PreviewPane = ({
   if (wholePageBackground) {
     console.log("whole background", wholePageBackground);
   }
-
 
   return (
     <div>
@@ -199,15 +223,5 @@ const PreviewPane = ({
 
 export default PreviewPane;
 
-/*
-export const PreviewPaneConfig = {
-  wholePageBackground,
-  form,
-  nav,
-  title,
-  sideNav,
-  card,
-  button,
-  jsxGenerator
-}
-*/
+export const PreviewPaneConfig = config;
+
