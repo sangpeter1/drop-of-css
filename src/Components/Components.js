@@ -57,10 +57,10 @@ const Components = ({ openInPreview }) => {
 
   return (
     <>
-      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
-        <h3 className="header">Select Components</h3>
+      <h3 className="header" style={{ display: "block", textAlign: "center" }}>
+        Select Components
         <div className="instructions">next, add components to your template!</div>
-      </div>
+      </h3>
       <div className="componentlist">
         <div className="componentContainer">
           <div className="componentTypes">
