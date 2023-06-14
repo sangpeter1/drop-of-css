@@ -1,7 +1,10 @@
+
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 import store from "../store";
+import { useNavigate } from "react-router-dom";
+
 
 // Importing components from PreviewComponents
 
@@ -52,12 +55,14 @@ const PreviewPane = ({
 }) => {
   const { auth, components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   dispatch(fetchComponents());
   // }, []);
 
   const [colors, setColors] = useState("");
+  const [savedComponents, setSavedComponents] = useState([]);
 
 
   /*mt*/
@@ -69,8 +74,13 @@ const PreviewPane = ({
     };
     console.log('SAVE COMP FUNCTION', componentData);
     dispatch(createTemplate(componentData));
+    setSavedComponents((prevSavedComponents) => [...prevSavedComponents, componentType]);
   };
-
+  
+  const goToUserComponents = () => {
+    navigate("/profile/components"); 
+  };
+/*
   const renderSaveButtons = () => {
     if (auth.id) {
       return (
@@ -86,6 +96,42 @@ const PreviewPane = ({
     }
     return null;
   };
+*/
+const renderSaveButtons = () => {
+    if (auth.id) {
+      return (
+        <div>
+          <h3 className="header">Save Components</h3>
+            <div>
+              {title && !savedComponents.includes(title) && (
+               <button onClick={() => saveComponent(title)}>Save Title</button>
+              )}
+              {nav && !savedComponents.includes(nav) && (
+                <button onClick={() => saveComponent(nav)}>Save Nav</button>
+              )}
+              {sideNav && !savedComponents.includes(sideNav) && (
+                <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>
+              )}
+              {card && !savedComponents.includes(card) && (
+                <button onClick={() => saveComponent(card)}>Save Card</button>
+              )}
+              {form && !savedComponents.includes(form) && (
+                <button onClick={() => saveComponent(form)}>Save Form</button>
+              )}
+              {button && !savedComponents.includes(button) && (
+                <button onClick={() => saveComponent(button)}>Save Button</button>
+              )}
+            </div>
+            <button onClick={goToUserComponents} className="rainbowBtn">
+              Go to My Components
+            </button>
+          </div>
+        
+        );
+      }
+    return null;
+  };
+
 
   if (wholePageBackground) {
     console.log("whole background", wholePageBackground);
