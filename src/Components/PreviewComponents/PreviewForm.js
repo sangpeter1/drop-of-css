@@ -1,6 +1,13 @@
 import React from 'react'
+// import { html2pdf } from 'html2pdf.js'
 
 const PreviewForm = ({ form, jsxGenerator}) => {
+  /*const downloadPDF = (id) => {
+    const element = document.getElementById(id); 
+    html2pdf().from(element).save('component.pdf'); 
+  };
+  */
+ // <button onClick={() => {downloadPDF("previewForm")}}>Download PDF</button>
   return (
     <div>
         <div
@@ -9,7 +16,7 @@ const PreviewForm = ({ form, jsxGenerator}) => {
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(form),
               }}
-            />
+        />
     </div>
   )
 }
