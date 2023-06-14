@@ -13,6 +13,33 @@ import PreviewForm from "./PreviewComponents/PreviewForm";
 import PreviewButton from "./PreviewComponents/PreviewButton";
 //
 
+const jsxGenerator = (component) => {
+  if(!component.htmlText){
+    component.htmlText = ''
+  }
+  const { htmlText, htmlStyle } = component;
+  console.log(htmlText);
+  return htmlText;
+};
+
+
+// Handling change of components field from redux store outside of the React component
+
+
+const config = {}
+
+const handleComponentChange = () => {
+  const config = {};
+  const components = store.getState().components;
+  components.forEach(component => {
+    config[components.type] = jsxGenerator(component)
+  })
+};
+
+const unsubscribe = store.subscribe(handleComponentChange);
+//unsubscribe();
+
+
 const PreviewPane = ({
   wholePageBackground,
   form,
@@ -124,15 +151,5 @@ const PreviewPane = ({
 };
 
 export default PreviewPane;
-/*
-export const PreviewPaneConfig = {
-  wholePageBackground,
-  form,
-  nav,
-  title,
-  sideNav,
-  card,
-  button,
-  jsxGenerator
-}
-*/
+export const PreviewPaneConfig = config;
+
