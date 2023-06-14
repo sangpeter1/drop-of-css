@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
+import FavHeart from "./FavHeart";
 
 // Importing components from PreviewComponents
 
@@ -89,6 +90,7 @@ const PreviewPane = ({
                 __html: jsxGenerator(title),
               }}
             />
+            <FavHeart component = { title } />
           </div>
         ) : (
           <header id="previewTitle">Your Website Title</header>
@@ -100,19 +102,23 @@ const PreviewPane = ({
                 __html: jsxGenerator(nav),
               }}
             />
+            <FavHeart component = { nav } />
+
             {/* <Navbar /> */}
           </div>
         ) : (
           <nav id="previewNav">Preview Nav</nav>
         )}
         {sideNav ? (
-          <div
-            id="previewSideNav"
-            style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-            dangerouslySetInnerHTML={{
-              __html: jsxGenerator(sideNav),
-            }}
-          />
+            <div id="previewSideNav">
+              <div style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+              dangerouslySetInnerHTML={{
+                __html: jsxGenerator(sideNav),
+              }} 
+              />
+              <FavHeart component={sideNav} />
+            </div>
+          
         ) : (
           <div id="previewSideNav">Side Nav</div>
         )}
@@ -133,6 +139,7 @@ const PreviewPane = ({
                 style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
                 dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
               />
+              
             ) : (
               <div id="previewCard">Card</div>
             )}
@@ -145,6 +152,7 @@ const PreviewPane = ({
             ) : (
               <div id="previewCard">Card</div>
             )}
+          <FavHeart component= {card} />
           </div>
           {form ? (
             <div
@@ -159,6 +167,7 @@ const PreviewPane = ({
             {button ? (
               <div id="previewButton">
                 <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
+                <FavHeart component= {button} />
               </div>
             ) : (
               <div id="previewButton">Button</div>
