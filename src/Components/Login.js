@@ -1,48 +1,69 @@
 import React, { useState } from "react";
 import { attemptLogin } from "../store";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import UserCreate from "./UserCreate";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
+  const { auth } = useSelector((state) => state);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onChange = (ev) => {
     setCredentials({ ...credentials, [ev.target.name]: ev.target.value });
   };
 
-  const login = (ev) => {
+  const login = async (ev) => {
     ev.preventDefault();
-    dispatch(attemptLogin(credentials));
-    navigate("/");
+    try {
+      console.log(credentials);
+      await dispatch(attemptLogin(credentials));
+      console.log("successful");
+      navigate("/");
+    } catch (err) {
+      setErrorMessage("username or password is incorrect");
+      console.log("login error", err);
+    }
   };
 
   return (
-    <div
-      className="login"
-      style={{ width: "33%", height: "33%", justifyContent: "center", alignItems: "center" }}
-    >
+    <div className="login">
       <h3 className="header">Login</h3>
       <form onSubmit={login}>
+        <label>Username</label>
         <input
-          placeholder="username"
           value={credentials.username}
           name="username"
           onChange={onChange}
+          autoComplete="username"
         />
+        <label>Password</label>
         <input
-          placeholder="password"
           name="password"
           value={credentials.password}
           onChange={onChange}
+          autoComplete="none"
+          style={{ marginBottom: "8px" }}
         />
-        <button className="rainbowBtn">Login</button>
+        <div
+          style={{
+            margin: "0 auto",
+            color: "darkred",
+            fontSize: "calc(4px + 0.5vw)",
+            fontStyle: "italic",
+            minHeight: "2vh",
+          }}
+        >
+          {errorMessage ? errorMessage : <div style={{ minHeight: "(4px + 0.5vw)" }}></div>}
+        </div>
+        <div className="rainbowBtn" type={"submit"} onClick={login}>
+          Login
+        </div>
         <div className="rainbowBtn">
           <a
             href={`https://github.com/login/oauth/authorize?client_id=${window.client_id}`}
@@ -55,10 +76,24 @@ const Login = () => {
           >
             Login with Github
           </a>
+        </div>{" "}
+        <div className="rainbowBtn">
+          <Link
+            to={"/register"}
+            style={{
+              maxWidth: "10px",
+              fontSize: "13.33333px",
+              fontFamily: "Arial, sans-serif",
+              color: "white",
+              textDecoration: "none",
+            }}
+          >
+            Create New User
+          </Link>
         </div>
       </form>
 
-      <UserCreate />
+      {/* <UserCreate /> */}
     </div>
   );
 };

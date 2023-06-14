@@ -8,6 +8,7 @@ const sanitizer = DOMPurify.sanitize;
 const Components = ({ openInPreview }) => {
   const { components, cpg } = useSelector((state) => state);
   const [activeType, setActiveType] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleTypeClick = (type) => {
     setActiveType(type === activeType ? null : type);
@@ -31,6 +32,9 @@ const Components = ({ openInPreview }) => {
 
   const handleOpenInPreview = async (component) => {
     try {
+      if (!cpg.length > 0) {
+        setErrorMessage("please pick a color palette first!");
+      }
       if (component) {
         const colorsOnComponents = await dispatch(
           setColorsOnComponents({
@@ -53,7 +57,7 @@ const Components = ({ openInPreview }) => {
     console.log(`rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.3)`);
   }
 
-  console.log(componentTypes);
+  // console.log(componentTypes);
 
   return (
     <>
@@ -100,6 +104,18 @@ const Components = ({ openInPreview }) => {
             ))}
           </div>
         </div>
+      </div>
+      <div
+        style={{
+          margin: "0 auto",
+          color: "darkred",
+          fontSize: "calc(5px + 0.5vw)",
+          fontStyle: "italic",
+          minHeight: "2vh",
+          textAlign: "center",
+        }}
+      >
+        {errorMessage ? errorMessage : <div style={{ minHeight: "(4px + 0.5vw)" }}></div>}
       </div>
     </>
   );

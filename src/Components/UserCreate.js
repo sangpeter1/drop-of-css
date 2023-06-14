@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { register } from '../store';
-import { useNavigate } from 'react-router-dom';
-import { attemptLogin } from '../store';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { register } from "../store";
+import { useNavigate, Link } from "react-router-dom";
+import { attemptLogin } from "../store";
 
-
-const UserCreate = ()=> {
-  
+const UserCreate = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ errors, setErrors ] = useState([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  
-  const registerUser = async(ev)=> {
+  const registerUser = async (ev) => {
     ev.preventDefault();
     const credentials = {
       username,
@@ -25,55 +22,63 @@ const UserCreate = ()=> {
 
     try {
       await dispatch(register(credentials));
-      setErrors([]);
       dispatch(attemptLogin(credentials));
-      navigate('/');
+      navigate("/");
+    } catch (err) {
+      setErrorMessage("username or email already exists");
+      console.log(err);
     }
-    catch(ex){
-      setErrors(ex.response.data.error.errors); 
-    }
-
   };
-  
+
   return (
-    <div>
+    <div className="login">
       <h3 className="header">Create Account</h3>
-      <form onSubmit={ registerUser }>
-         <input 
-            value={ username } 
-            onChange={ ev => setUsername(ev.target.value)} 
-            placeholder="username"
-            name="username"
-          />
-          <input 
-            value={ password } 
-            onChange={ ev => setPassword(ev.target.value)}          
-            type="password"
-            placeholder="password"
-            name="password" 
-          />
-          <input 
-            value={ email } 
-            onChange={ ev => setEmail(ev.target.value)}          
-            placeholder="email"
-            name="email" 
-          />
-          <button className="rainbowBtn">Create Account</button>
-          <ul>
-            {
-              errors.map( (error, idx) => {
-                return (
-                  <li key={ idx }>
-                    { error.message }
-                  </li>
-                );
-              })
-            }
-          </ul>
+      <form onSubmit={registerUser}>
+        <label>Username</label>
+
+        <input value={username} onChange={(ev) => setUsername(ev.target.value)} name="username" />
+        <label>Password</label>
+
+        <input
+          value={password}
+          onChange={(ev) => setPassword(ev.target.value)}
+          type="password"
+          name="password"
+        />
+        <label>Email</label>
+
+        <input value={email} onChange={(ev) => setEmail(ev.target.value)} name="email" />
+
+        <div
+          style={{
+            margin: "0 auto",
+            color: "darkred",
+            fontSize: "calc(4px + 0.5vw)",
+            fontStyle: "italic",
+            minHeight: "2vh",
+          }}
+        >
+          {errorMessage ? errorMessage : <div style={{ minHeight: "(4px + 0.5vw)" }}></div>}
+        </div>
+
+        <button className="rainbowBtn">Create Account</button>
       </form>
+      <button className="rainbowBtn">
+        <Link
+          to={"/login"}
+          style={{
+            maxWidth: "10px",
+            fontSize: "13.33333px",
+            fontFamily: "Arial, sans-serif",
+            color: "white",
+            textDecoration: "none",
+          }}
+        >
+          Back
+        </Link>
+      </button>
     </div>
   );
 };
-
 
 export default UserCreate;

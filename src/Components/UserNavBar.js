@@ -6,7 +6,7 @@ const UserNavBar = () => {
   if (!cpg) {
     return null;
   }
-  console.log("in the User Nav", cpg);
+  // console.log("in the User Nav", cpg);
   return <hr />;
 };
 
