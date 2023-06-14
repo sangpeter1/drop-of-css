@@ -27,6 +27,7 @@ const jsxGenerator = (component) => {
 };
 
 
+
 // Handling change of components field from redux store outside of the React component
 
 
@@ -42,6 +43,18 @@ const handleComponentChange = () => {
 
 const unsubscribe = store.subscribe(handleComponentChange);
 //unsubscribe();
+
+//this function is moved outside of the PreviewPane component so that the function can be imported to FavHeart.js
+
+export const saveComponent = (componentType) => {
+  const userId = auth.id;
+  const componentData = {
+    htmlText: jsxGenerator(componentType),
+    userId: userId,
+  };
+  dispatch(createTemplate(componentData));
+  setSavedComponents((prevSavedComponents) => [...prevSavedComponents, componentType]);
+};
 
 
 const PreviewPane = ({
@@ -63,16 +76,6 @@ const PreviewPane = ({
 
   const [colors, setColors] = useState("");
   const [savedComponents, setSavedComponents] = useState([]);
-
-  const saveComponent = (componentType) => {
-    const userId = auth.id;
-    const componentData = {
-      htmlText: jsxGenerator(componentType),
-      userId: userId,
-    };
-    dispatch(createTemplate(componentData));
-    setSavedComponents((prevSavedComponents) => [...prevSavedComponents, componentType]);
-  };
 
   const goToUserComponents = () => {
     navigate("/profile/components"); 
@@ -201,14 +204,20 @@ const PreviewPane = ({
             ) : (
               <div id="previewCard">Card</div>
             )}
-          <FavHeart component= {card} />
+            {
+              card ? (
+                <FavHeart component = { card }/>
+              ): ''
+            }
           </div>
           {form ? (
+            <div id="previewForm">
             <div
-              id="previewForm"
               style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
               dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
             />
+            <FavHeart component= {form} />
+            </div>
           ) : (
             <div id="previewForm">form</div>
           )}
@@ -216,7 +225,7 @@ const PreviewPane = ({
             {button ? (
               <div id="previewButton">
                 <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
-                <FavHeart component= {button} />
+                <FavHeart component = { button } />
               </div>
             ) : (
               <div id="previewButton">Button</div>

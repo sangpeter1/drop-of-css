@@ -20,7 +20,12 @@ const templates = (state = [], action) => {
   return state;
 };
 
-
+export const setTemplates = () => {
+  return async(dispatch) => {
+    const response = axios.get("/api/templates");
+    dispatch({type: "SET_TEMPLATES", templates: response.data});
+  }
+}
 export const createTemplate = (template) => {
   return async (dispatch) => {
     const { htmlText, userId } = template;
