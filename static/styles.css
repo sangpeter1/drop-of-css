@@ -489,9 +489,34 @@ h5 {
 /* login page */
 
 .login {
-  margin-left: 8rem;
-  margin-right: 8rem;
-  margin-top: 2rem;
+  width: 30vw;
+  height: 40vh;
+  /* max-width: 80vw; */
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #2d545e;
+  border-radius: 1rem;
+}
+
+.login > * {
+  margin: 0;
+}
+
+.login > form {
+  min-width: 20vw;
+}
+.login > form > label {
+  color: #2d545e;
+  text-align: left;
+  font-size: calc(6px + 0.5vw);
+}
+
+.login > form > .rainbowBtn {
+  width: 15vw;
+  margin: 4px auto;
 }
 
 @media screen and (max-width: 900px) {
@@ -527,6 +552,20 @@ h5 {
     min-width: 20vw;
     max-width: 30vw;
   }
+  .login {
+    width: 45vw;
+    height: 40vh;
+  }
+  .login > form {
+    min-width: 35vw;
+  }
+  .login > form > label {
+    font-size: calc(8px + 0.5vw);
+  }
+  .login > form > .rainbowBtn {
+    width: 20vw;
+    margin: 4px auto;
+  }
 }
 @media screen and (max-width: 768px) {
   .preview-pane-container {
@@ -559,6 +598,20 @@ h5 {
     aspect-ratio: 9/16;
     min-height: 50vh;
     min-width: 40vw;
+  }
+  .login {
+    width: 55vw;
+    height: 40vh;
+  }
+  .login > form {
+    min-width: 45vw;
+  }
+  .login > form > label {
+    font-size: calc(8px + 0.5vw);
+  }
+  .login > form > .rainbowBtn {
+    width: 30vw;
+    margin: 4px auto;
   }
 }
 

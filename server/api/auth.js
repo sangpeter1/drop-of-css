@@ -18,6 +18,7 @@ app.post("/register", async (req, res, next) => {
     const user = await User.create(req.body);
     res.send(user.generateToken());
   } catch (ex) {
+    console.log(ex);
     next(ex);
   }
 });
@@ -37,7 +38,7 @@ app.post("/register", async (req, res, next) => {
 //   }
 // });
 
-app.get('/github', async (req, res, next) => {
+app.get("/github", async (req, res, next) => {
   try {
     const { code } = req.query;
     const token = await User.authenticateGithub(code);
@@ -68,7 +69,7 @@ app.put("/", isLoggedIn, async (req, res, next) => {
     const { username, password, email } = req.body;
 
     if (user.isOAuthUser) {
-      return res.status(403).json({ error: 'OAuth users cannot update their email and password.' });
+      return res.status(403).json({ error: "OAuth users cannot update their email and password." });
     }
     if (username) {
       user.username = username;
@@ -103,23 +104,21 @@ app.put("/", isLoggedIn, async (req, res, next) => {
 */
 
 // create
-app.post('/', async(req, res, next) => {
-  try{
+app.post("/", async (req, res, next) => {
+  try {
     res.status(201).send(await User.create(req.body));
-  }
-  catch(ex){
+  } catch (ex) {
     next(ex);
   }
 });
 
 //delete
-app.delete('/:id', async(req, res, next) => {
-  try{
+app.delete("/:id", async (req, res, next) => {
+  try {
     const user = await User.findByPk(req.params.id);
     await user.destroy();
     res.send(204);
-  }
-  catch(ex){
+  } catch (ex) {
     next(ex);
   }
 });

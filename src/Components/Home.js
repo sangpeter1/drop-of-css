@@ -14,7 +14,7 @@ const Home = () => {
   const [generatedColors, setGeneratedColors] = useState(null);
   const [wholePageBackground, setWholePageBackground] = useState("");
 
-  console.log("home", wholePageBackground);
+  // console.log("home", wholePageBackground);
 
   const handleOpenInPreview = (component) => {
     console.log("handle open in preview on home page", component);

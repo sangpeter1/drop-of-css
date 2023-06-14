@@ -8,6 +8,7 @@ import ColorGenForm from "./ColorGenForm";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
+import UserCreate from "./UserCreate";
 
 const App = () => {
   const { auth } = useSelector((state) => state);
@@ -44,6 +45,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/cpgform" element={<ColorGenForm />} />
               <Route path="/test" element={<Test />} />
+              <Route path="/register" element={<UserCreate />} />
             </>
           )}
           {auth.id && (

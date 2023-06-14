@@ -21,7 +21,7 @@ const jsxGenerator = (component) => {
     component.htmlText = "";
   }
   const { htmlText, htmlStyle } = component;
-  console.log(htmlText);
+  // console.log(htmlText);
   return htmlText;
 };
 
