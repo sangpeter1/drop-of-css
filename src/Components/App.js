@@ -10,7 +10,6 @@ import { Routes, Route } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
 
 const App = () => {
-  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const prevAuth = useRef(auth);
@@ -33,7 +32,7 @@ const App = () => {
   useEffect(() => {
     prevAuth.current = auth;
   });
-  
+
   return (
     <div>
       <Nav />
@@ -62,8 +61,6 @@ const App = () => {
       </div>
     </div>
   );
-  
 };
-
 
 export default App;
