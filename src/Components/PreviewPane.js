@@ -26,9 +26,7 @@ const jsxGenerator = (component) => {
   return htmlText;
 };
 
-
-// Handling change of components field from redux store outside of the React component
-
+// Handling change of components field from redux store outside of the React component lasdkjf
 
 const config = {}
 
