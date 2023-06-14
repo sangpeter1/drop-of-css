@@ -73,6 +73,8 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   const [lockedColors, setLockedColors] = useState([]);
   const [items, setItems] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -128,7 +130,17 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     ev.preventDefault();
     console.log("runcpg ev", hex);
 
-    if (cpg.length === 0) {
+    if (!hex) {
+      console.log("no hex");
+      setErrorMessage("red");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 1500);
+
+      return;
+    }
+
+    if (hex && cpg.length === 0) {
       try {
         const search = {
           hex,
@@ -141,9 +153,10 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       } catch (error) {
         console.log(error);
       }
+      setExpanded(false);
     }
 
-    if (cpg.length > 0 && lockedColors.length === 0) {
+    if (hex && cpg.length > 0 && lockedColors.length === 0) {
       try {
         const search = {
           hex,
@@ -156,9 +169,10 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       } catch (error) {
         console.log(error);
       }
+      setExpanded(false);
     }
 
-    if (cpg.length > 0 && lockedColors.length > 0) {
+    if (hex && cpg.length > 0 && lockedColors.length > 0) {
       try {
         const search = {
           hex,
@@ -173,8 +187,8 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       } catch (error) {
         console.log(error);
       }
+      setExpanded(false);
     }
-    setExpanded(false);
   };
   // await handleGenColors(trimmedPalette);
   //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
@@ -306,18 +320,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   const colorClass = ["primary color", "secondary color", "tertiary color", "background color"];
 
-  const [showInstructions, setShowInstructions] = useState(false);
-
-  const handleMouseEnter = () => {
-    setShowInstructions(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowInstructions(false);
-  };
-
-  const open = Boolean(anchorEl);
-
   return (
     <>
       {/* <div className="button-container" style={{ display: "block", textAlign: "center" }}> */}
@@ -382,6 +384,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                   placeholder="Insert Hex Code"
                   style={{
                     fontSize: "calc(8px + .5vw)",
+                    outline: errorMessage ? `2px solid ${errorMessage}` : "",
                   }}
                 />
                 <select
