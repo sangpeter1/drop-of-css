@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const templates = (state = [], action) => {
-  if (action.type === "SET_TEMPLATE") {
+  if (action.type === "SET_TEMPLATES") {
     return action.templates;
   }
   if (action.type === "CREATE_TEMPLATE") {
@@ -20,7 +20,12 @@ const templates = (state = [], action) => {
   return state;
 };
 
-
+export const setTemplates = () => {
+  return async (dispatch) => {
+    const response = await axios.get("/api/templates")
+    dispatch({ type: "SET_TEMPLATES", templates: response.data })
+  }
+}
 export const createTemplate = (template) => {
   return async (dispatch) => {
     const { htmlText, userId } = template;

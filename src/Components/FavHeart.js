@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa"; 
 import { setTemplates } from "../store";
-import { saveComponent } from "./PreviewPane";
 
 const FavHeart = ({component}) => {
   const { templates, auth } = useSelector(state => state);
