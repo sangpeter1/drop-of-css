@@ -473,6 +473,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                 className="pointer-on-hover"
                 style={{
                   display: "flex",
+                  margin: "auto",
                   alignItems: "center",
                   ":hover": {
                     cursor: "pointer",
@@ -528,7 +529,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                               style={{
                                 fontStyle: "italic",
                                 fontStretch: "expanded",
-                                fontSize: "calc(5px + .5vw)",
+                                fontSize: "calc(6px + .5vw)",
                                 paddingLeft: "1rem",
                               }}
                             >
@@ -548,11 +549,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                     id={uniqueKey}
                                     key={uniqueKey}
                                     style={{
-                                      display: "flex",
-                                      margin: "2px",
                                       backgroundColor: color.hex.value,
-                                      alignItems: "center",
-                                      textAlign: "left",
                                       height: `calc(20vh / ${colorPalette.length})`,
                                     }}
                                   >
@@ -560,29 +557,22 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                       style={{
                                         paddingLeft: "1vw",
                                         color: color.contrast.value,
-                                        flexGrow: 1,
+                                        flex: "2 1 100%",
                                         fontSize: "calc(8px + .5vw)",
                                       }}
                                     >
                                       {color.name.value} {color.hex.value}
                                     </div>
 
-                                    <div
-                                      className="pointer-on-hover"
-                                      style={{
-                                        marginLeft: "auto",
-                                        marginRight: "1vw",
-                                        fontSize: "calc(8px + .5vw)",
-                                      }}
-                                    >
+                                    <div className="pointer-on-hover">
                                       <div className="button-container">
                                         <ShuffleIcon
                                           style={{
                                             color: lockedColors.includes(color)
                                               ? "darkgray"
                                               : color.contrast.value,
-                                            marginRight: ".5vw",
-                                            marginLeft: ".5vw",
+                                            marginRight: ".3vw",
+                                            marginLeft: ".3vw",
                                             fontSize: "calc(10px + .5vw)",
                                             cursor: lockedColors.includes(color)
                                               ? "auto"
@@ -593,7 +583,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                         <div className="instructions">shuffle color</div>
                                       </div>
                                       <span
-                                        style={{ marginRight: ".5vw", marginLeft: ".5vw" }}
+                                        style={{ marginRight: ".3vw", marginLeft: ".3vw" }}
                                       ></span>
                                       <div className="button-container">
                                         <span

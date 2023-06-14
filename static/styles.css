@@ -141,6 +141,7 @@ nav {
 }
 
 .cpg-color {
+  text-align: "left";
   display: flex;
   align-items: center;
   width: 24vw;
@@ -190,7 +191,11 @@ nav {
 }
 
 .pointer-on-hover {
+  display: inline-flex;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: 1vw;
+  font-size: calc(8px + 0.5vw);
 }
 
 /* PREVIEW PANE DIVS */
@@ -568,6 +573,27 @@ h5 {
   }
 }
 @media screen and (max-width: 768px) {
+  .header > .instructions {
+    box-sizing: content-box;
+    font-weight: 300;
+    width: 25vw;
+    height: 4vh;
+    border-radius: 2rem/3rem;
+    padding: 0.2rem;
+    font-size: calc(6px + 0.5vw);
+    white-space: normal;
+  }
+  .button-container > .instructions {
+    box-sizing: content-box;
+    text-align: center;
+    font-weight: 300;
+    width: 7vw;
+    height: 4vh;
+    border-radius: 2rem/3rem;
+    padding: 0.2rem;
+    font-size: calc(6px + 0.5vw);
+    white-space: normal;
+  }
   .preview-pane-container {
     /* z-index: -1; */
     display: grid;
@@ -640,6 +666,7 @@ h5 {
   overflow: auto;
   border: 1px solid #ccc;
   padding: 8px;
+  text-align: left;
 }
 
 .profile-main {

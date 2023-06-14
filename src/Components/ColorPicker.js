@@ -70,7 +70,7 @@ const ColorPicker = ({ onColorChange }) => {
             <div style={styles.color}>
               <span
                 style={{
-                  fontSize: "calc(4px + .5vw)",
+                  fontSize: "calc(6px + .5vw)",
                   color: "whitesmoke",
                   margin: 0,
                   fontStyle: "italic",
