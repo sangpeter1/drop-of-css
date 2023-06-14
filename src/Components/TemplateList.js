@@ -57,29 +57,18 @@ const TemplateList = () => {
     }
   }; // sets untitled and date as default if no name
   
-  const handleEditName = () => {
-    if (selectedComponent) {
-      setEditedTemplateName(selectedComponent.name || "");
-    }
-  };
-
-  const handleSaveName = () => {
-    updateTemplateNameHandler();
-    setSelectedComponent(null);
-  };
-  /*
+  
   return (
     <div className="template-list-container">
       <div className="templatesidebar">
         <h4 className="header">My Components</h4>
-        <ul className="profile-comp-list">
+        <ul>
           {templates
             .filter((template) => template.userId === auth.id)
             .map((template) => (
               <li
                 key={template.id}
                 onClick={() => handleComponentClick(template)}
-                className={selectedComponent === template ? 'selected' : ''}
               >
                 {renderTemplateName(template)} 
               </li>
@@ -132,82 +121,8 @@ const TemplateList = () => {
           )}
         </div>
       </div>
-  );*/
-  return (
-    <div className="template-list-container">
-      <div className="templatesidebar">
-        <h4 className="header">My Components</h4>
-        <ul className="profile-comp-list">
-          {templates
-            .filter((template) => template.userId === auth.id)
-            .map((template) => (
-              <li
-                key={template.id}
-                onClick={() => handleComponentClick(template)}
-                className={selectedComponent === template ? "selected" : ""}
-              >
-                {selectedComponent === template ? (
-                  <div>
-                    <input
-                      type="text"
-                      value={editedTemplateName}
-                      onChange={handleTemplateNameChange}
-                      className="comp-name-input"
-                    />
-                    <button
-                      onClick={handleSaveName}
-                      className="edit-icon"
-                      title="Save"
-                    >
-                      Save
-                    </button>
-                  </div>
-                ) : (
-                  <div className="template-name">
-                    {renderTemplateName(template)}
-                    <button
-                      onClick={handleEditName}
-                      className="edit-icon"
-                      title="Edit"
-                    >
-                      ✏️
-                    </button>
-                  </div>
-                )}
-              </li>
-            ))}
-        </ul>
-      </div>
-      <div>
-        {selectedComponent && (
-          <div>
-            <h4 className="header">{renderTemplateName(selectedComponent)}</h4>
-            <h5>Component:</h5>
-            <div
-              className="profilecomppreview"
-              dangerouslySetInnerHTML={{
-                __html: cleanUpHTML(selectedComponent.htmlText),
-              }}
-            />
-            <h5>HTML:</h5>
-            <div className="profilehtmlpreview">
-              {selectedComponent.htmlText}
-            </div>
-            <button onClick={copyHtmlTextToClipboard} className="rainbowBtn">
-              Copy HTML
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
   );
 };
 
 export default TemplateList;
-  
-
-
-
-
-
 

@@ -1,12 +1,7 @@
 import React from 'react'
-import { html2pdf } from 'html2pdf.js'
 
 const PreviewNav = ({nav,jsxGenerator}) => {
-  const downloadPDF = (id) => {
-    const element = document.getElementById(id); 
-    html2pdf().from(element).save('component.pdf'); 
-  };
-  
+  console.log(nav);
   return (
     <div>
         {nav ? (
@@ -21,7 +16,6 @@ const PreviewNav = ({nav,jsxGenerator}) => {
         ) : (
           <nav id="previewNav">Preview Nav</nav>
         )}
-        <button onClick={() => {downloadPDF("previewNav")}}>Download PDF</button>
     </div>
   )
 }

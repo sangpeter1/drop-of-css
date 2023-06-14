@@ -53,8 +53,6 @@ const Components = ({ openInPreview }) => {
     console.log(`rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.3)`);
   }
 
-  console.log(componentTypes)
-
   return (
     <>
       <div className="button-container" style={{ display: "block", textAlign: "center" }}>
