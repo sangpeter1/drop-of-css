@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { FaUser, FaEnvelope } from 'react-icons/fa';
-import TemplateList from './TemplateList';
-import UserUpdate from './UserUpdate';
+import { FaUser, FaEnvelope } from "react-icons/fa";
+import TemplateList from "./TemplateList";
+import UserUpdate from "./UserUpdate";
 import { Link, Outlet } from "react-router-dom";
-
 
 const Profile = () => {
   const { auth } = useSelector((state) => state);
@@ -41,11 +40,11 @@ const ProfileAccount = () => {
           {auth.username.charAt(0).toUpperCase() + auth.username.slice(1)}'s Info
         </h4>
         <p>
-          <FaUser className="custom-icon" /> {' '} { auth.username }
+          <FaUser className="custom-icon" /> {auth.username}
         </p>
         {auth.email && (
           <p>
-            <FaEnvelope className="custom-icon" /> {' '} { auth.email }
+            <FaEnvelope className="custom-icon" /> {auth.email}
           </p>
         )}
       </div>

@@ -5,7 +5,6 @@ import colorWheelImage from "../images/colorwheel320.png";
 import { logout } from "../store";
 
 const Nav = () => {
-  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +13,7 @@ const Nav = () => {
     dispatch(logout());
     navigate("/");
   };
-  
+
   return (
     <>
       <nav
@@ -89,21 +88,21 @@ const Nav = () => {
           </div>
           <div>
             {!auth.id && (
-            <div>
-              <Link to="/" style={{ color: "white", textDecoration: "none", margin: ".5rem" }}>
+              <div>
+                <Link to="/" style={{ color: "white", textDecoration: "none", margin: ".5rem" }}>
                   Home
-              </Link>
-              <Link
-                style={{
-                  color: "white",
-                  textDecoration: "none",
-                  margin: ".5rem 2rem",
-                }}
-                to="/login"
-              >
-                Login
-              </Link>
-            </div>
+                </Link>
+                <Link
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    margin: ".5rem 2rem",
+                  }}
+                  to="/login"
+                >
+                  Login
+                </Link>
+              </div>
             )}
           </div>
         </div>

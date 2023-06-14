@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
-<<<<<<< HEAD
 import store from "../store";
 import { useNavigate } from "react-router-dom";
-=======
-import FavHeart from "./FavHeart";
->>>>>>> parent of 3ae81bb (Merge branch 'main' into peter/faheart)
-
 
 // Importing components from PreviewComponents
 
@@ -17,7 +12,33 @@ import PreviewSideNav from "./PreviewComponents/PreviewSideNav";
 import PreviewCard from "./PreviewComponents/PreviewCard";
 import PreviewForm from "./PreviewComponents/PreviewForm";
 import PreviewButton from "./PreviewComponents/PreviewButton";
+import { jsx } from "@emotion/react";
+
 //
+
+const jsxGenerator = (component) => {
+  if (!component.htmlText) {
+    component.htmlText = "";
+  }
+  const { htmlText, htmlStyle } = component;
+  console.log(htmlText);
+  return htmlText;
+};
+
+// Handling change of components field from redux store outside of the React component
+
+const config = {};
+
+const handleComponentChange = () => {
+  const config = {};
+  const components = store.getState().components;
+  components.forEach((component) => {
+    config[components.type] = jsxGenerator(component);
+  });
+};
+
+const unsubscribe = store.subscribe(handleComponentChange);
+//unsubscribe();
 
 const PreviewPane = ({
   wholePageBackground,
@@ -30,40 +51,57 @@ const PreviewPane = ({
 }) => {
   const { auth, components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   dispatch(fetchComponents());
   // }, []);
 
   const [colors, setColors] = useState("");
+  const [savedComponents, setSavedComponents] = useState([]);
 
-  const jsxGenerator = (component) => {
-    const { htmlText, htmlStyle } = component;
-    console.log(htmlText);
-    return htmlText;
-  };
-
-  /*mt*/
   const saveComponent = (componentType) => {
     const userId = auth.id;
     const componentData = {
       htmlText: jsxGenerator(componentType),
       userId: userId,
     };
-    console.log("SAVE COMP FUNCTION", componentData);
     dispatch(createTemplate(componentData));
+    setSavedComponents((prevSavedComponents) => [...prevSavedComponents, componentType]);
+  };
+
+  const goToUserComponents = () => {
+    navigate("/profile/components");
   };
 
   const renderSaveButtons = () => {
     if (auth.id) {
       return (
         <div>
-          {title && <button onClick={() => saveComponent(title)}>Save Title</button>}
-          {nav && <button onClick={() => saveComponent(nav)}>Save Nav</button>}
-          {sideNav && <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>}
-          {card && <button onClick={() => saveComponent(card)}>Save Card</button>}
-          {form && <button onClick={() => saveComponent(form)}>Save Form</button>}
-          {button && <button onClick={() => saveComponent(button)}>Save Button</button>}
+          <h3 className="header">Save Components</h3>
+          <div>
+            {title && !savedComponents.includes(title) && (
+              <button onClick={() => saveComponent(title)}>Save Title</button>
+            )}
+            {nav && !savedComponents.includes(nav) && (
+              <button onClick={() => saveComponent(nav)}>Save Nav</button>
+            )}
+            {sideNav && !savedComponents.includes(sideNav) && (
+              <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>
+            )}
+            {card && !savedComponents.includes(card) && (
+              <button onClick={() => saveComponent(card)}>Save Card</button>
+            )}
+            {form && !savedComponents.includes(form) && (
+              <button onClick={() => saveComponent(form)}>Save Form</button>
+            )}
+            {button && !savedComponents.includes(button) && (
+              <button onClick={() => saveComponent(button)}>Save Button</button>
+            )}
+          </div>
+          <button onClick={goToUserComponents} className="rainbowBtn">
+            Go to My Components
+          </button>
         </div>
       );
     }
@@ -180,15 +218,4 @@ const PreviewPane = ({
 
 export default PreviewPane;
 
-/*
-export const PreviewPaneConfig = {
-  wholePageBackground,
-  form,
-  nav,
-  title,
-  sideNav,
-  card,
-  button,
-  jsxGenerator
-}
-*/
+export const PreviewPaneConfig = config;

@@ -11,31 +11,31 @@ const Test = () => {
   const { components } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  useEffect (() => {
+  useEffect(() => {
     dispatch(fetchComponents());
-  },[]);
+  }, []);
 
-  const navbar = components.find(component => component.type === "navbar");
+  const navbar = components.find((component) => component.type === "navbar");
 
   return navbar ? <NavbarWithStyles navbar={navbar} /> : null;
-}
+};
 
 const NavbarWithStyles = ({ navbar }) => {
   const useStyles = createUseStyles(navbar.htmlStyle.styles);
   console.log("navbar styles", navbar.htmlStyle.styles);
   const classes = useStyles();
-  console.log("classes", classes)
+  console.log("classes", classes);
 
   const jsxGenerator = (component, classes) => {
     const { htmlText } = component;
-  
+
     const sanitizedHtml = DOMPurify.sanitize(htmlText);
-    
+
     const parsedHtml = parse(sanitizedHtml, {
       replace: (domNode) => {
-        if (domNode.name === 'ul') {
+        if (domNode.name === "ul") {
           return React.createElement(
-            'div',
+            "div",
             {
               className: classes.ul,
               style: { color: navbar.htmlStyle.colors.secondaryColor },
@@ -44,9 +44,9 @@ const NavbarWithStyles = ({ navbar }) => {
             domNode.children
           );
         }
-        if (domNode.name === 'div' && domNode.attribs.class === 'dropdown') {
+        if (domNode.name === "div" && domNode.attribs.class === "dropdown") {
           return React.createElement(
-            'div',
+            "div",
             {
               className: classes.dropdown,
               style: { color: navbar.htmlStyle.colors.secondaryColor },
@@ -55,9 +55,9 @@ const NavbarWithStyles = ({ navbar }) => {
             domNode.children
           );
         }
-        if (domNode.name === 'div' && domNode.attribs.class === 'dropdown-content') {
+        if (domNode.name === "div" && domNode.attribs.class === "dropdown-content") {
           return React.createElement(
-            'div',
+            "div",
             {
               className: classes.dropdownContent,
               style: { color: navbar.htmlStyle.colors.secondaryColor },
@@ -66,9 +66,9 @@ const NavbarWithStyles = ({ navbar }) => {
             domNode.children
           );
         }
-        if (domNode.name === 'a' && domNode.attribs.class === 'dropdown-content-links') {
+        if (domNode.name === "a" && domNode.attribs.class === "dropdown-content-links") {
           return React.createElement(
-            'div',
+            "div",
             {
               className: classes.dropdownContentLinks,
               style: { color: navbar.htmlStyle.colors.secondaryColor },
@@ -77,12 +77,12 @@ const NavbarWithStyles = ({ navbar }) => {
             domNode.children
           );
         }
-  
+
         // Add more conditions for other tags and styles as needed
         return undefined; // Return undefined to keep parsing other nodes as default
       },
     });
-  
+
     return parsedHtml;
   };
 
@@ -98,13 +98,9 @@ const NavbarWithStyles = ({ navbar }) => {
       </ul>
     </div>
   ) : null;
-}
+};
 
 export default Test;
-
-
-
-
 
 //code from Marie
 // htmlStyle: {

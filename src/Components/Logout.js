@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store";
 
 const Logout = () => {
-  
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
 

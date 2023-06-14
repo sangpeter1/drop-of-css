@@ -367,7 +367,10 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
             <div
               className="cpg-form-div"
               style={{
+                // display: "flex",
                 flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <form onSubmit={runCPG}>
@@ -573,8 +576,8 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                             color: lockedColors.includes(color)
                                               ? "darkgray"
                                               : color.contrast.value,
-                                            marginRight: "1vw",
-                                            marginLeft: "1vw",
+                                            marginRight: ".5vw",
+                                            marginLeft: ".5vw",
                                             fontSize: "calc(10px + .5vw)",
                                             cursor: lockedColors.includes(color)
                                               ? "auto"
@@ -584,8 +587,14 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                         />
                                         <div className="instructions">shuffle color</div>
                                       </div>
+                                      <span
+                                        style={{ marginRight: ".5vw", marginLeft: ".5vw" }}
+                                      ></span>
                                       <div className="button-container">
-                                        <span onClick={() => toggleColorLock(index, color)}>
+                                        <span
+                                          style={{ marginRight: ".5vw", marginLeft: ".5vw" }}
+                                          onClick={() => toggleColorLock(index, color)}
+                                        >
                                           {isLocked}
                                         </span>
                                         <div className="instructions">lock color</div>
