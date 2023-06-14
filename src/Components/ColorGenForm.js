@@ -85,6 +85,16 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const handleColorChange = (newHex) => {
+    setHex(newHex);
+  };
+
+  //looks like it's unused?
+  const handleGenColors = (cpg) => {
+    openColorsInPreview(cpg);
+  };
+
   /*
   local storage functions. would be nice to get this going
   useEffect(() => {
@@ -102,9 +112,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     }
   }, []);
 */
-  const handleGenColors = (cpg) => {
-    openColorsInPreview(cpg);
-  };
 
   const cpgModes = [
     "monochrome",
@@ -190,15 +197,10 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       setExpanded(false);
     }
   };
-  // await handleGenColors(trimmedPalette);
   //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
 
-  // works with color picker
-  const handleColorChange = (newHex) => {
-    setHex(newHex);
-  };
-
   //for bugs -- keeps the color palette length at 4, but keeps the indicies of locked colors.
+  //looks like it's unused??? maybe delete?
   const trimColorPalette = (updatedColorPalette) => {
     const output = [];
     let objCount = 0;
@@ -242,28 +244,12 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           mode,
           count,
         };
-        // const response =
         console.log("runCPG func", search);
         dispatch(fetchColorPalette(search));
       } else {
         const unlocked = cpg.filter((_color) => !lockedColors.includes(_color));
         const length = unlocked.length;
         console.log("shuffle unlocked", lockedColors, length);
-        // let rgbVals =
-        //   unlocked
-        //     .filter((_color) => _color.hsl.s >= 10)
-        //     .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b > 200)
-        //     .filter((_color) => _color.rgb.r + _color.rgb.g + _color.rgb.b < 500)
-        //     .sort((a, b) => b - a) || console.log("rgbVals", rgbVals);
-
-        // if (rgbVals.length > 0) {
-        //   const hex = rgbVals[Math.floor(Math.random()) * rgbVals.length].hex.clean;
-        // } else {
-        //   const hex = getRandomHexCode();
-        // }
-
-        // console.log("shuffle unlocked colors func unlocked colors", unlocked, hex);
-
         let search = {
           hex: getRandomHexCode(),
           mode: randomMode,
@@ -280,17 +266,13 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   };
 
   const regenColor = async (color) => {
-    // console.log("change one color");
-
     if (lockedColors.includes(color)) {
       console.log("This color's locked.");
-
       return;
     }
     try {
       const colorHex = color.hex.clean;
       const colorIndex = cpg.indexOf(color);
-      // console.log("color's index", color, colorIndex);
 
       dispatch(
         updateColor({
