@@ -153,7 +153,7 @@ const renderSaveButtons = () => {
                 __html: jsxGenerator(title),
               }}
             />
-            <FaHeart component = { title }/>
+            <FavHeart component = { title }/>
           </div>
         ) : (
           <header id="previewTitle">Your Website Title</header>
