@@ -16,18 +16,19 @@ h1 {
   display: inline-block;
   align-items: center;
 }
+.header:hover {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+}
 .button-container:hover {
   position: relative;
   display: inline-block;
-  /* outline: 0.1px solid rgba(200, 200, 200, 0.5);
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-  border-radius: 0.5rem; */
+  align-items: center;
 }
 
 .instructions {
+  font-weight: 300;
   opacity: 0;
   pointer-events: none;
   position: absolute;
@@ -46,11 +47,19 @@ h1 {
   padding: 0.5rem;
   font-size: calc(4px + 0.5vw);
   color: white;
-  transition: opacity 0.3s ease;
-  transition-delay: 0.3s;
+  transition: opacity 0.2s ease-in-out;
+  /* transition: opacity cubic-bezier(1, 0.99, 1, 0); */
   white-space: nowrap;
 }
 
+.header:hover .instructions {
+  opacity: 1;
+  pointer-events: auto;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: 0;
+}
 .button-container:hover .instructions {
   opacity: 1;
   pointer-events: auto;
@@ -312,6 +321,7 @@ main > #previewButtonContainer {
 /* Component list  -mt*/
 
 .componentlist {
+  margin: auto;
   box-sizing: content-box;
   width: fit-content;
   border: 1px solid rgba(100, 100, 100, 0.2);
@@ -320,12 +330,6 @@ main > #previewButtonContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 1vw;
-}
-
-.componentlist h3 {
-  margin: 4;
-  font-size: calc(12px + 0.5vw);
 }
 
 .componentContainer {
@@ -397,7 +401,7 @@ main > #previewButtonContainer {
   color: #2d545e;
   font-size: calc(12px + 0.5vw);
   text-align: center;
-  margin: 4px auto;
+  margin: 6px auto;
   padding: 4px;
   width: fit-content;
   display: flex;
@@ -419,10 +423,11 @@ main > #previewButtonContainer {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 2px;
+  height: 1px;
   background-color: #2d545e;
   animation: underline 0.1s linear;
   animation-iteration-count: 1;
+  margin-top: -1px;
 }
 
 @keyframes underline {

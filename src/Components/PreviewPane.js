@@ -4,7 +4,6 @@ import { fetchComponents, createTemplate } from "../store";
 import store from "../store";
 import { useNavigate } from "react-router-dom";
 
-
 // Importing components from PreviewComponents
 
 import PreviewTitle from "./PreviewComponents/PreviewTitle";
@@ -115,12 +114,12 @@ const PreviewPane = ({
 
   return (
     <div>
-      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
-        <h3 className="header">Template Preview</h3>
+      <h3 className="header" style={{ display: "block", textAlign: "center" }}>
+        Template Preview
         <div className="instructions">
           your preview template. you can save individual components or the template as a whole
         </div>
-      </div>
+      </h3>
       <div
         className="preview-pane-container"
         style={{

@@ -320,10 +320,12 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   return (
     <>
-      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
-        <h3 className="header">Create Palette</h3>
+      {/* <div className="button-container" style={{ display: "block", textAlign: "center" }}> */}
+      <h3 className="header" style={{ display: "block", textAlign: "center" }}>
+        Create Palette
         <div className="instructions">first your color palette, then a component!</div>
-      </div>
+      </h3>
+      {/* </div> */}
 
       <ExpandMore
         expand={expanded}
