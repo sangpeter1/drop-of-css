@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express.Router();
 const axios = require("axios");
+const colorapiresponse = require("../db/colorapi-response-object");
 
 // prefix for this page is /colorgenerator
 app.post("/", async (req, res, next) => {
@@ -63,6 +64,7 @@ app.post("/", async (req, res, next) => {
     // console.log("this is the output you're trying to send", output);
     res.send(output);
   } catch (err) {
+    res.send(colorapiresponse);
     next(err);
   }
 });
