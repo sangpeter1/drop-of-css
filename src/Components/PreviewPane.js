@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 import store from "../store";
 import { useNavigate } from "react-router-dom";
+import FavHeart from "./FavHeart";
 
 
 // Importing components from PreviewComponents
@@ -39,7 +40,7 @@ const handleComponentChange = () => {
 };
 
 const unsubscribe = store.subscribe(handleComponentChange);
-//unsubscribe();
+//unsubscribe()
 
 
 const PreviewPane = ({
@@ -152,6 +153,7 @@ const renderSaveButtons = () => {
                 __html: jsxGenerator(title),
               }}
             />
+            <FaHeart component = { title }/>
           </div>
         ) : (
           <header id="previewTitle">Your Website Title</header>
