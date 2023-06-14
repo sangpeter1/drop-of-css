@@ -2,9 +2,6 @@ body {
   font-family: verdana;
   background-color: #fafafa;
   margin: 0;
-  min-width: 600px; /* Suppose you want minimum width of 1000px */
-  width: auto !important; /* Firefox will set width as auto */
-  width: 600px; /* As IE6 ignores !important it will set width as 1000px; */
 }
 
 h1 {
@@ -19,12 +16,12 @@ h1 {
 .button-container:hover {
   position: relative;
   display: inline-block;
-  /* outline: 0.1px solid rgba(200, 200, 200, 0.5);
+  outline: 0.1px solid rgba(200, 200, 200, 0.5);
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin-left: -0.5rem;
   margin-right: -0.5rem;
-  border-radius: 0.5rem; */
+  border-radius: 0.5rem;
 }
 
 .instructions {
@@ -48,6 +45,7 @@ h1 {
   color: white;
   transition: opacity 0.3s ease;
   transition-delay: 0.3s;
+
   white-space: nowrap;
 }
 
@@ -102,12 +100,10 @@ h1 {
 form {
   display: flex;
   flex-direction: column;
-  margin: 0;
-  padding: 0;
 }
 
 form > * {
-  margin-top: 0.5rem;
+  margin: 0.5rem;
 }
 
 nav {
@@ -148,7 +144,7 @@ nav {
 }
 
 .cpg-form-div > form {
-  margin: 2px auto;
+  /* border: 10px solid red; */
   max-width: 20vw;
   min-width: 10vw;
 }
@@ -190,7 +186,7 @@ nav {
   /* z-index: -1; */
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) 8fr;
+  grid-template-rows: 4rem 3rem 8fr;
   grid-gap: 10px;
   height: fit-content;
   border: 0.1px solid rgba(0, 0, 0, 0.2);
@@ -288,6 +284,7 @@ main > #previewCardContainer {
   box-sizing: border-box;
   grid-row: 2;
   grid-column: 1 / span 3;
+  position: relative;
 }
 
 main > #previewButtonContainer {
@@ -311,13 +308,12 @@ main > #previewButtonContainer {
   grid-row: 3;
   width: 7vw;
   height: 3.5vh;
+  position: relative;
 }
 
 /* Component list  -mt*/
 
 .componentlist {
-  box-sizing: content-box;
-  width: fit-content;
   border: 1px solid rgba(100, 100, 100, 0.2);
   border-radius: 1rem;
   text-align: center;
@@ -335,7 +331,6 @@ main > #previewButtonContainer {
 .componentContainer {
   display: flex;
   flex-direction: column;
-  min-height: calc(100%-2vh);
 }
 .componentTypes {
   display: flex;
@@ -353,9 +348,8 @@ main > #previewButtonContainer {
   margin-bottom: 1vh;
   display: flex;
   flex-direction: column;
-  min-width: 15vw;
-  margin-right: 1vw;
-  min-height: calc(100% - 2vh);
+  min-width: 10vw;
+  min-height: 28vh;
   border-radius: 1rem;
 }
 .componentNames {
@@ -373,10 +367,8 @@ main > #previewButtonContainer {
 }
 
 .componentNames li {
-  text-align: left;
   cursor: pointer;
   margin-bottom: 5px;
-  padding: 0 0.5vw;
 }
 
 .componentlist ul li:hover {
@@ -410,38 +402,9 @@ main > #previewButtonContainer {
   float: center;
 }
 
-/* for the h3s only */
-.header:hover {
-  position: relative;
-  display: inline-block;
-  color: #2d545e;
-  position: relative;
-}
-.header:hover::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #2d545e;
-  animation: underline 0.1s linear;
-  animation-iteration-count: 1;
-}
-
-@keyframes underline {
-  0% {
-    transform: scaleX(0);
-  }
-  100% {
-    transform: scaleX(1);
-  }
-}
-
 h5 {
   font-size: calc(8px + 0.5vw);
-  text-align: left;
-  margin: 0.3rem 0 0.3rem 0.3rem;
+  margin: 0.5rem;
 }
 
 /*Rainbow components*/
@@ -592,6 +555,10 @@ h5 {
   text-align: center;
 }
 
+.comp-name-input {
+  margin-bottom: 4px;
+}
+
 .profile-links {
   display: flex;
   margin: 1rem;
@@ -616,64 +583,6 @@ h5 {
 .heart-clicked {
   color: red;
 }
-
-
-.profile-comp-list{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.profile-comp-list li:hover {
-  animation: rainbow 1.5s linear infinite;
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-  -webkit-background-clip: text;
-  /*-webkit-text-fill-color: transparent;*/
-}
-
-@keyframes rainbow {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
-.profile-comp-list .selected {
-  animation: rainbow 1.5s linear infinite;
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-  -webkit-background-clip: text;
-  /*-webkit-text-fill-color: transparent;*/
-}
-
-.template-name {
-  display: flex;
-  align-items: center;
-}
-
-.edit-icon {
-  margin-left: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  color: gray;
-}
-
-.comp-name-input {
-  color: black !important;
-  width: 150px;
-  height: 15px;
-  padding: 5px;
-}
-
-
-
-
-
-
-
 
 
 /* For screens with a width of 576px or less */
