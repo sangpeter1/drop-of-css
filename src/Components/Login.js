@@ -47,7 +47,7 @@ const Login = () => {
           name="password"
           value={credentials.password}
           onChange={onChange}
-          autoComplete="none"
+          autoComplete="password"
           style={{ marginBottom: "8px" }}
         />
         <div
