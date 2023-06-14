@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
-<<<<<<< HEAD
 import store from "../store";
 import { useNavigate } from "react-router-dom";
-=======
-import FavHeart from "./FavHeart";
->>>>>>> parent of 3ae81bb (Merge branch 'main' into peter/faheart)
-
+// import FavHeart from "./FavHeart";
 
 // Importing components from PreviewComponents
 
