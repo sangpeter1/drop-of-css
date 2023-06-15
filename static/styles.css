@@ -729,6 +729,26 @@ h5 {
   padding: 5px;
 }
 
+/* favHeart icon */
+.top-right-span {
+  position: absolute;
+  top: 0;
+  right: 0;
+ 
+}
+
+.heart-icon {
+  width: 1.2rem;
+  color: white;
+  transition: color 0.3s ease-in-out;
+  stroke: black;
+  stroke-width: 4px;
+}
+
+.heart-clicked {
+  color: red;
+}
+
 /* For screens with a width of 576px or less */
 /*@media screen and (max-width: 576px) {
   main {

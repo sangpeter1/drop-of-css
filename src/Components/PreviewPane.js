@@ -1,7 +1,11 @@
+
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 import store from "../store";
+import { useNavigate } from "react-router-dom";
+import FavHeart from "./FavHeart";
+
 
 // Importing components from PreviewComponents
 
@@ -23,9 +27,8 @@ const jsxGenerator = (component) => {
   return htmlText;
 };
 
-// Handling change of components field from redux store outside of the React component
-
-const config = {};
+// Handling change of components field from redux store outside of the React component lasdkjf
+const config = {}
 
 const handleComponentChange = () => {
   const components = store.getState().components;
@@ -36,12 +39,15 @@ const handleComponentChange = () => {
 };
 
 const unsubscribe = store.subscribe(handleComponentChange);
-//unsubscribe();
+//unsubscribe()
 
 const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, button }) => {
   const { auth, components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [colors, setColors] = useState("");
+  const [savedComponents, setSavedComponents] = useState([]);
 
   /*mt*/
   const saveComponent = (componentType) => {
@@ -52,8 +58,13 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     };
     console.log("SAVE COMP FUNCTION", componentData);
     dispatch(createTemplate(componentData));
+    setSavedComponents((prevSavedComponents) => [...prevSavedComponents, componentType]);
   };
-
+  
+  const goToUserComponents = () => {
+    navigate("/profile/components"); 
+  };
+/*
   const renderSaveButtons = () => {
     if (auth.id) {
       return (
@@ -69,6 +80,42 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     }
     return null;
   };
+*/
+const renderSaveButtons = () => {
+    if (auth.id) {
+      return (
+        <div>
+          <h3 className="header">Save Components</h3>
+            <div>
+              {title && !savedComponents.includes(title) && (
+               <button onClick={() => saveComponent(title)}>Save Title</button>
+              )}
+              {nav && !savedComponents.includes(nav) && (
+                <button onClick={() => saveComponent(nav)}>Save Nav</button>
+              )}
+              {sideNav && !savedComponents.includes(sideNav) && (
+                <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>
+              )}
+              {card && !savedComponents.includes(card) && (
+                <button onClick={() => saveComponent(card)}>Save Card</button>
+              )}
+              {form && !savedComponents.includes(form) && (
+                <button onClick={() => saveComponent(form)}>Save Form</button>
+              )}
+              {button && !savedComponents.includes(button) && (
+                <button onClick={() => saveComponent(button)}>Save Button</button>
+              )}
+            </div>
+            <button onClick={goToUserComponents} className="rainbowBtn">
+              Go to My Components
+            </button>
+          </div>
+        
+        );
+      }
+    return null;
+  };
+
 
   if (wholePageBackground) {
     console.log("whole background", wholePageBackground);
@@ -97,6 +144,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                 __html: jsxGenerator(title),
               }}
             />
+            <FavHeart component = { title }/>
           </div>
         ) : (
           <header id="previewTitle">Your Website Title</header>

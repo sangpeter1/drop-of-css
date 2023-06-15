@@ -21,7 +21,6 @@ const TemplateList = () => {
 
   const handleComponentClick = (component) => {
     setSelectedComponent(component);
-    console.log("component in template", component);
   }; //renders list
 
   const handleTemplateNameChange = (event) => {
@@ -181,12 +180,12 @@ const TemplateList = () => {
               }}
             />
             <h5>HTML:</h5>
-            <div className="profilehtmlpreview">
-              <pre>{selectedComponent.htmlText}</pre>
-            </div>
+            <pre>
+            <div className="profilehtmlpreview">{selectedComponent.htmlText}</div>
             <button onClick={copyHtmlTextToClipboard} className="rainbowBtn">
               Copy HTML
             </button>
+            </pre>
           </div>
         )}
       </div>
