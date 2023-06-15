@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 import store from "../store";
+import html2pdf from 'html2pdf.js';
 import { useNavigate } from "react-router-dom";
 import FavHeart from "./FavHeart";
+
+// import { FaDownload } from 'react-icons/fa';
 
 // Importing components from PreviewComponents
 
@@ -37,6 +40,36 @@ const handleComponentChange = () => {
 };
 
 const unsubscribe = store.subscribe(handleComponentChange);
+//unsubscribe();
+
+
+
+const PreviewPane = ({
+  wholePageBackground,
+  form,
+  nav,
+  title,
+  sideNav,
+  card,
+  button /*accordion, generatedColors*/,
+}) => {
+  const { auth, components, componentColors } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const [isHovered, setIsHovered] = useState(false);
+  const codeRef = useRef(null);
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  
+
+  // useEffect(() => {
+  //   dispatch(fetchComponents());
+  // }, []);
 //unsubscribe()
 
 const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, button }) => {
@@ -140,6 +173,8 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     wholePageBackground = savedWholePageBackground;
     console.log("whole background", wholePageBackground);
   }
+
+  console.log(config)
 
   return (
     <div>
@@ -248,6 +283,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             ) : (
               <div id="previewButton">Button</div>
             )}
+
           </div>
         </main>
       </div>
