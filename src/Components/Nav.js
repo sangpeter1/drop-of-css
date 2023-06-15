@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import colorWheelImage from "../images/colorwheel320.png";
 import { logout } from "../store";
+import Home from "./Home";
 
 const Nav = () => {
   const { auth } = useSelector((state) => state);
@@ -10,8 +11,11 @@ const Nav = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.clear();
+    // navigate(<Link to={<Home />} />);
     dispatch(logout());
     navigate("/");
+    window.location.reload();
   };
 
   return (

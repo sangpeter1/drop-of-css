@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch, getState } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   deleteColor,
   deleteColorPalette,
@@ -7,10 +7,10 @@ import {
   updateColorPalette,
   updateColor,
   reorderColorPalette,
+  locallyStoredColorPalette,
 } from "../store";
 import ColorPicker from "./ColorPicker";
 
-import Popover from "@mui/material/Popover";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
@@ -20,9 +20,6 @@ import LockIcon from "@mui/icons-material/Lock";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import Typography from "@mui/material/Typography";
-
-import WallpaperIcon from "@mui/icons-material/Wallpaper";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -86,6 +83,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     const savedColors = JSON.parse(localStorage.getItem("colors"));
     if (savedColors) {
       setColorPalette(savedColors);
+      dispatch(locallyStoredColorPalette(savedColors));
     }
   }, []);
 
@@ -100,6 +98,11 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   //looks like it's unused?
   const handleGenColors = (cpg) => {
     openColorsInPreview(cpg);
+  };
+
+  const handleWholePageBackground = async () => {
+    await setWholePageBackground(`${hex}`);
+    localStorage.setItem("savedWholePageBackground", JSON.stringify(wholePageBackground));
   };
 
   const cpgModes = [
@@ -120,7 +123,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     return options[randomIndex];
   };
   const randomMode = getRandomOption(cpgModes);
-  const cpgCounts = [2, 3, 4];
+  // const cpgCounts = [2, 3, 4];
 
   const runCPG = async (ev) => {
     ev.preventDefault();
@@ -386,10 +389,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                   Submit
                 </button>
               </form>
-              <button
-                className="setBackgroundButton"
-                onClick={(ev) => setWholePageBackground(`${hex}`)}
-              >
+              <button className="setBackgroundButton" onClick={handleWholePageBackground}>
                 set page background
               </button>
             </div>
@@ -485,7 +485,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                           />
                         );
                         return (
-                          <>
+                          <div key={uniqueKey}>
                             <div
                               key={`colorClass-${index}`}
                               style={{
@@ -562,7 +562,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                 </div>
                               )}
                             </Draggable>
-                          </>
+                          </div>
                         );
                       })}
                       {provided.placeholder}

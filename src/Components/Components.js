@@ -32,6 +32,9 @@ const Components = ({ openInPreview }) => {
     try {
       if (!cpg.length > 0) {
         setErrorMessage("please pick a color palette first!");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 1500);
       }
       if (component) {
         const colorsOnComponents = await dispatch(
@@ -80,11 +83,11 @@ const Components = ({ openInPreview }) => {
 
   const componentTypes = [...new Set(components.map((component) => component.type))];
   // console.log("component types", componentTypes);
-  if (cpg.length > 0) {
-    console.log("cpg?", cpg);
-    console.log("cpg zero?", cpg[0]);
-    console.log(`rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.3)`);
-  }
+  // if (cpg.length > 0) {
+  //   console.log("cpg?", cpg);
+  //   console.log("cpg zero?", cpg[0]);
+  //   console.log(`rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.3)`);
+  // }
 
   // console.log(componentTypes);
 

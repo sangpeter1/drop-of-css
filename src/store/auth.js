@@ -2,7 +2,6 @@ import axios from "axios";
 
 const auth = (state = {}, action) => {
   if (action.type === "SET_AUTH") {
-    console.log("in store", auth);
     return action.auth;
   }
   if (action.type === "CREATE_AUTH") {
@@ -22,14 +21,12 @@ export const logout = () => {
 export const loginWithToken = () => {
   return async (dispatch) => {
     const token = window.localStorage.getItem("token");
-    console.log("before token response", token);
     if (token) {
       const response = await axios.get("/api/auth", {
         headers: {
           authorization: token,
         },
       });
-      console.log("in store token and response", token, response);
       dispatch({ type: "SET_AUTH", auth: response.data });
     }
   };

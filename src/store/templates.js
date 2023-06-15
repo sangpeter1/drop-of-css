@@ -7,25 +7,23 @@ const templates = (state = [], action) => {
   if (action.type === "CREATE_TEMPLATE") {
     return [...state, action.template];
   }
-  if(action.type === 'DELETE_TEMPLATE'){
-    return state.filter(template => template.id !== action.template.id);
+  if (action.type === "DELETE_TEMPLATE") {
+    return state.filter((template) => template.id !== action.template.id);
   }
-  if(action.type === 'UPDATE_TEMPLATE_NAME'){
-     return state.map((template) =>
-        template.id === action.templateId
-          ? { ...template, name: action.name }
-          : template
-      );
+  if (action.type === "UPDATE_TEMPLATE_NAME") {
+    return state.map((template) =>
+      template.id === action.templateId ? { ...template, name: action.name } : template
+    );
   }
   return state;
 };
 
 export const setTemplates = () => {
   return async (dispatch) => {
-    const response = await axios.get("/api/templates")
-    dispatch({ type: "SET_TEMPLATES", templates: response.data })
-  }
-}
+    const response = await axios.get("/api/templates");
+    dispatch({ type: "SET_TEMPLATES", templates: response.data });
+  };
+};
 export const createTemplate = (template) => {
   return async (dispatch) => {
     const { htmlText, userId } = template;
@@ -40,10 +38,10 @@ export const createTemplate = (template) => {
   };
 };
 
-export const deleteTemplate = (template)=> {
-  return async(dispatch)=> {
+export const deleteTemplate = (template) => {
+  return async (dispatch) => {
     await axios.delete(`/api/templates/${template.id}`);
-    dispatch({ type: 'DELETE_TEMPLATE', template});
+    dispatch({ type: "DELETE_TEMPLATE", template });
   };
 };
 

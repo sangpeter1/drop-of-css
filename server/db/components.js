@@ -1000,16 +1000,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: `${primaryColor}`,
-      color: "white",
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "not-allowed",
-      opacity: 0.5,
-    },
   },
   {
     type: "card",
@@ -1019,7 +1009,6 @@ const components = [
     .card {
       aspect-ratio: 9/16;
           min-height: 35vh;
-          max-height: 100%;
           max-width: 20vw;
       border: 2px solid primaryColor;
       background-color: bgColor;
@@ -1095,7 +1084,6 @@ const components = [
       </div>
     </div>
     </div>
-
     `,
   },
   {
@@ -1106,7 +1094,6 @@ const components = [
         .card {
           aspect-ratio: 9/16;
           min-height: 35vh;
-          max-height: 100%;
           max-width: 25vw;
           border: 2px solid primaryColor;
           background-image: linear-gradient(to right, secondaryColor, tertiaryColor);
@@ -1134,7 +1121,7 @@ const components = [
           flex-grow: 1;
           text-align: center;
           justify-content: center;
-          font-size: calc(12px + 0.5vw);
+          font-size: calc(10px + 0.5vw);
         }
   
         .action-items {
@@ -1192,7 +1179,6 @@ const components = [
         .card {
           aspect-ratio: 9/16;
           min-height: 30vh;
-          max-height: 100%;
           max-width: 20vw;
           border: 2px solid primaryColor;
           background-image: linear-gradient(45deg, secondaryColor, tertiaryColor);
@@ -1220,7 +1206,7 @@ const components = [
           flex-grow: 1;
           text-align: center;
           justify-content: center;
-          font-size: calc(12px + 0.5vw);
+          font-size: calc(10px + 0.5vw);
         }
     
         .action-items {
@@ -1276,7 +1262,6 @@ const components = [
         .card {
           aspect-ratio: 9/16;
           min-height: 30vh;
-          max-height: 100%;
           max-width: 20vw;
           border: 2px solid primaryColor;
           background-image: linear-gradient(235deg, secondaryColor, tertiaryColor);
@@ -1304,7 +1289,7 @@ const components = [
           flex-grow: 1;
           text-align: center;
           justify-content: center;
-          font-size: calc(12px + 0.5vw);
+          font-size: calc(10px + 0.5vw);
         }
   
         .action-items {
@@ -1362,7 +1347,6 @@ const components = [
           box-sizing: border-box;
           aspect-ratio: 9/16;
           min-height: 30vh;
-          max-height: 100%;
           max-width: 20vw;
           border: 2px solid primaryColor;
           background-color: bgColor26;
@@ -1461,7 +1445,6 @@ const components = [
         .card {
           aspect-ratio: 9/16;
           min-height: 35vh;
-          max-height: 100%;
           max-width: 20vw;
           border: 2px solid primaryColor;
           background-color: bgColor;
