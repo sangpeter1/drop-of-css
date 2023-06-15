@@ -6,13 +6,14 @@ import Test from "./Test";
 import { Profile, ProfileAccount, ProfileComponents } from "./Profile";
 import ColorGenForm from "./ColorGenForm";
 import { useSelector, useDispatch } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { loginWithToken, fetchComponents, fetchColorPalette } from "../store";
 import UserCreate from "./UserCreate";
 
 const App = () => {
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const prevAuth = useRef(auth);
 
   useEffect(() => {
@@ -23,7 +24,6 @@ const App = () => {
     if (!prevAuth.current.id && auth.id) {
       console.log(`${auth.username} is logged in`);
       dispatch(fetchComponents());
-      // dispatch(fetchColorPalette({ hex: "FFFFFF", mode: "dark", count: 5 }));
     }
     if (prevAuth.current.id && !auth.id) {
       console.log("logged out");

@@ -27,18 +27,19 @@ const trimColorPalette = (updatedColorPalette) => {
   return output;
 };
 
-//store needs set palette, update color, update colorpalette, delete color, reorder colorpalette (which could be set?)
 const cpg = (state = [], action) => {
   if (action.type === "SET_COLORPALETTE") {
     console.log(action.cpg, "action cpg");
     return action.cpg;
   }
+  if (action.type === "SET_LOCALLYSAVED_COLORPALETTE") {
+    console.log(action.colors, "action colors");
+    return action.colors;
+  }
   if (action.type === "REORDER_COLORPALETTE") {
-    // console.log(action.colors, "reorder cpg");
     return [...action.colors];
   }
   if (action.type === "UPDATE_COLORPALETTE") {
-    // console.log("store cp update state", state, action.remove, action.colors);
     const deletedColorIds = action.remove.map((color) => color.hex.clean);
     state = state.filter((color) => !deletedColorIds.includes(color.hex.clean));
     if (!action.colors.length) {
@@ -72,6 +73,12 @@ export const fetchColorPalette = (search) => {
     const response = await axios.post("/api/cpg", { hex, mode });
     console.log("in the store response", response.data);
     dispatch({ type: "SET_COLORPALETTE", cpg: response.data });
+  };
+};
+
+export const locallyStoredColorPalette = (savedColors) => {
+  return async (dispatch) => {
+    dispatch({ type: "SET_LOCALLYSAVED_COLORPALETTE", colors: savedColors });
   };
 };
 

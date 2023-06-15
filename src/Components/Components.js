@@ -28,12 +28,13 @@ const Components = ({ openInPreview }) => {
     // console.log("Components useEffect", cpg);
   }, [cpg]);
 
-  // console.log("Components OUTSIDE useEffect", cpg);
-
   const handleOpenInPreview = async (component) => {
     try {
       if (!cpg.length > 0) {
         setErrorMessage("please pick a color palette first!");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 1500);
       }
       if (component) {
         const colorsOnComponents = await dispatch(
@@ -43,7 +44,38 @@ const Components = ({ openInPreview }) => {
           })
         );
         openInPreview(colorsOnComponents);
+
+        //local storage
+        console.log("LOCAL STORAGEEEEEEEEE");
+        if (component.type === "navbar") {
+          localStorage.setItem("savedNavbar", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "form") {
+          localStorage.setItem("savedForm", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "title") {
+          localStorage.setItem("savedTitle", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "sideNav") {
+          localStorage.setItem("savedSideNav", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "card") {
+          localStorage.setItem("savedCard", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "button") {
+          localStorage.setItem("savedButton", JSON.stringify(colorsOnComponents));
+        }
+        localStorage.setItem("colors", JSON.stringify(cpg));
       }
+      // console.log(
+      //   "LOCAL STORAGE SAVED DATA",
+      //   localStorage.getItem("savedNavbar"),
+      //   localStorage.getItem("savedForm"),
+      //   localStorage.getItem("savedTitle"),
+      //   localStorage.getItem("savedSideNav"),
+      //   localStorage.getItem("savedCard"),
+      //   localStorage.getItem("savedButton")
+      // );
     } catch (err) {
       console.log(err);
     }
@@ -51,11 +83,11 @@ const Components = ({ openInPreview }) => {
 
   const componentTypes = [...new Set(components.map((component) => component.type))];
   // console.log("component types", componentTypes);
-  if (cpg.length > 0) {
-    console.log("cpg?", cpg);
-    console.log("cpg zero?", cpg[0]);
-    console.log(`rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.3)`);
-  }
+  // if (cpg.length > 0) {
+  //   console.log("cpg?", cpg);
+  //   console.log("cpg zero?", cpg[0]);
+  //   console.log(`rgba(${cpg[3].rgb.r}, ${cpg[3].rgb.g}, ${cpg[3].rgb.b}, 0.3)`);
+  // }
 
   // console.log(componentTypes);
 

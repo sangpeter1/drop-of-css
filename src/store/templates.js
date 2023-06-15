@@ -10,22 +10,20 @@ const templates = (state = [], action) => {
   if(action.type === 'DELETE_TEMPLATE'){
     return state.filter(template => template.id !== action.templateId);
   }
-  if(action.type === 'UPDATE_TEMPLATE_NAME'){
-     return state.map((template) =>
-        template.id === action.templateId
-          ? { ...template, name: action.name }
-          : template
-      );
+  if (action.type === "UPDATE_TEMPLATE_NAME") {
+    return state.map((template) =>
+      template.id === action.templateId ? { ...template, name: action.name } : template
+    );
   }
   return state;
 };
 
 export const setTemplates = () => {
   return async (dispatch) => {
-    const response = await axios.get("/api/templates")
-    dispatch({ type: "SET_TEMPLATES", templates: response.data })
-  }
-}
+    const response = await axios.get("/api/templates");
+    dispatch({ type: "SET_TEMPLATES", templates: response.data });
+  };
+};
 export const createTemplate = (template) => {
   return async (dispatch) => {
     const { htmlText, userId } = template;

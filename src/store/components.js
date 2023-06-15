@@ -17,7 +17,7 @@ export const componentColors = (state = [], action) => {
 export const fetchComponents = () => {
   return async (dispatch) => {
     const response = await axios.get("/api/components");
-    console.log("comp store", response.data);
+    // console.log("comp store", response.data);
     dispatch({ type: "SET_COMPONENTS", components: response.data });
   };
 };
@@ -25,7 +25,7 @@ export const fetchComponents = () => {
 export const setColorsOnComponents = (search) => {
   return async (dispatch) => {
     const { cpg, component } = search;
-    console.log("setColorsOnComponents", cpg);
+    // console.log("setColorsOnComponents", cpg);
     // let { bgColor, primaryColor, secondaryColor, tertiaryColor } = cpg;
 
     const primaryColor = cpg[0].hex.value;
@@ -40,7 +40,7 @@ export const setColorsOnComponents = (search) => {
       tertiaryColor,
       bgColor,
     });
-    console.log("After axios call in store", response.data);
+    // console.log("After axios call in store", response.data);
     dispatch({ type: "SET_COLORS", colors: response.data });
     return response.data;
   };

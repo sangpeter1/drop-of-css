@@ -16,6 +16,36 @@ const Home = () => {
 
   // console.log("home", wholePageBackground);
 
+  useEffect(() => {
+    const savedNav = JSON.parse(localStorage.getItem("savedNavbar"));
+    const savedForm = JSON.parse(localStorage.getItem("savedForm"));
+    const savedTitle = JSON.parse(localStorage.getItem("savedTitle"));
+    const savedSideNav = JSON.parse(localStorage.getItem("savedSideNav"));
+    const savedCard = JSON.parse(localStorage.getItem("savedCard"));
+    const savedButton = JSON.parse(localStorage.getItem("savedButton"));
+    const savedWholePageBackground = JSON.parse(localStorage.getItem("savedWholePageBackground"));
+
+    if (savedNav) {
+      setNavBar(savedNav);
+    }
+    if (savedForm) {
+      setForm(savedForm);
+    }
+    if (savedTitle) {
+      setTitle(savedTitle);
+    }
+    if (savedSideNav) {
+      setSideNav(savedSideNav);
+    }
+    if (savedCard) {
+      setCard(savedCard);
+    }
+    if (savedButton) {
+      setButton(savedButton);
+    }
+    setWholePageBackground(savedWholePageBackground);
+  }, []);
+
   const handleOpenInPreview = (component) => {
     console.log("handle open in preview on home page", component);
     if (component.type === "navbar") {

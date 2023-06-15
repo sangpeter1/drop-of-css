@@ -4,25 +4,25 @@ const axios = require("axios");
 const Template = require("../db/Template");
 const User = require("../db/User");
 
-
 app.get("/", async (req, res, next) => {
   try {
     const templates = await Template.findAll({
       where: {
-        userId: req.user.id
-      }
+        userId: req.user.id,
+      },
     });
+    console.log("templates in the api/templates", templates);
     res.send(templates);
   } catch (err) {
     next(err);
   }
 });
 
-app.post("/",  async (req, res, next) => {
+app.post("/", async (req, res, next) => {
   try {
     const template = await Template.create({
       userId: req.body.userId,
-      htmlText: req.body.htmlText
+      htmlText: req.body.htmlText,
     });
     res.status(200).send(template.dataValues);
   } catch (err) {
@@ -52,6 +52,5 @@ app.delete("/:templateId", async (req, res, next) => {
     next(err);
   }
 });
-
 
 module.exports = app;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch, getState } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   deleteColor,
   deleteColorPalette,
@@ -7,10 +7,10 @@ import {
   updateColorPalette,
   updateColor,
   reorderColorPalette,
+  locallyStoredColorPalette,
 } from "../store";
 import ColorPicker from "./ColorPicker";
 
-import Popover from "@mui/material/Popover";
 import { styled } from "@mui/material/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
@@ -20,9 +20,6 @@ import LockIcon from "@mui/icons-material/Lock";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import Typography from "@mui/material/Typography";
-
-import WallpaperIcon from "@mui/icons-material/Wallpaper";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -82,6 +79,14 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     setColorPalette(cpg);
   }, [cpg]);
 
+  useEffect(() => {
+    const savedColors = JSON.parse(localStorage.getItem("colors"));
+    if (savedColors) {
+      setColorPalette(savedColors);
+      dispatch(locallyStoredColorPalette(savedColors));
+    }
+  }, []);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -95,23 +100,10 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     openColorsInPreview(cpg);
   };
 
-  /*
-  local storage functions. would be nice to get this going
-  useEffect(() => {
-    const storedColorPalette = localStorage.getItem("colorPalette");
-    if (storedColorPalette) {
-      try {
-        const parsedColorPalette = JSON.parse(storedColorPalette);
-        setColorPalette(parsedColorPalette);
-        handleGenColors(parsedColorPalette);
-      } catch (error) {
-        console.error("Error parsing stored color palette:", error);
-      }
-    } else {
-      setColorPalette(null);
-    }
-  }, []);
-*/
+  const handleWholePageBackground = async () => {
+    await setWholePageBackground(`${hex}`);
+    localStorage.setItem("savedWholePageBackground", JSON.stringify(wholePageBackground));
+  };
 
   const cpgModes = [
     "monochrome",
@@ -131,7 +123,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     return options[randomIndex];
   };
   const randomMode = getRandomOption(cpgModes);
-  const cpgCounts = [2, 3, 4];
+  // const cpgCounts = [2, 3, 4];
 
   const runCPG = async (ev) => {
     ev.preventDefault();
@@ -154,7 +146,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           mode,
           count,
         };
-        // const response =
         console.log("runCPG func", search);
         dispatch(fetchColorPalette(search));
       } catch (error) {
@@ -170,7 +161,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           mode,
           count,
         };
-        // const response =
         console.log("runCPG func", search);
         dispatch(fetchColorPalette(search));
       } catch (error) {
@@ -197,7 +187,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       setExpanded(false);
     }
   };
-  //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
 
   //for bugs -- keeps the color palette length at 4, but keeps the indicies of locked colors.
   //looks like it's unused??? maybe delete?
@@ -222,14 +211,11 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   //new lock func
   const toggleColorLock = (index, color) => {
-    // console.log("locked", color.name.value);
     setLockedColors((prevLockedColors) => {
       const colorIndex = prevLockedColors.indexOf(color);
       if (colorIndex >= 0) {
-        // Color is already locked, so remove it from lockedColors
         return prevLockedColors.filter((_color) => _color !== color);
       } else {
-        // Color is not locked, so add it to lockedColors
         return [...prevLockedColors, color];
       }
     });
@@ -259,7 +245,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
         console.log("search", search);
         dispatch(updateColorPalette(search));
       }
-      // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
     }
@@ -283,7 +268,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           count: 1,
         })
       );
-      // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (error) {
       console.error(error);
     }
@@ -295,7 +279,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       return;
     }
     const reorderedItems = reorder(colorPalette, result.source.index, result.destination.index);
-    // console.log("reordereditems", reorderedItems);
     dispatch(reorderColorPalette(reorderedItems));
     setColorPalette(reorderedItems);
   };
@@ -406,10 +389,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                   Submit
                 </button>
               </form>
-              <button
-                className="setBackgroundButton"
-                onClick={(ev) => setWholePageBackground(`${hex}`)}
-              >
+              <button className="setBackgroundButton" onClick={handleWholePageBackground}>
                 set page background
               </button>
             </div>
@@ -505,7 +485,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                           />
                         );
                         return (
-                          <>
+                          <div key={uniqueKey}>
                             <div
                               key={`colorClass-${index}`}
                               style={{
@@ -582,7 +562,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                 </div>
                               )}
                             </Draggable>
-                          </>
+                          </div>
                         );
                       })}
                       {provided.placeholder}
