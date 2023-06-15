@@ -153,7 +153,7 @@ const renderSaveButtons = () => {
                 __html: jsxGenerator(title),
               }}
             />
-            <FavHeart component = { title }/>
+            <FavHeart component = {title}/>
           </div>
         ) : (
           <header id="previewTitle">Your Website Title</header>
@@ -165,19 +165,23 @@ const renderSaveButtons = () => {
                 __html: jsxGenerator(nav),
               }}
             />
+            <FavHeart component = {previewNav}/>
+
             {/* <Navbar /> */}
           </div>
         ) : (
           <nav id="previewNav">Preview Nav</nav>
         )}
         {sideNav ? (
-          <div
-            id="previewSideNav"
-            style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+          <div id="previewSideNav">
+            <div style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
             dangerouslySetInnerHTML={{
               __html: jsxGenerator(sideNav),
             }}
-          />
+            />
+            <FavHeart component = {sideNav}/>
+
+          </div>
         ) : (
           <div id="previewSideNav">Side Nav</div>
         )}
@@ -201,10 +205,16 @@ const renderSaveButtons = () => {
             ) : (
               <div id="previewCard">Card</div>
             )}
+            { card ? <FavHeart component = {card}/> : '' }
           </div>
           {form ? (
-          <div id="previewForm" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-          dangerouslySetInnerHTML={{__html: jsxGenerator(form),}}/>
+          <div id="previewForm"> 
+            <div 
+            style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+            dangerouslySetInnerHTML={{__html: jsxGenerator(form),}}
+            />
+            <FavHeart component = {form}/>
+          </div>
           ) : (
             <div id="previewForm">form</div>
           )}
@@ -212,7 +222,8 @@ const renderSaveButtons = () => {
             {button ? (
             <div id="previewButton">
               <div dangerouslySetInnerHTML={{__html: jsxGenerator(button),}}/>
-              </div>
+              <FavHeart component = {button} />
+            </div>
             ) : (
               <div id="previewButton">Button</div>
             )}
