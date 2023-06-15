@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTemplateName } from "../store";
+import { updateTemplateName, deleteTemplate, setTemplates } from "../store";
+import { useNavigate } from "react-router-dom";
 
 const TemplateList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { auth, templates } = useSelector((state) => state);
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [editedTemplateName, setEditedTemplateName] = useState("");
   const [updatedTemplates, setUpdatedTemplates] = useState([]);
 
   useEffect(() => {
-    setUpdatedTemplates(templates);
+    setTemplates();
   }, [templates]);
+
+  console.log(templates);
 
   const cleanUpHTML = (htmlString) => {
     const template = document.createElement("template");
@@ -26,6 +30,11 @@ const TemplateList = () => {
   const handleTemplateNameChange = (event) => {
     setEditedTemplateName(event.target.value);
   }; //create name for component
+
+  const handleDeleteTemplate = (templateId) => {
+    dispatch(deleteTemplate(templateId));
+    return navigate('/profile/components')
+  }
 
   const updateTemplateNameHandler = () => {
     if (!selectedComponent) return;
@@ -155,6 +164,10 @@ const TemplateList = () => {
                     <button onClick={handleSaveName} className="edit-icon" title="Save">
                       Save
                     </button>
+                    <button onClick={() => handleDeleteTemplate(template.id)} className="delete-icon" title="Delete">
+                      Delete
+                    </button>
+
                   </div>
                 ) : (
                   <div className="template-name">

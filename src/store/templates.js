@@ -8,7 +8,7 @@ const templates = (state = [], action) => {
     return [...state, action.template];
   }
   if(action.type === 'DELETE_TEMPLATE'){
-    return state.filter(template => template.id !== action.template.id);
+    return state.filter(template => template.id !== action.templateId);
   }
   if(action.type === 'UPDATE_TEMPLATE_NAME'){
      return state.map((template) =>
@@ -40,10 +40,10 @@ export const createTemplate = (template) => {
   };
 };
 
-export const deleteTemplate = (template)=> {
+export const deleteTemplate = (templateId)=> {
   return async(dispatch)=> {
-    await axios.delete(`/api/templates/${template.id}`);
-    dispatch({ type: 'DELETE_TEMPLATE', template});
+    await axios.delete(`/api/templates/${templateId}`);
+    dispatch({ type: 'DELETE_TEMPLATE', templateId});
   };
 };
 
