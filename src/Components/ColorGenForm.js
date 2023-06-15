@@ -82,6 +82,13 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     setColorPalette(cpg);
   }, [cpg]);
 
+  useEffect(() => {
+    const savedColors = JSON.parse(localStorage.getItem("colors"));
+    if (savedColors) {
+      setColorPalette(savedColors);
+    }
+  }, []);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -94,24 +101,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
   const handleGenColors = (cpg) => {
     openColorsInPreview(cpg);
   };
-
-  /*
-  local storage functions. would be nice to get this going
-  useEffect(() => {
-    const storedColorPalette = localStorage.getItem("colorPalette");
-    if (storedColorPalette) {
-      try {
-        const parsedColorPalette = JSON.parse(storedColorPalette);
-        setColorPalette(parsedColorPalette);
-        handleGenColors(parsedColorPalette);
-      } catch (error) {
-        console.error("Error parsing stored color palette:", error);
-      }
-    } else {
-      setColorPalette(null);
-    }
-  }, []);
-*/
 
   const cpgModes = [
     "monochrome",
@@ -154,7 +143,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           mode,
           count,
         };
-        // const response =
         console.log("runCPG func", search);
         dispatch(fetchColorPalette(search));
       } catch (error) {
@@ -170,7 +158,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           mode,
           count,
         };
-        // const response =
         console.log("runCPG func", search);
         dispatch(fetchColorPalette(search));
       } catch (error) {
@@ -197,7 +184,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       setExpanded(false);
     }
   };
-  //localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
 
   //for bugs -- keeps the color palette length at 4, but keeps the indicies of locked colors.
   //looks like it's unused??? maybe delete?
@@ -222,14 +208,11 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   //new lock func
   const toggleColorLock = (index, color) => {
-    // console.log("locked", color.name.value);
     setLockedColors((prevLockedColors) => {
       const colorIndex = prevLockedColors.indexOf(color);
       if (colorIndex >= 0) {
-        // Color is already locked, so remove it from lockedColors
         return prevLockedColors.filter((_color) => _color !== color);
       } else {
-        // Color is not locked, so add it to lockedColors
         return [...prevLockedColors, color];
       }
     });
@@ -259,7 +242,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
         console.log("search", search);
         dispatch(updateColorPalette(search));
       }
-      // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (err) {
       console.log(err);
     }
@@ -283,7 +265,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           count: 1,
         })
       );
-      // localStorage.setItem("colorPalette", JSON.stringify(updatedColorPalette));
     } catch (error) {
       console.error(error);
     }
@@ -295,7 +276,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       return;
     }
     const reorderedItems = reorder(colorPalette, result.source.index, result.destination.index);
-    // console.log("reordereditems", reorderedItems);
     dispatch(reorderColorPalette(reorderedItems));
     setColorPalette(reorderedItems);
   };

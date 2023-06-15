@@ -95,10 +95,12 @@ const PreviewPane = ({
   return (
     <div>
       <div className="button-container" style={{ display: "block", textAlign: "center" }}>
-        <h3 className="header">Template Preview</h3>
-        <div className="instructions">
-          your preview template. you can save individual components or the template as a whole
-        </div>
+        <h3 className="header">
+          Template Preview
+          <div className="instructions">
+            your preview template. you can save individual components or the template as a whole
+          </div>
+        </h3>
       </div>
       <div
         className="preview-pane-container"
