@@ -5,6 +5,7 @@ import store from "../store";
 import html2pdf from 'html2pdf.js';
 import { useNavigate } from "react-router-dom";
 import FavHeart from "./FavHeart";
+import { saveAs } from 'file-saver';
 
 // import { FaDownload } from 'react-icons/fa';
 
@@ -17,6 +18,31 @@ import PreviewCard from "./PreviewComponents/PreviewCard";
 import PreviewForm from "./PreviewComponents/PreviewForm";
 import PreviewButton from "./PreviewComponents/PreviewButton";
 import { jsx } from "@emotion/react";
+
+//
+
+// Code for downloading react components
+
+const CodeDownloadButton = ({ code, html, filename }) => {
+  const downloadCode = () => {
+    const blobForJsx = new Blob([code], { type: 'text/plain;charset=utf-8' });
+    const blobForHtml = new Blob([html], { type: 'text/plain;charset=utf-8' });
+    saveAs(blobForJsx, `${filename}_jsx.txt`);
+    saveAs(blobForHtml,`${filename}_innerHTML.txt`);
+  };
+
+  return <button 
+  style={{"position":'absolute',
+  "backgroundColor":"white",
+  "color":"black",
+  "padding":"10px 20px",
+  "border": "none",
+  "borderRadius":"10px",
+  "cursor": "pointer",
+  "width":"100px",
+  "height":"90px"}} 
+  onClick={downloadCode}>{`Download code for ${filename}`}</button>;
+};
 
 //
 
@@ -42,29 +68,6 @@ const handleComponentChange = () => {
 const unsubscribe = store.subscribe(handleComponentChange);
 //unsubscribe();
 
-
-
-const PreviewPane = ({
-  wholePageBackground,
-  form,
-  nav,
-  title,
-  sideNav,
-  card,
-  button /*accordion, generatedColors*/,
-}) => {
-  const { auth, components, componentColors } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const [isHovered, setIsHovered] = useState(false);
-  const codeRef = useRef(null);
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
   
 
   // useEffect(() => {
@@ -76,10 +79,23 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
   const { auth, components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   const [colors, setColors] = useState("");
   const [savedComponents, setSavedComponents] = useState([]);
 
+  // Hover to download feature
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  //
   /*mt*/
   const saveComponent = (componentType) => {
     const userId = auth.id;
@@ -91,7 +107,6 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     dispatch(createTemplate(componentData));
     setSavedComponents((prevSavedComponents) => [...prevSavedComponents, componentType]);
   };
-
   const goToUserComponents = () => {
     navigate("/profile/components");
   };
@@ -274,7 +289,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
           ) : (
             <div id="previewForm">form</div>
           )}
-          <div id="previewButtonContainer">
+          <div id="previewButtonContainer" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             {button ? (
               <div id="previewButton">
                 <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
@@ -283,7 +298,18 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             ) : (
               <div id="previewButton">Button</div>
             )}
-
+            {isHovered && (<CodeDownloadButton
+            code={`button ? (
+              <div id="previewButton">
+                <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
+                <FavHeart component={button} />
+              </div>
+            ) : (
+              <div id="previewButton">Button</div>
+            )`}
+            html={button.htmlText}
+            filename="button" />)
+            }
           </div>
         </main>
       </div>
