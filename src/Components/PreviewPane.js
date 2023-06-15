@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 import store from "../store";
+import html2pdf from 'html2pdf.js';
+// import { FaDownload } from 'react-icons/fa';
 
 // Importing components from PreviewComponents
 
@@ -41,6 +43,7 @@ const unsubscribe = store.subscribe(handleComponentChange);
 //unsubscribe();
 
 
+
 const PreviewPane = ({
   wholePageBackground,
   form,
@@ -52,6 +55,17 @@ const PreviewPane = ({
 }) => {
   const { auth, components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [isHovered, setIsHovered] = useState(false);
+  const codeRef = useRef(null);
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  
 
   // useEffect(() => {
   //   dispatch(fetchComponents());
@@ -91,6 +105,24 @@ const PreviewPane = ({
     console.log("whole background", wholePageBackground);
   }
   console.log(config)
+
+  const downloadCodeAsPDF = () => {
+    const codeElement = codeRef.current;
+    const codeText = codeElement.textContent || codeElement.innerText;
+
+    if (codeText) {
+      const options = {
+        margin: 1,
+        filename: 'code.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      };
+
+      html2pdf().set(options).from(codeText).save();
+    }
+  };
+
   return (
     <div>
       <h3 className="header">Template Preview</h3>
@@ -163,13 +195,12 @@ const PreviewPane = ({
             <div id="previewForm">form</div>
           )}
           <div id="previewButtonContainer">
-            {button ? (
-            <div id="previewButton">
-              <div dangerouslySetInnerHTML={{__html: jsxGenerator(button),}}/>
-              </div>
-            ) : (
-              <div id="previewButton">Button</div>
-            )}
+            <pre ref={codeRef}>
+              {button ? (
+              <div id="previewButton" >
+                <div dangerouslySetInnerHTML={{__html: jsxGenerator(button),}}/>
+                </div>) : (<div id="previewButton">Button</div>)}
+            </pre>
           </div>
         </main>
         {renderSaveButtons()}
