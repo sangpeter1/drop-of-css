@@ -23,6 +23,7 @@ const Home = () => {
     const savedSideNav = JSON.parse(localStorage.getItem("savedSideNav"));
     const savedCard = JSON.parse(localStorage.getItem("savedCard"));
     const savedButton = JSON.parse(localStorage.getItem("savedButton"));
+    const savedWholePageBackground = JSON.parse(localStorage.getItem("savedWholePageBackground"));
 
     if (savedNav) {
       setNavBar(savedNav);
@@ -42,6 +43,7 @@ const Home = () => {
     if (savedButton) {
       setButton(savedButton);
     }
+    setWholePageBackground(savedWholePageBackground);
   }, []);
 
   const handleOpenInPreview = (component) => {

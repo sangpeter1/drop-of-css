@@ -1,11 +1,9 @@
-
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 import store from "../store";
 import { useNavigate } from "react-router-dom";
 import FavHeart from "./FavHeart";
-
 
 // Importing components from PreviewComponents
 
@@ -28,7 +26,7 @@ const jsxGenerator = (component) => {
 };
 
 // Handling change of components field from redux store outside of the React component lasdkjf
-const config = {}
+const config = {};
 
 const handleComponentChange = () => {
   const components = store.getState().components;
@@ -60,11 +58,11 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     dispatch(createTemplate(componentData));
     setSavedComponents((prevSavedComponents) => [...prevSavedComponents, componentType]);
   };
-  
+
   const goToUserComponents = () => {
-    navigate("/profile/components"); 
+    navigate("/profile/components");
   };
-/*
+  /*
   const renderSaveButtons = () => {
     if (auth.id) {
       return (
@@ -81,45 +79,68 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     return null;
   };
 */
-const renderSaveButtons = () => {
+  const renderSaveButtons = () => {
     if (auth.id) {
       return (
         <div>
-          <h3 className="header">Save Components</h3>
-            <div>
-              {title && !savedComponents.includes(title) && (
-               <button onClick={() => saveComponent(title)}>Save Title</button>
-              )}
-              {nav && !savedComponents.includes(nav) && (
-                <button onClick={() => saveComponent(nav)}>Save Nav</button>
-              )}
-              {sideNav && !savedComponents.includes(sideNav) && (
-                <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>
-              )}
-              {card && !savedComponents.includes(card) && (
-                <button onClick={() => saveComponent(card)}>Save Card</button>
-              )}
-              {form && !savedComponents.includes(form) && (
-                <button onClick={() => saveComponent(form)}>Save Form</button>
-              )}
-              {button && !savedComponents.includes(button) && (
-                <button onClick={() => saveComponent(button)}>Save Button</button>
-              )}
-            </div>
-            <button onClick={goToUserComponents} className="rainbowBtn">
-              Go to My Components
-            </button>
+          <div className="button-container" style={{ display: "block", textAlign: "center" }}>
+            <h3 className="header">
+              Save Components
+              <div className="instructions">login to save your built components</div>
+            </h3>
           </div>
-        
-        );
-      }
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              width: "max-content",
+              margin: "auto",
+            }}
+          >
+            {title && !savedComponents.includes(title) && (
+              <button onClick={() => saveComponent(title)}>Save Title</button>
+            )}
+            {nav && !savedComponents.includes(nav) && (
+              <button onClick={() => saveComponent(nav)}>Save Nav</button>
+            )}
+            {sideNav && !savedComponents.includes(sideNav) && (
+              <button onClick={() => saveComponent(sideNav)}>Save SideNav</button>
+            )}
+            {card && !savedComponents.includes(card) && (
+              <button onClick={() => saveComponent(card)}>Save Card</button>
+            )}
+            {form && !savedComponents.includes(form) && (
+              <button onClick={() => saveComponent(form)}>Save Form</button>
+            )}
+            {button && !savedComponents.includes(button) && (
+              <button onClick={() => saveComponent(button)}>Save Button</button>
+            )}
+          </div>
+          <button
+            onClick={goToUserComponents}
+            className="rainbowBtn"
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              width: "max-content",
+              margin: "auto",
+            }}
+          >
+            Go to My Components
+          </button>
+        </div>
+      );
+    }
     return null;
   };
 
-
-  if (wholePageBackground) {
+  //this is broken
+  if (!wholePageBackground) {
+    const savedWholePageBackground = JSON.parse(localStorage.getItem("savedWholePageBackground"));
+    wholePageBackground = savedWholePageBackground;
     console.log("whole background", wholePageBackground);
   }
+
   return (
     <div>
       <div className="button-container" style={{ display: "block", textAlign: "center" }}>
@@ -144,7 +165,7 @@ const renderSaveButtons = () => {
                 __html: jsxGenerator(title),
               }}
             />
-            <FavHeart component = {title}/>
+            <FavHeart component={title} />
           </div>
         ) : (
           <header id="previewTitle">Your Website Title</header>
@@ -156,7 +177,7 @@ const renderSaveButtons = () => {
                 __html: jsxGenerator(nav),
               }}
             />
-            <FavHeart component = {previewNav}/>
+            <FavHeart component={previewNav} />
 
             {/* <Navbar /> */}
           </div>
@@ -165,13 +186,13 @@ const renderSaveButtons = () => {
         )}
         {sideNav ? (
           <div id="previewSideNav">
-            <div style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-            dangerouslySetInnerHTML={{
-              __html: jsxGenerator(sideNav),
-            }}
+            <div
+              style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+              dangerouslySetInnerHTML={{
+                __html: jsxGenerator(sideNav),
+              }}
             />
-            <FavHeart component = {sideNav}/>
-
+            <FavHeart component={sideNav} />
           </div>
         ) : (
           <div id="previewSideNav">Side Nav</div>
@@ -205,32 +226,32 @@ const renderSaveButtons = () => {
             ) : (
               <div id="previewCard">Card</div>
             )}
-            { card ? <FavHeart component = {card}/> : '' }
+            {card ? <FavHeart component={card} /> : ""}
           </div>
           {form ? (
-          <div id="previewForm"> 
-            <div 
-            style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-            dangerouslySetInnerHTML={{__html: jsxGenerator(form),}}
-            />
-            <FavHeart component = {form}/>
-          </div>
-           ) : (
+            <div id="previewForm">
+              <div
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
+              />
+              <FavHeart component={form} />
+            </div>
+          ) : (
             <div id="previewForm">form</div>
           )}
           <div id="previewButtonContainer">
             {button ? (
-            <div id="previewButton">
-              <div dangerouslySetInnerHTML={{__html: jsxGenerator(button),}}/>
-              <FavHeart component = {button} />
-            </div>
+              <div id="previewButton">
+                <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
+                <FavHeart component={button} />
+              </div>
             ) : (
               <div id="previewButton">Button</div>
             )}
           </div>
         </main>
-        {renderSaveButtons()}
       </div>
+      {renderSaveButtons()}
     </div>
   );
 };
