@@ -28,8 +28,6 @@ const Components = ({ openInPreview }) => {
     // console.log("Components useEffect", cpg);
   }, [cpg]);
 
-  // console.log("Components OUTSIDE useEffect", cpg);
-
   const handleOpenInPreview = async (component) => {
     try {
       if (!cpg.length > 0) {
@@ -43,7 +41,38 @@ const Components = ({ openInPreview }) => {
           })
         );
         openInPreview(colorsOnComponents);
+
+        //local storage
+        console.log("LOCAL STORAGEEEEEEEEE");
+        if (component.type === "navbar") {
+          localStorage.setItem("savedNavbar", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "form") {
+          localStorage.setItem("savedForm", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "title") {
+          localStorage.setItem("savedTitle", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "sideNav") {
+          localStorage.setItem("savedSideNav", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "card") {
+          localStorage.setItem("savedCard", JSON.stringify(colorsOnComponents));
+        }
+        if (component.type === "button") {
+          localStorage.setItem("savedButton", JSON.stringify(colorsOnComponents));
+        }
+        localStorage.setItem("colors", JSON.stringify(cpg));
       }
+      // console.log(
+      //   "LOCAL STORAGE SAVED DATA",
+      //   localStorage.getItem("savedNavbar"),
+      //   localStorage.getItem("savedForm"),
+      //   localStorage.getItem("savedTitle"),
+      //   localStorage.getItem("savedSideNav"),
+      //   localStorage.getItem("savedCard"),
+      //   localStorage.getItem("savedButton")
+      // );
     } catch (err) {
       console.log(err);
     }
