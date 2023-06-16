@@ -460,7 +460,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
               </div>
             )}
 
-            {isHovered && (
+            {button && isHovered && (
               <CodeDownloadButton
                 code={`button ? (
               <div id="previewButton">

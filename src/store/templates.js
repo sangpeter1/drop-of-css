@@ -18,12 +18,14 @@ const templates = (state = [], action) => {
   return state;
 };
 
-export const setTemplates = () => {
+export const setTemplates = (userId) => {
   return async (dispatch) => {
-    const response = await axios.get("/api/templates");
+    console.log("moe's id in setTemplates", userId);
+    const response = await axios.get(`/api/templates/${userId}`);
     dispatch({ type: "SET_TEMPLATES", templates: response.data });
   };
 };
+
 export const createTemplate = (template) => {
   return async (dispatch) => {
     const { htmlText, userId } = template;
