@@ -11,11 +11,15 @@ const TemplateList = () => {
   const [editedTemplateName, setEditedTemplateName] = useState("");
   const [updatedTemplates, setUpdatedTemplates] = useState([]);
 
+  console.log("moe's id", auth.id)
+
   useEffect(() => {
-    setTemplates();
+    if(auth) {
+      setTemplates(auth.id);
+    }
   }, [templates]);
 
-  console.log(templates);
+  console.log("templates in My Components", templates);
 
   const cleanUpHTML = (htmlString) => {
     const template = document.createElement("template");
@@ -23,8 +27,9 @@ const TemplateList = () => {
     return template.innerHTML;
   }; //renders preview of styled component
 
-  const handleComponentClick = (component) => {
-    setSelectedComponent(component);
+  const handleComponentClick = (template) => {
+    setSelectedComponent(template)
+    setEditedTemplateName(template.name);
   }; //renders list
 
   const handleTemplateNameChange = (event) => {
@@ -72,7 +77,7 @@ const TemplateList = () => {
 
   const handleSaveName = () => {
     updateTemplateNameHandler();
-    setSelectedComponent(null);
+    //setSelectedComponent(null);
   };
   /*
   return (
@@ -182,9 +187,9 @@ const TemplateList = () => {
         </ul>
       </div>
       <div>
-        {selectedComponent && (
-          <div>
-            <h4 className="header">{renderTemplateName(selectedComponent)}</h4>
+        { selectedComponent && templates.map(template => template.id === selectedComponent.id? (
+          <div key={template.id}>
+            <h4 className="header"> { template.name } </h4>
             <h5>Component:</h5>
             <div
               className="profilecomppreview"
@@ -200,6 +205,7 @@ const TemplateList = () => {
             </button>
             </pre>
           </div>
+        ): ''
         )}
       </div>
     </div>
