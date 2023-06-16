@@ -14,8 +14,8 @@ const components = [
     htmlText: `
     <html>
     <div class="navbar" style="background-color: bgColor">
-    <a href="#home">Home</a>
-    <a href="#news">News</a>
+    <a href="#">Home</a>
+    <a href="#">News</a>
     <div class="dropdown">
       <button class="dropbtn">Dropdown 
         <i class="fa fa-caret-down"></i>
@@ -29,93 +29,68 @@ const components = [
   </div>
   </html>
   `,
-    htmlStyle: {
-      colors: {
-        primaryColor,
-        secondaryColor,
-        tertiaryColor,
-        bgColor,
-      },
-      styles: {
-        navbar: {
-          navbar: "border: 10px solid red",
-          backgroundColor: `{bgColor}`,
-          boxSizing: "content-box",
-          display: "grid",
-          gridAutoFlow: "row",
-          gridColumn: "1/3",
-          gridRow: 2,
-          fontSize: "1.2rem",
-          color: `{primaryColor}`,
-          textAlign: "center",
-          margin: 0,
-          height: "100%",
-          width: "100%",
-          verticalAlign: "center",
-          letterSpacing: "2px",
-          listStyle: "none",
-          borderBottom: `5px solid {tertiaryColor}`,
-          textDecoration: `underline {secondaryColor}`,
-        },
-
-        ul: {
-          backgroundColor: `{secondaryColor}`,
-          listStyleType: "none",
-          height: "100%",
-          margin: "0",
-          paddingLeft: "1rem",
-          color: "#FFFFFF",
-          width: "auto",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          textDecoration: "none",
-        },
-
-        dropdownContent: {
-          display: "none",
-          position: "absolute",
-          minWidth: "160px",
-          boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
-          zIndex: "1",
-        },
-        "dropdownContent a": {
-          float: "none",
-          color: "black",
-          padding: "12px 16px",
-          textDecoration: "none",
-          display: "block",
-          textAlign: "left",
-        },
-        "dropdown:hover .dropdownContent": {
-          display: "block",
-        },
-      },
-    },
   },
   {
     type: "navbar",
-    name: "dropdown nav bar",
+    name: "Simple",
+    htmlText: `
+      <style>
+        .navbar {
+          background-color: inherit;
+          font-size: calc(10px + 0.5vw);
+          padding: 10px;
+          text-align: center;
+        }
+        
+        .navbar a {
+          text-decoration: none;
+          color: primaryColor;
+          padding: 8px;
+        }
+
+        .navbar a:hover{
+          border-bottom: 1px solid tertiaryColor;
+          border-radius: .5rem;
+        }
+
+        @media screen and (max-width: 768px) {
+          .navbar{
+            font-size: calc(12px + 1vw);
+          }
+      </style>
+      <body>
+        <div class="navbar">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div>
+      </body>
+    `,
+  },
+  {
+    type: "navbar",
+    name: "Dropdown",
     htmlText: `
     <style>
     .dropdownNav {
-      /* width: 100%;
-      height: 100%;*/
-      font-size: calc(10px + 0.5vw);
+      display: flex;
+      width: 100%;
+      align-items: center;
+      font-size: calc(12px + 0.5vw);
       list-style-type: none;
       margin: 0;
       padding: 0;
       overflow: hidden;
       background-color: primaryColor;
-      /* display: flex;
-      justify-content: space-between;*/
     }
     
-    #drop-li {
+    .drop-li {
       float: left;
     }
     
-    #drop-li a, .dropbtn {
+    .drop-li a,
+    .dropbtn {
       display: inline-block;
       color: white;
       text-align: center;
@@ -123,58 +98,150 @@ const components = [
       text-decoration: none;
     }
     
-   #drop-li a:hover, .dropdown:hover .dropbtn {
+    .drop-li a:hover,
+    .dropdown:hover .dropbtn {
       background-color: bgColor;
-
       color: primaryColor;
     }
     
-   #drop-li > .dropdown {
+    .drop-li .dropdown {
       display: inline-block;
     }
     
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: bgColor;
+      background-color: secondaryColor;
       color: primaryColor;
       min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
-    .dropdown-content > a {
-      color: black;
+    
+    .dropdown-content a {
+      color: white;
       padding: 12px 16px;
       text-decoration: none;
       display: block;
       text-align: left;
     }
     
-    .dropdown-content a:hover {background-color: primaryColor; color: white;}
+    .dropdown-content a:hover {
+      background-color: primaryColor;
+      color: white;
+    }
     
-  .dropdown:hover .dropdown-content {
+    .dropdown:hover .dropdown-content {
       display: block;
       color: primaryColor;
     }
+    
+    @media screen and (max-width: 768px) {
+      .drop-li {
+        flex-grow: 1;
+        font-size: calc(12px + 1vw);
+
+      }
     </style>
     <body>
     
     <ul class="dropdownNav">
-      <li id="drop-li"><a href="#home">Home</a></li>
-      <li id="drop-li"><a href="#news">News</a></li>
-      <li class="dropdown" id="drop-li">
-        <a class="dropbtn">Dropdown</a>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-      </li>
-    </ul>
+    <li class="drop-li"><a href="#">Home</a></li>
+    <li class="drop-li"><a href="#">News</a></li>
+    <li class="dropdown drop-li">
+      <a class="dropbtn">Dropdown</a>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </li>
+  </ul>
     
     </body>
-    </html>
   `,
+  },
+  {
+    type: "navbar",
+    name: "Gradient Background",
+    htmlText: `
+      <style>
+        .navbar {
+          background: linear-gradient(to right, bgColor, secondaryColor);
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+        }
+        
+        .navbar a {
+          text-decoration: none;
+          color: white;
+          padding: 1rem;
+        }
+        .navbar a:hover{
+
+            background: secondaryColor40;
+            border-radius: 4px;
+            box-shadow: 0 4px 30px rgba(100, 100, 100, 0.2);
+            backdrop-filter: blur(21.4px);
+            -webkit-backdrop-filter: blur(2.4px);
+            outline: 1px solid rgba(255, 255, 255, 1); 
+        }
+
+        
+        @media screen and (max-width: 768px) {
+          .navbar{
+            font-size: calc(12px + 1vw);
+          }
+      </style>
+      <body>
+        <div class="navbar">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div>
+      </body>
+    `,
+  },
+  {
+    type: "navbar",
+    name: "Border Bottom",
+    htmlText: `
+      <style>
+        .navbar {
+          background-color: bgColor;
+          padding: 10px;
+          display: flex;
+          justify-content: space-evenly;
+          font-size: calc(10px + 0.5vw);
+
+          border-bottom: 4px solid secondaryColor;
+        }
+        
+        .navbar a {
+          text-decoration: none;
+          color: primaryColor;
+          padding: 8px;
+        }
+        .navbar a:hover{
+          color: white
+        }
+        
+        @media screen and (max-width: 768px) {
+          .navbar{
+            font-size: calc(12px + 1vw);
+          }
+      </style>
+      <body>
+        <div class="navbar">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div>
+      </body>
+    `,
   },
 
   //FORMS
@@ -1004,33 +1071,28 @@ const components = [
   {
     type: "card",
     name: "product card",
+    //
     htmlText: `
     <style>
     .card {
-      aspect-ratio: 9/16;
-          min-height: 35vh;
-          max-width: 20vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
       border: 2px solid primaryColor;
       background-color: bgColor;
       border-radius: 6px;
       padding: 4px;
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-      box-sizing: content-box;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      box-sizing: border-box;
     }
 
-    .card > img{
-
-      max-height: 30vh;
-      max-width: 100%;
+    .card > img {
+      width: 100%;
+      height: auto;
       aspect-ratio: 1/1;
-      flex: 1 1 100%;
-      flex-wrap: wrap;
-      justify-content: center;
       box-shadow: 1px 1px 1rem secondaryColor;
-      margin: 1rem .5rem;
+      margin: 1rem 0.5rem;
     }
     
     .cardcontent{
@@ -1038,7 +1100,7 @@ const components = [
       text-align: center;
       justify-content: center;
       font-size: calc(8px + 0.5vw);
-
+      padding: 8px;
     }
     
     .action-items {
@@ -1065,12 +1127,40 @@ const components = [
       cursor: pointer;
     }
     
-          @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
+    @media screen and (max-width: 768px) {
+      .card{
+        aspect-ratio: 9/16;
         min-width: 40vw;
       }
+      .cardcontent {
+        flex-grow: 1;
+        text-align: center;
+        font-size: calc(12px + 1vw);
+      }
+      .button {
+        font-size: calc(8px + 0.5vw);
+      }
+    @media screen and (max-width: 450px) {
+      .card{
+        min-width: 80vw;
+        overflow: hidden;
+      }
+      .card > img {
+        aspect-ratio: 1/1;
+        height: auto;
+        max-width: 100%;
+        max-height: 50vh; 
+        margin: 1rem 0;
+      }
+      .cardcontent {
+        flex-grow: 1;
+        text-align: center;
+        font-size: calc(14px + 1vw);
+      }
+      .button {
+        font-size: calc(8px + 0.5vw);
+      }
+      
     </style>
 
     <div class="card"> 
@@ -1078,11 +1168,14 @@ const components = [
 
     <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
     <div class="action-items">
+
        <div class="button">Learn More!</div>
        <div class="button">Add to Cart!</div>
        <div class="button">&#x2665;</div>
+
       </div>
     </div>
+
     </div>
     `,
   },
@@ -1635,10 +1728,10 @@ const components = [
     }
     </style>
     <div class="sidebar">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+  <a class="active" href="#">Home</a>
+  <a href="#">News</a>
+  <a href="#">Contact</a>
+  <a href="#">About</a>
 </div>
     `,
   },
@@ -1680,10 +1773,10 @@ const components = [
       </style>
   
       <div class="sidebar">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
+        <a class="active" href="#">Home</a>
+        <a href="#">News</a>
+        <a href="#">Contact</a>
+        <a href="#">About</a>
       </div>
     `,
   },
@@ -1724,21 +1817,21 @@ const components = [
       </style>
   
       <div class="sidebar">
-      <a class="active" href="#home">Home</a>
-      <a href="#news">News</a>
-      <a href="#contact">Contact</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#blog">Blog</a>
-      <a href="#shop">Shop</a>
-      <a href="#events">Events</a>
-      <a href="#team">Team</a>
-      <a href="#faq">FAQ</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#contact-us">Contact Us</a>
+      <a class="active" href="#">Home</a>
+      <a href="#">News</a>
+      <a href="#">Contact</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Gallery</a>
+      <a href="#">Blog</a>
+      <a href="#">Shop</a>
+      <a href="#">Events</a>
+      <a href="#">Team</a>
+      <a href="#">FAQ</a>
+      <a href="#">Pricing</a>
+      <a href="#">Testimonials</a>
+      <a href="#">Contact Us</a>
       </div>
     `,
   },
@@ -1827,18 +1920,18 @@ const components = [
       </style>
   
       <div class="sidebar">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
+        <a class="active" href="#">Home</a>
+        <a href="#">News</a>
         <div class="dropdown">
-          <a class="has-dropdown" href="#contact">Contact</a>
+          <a class="has-dropdown" href="#">Contact</a>
           <div class="dropdown-content">
             <a href="#">Sublink 1</a>
             <a href="#">Sublink 2</a>
           </div>
         </div>
-        <a href="#about">About</a>
-        <a href="#blog">Blog</a>
-        <a href="#testimonials">Testimonials</a>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Testimonials</a>
       </div>
     `,
   },

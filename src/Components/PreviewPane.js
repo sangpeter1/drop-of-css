@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchComponents, createTemplate } from "../store";
 import store from "../store";
-import html2pdf from 'html2pdf.js';
+import html2pdf from "html2pdf.js";
 import { useNavigate } from "react-router-dom";
 import FavHeart from "./FavHeart";
-import { saveAs } from 'file-saver';
+import { saveAs } from "file-saver";
 
 // import { FaDownload } from 'react-icons/fa';
 
@@ -25,23 +25,28 @@ import { jsx } from "@emotion/react";
 
 const CodeDownloadButton = ({ code, html, filename }) => {
   const downloadCode = () => {
-    const blobForJsx = new Blob([code], { type: 'text/plain;charset=utf-8' });
-    const blobForHtml = new Blob([html], { type: 'text/plain;charset=utf-8' });
+    const blobForJsx = new Blob([code], { type: "text/plain;charset=utf-8" });
+    const blobForHtml = new Blob([html], { type: "text/plain;charset=utf-8" });
     saveAs(blobForJsx, `${filename}_jsx.txt`);
-    saveAs(blobForHtml,`${filename}_innerHTML.txt`);
+    saveAs(blobForHtml, `${filename}_innerHTML.txt`);
   };
 
-  return <button 
-  style={{"position":'absolute',
-  "backgroundColor":"white",
-  "color":"black",
-  "padding":"10px 20px",
-  "border": "none",
-  "borderRadius":"10px",
-  "cursor": "pointer",
-  "width":"100px",
-  "height":"90px"}} 
-  onClick={downloadCode}>{`Download code for ${filename}`}</button>;
+  return (
+    <button
+      style={{
+        position: "absolute",
+        backgroundColor: "white",
+        color: "black",
+        padding: "10px 20px",
+        border: "none",
+        borderRadius: "10px",
+        cursor: "pointer",
+        width: "100px",
+        height: "90px",
+      }}
+      onClick={downloadCode}
+    >{`Download code for ${filename}`}</button>
+  );
 };
 
 //
@@ -68,20 +73,19 @@ const handleComponentChange = () => {
 const unsubscribe = store.subscribe(handleComponentChange);
 //unsubscribe();
 
-  
-
-  // useEffect(() => {
-  //   dispatch(fetchComponents());
-  // }, []);
+// useEffect(() => {
+//   dispatch(fetchComponents());
+// }, []);
 //unsubscribe()
 
 const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, button }) => {
   const { auth, components, componentColors } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [colors, setColors] = useState("");
   const [savedComponents, setSavedComponents] = useState([]);
+  const [hoveredOnComponent, setHoveredOnComponent] = useState(null);
 
   // Hover to download feature
 
@@ -182,6 +186,59 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     return null;
   };
 
+  //clearing local storage and components?
+  const clearComponents = (str) => {
+    console.log("trying to clear components");
+    if (str === "all") {
+      console.log(str);
+      console.log("in local storage", localStorage.getItem("savedNavbar"));
+      localStorage.removeItem("savedNavbar");
+      localStorage.removeItem("savedForm");
+      localStorage.removeItem("savedTitle");
+      localStorage.removeItem("savedNav");
+      localStorage.removeItem("savedSideNav");
+      localStorage.removeItem("savedCard");
+      localStorage.removeItem("savedButton");
+      console.log("is local storage actually empty?", localStorage.getItem("savedNavbar"));
+      form = null;
+      nav = null;
+      title = null;
+      sideNav = null;
+      card = null;
+      button = null;
+    } else if (str === "nav") {
+      localStorage.removeItem("savedNavBar");
+      nav = null;
+    } else if (str === "form") {
+      localStorage.removeItem("savedForm");
+      form = null;
+    } else if (str === "title") {
+      localStorage.removeItem("savedTitle");
+      title = null;
+    } else if (str === "sideNav") {
+      localStorage.removeItem("savedSideNav");
+      sideNav = null;
+    } else if (str === "card") {
+      localStorage.removeItem("savedCard");
+      card = null;
+    } else if (str === "button") {
+      localStorage.removeItem("savedBbutton");
+      button = null;
+    }
+    window.location.reload();
+  };
+
+  //building an on-hover for the download buttons, the heart, and a clear function:
+  const handleComponentOnHover = (comp) => {
+    console.log(comp);
+    return (
+      <span style={{ position: "absolute", bottom: 0, right: 0, border: "3px solid black" }}>
+        hover box for things
+        <FavHeart component={comp} />
+      </span>
+    );
+  };
+
   //this is broken
   if (!wholePageBackground) {
     const savedWholePageBackground = JSON.parse(localStorage.getItem("savedWholePageBackground"));
@@ -189,7 +246,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     console.log("whole background", wholePageBackground);
   }
 
-  console.log(config)
+  // console.log(config);
 
   return (
     <div>
@@ -201,6 +258,9 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
           </div>
         </h3>
       </div>
+      <button className="reset-button" onClick={() => clearComponents("all")}>
+        Reset Template
+      </button>
       <div
         className="preview-pane-container"
         style={{
@@ -209,35 +269,67 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
         }}
       >
         {title ? (
-          <div id="previewTitle" style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}>
+          <div
+            id="previewTitle"
+            style={{ background: "rgba(0,0,0,0)", outline: "none", position: "relative" }}
+            onMouseEnter={() => setHoveredOnComponent(title)}
+            onMouseLeave={() => setHoveredOnComponent(null)}
+          >
             <div
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(title),
               }}
             />
-            <FavHeart component={title} />
+            <span>{hoveredOnComponent === title ? handleComponentOnHover(title) : ""}</span>
+            {/* <FavHeart component={title} /> */}
           </div>
         ) : (
-          <header id="previewTitle">Your Website Title</header>
+          <div
+            id="previewTitle"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "calc(12px + 0.5vw)",
+            }}
+          >
+            Your Website Title
+          </div>
         )}
         {nav ? (
-          <div id="previewNav">
+          <div
+            id="previewNav"
+            style={{ background: "rgba(0,0,0,0)", outline: "none", position: "relative" }}
+            onMouseEnter={() => setHoveredOnComponent(nav)}
+            onMouseLeave={() => setHoveredOnComponent(false)}
+          >
             <div
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(nav),
               }}
             />
+            <span>{hoveredOnComponent === nav ? handleComponentOnHover(nav) : ""}</span>
             <FavHeart component={previewNav} />
 
             {/* <Navbar /> */}
           </div>
         ) : (
-          <nav id="previewNav">Preview Nav</nav>
+          <div
+            id="previewNav"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "calc(12px + 0.5vw)",
+            }}
+          >
+            Navigation
+          </div>
         )}
         {sideNav ? (
           <div id="previewSideNav">
             <div
-              style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+              style={{ background: "rgba(0,0,0,0)", outline: "none" }}
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(sideNav),
               }}
@@ -245,61 +337,132 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             <FavHeart component={sideNav} />
           </div>
         ) : (
-          <div id="previewSideNav">Side Nav</div>
+          <div
+            id="previewSideNav"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "calc(12px + 0.5vw)",
+            }}
+          >
+            Side Navigation
+          </div>
         )}
         <main className="preview-pane-Main-Content">
           <div id="previewCardContainer">
             {card ? (
               <div
                 id="previewCard"
-                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                style={{ background: "rgba(0,0,0,0)", outline: "none" }}
                 dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
               />
             ) : (
-              <div id="previewCard">Card</div>
+              <div
+                id="previewCard"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "calc(12px + 0.5vw)",
+                }}
+              >
+                Info or Product Card
+              </div>
             )}{" "}
             {card ? (
               <div
                 id="previewCard"
-                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                style={{ background: "rgba(0,0,0,0)", outline: "none" }}
                 dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
               />
             ) : (
-              <div id="previewCard">Card</div>
+              <div
+                id="previewCard"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "calc(12px + 0.5vw)",
+                }}
+              >
+                Info or Product Card
+              </div>
             )}
             {card ? (
               <div
                 id="previewCard"
-                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                style={{ background: "rgba(0,0,0,0)", outline: "none" }}
                 dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
               />
             ) : (
-              <div id="previewCard">Card</div>
+              <div
+                id="previewCard"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "calc(12px + 0.5vw)",
+                }}
+              >
+                Info or Product Card
+              </div>
             )}
             {card ? <FavHeart component={card} /> : ""}
           </div>
           {form ? (
             <div id="previewForm">
               <div
-                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                style={{ background: "rgba(0,0,0,0)", outline: "none" }}
                 dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
               />
               <FavHeart component={form} />
             </div>
           ) : (
-            <div id="previewForm">form</div>
+            <div
+              id="previewForm"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "calc(12px + 0.5vw)",
+              }}
+            >
+              Login, Contact, General Information Form
+            </div>
           )}
-          <div id="previewButtonContainer" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <div
+            id="previewButtonContainer"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            style={{ border: "4px solid red" }}
+            // i put a border here because it keeps breaking my code and i'm not sure what the hover is doing? and i don't want my page to keep going blank lol --jdb
+          >
             {button ? (
               <div id="previewButton">
-                <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
+                <div
+                  style={{ background: "rgba(0,0,0,0)", outline: "none" }}
+                  dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }}
+                />
                 <FavHeart component={button} />
               </div>
             ) : (
-              <div id="previewButton">Button</div>
+              <div
+                id="previewButton"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "calc(12px + 0.5vw)",
+                }}
+              >
+                Submit Buttons
+              </div>
             )}
-            {isHovered && (<CodeDownloadButton
-            code={`button ? (
+
+            {isHovered && (
+              <CodeDownloadButton
+                code={`button ? (
               <div id="previewButton">
                 <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
                 <FavHeart component={button} />
@@ -307,9 +470,10 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             ) : (
               <div id="previewButton">Button</div>
             )`}
-            html={button.htmlText}
-            filename="button" />)
-            }
+                html={button.htmlText}
+                filename="button"
+              />
+            )}
           </div>
         </main>
       </div>
