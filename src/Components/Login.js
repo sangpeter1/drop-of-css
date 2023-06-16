@@ -61,6 +61,7 @@ const Login = () => {
         >
           {errorMessage ? errorMessage : <div style={{ minHeight: "(4px + 0.5vw)" }}></div>}
         </div>
+        <button type="submit" style={{ display: "none" }}></button>
         <div className="rainbowBtn" type={"submit"} onClick={login}>
           Login
         </div>

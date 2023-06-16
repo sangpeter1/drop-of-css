@@ -20,55 +20,18 @@ const Nav = () => {
 
   return (
     <>
-      <nav
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          backgroundColor: "#2d545e",
-          color: "cornsilk",
-          borderBottom: "4px solid #12343b",
-          borderBottomRightRadius: "1rem",
-        }}
-      >
-        <img
-          src={colorWheelImage}
-          style={{
-            height: "4rem",
-            width: "4rem",
-            margin: "1rem",
-            borderRadius: "50%",
-            boxShadow: "1px 1px 16px 1px #12343b",
-            justifyContent: "flex-start",
-          }}
-        />
-        <div
-          style={{
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "left",
-            margin: 0,
-            padding: 0,
-            justifyContent: "flex-start",
-            flexGrow: 1,
-          }}
-        >
-          <h1
-            style={{
-              margin: ".5rem",
-              padding: 0,
-              ":hover": { color: "white" },
-            }}
-          >
+      <nav>
+        <img src={colorWheelImage} />
+        <div id="navSiteTitle">
+          <h1>
             <Link to="/" style={{ color: "white", textDecoration: "none" }}>
               A Drop of CSS
             </Link>
           </h1>
-          <h5 style={{ margin: ".5rem", padding: 0, color: "white" }}>
-            JSX Color Palette and Component Builder
-          </h5>
+          <h5 style={{ padding: 0, color: "white" }}>JSX Color Palette and Component Builder</h5>
         </div>
-        <div style={{ justifyContent: "flex-end", marginRight: "2rem" }}>
+
+        <div id="navlinks" style={{ justifyContent: "flex-end", marginRight: "2rem" }}>
           <div>
             {auth.id && (
               <div>
