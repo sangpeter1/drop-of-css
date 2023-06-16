@@ -112,7 +112,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     setSavedComponents((prevSavedComponents) => [...prevSavedComponents, componentType]);
   };
   const goToUserComponents = () => {
-    navigate("/profile/components");
+    navigate("/profile");
   };
   /*
   const renderSaveButtons = () => {

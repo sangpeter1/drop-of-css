@@ -32,7 +32,7 @@ const UserCreate = () => {
 
   return (
     <div className="login">
-      <h3 className="header">Create Account</h3>
+      <h3 className="proheader">Create Account</h3>
       <form onSubmit={registerUser}>
         <label>Username</label>
 

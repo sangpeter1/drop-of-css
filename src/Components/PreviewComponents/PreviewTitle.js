@@ -27,4 +27,4 @@ const PreviewTitle = ({ title,jsxGenerator }) => {
   )
 }
 
-export default PreviewTitle
+export default PreviewTitle;
