@@ -8,28 +8,28 @@ let tertiaryColor;
 // type, name, html text with classes and actual color (eg "style=background-color: primaryColor"), css for export (preferably in JSX object format)
 
 const components = [
-  {
-    type: "navbar",
-    name: "plain nav bar",
-    htmlText: `
-    <html>
-    <div class="navbar" style="background-color: bgColor">
-    <a href="#">Home</a>
-    <a href="#">News</a>
-    <div class="dropdown">
-      <button class="dropbtn">Dropdown 
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-      </div>
-    </div> 
-  </div>
-  </html>
-  `,
-  },
+  // {
+  //   type: "navbar",
+  //   name: "plain nav bar",
+  //   htmlText: `
+  //   <html>
+  //   <div class="navbar" style="background-color: bgColor">
+  //   <a href="#">Home</a>
+  //   <a href="#">News</a>
+  //   <div class="dropdown">
+  //     <button class="dropbtn">Dropdown
+  //       <i class="fa fa-caret-down"></i>
+  //     </button>
+  //     <div class="dropdown-content">
+  //       <a href="#">Link 1</a>
+  //       <a href="#">Link 2</a>
+  //       <a href="#">Link 3</a>
+  //     </div>
+  //   </div>
+  // </div>
+  // </html>
+  // `,
+  // },
   {
     type: "navbar",
     name: "Simple",
@@ -728,7 +728,7 @@ const components = [
   },
   {
     type: "form",
-    name: "plain form five",
+    name: "Form 5",
     htmlText: `
     <div>
       <form style="background-color: bgColor; padding: 1rem;">
@@ -756,7 +756,7 @@ const components = [
 
   {
     type: "title",
-    name: "jdb test title",
+    name: "Title & Subtitle",
     htmlText: `
     <style>
     .title-header{
@@ -955,15 +955,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: `${primaryColor}`,
-      color: "white",
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-    },
   },
   {
     type: "button",
@@ -986,15 +977,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: "transparent",
-      color: `${primaryColor}`,
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: `2px solid ${primaryColor}`,
-      borderRadius: "5px",
-      cursor: "pointer",
-    },
   },
   {
     type: "button",
@@ -1012,15 +994,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: `${primaryColor}`,
-      color: "white",
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "25px",
-      cursor: "pointer",
-    },
   },
   {
     type: "button",
@@ -1039,16 +1012,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: `${primaryColor}`,
-      color: "white",
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-      transition: "background-color 0.3s ease",
-    },
   },
   {
     type: "button",
@@ -1086,40 +1049,40 @@ const components = [
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
     }
-
     .card > img {
-      width: 100%;
+      width: 90%;
       height: auto;
       aspect-ratio: 1/1;
       box-shadow: 1px 1px 1rem secondaryColor;
       margin: 1rem 0.5rem;
     }
-    
     .cardcontent{
+      flex-direction: column;
       flex-grow: 1;
       text-align: center;
       justify-content: center;
-      font-size: calc(8px + 0.5vw);
+      font-size: calc(10px + 0.5vw);
       padding: 8px;
     }
-    
     .action-items {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
       align-items: center;
       margin-top: .5rem;
-
+      padding: .25rem;
     }
 
     .button {
-      font-size: calc(4px + 0.5vw);
-      justify-content: space-evenly;
+      display: flex;
+      justify-content: space-between;
+      align-self: stretch;
       align-items: center;
+      font-size: calc(6px + 0.5vw);
       background-color: tertiaryColor;
       border: 1px solid secondaryColor;
       color: white;
-      padding: 4px;
       margin: 4px;
+      padding: .3rem;
       border-radius: 5px;
     }
     .button:hover{
@@ -1127,38 +1090,61 @@ const components = [
       cursor: pointer;
     }
     
-    @media screen and (max-width: 768px) {
-      .card{
-        aspect-ratio: 9/16;
-        min-width: 40vw;
-      }
-      .cardcontent {
-        flex-grow: 1;
-        text-align: center;
-        font-size: calc(12px + 1vw);
-      }
-      .button {
-        font-size: calc(8px + 0.5vw);
-      }
-    @media screen and (max-width: 450px) {
-      .card{
-        min-width: 80vw;
-        overflow: hidden;
+    @media screen and (max-width: 1000px) {
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
+        
       }
       .card > img {
-        aspect-ratio: 1/1;
+        width: 90%;
         height: auto;
-        max-width: 100%;
-        max-height: 50vh; 
-        margin: 1rem 0;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
       }
-      .cardcontent {
-        flex-grow: 1;
-        text-align: center;
-        font-size: calc(14px + 1vw);
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
       }
       .button {
-        font-size: calc(8px + 0.5vw);
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    @media screen and (max-width: 550px) {
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
       }
       
     </style>
@@ -1215,6 +1201,7 @@ const components = [
           text-align: center;
           justify-content: center;
           font-size: calc(10px + 0.5vw);
+          color: white;
         }
   
         .action-items {
@@ -1241,13 +1228,62 @@ const components = [
           color: bgColor;
           border: 1px solid primaryColor;
         }
-
-              @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
-      }
+        @media screen and (max-width: 1000px) {
+          .card {
+            box-sizing: border-box;
+            margin: 1rem;
+            
+          }
+          .card > img {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 1/1;
+            box-shadow: 1px 1px 1rem secondaryColor;
+            margin: 1rem 0.5rem;
+          }
+          .cardcontent{
+            font-size: calc(12px + 1vw);
+            padding: 8px;
+          }
+          .action-items {
+            margin-top: 2rem;
+            padding: .5rem;
+          }
+          .button {
+            font-size: calc(10px + 0.5vw);
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+          }
+        @media screen and (max-width: 550px) {
+          .card {
+            width: 90%;
+            min-width: none;
+            aspect-ratio: 8/10;
+            box-sizing: border-box;
+            margin: 1rem;
+          }
+          .card > img {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 1/1;
+            box-shadow: 1px 1px 1rem secondaryColor;
+            margin: 1rem 0.5rem;
+          }
+          .cardcontent{
+            font-size: calc(12px + 1vw);
+            padding: 8px;
+          }
+          .action-items {
+            margin-top: 2rem;
+            padding: .5rem;
+          }
+          .button {
+            font-size: calc(10px + 0.5vw);
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+          }
       </style>
   
       <div class="card">
@@ -1324,12 +1360,62 @@ const components = [
           background-color: bgColor;
           cursor: pointer;
         }
-      @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
-      }
+        @media screen and (max-width: 1000px) {
+          .card {
+            box-sizing: border-box;
+            margin: 1rem;
+            
+          }
+          .card > img {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 1/1;
+            box-shadow: 1px 1px 1rem secondaryColor;
+            margin: 1rem 0.5rem;
+          }
+          .cardcontent{
+            font-size: calc(12px + 1vw);
+            padding: 8px;
+          }
+          .action-items {
+            margin-top: 2rem;
+            padding: .5rem;
+          }
+          .button {
+            font-size: calc(10px + 0.5vw);
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+          }
+        @media screen and (max-width: 550px) {
+          .card {
+            width: 90%;
+            min-width: none;
+            aspect-ratio: 8/10;
+            box-sizing: border-box;
+            margin: 1rem;
+          }
+          .card > img {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 1/1;
+            box-shadow: 1px 1px 1rem secondaryColor;
+            margin: 1rem 0.5rem;
+          }
+          .cardcontent{
+            font-size: calc(12px + 1vw);
+            padding: 8px;
+          }
+          .action-items {
+            margin-top: 2rem;
+            padding: .5rem;
+          }
+          .button {
+            font-size: calc(10px + 0.5vw);
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+          }
       
       </style>
     
@@ -1383,6 +1469,7 @@ const components = [
           text-align: center;
           justify-content: center;
           font-size: calc(10px + 0.5vw);
+          color: white;
         }
   
         .action-items {
@@ -1405,15 +1492,67 @@ const components = [
           border-radius: 5px;
         }
         .button:hover{
-          background-color: 0;
+          background-color: bgColor20;
           cursor: pointer;
         }
+
               @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
-      }
+                @media screen and (max-width: 1000px) {
+                  .card {
+                    box-sizing: border-box;
+                    margin: 1rem;
+                    
+                  }
+                  .card > img {
+                    width: 90%;
+                    height: auto;
+                    aspect-ratio: 1/1;
+                    box-shadow: 1px 1px 1rem secondaryColor;
+                    margin: 1rem 0.5rem;
+                  }
+                  .cardcontent{
+                    font-size: calc(12px + 1vw);
+                    padding: 8px;
+                  }
+                  .action-items {
+                    margin-top: 2rem;
+                    padding: .5rem;
+                  }
+                  .button {
+                    font-size: calc(10px + 0.5vw);
+                    margin: 8px;
+                    padding: 8px;
+                    border-radius: 5px;
+                  }
+                @media screen and (max-width: 550px) {
+                  .card {
+                    width: 90%;
+                    min-width: none;
+                    aspect-ratio: 8/10;
+                    box-sizing: border-box;
+                    margin: 1rem;
+                  }
+                  .card > img {
+                    width: 90%;
+                    height: auto;
+                    aspect-ratio: 1/1;
+                    box-shadow: 1px 1px 1rem secondaryColor;
+                    margin: 1rem 0.5rem;
+                  }
+                  .cardcontent{
+                    font-size: calc(12px + 1vw);
+                    padding: 8px;
+                  }
+                  .action-items {
+                    margin-top: 2rem;
+                    padding: .5rem;
+                  }
+                  .button {
+                    font-size: calc(10px + 0.5vw);
+                    margin: 8px;
+                    padding: 8px;
+                    border-radius: 5px;
+                  }
         
       </style>
   
@@ -1509,13 +1648,62 @@ const components = [
         min-width: 40vw;
       }
 
-      @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
-      }
-    }    
+      @media screen and (max-width: 1000px) {
+        .card {
+          box-sizing: border-box;
+          margin: 1rem;
+          
+        }
+        .card > img {
+          width: 90%;
+          height: auto;
+          aspect-ratio: 1/1;
+          box-shadow: 1px 1px 1rem secondaryColor;
+          margin: 1rem 0.5rem;
+        }
+        .cardcontent{
+          font-size: calc(12px + 1vw);
+          padding: 8px;
+        }
+        .action-items {
+          margin-top: 2rem;
+          padding: .5rem;
+        }
+        .button {
+          font-size: calc(10px + 0.5vw);
+          margin: 8px;
+          padding: 8px;
+          border-radius: 5px;
+        }
+      @media screen and (max-width: 550px) {
+        .card {
+          width: 90%;
+          min-width: none;
+          aspect-ratio: 8/10;
+          box-sizing: border-box;
+          margin: 1rem;
+        }
+        .card > img {
+          width: 90%;
+          height: auto;
+          aspect-ratio: 1/1;
+          box-shadow: 1px 1px 1rem secondaryColor;
+          margin: 1rem 0.5rem;
+        }
+        .cardcontent{
+          font-size: calc(12px + 1vw);
+          padding: 8px;
+        }
+        .action-items {
+          margin-top: 2rem;
+          padding: .5rem;
+        }
+        .button {
+          font-size: calc(10px + 0.5vw);
+          margin: 8px;
+          padding: 8px;
+          border-radius: 5px;
+        }  
 
       </style>
   
@@ -1595,14 +1783,62 @@ const components = [
           padding: 8px 16px;
           cursor: pointer;
         }
-        @media screen and (max-width: 768px) {
-          .card{
-            aspect-ratio: 9/16;
-          min-height: 50vh;
-          min-width: 40vw;
-        }
-      }    
-  
+        @media screen and (max-width: 1000px) {
+          .card {
+            box-sizing: border-box;
+            margin: 1rem;
+            
+          }
+          .card > img {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 1/1;
+            box-shadow: 1px 1px 1rem secondaryColor;
+            margin: 1rem 0.5rem;
+          }
+          .cardcontent{
+            font-size: calc(12px + 1vw);
+            padding: 8px;
+          }
+          .action-items {
+            margin-top: 2rem;
+            padding: .5rem;
+          }
+          .button {
+            font-size: calc(10px + 0.5vw);
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+          }
+        @media screen and (max-width: 550px) {
+          .card {
+            width: 90%;
+            min-width: none;
+            aspect-ratio: 8/10;
+            box-sizing: border-box;
+            margin: 1rem;
+          }
+          .card > img {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 1/1;
+            box-shadow: 1px 1px 1rem secondaryColor;
+            margin: 1rem 0.5rem;
+          }
+          .cardcontent{
+            font-size: calc(12px + 1vw);
+            padding: 8px;
+          }
+          .action-items {
+            margin-top: 2rem;
+            padding: .5rem;
+          }
+          .button {
+            font-size: calc(10px + 0.5vw);
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+          }
       </style>
   
       <div class="card">
@@ -1714,7 +1950,7 @@ const components = [
       padding: 0;
       min-width: 10vw;
       background-color: bgColor;
-      height: 100%;
+      min-height: 70vh;
       overflow: auto;
       border: 2px solid primaryColor;
     }
@@ -1725,6 +1961,9 @@ const components = [
       color: black;
       padding: 16px;
       text-decoration: none;
+    }
+    .sidebar a:hover{
+      color: white;
     }
     </style>
     <div class="sidebar">
@@ -1752,7 +1991,7 @@ const components = [
           min-width: 10vw;
           max-width: 100%;
           background-color: bgColor;
-          height: 100%;
+          min-height: 70vh;
           overflow: auto;
           border: 2px solid primaryColor;
         }
@@ -1849,7 +2088,7 @@ const components = [
         .sidebar {
           width: 150px;
           background-color: bgColor;
-          height: 100%;
+          height: 70vh;
           overflow: auto;
           border-right: 2px solid primaryColor;
           padding: 10px;
@@ -1892,10 +2131,10 @@ const components = [
         .sidebar .dropdown-content {
           display: none;
           position: absolute;
-          top: 0;
-          left: 100%;
-          margin-top: -1px;
-          min-width: 10vw;
+          top: 100%;
+          left: 0;
+          margin-bottom: 50px;
+          width: 147px;
           background-color: bgColor;
           border: 2px solid primaryColor;
           z-index: 1;
@@ -1912,26 +2151,28 @@ const components = [
         .sidebar .dropdown-content a:hover {
           background-color: secondaryColor;
           color: tertiaryColor;
+          
         }
   
         .sidebar .dropdown:hover .dropdown-content {
           display: block;
         }
+
       </style>
   
       <div class="sidebar">
         <a class="active" href="#">Home</a>
         <a href="#">News</a>
-        <div class="dropdown">
-          <a class="has-dropdown" href="#">Contact</a>
-          <div class="dropdown-content">
-            <a href="#">Sublink 1</a>
-            <a href="#">Sublink 2</a>
-          </div>
-        </div>
         <a href="#">About</a>
         <a href="#">Blog</a>
         <a href="#">Testimonials</a>
+        <div class="dropdown">
+        <a class="has-dropdown" href="#">Contact</a>
+        <div class="dropdown-content">
+          <a href="#">Sublink 1</a>
+          <a href="#">Sublink 2</a>
+        </div>
+      </div>
       </div>
     `,
   },
