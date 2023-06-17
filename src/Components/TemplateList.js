@@ -12,10 +12,10 @@ const TemplateList = () => {
   const [updatedTemplates, setUpdatedTemplates] = useState([]);
 
   useEffect(() => {
-    if(auth) {
-      setTemplates(auth.id);
+    if (auth) {
+      dispatch(setTemplates(auth.id));
     }
-  }, [templates]);
+  }, [auth]);
 
   const cleanUpHTML = (htmlString) => {
     const template = document.createElement("template");
@@ -24,8 +24,8 @@ const TemplateList = () => {
   }; //renders preview of styled component
 
   const handleComponentClick = (template) => {
-    setSelectedComponent(template)
-    setEditedTemplateName(template.name);
+    setSelectedComponent(template);
+    // setEditedTemplateName(template.name);
   }; //renders list
 
   const handleTemplateNameChange = (event) => {
@@ -34,7 +34,7 @@ const TemplateList = () => {
 
   const handleDeleteTemplate = (templateId) => {
     dispatch(deleteTemplate(templateId));
-    return navigate('/profile');
+    return navigate("/profile");
   };
 
   const updateTemplateNameHandler = () => {
@@ -57,16 +57,34 @@ const TemplateList = () => {
     // Display the "Copied to clipboard" message
     const clipboardMessage = document.getElementById("clipboard-message");
     clipboardMessage.innerHTML = "Copied to clipboard!";
-  }; 
+    setTimeout(() => {
+      clipboardMessage.innerHTML = "";
+    }, 2000);
+  };
+
+  //jdb add for it to say something like "untitled nav" instead of just untitled
+  const renameType = (st) => {
+    let str = (st[0].toUpperCase() + st.slice(1)).split("");
+    let result = [str[0]];
+    for (let i = 1; i < str.length; i++) {
+      const char = str[i];
+      if (/[A-Z]/.test(char)) {
+        result.push(" ");
+      }
+      result.push(char);
+    }
+    return result.join("");
+  };
 
   const renderTemplateName = (template) => {
     if (template.name) {
       return template.name;
     } else {
       const dateCreated = new Date(template.createdAt).toLocaleDateString();
-      return `Untitled(${dateCreated})`;
+      renameType(template.type);
+      return `Untitled ${renameType(template.type)}(${dateCreated})`;
     }
-  }; // sets untitled and date as default if no name
+  }; // sets untitled component name and date as default if no name
 
   const handleEditName = () => {
     if (selectedComponent) {
@@ -77,23 +95,25 @@ const TemplateList = () => {
   const handleSaveName = () => {
     updateTemplateNameHandler();
   };
-  
+
   const renderNoComponentsMessage = () => {
     return (
       <div className="no-components-message">
         <p>You have no components!</p>
-        <Link to="/" className="stylelink">Style a Component</Link>
+        <Link to="/" className="stylelink">
+          Style a Component
+        </Link>
       </div>
     );
-  }
- 
+  };
+
   return (
     <div className="template-list-container">
       <div className="templatesidebar">
         <h4 className="proheader">My Components</h4>
         <table className="profile-comp-table">
           <tbody>
-           {templates
+            {templates
               .filter((template) => template.userId === auth.id)
               .map((template) => (
                 <tr
@@ -106,6 +126,7 @@ const TemplateList = () => {
                       <td>
                         <input
                           type="text"
+                          placeholder={template.name}
                           value={editedTemplateName}
                           onChange={handleTemplateNameChange}
                           className="comp-name-input"
@@ -126,7 +147,11 @@ const TemplateList = () => {
                         </button>
                       </td>
                       <td>
-                        <button onClick={() => handleDeleteTemplate(template.id)} className="delete-icon" title="Delete">
+                        <button
+                          onClick={() => handleDeleteTemplate(template.id)}
+                          className="delete-icon"
+                          title="Delete"
+                        >
                           Delete
                         </button>
                       </td>
@@ -136,35 +161,41 @@ const TemplateList = () => {
               ))}
           </tbody>
         </table>
-          {templates.filter((template) => template.userId === auth.id).length === 0 &&
+        {templates.filter((template) => template.userId === auth.id).length === 0 &&
           renderNoComponentsMessage()}
       </div>
-      <div>
-        { selectedComponent && templates.map(template => template.id === selectedComponent.id? (
-          <div key={template.id}>
-            <h4 className="proheader"> { template.name } </h4>
-            <div className="boxesflex">
-              <div>
-                <h5>Component:</h5>
-                <div
-                  className="profilecomppreview"
-                  dangerouslySetInnerHTML={{
-                    __html: cleanUpHTML(selectedComponent.htmlText),
-                  }}
-                />
+      <div className="template-componentandcode-div">
+        {selectedComponent &&
+          templates.map((template) =>
+            template.id === selectedComponent.id ? (
+              <div key={template.id}>
+                <h4 className="proheader"> {template.name} </h4>
+                <div className="boxesflex">
+                  <div>
+                    <h5>Component:</h5>
+                    <div
+                      className="profilecomppreview"
+                      dangerouslySetInnerHTML={{
+                        __html: cleanUpHTML(selectedComponent.htmlText),
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <h5>HTML and CSS:</h5>
+                    <div className="profilehtmlpreview">
+                      <pre>{selectedComponent.htmlText}</pre>
+                    </div>
+                    <button onClick={copyHtmlTextToClipboard} className="rainbowBtn">
+                      Copy HTML
+                    </button>
+                    <div id="clipboard-message" className="copytoclip"></div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h5>HTML:</h5>
-                <div className="profilehtmlpreview"><pre>{selectedComponent.htmlText}</pre></div>
-                  <button onClick={copyHtmlTextToClipboard} className="rainbowBtn">
-                    Copy HTML
-                  </button>
-                  <div id="clipboard-message" className="copytoclip"></div>
-              </div>
-            </div>
-          </div>
-        ): ''
-        )}
+            ) : (
+              ""
+            )
+          )}
       </div>
     </div>
   );

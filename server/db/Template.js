@@ -1,7 +1,6 @@
 const conn = require("./conn");
 const { STRING, UUID, UUIDV4, TEXT } = conn.Sequelize;
 
-
 const Template = conn.define("template", {
   id: {
     type: UUID,
@@ -12,23 +11,24 @@ const Template = conn.define("template", {
     type: STRING,
   },
   userId: {
-	  type: UUID,
-	//allowNull: false,
+    type: UUID,
+    //allowNull: false,
   },
- /* paletteId: {
+  /* paletteId: {
 	type: UUID,
 	//allowNull: false,
   },*/
   componentId: {
-	  type: UUID,
-	//allowNull: false,
+    type: UUID,
+    //allowNull: false,
   },
   htmlText: {
     type: TEXT,
   },
-  
+  type: {
+    type: STRING,
+  },
 });
-
 
 module.exports = Template;
 
@@ -41,4 +41,3 @@ htmlText previewPane.js line 17
 
 
 */
-

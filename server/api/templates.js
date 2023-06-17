@@ -11,7 +11,7 @@ app.get("/:userId", async (req, res, next) => {
         userId: req.params.userId,
       },
     });
-    console.log("templates in the api/templates", templates);
+    // console.log("templates in the api/templates", templates);
     res.send(templates);
   } catch (err) {
     next(err);
@@ -23,6 +23,7 @@ app.post("/", async (req, res, next) => {
     const template = await Template.create({
       userId: req.body.userId,
       htmlText: req.body.htmlText,
+      type: req.body.type,
     });
     res.status(200).send(template.dataValues);
   } catch (err) {
