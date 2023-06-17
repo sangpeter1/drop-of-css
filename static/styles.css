@@ -301,10 +301,15 @@ main {
   padding: 1rem;
   grid-row: 3 / 5;
   min-height: fit-content;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  justify-content: space-evenly;
+  align-content: flex-start;
+  /* display: grid;
   grid-template-rows: auto auto 10vh;
-  grid-gap: 1vw;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1vw; */
 }
 
 main > #previewCardContainer {
@@ -648,7 +653,7 @@ h5 {
 
 .profile-comp-table .selected {
   color: red;
-} 
+}
 
 .template-name {
   display: flex;
@@ -675,15 +680,13 @@ h5 {
   color: #2d545e;
 }
 
-.copytoclip, .stylelink {
+.copytoclip,
+.stylelink {
   animation: rainbow 1.5s linear infinite;
   background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-
-
 
 /* favHeart icon */
 .top-right-span {
@@ -713,16 +716,18 @@ h5 {
   }
 
   #previewSideNav {
-    display: none;
+    display: none !important;
   }
 
   main {
-    display: grid;
+    /* display: grid; */
     grid-template-columns: 1fr;
+    flex-direction: column;
   }
 
   main > #previewCardContainer {
     /* border: 1rem solid blue; */
+    margin-top: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
@@ -730,13 +735,13 @@ h5 {
     justify-items: center;
   }
   #previewCardContainer > #previewCard {
-    aspect-ratio: 9/16;
+    aspect-ratio: 4/5;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 40vh;
-    min-width: 20vw;
-    max-width: 30vw;
+    /* min-height: 20vh; */
+    /* min-width: 20vw;*/
+    max-width: 40vw;
   }
   .login {
     width: 45vw;
@@ -787,7 +792,7 @@ h5 {
   }
 
   #previewSideNav {
-    display: none;
+    display: none !important;
   }
 
   main {
@@ -809,7 +814,7 @@ h5 {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    aspect-ratio: 9/16;
+    aspect-ratio: 4/5;
     min-height: 50vh;
     min-width: 40vw;
   }
@@ -829,11 +834,11 @@ h5 {
   }
 }
 
-/* For screens with a width of 450px or less */
+/* For screens with a width of 550px or less */
 
 /* design here should be name on top, menu below */
 /* 2 columns. first row is the color palette and component selector, 2nd row is the preview pane in cell size*/
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
   .reset-button {
     background-color: darkred;
     color: white;
@@ -881,9 +886,12 @@ h5 {
     text-align: center;
   }
 
+  .header {
+    margin-bottom: 0px;
+  }
   #page-container-div {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: auto;
     grid-template-rows: auto auto;
   }
 
@@ -895,27 +903,33 @@ h5 {
 
   #cpg-div {
     grid-column: 1;
-    width: 100%;
+    width: 47vw;
     height: fit-content;
     border: none;
   }
 
   #cpg-container {
-    min-width: 45vw;
+    min-width: 44vw;
+    max-height: none;
+    box-sizing: border-box;
+  }
+  .droppableDiv {
+    height: max-content;
   }
   .cpg-color {
     min-width: 40vw;
+    min-height: 8vh;
   }
 
   #component-div {
     grid-column: 2;
-    width: 100%;
+    width: 47vw;
     height: fit-content;
   }
 
   .componentlist {
     margin-top: 40px;
-    width: 45vw;
+    width: 44vw;
   }
 
   .componentNamesContainer {
@@ -925,14 +939,20 @@ h5 {
     min-height: 80vh;
   }
 
+  #previewSideNav {
+    display: none !important;
+  }
+
   #preview-pane-div {
-    grid-column: 1 / -1;
-    width: 100%;
+    /* grid-column: 1 / -1; */
+    width: 97vw;
   }
   .preview-pane-container {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) minmax(0, 1fr) min-content min-content;
+    grid-template-columns: 1fr 0;
+    border: 1px solid red;
+    grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) minmax(20rem, auto);
+
     grid-gap: 10px;
     justify-content: flex-start; /* Align cards to the top */
     overflow: auto;
@@ -946,11 +966,16 @@ h5 {
   }
 
   #previewCardContainer {
+    display: unset;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, auto);
-    justify-items: center;
+    /* justify-items: center; */
     grid-row-gap: 2vh;
+  }
+  #previewCardContainer > #previewCard {
+    max-width: 100%;
+    display: unset;
   }
 
   #previewForm {

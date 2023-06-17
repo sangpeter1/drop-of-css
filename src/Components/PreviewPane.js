@@ -327,9 +327,17 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
           </div>
         )}
         {sideNav ? (
-          <div id="previewSideNav">
+          <div
+            id="previewSideNav"
+            style={{
+              background: "none",
+              outline: "none",
+              display: "flex",
+              alignItems: "flex-start",
+              minHeight: "70vh",
+            }}
+          >
             <div
-              style={{ background: "rgba(0,0,0,0)", outline: "none" }}
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(sideNav),
               }}

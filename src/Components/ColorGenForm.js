@@ -368,23 +368,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     );
                   })}
                 </select>
-
-                {/* <select
-                  value={count}
-                  onChange={(ev) => setCount(ev.target.value)}
-                  placeholder="Select Count"
-                  style={{
-                    fontSize: "calc(8px + .5vw)",
-                  }}
-                >
-                  {cpgCounts.map((count) => {
-                    return (
-                      <option value={count} key={count}>
-                        {count}
-                      </option>
-                    );
-                  })}
-                </select> */}
                 <button className="rainbowBtn" type="submit" onClick={(ev) => runCPG(ev)}>
                   Submit
                 </button>
@@ -460,7 +443,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
               {/* reorder stuff beginning */}
 
               <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable" key={"1"}>
+                <Droppable droppableId="droppable" className="droppableDiv" key={"1"}>
                   {(provided, snapshot) => (
                     <div
                       {...provided.droppableProps}
@@ -512,7 +495,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                                     key={uniqueKey}
                                     style={{
                                       backgroundColor: color.hex.value,
-                                      height: `calc(20vh / ${colorPalette.length})`,
+                                      // height: `calc(20vh / ${colorPalette.length})`,
                                     }}
                                   >
                                     <div
