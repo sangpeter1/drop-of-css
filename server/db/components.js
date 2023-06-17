@@ -8,28 +8,6 @@ let tertiaryColor;
 // type, name, html text with classes and actual color (eg "style=background-color: primaryColor"), css for export (preferably in JSX object format)
 
 const components = [
-  // {
-  //   type: "navbar",
-  //   name: "plain nav bar",
-  //   htmlText: `
-  //   <html>
-  //   <div class="navbar" style="background-color: bgColor">
-  //   <a href="#">Home</a>
-  //   <a href="#">News</a>
-  //   <div class="dropdown">
-  //     <button class="dropbtn">Dropdown
-  //       <i class="fa fa-caret-down"></i>
-  //     </button>
-  //     <div class="dropdown-content">
-  //       <a href="#">Link 1</a>
-  //       <a href="#">Link 2</a>
-  //       <a href="#">Link 3</a>
-  //     </div>
-  //   </div>
-  // </div>
-  // </html>
-  // `,
-  // },
   {
     type: "navbar",
     name: "Simple",
@@ -83,6 +61,7 @@ const components = [
       padding: 0;
       overflow: hidden;
       background-color: primaryColor;
+      color: primaryColorContrast;
     }
     
     .drop-li {
@@ -92,7 +71,7 @@ const components = [
     .drop-li a,
     .dropbtn {
       display: inline-block;
-      color: white;
+      color: primaryColorContrast;
       text-align: center;
       padding: 16px;
       text-decoration: none;
@@ -101,7 +80,7 @@ const components = [
     .drop-li a:hover,
     .dropdown:hover .dropbtn {
       background-color: bgColor;
-      color: primaryColor;
+      color: bgColorContrast;
     }
     
     .drop-li .dropdown {
@@ -112,14 +91,14 @@ const components = [
       display: none;
       position: absolute;
       background-color: secondaryColor;
-      color: primaryColor;
+      color: secondaryColorContrast;
       min-width: 160px;
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
     
     .dropdown-content a {
-      color: white;
+      color: secondaryColorContrast;
       padding: 12px 16px;
       text-decoration: none;
       display: block;
@@ -128,7 +107,7 @@ const components = [
     
     .dropdown-content a:hover {
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
     }
     
     .dropdown:hover .dropdown-content {
@@ -168,6 +147,7 @@ const components = [
       <style>
         .navbar {
           background: linear-gradient(to right, bgColor, secondaryColor);
+          color: secondaryColorContrast;
           padding: 10px;
           display: flex;
           justify-content: center;
@@ -175,11 +155,10 @@ const components = [
         
         .navbar a {
           text-decoration: none;
-          color: white;
+          color: secondaryColorContrast;
           padding: 1rem;
         }
         .navbar a:hover{
-
             background: secondaryColor40;
             border-radius: 4px;
             box-shadow: 0 4px 30px rgba(100, 100, 100, 0.2);
@@ -211,11 +190,11 @@ const components = [
       <style>
         .navbar {
           background-color: bgColor;
+          color: bgColorContrast;
           padding: 10px;
           display: flex;
           justify-content: space-evenly;
           font-size: calc(10px + 0.5vw);
-
           border-bottom: 4px solid secondaryColor;
         }
         
@@ -254,6 +233,7 @@ const components = [
     <style>
     .formComponent {
       background-color: bgColor26;
+      color: bgColorContrast;
       border: 2px solid primaryColor;
       border-radius: 2px;
       width: 50vw;
@@ -373,8 +353,8 @@ const components = [
     <style>
     .formComponent {
       background-color: secondaryColor;
+      color: secondaryColorContrast;
       border: 2px solid primaryColor;
-      color: white;
       border-radius: 2px;
       width: 50vw;
       min-height: 45vh;
@@ -508,6 +488,7 @@ const components = [
       width: 100%;
       height: 100%;
       background-color: #fff;
+      color: #000;
       padding: 20px;
       border-radius: 4px;
       border: 2px solid white;
@@ -536,7 +517,7 @@ const components = [
       margin-top: 20px;
       padding: 10px 20px;
       background-color: secondaryColor;
-      color: #fff;
+      color: secondaryColorContrast;
       border: 2px solid secondaryColor;
       border-radius: 4px;
       cursor: pointer;
@@ -545,7 +526,7 @@ const components = [
       margin-top: 20px;
       padding: 10px 20px;
       background-color: tertiaryColor;
-      color: #fff;
+      color: tertiaryColorContrast;
       border: 2px solid primaryColor;
       border-radius: 4px;
       cursor: pointer;
@@ -649,6 +630,8 @@ const components = [
     #genericform > form {
       font-size: calc(12px + 0.5vw);
       background-color: primaryColor;
+      color: primaryColorContrast;
+
       padding: 1rem;
     }
    #genericform > form > label {
@@ -677,7 +660,7 @@ const components = [
       font-size: calc(12px + 0.5vw)
       border: none; 
       background-color: bgColor; 
-      color: white; 
+      color: bgColorContrast;
       padding: 0.5rem 1rem; 
       border-radius: 0.25rem; 
     }
@@ -692,7 +675,7 @@ const components = [
    #genericform > form >  button:hover{
       outline: 2px solid white; 
       background-color: bgColor40; 
-      color: white; 
+      color: bgColorContrast;
       padding: 0.5rem 1rem; 
       border-radius: 0.25rem; 
       cursor: pointer;
@@ -725,10 +708,11 @@ const components = [
   },
   {
     type: "form",
-    name: "form two",
+    name: "Generic Form 2",
     htmlText: `
     <div>
-      <form style="background-color: bgColor; padding: 1rem;">
+      <form style="background-color: bgColor;       color: bgColorContrast;
+      padding: 1rem;">
         <div style="margin-bottom: 1rem;">
           <label for="inputField" style="color: primaryColor;">Type something here:</label>
           <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 1px solid primaryColor; padding: 0.5rem; outline: none;">
@@ -741,7 +725,8 @@ const components = [
           <input type="radio" id="radio">
           <label for="radio" style="color: primaryColor;">I am a radio</label>
         </div>
-        <button style="border: 1px solid secondaryColor; color: tertiaryColor; background-color: bgColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
+        <button style="border: 1px solid secondaryColor; color: tertiaryColor; background-color: bgColor;       color: bgColorContrast;
+        padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
           Submit
         </button>
       </form>
@@ -750,10 +735,11 @@ const components = [
   },
   {
     type: "form",
-    name: "form three",
+    name: "Generic Form Three",
     htmlText: `
     <div>
-      <form style="background-color: bgColor; padding: 1rem;">
+      <form style="background-color: bgColor;       color: bgColorContrast;
+      padding: 1rem;">
         <div style="margin-bottom: 1rem;">
           <label for="inputField" style="color: primaryColor;">Type something here:</label>
           <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid primaryColor; padding: 0.5rem; outline: none;">
@@ -766,7 +752,7 @@ const components = [
           <input type="radio" id="radio">
           <label for="radio" style="color: secondaryColor;">I am a radio</label>
         </div>
-        <button style="border: none; background-color: primaryColor; color: bgColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
+        <button style="border: none; background-color: primaryColor; color: primaryColorContrast; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
           Submit
         </button>
       </form>
@@ -784,7 +770,7 @@ const components = [
       margin: 0 auto;
       padding: 1rem;
       background-color: bgColor;
-      color: white;
+      color: bgColorContrast;
       border-radius: 4px;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
       font-family: Arial, sans-serif;
@@ -816,7 +802,7 @@ const components = [
       width: 100%;
       padding: 12px;
       background-color: tertiaryColor;
-      color: #fff;
+      color: tertiaryColorContrast;
       border: none;
       border-radius: 4px;
       font-size: 16px;
@@ -825,6 +811,8 @@ const components = [
     
     .submit-button:hover {
       background-color: #333;
+      color: black;
+
     }
 
     </style>
@@ -869,7 +857,7 @@ const components = [
       margin: 0 auto;
       padding: 1rem;
       background-color: bgColor;
-      color: white;
+      color: bgColorContrast;
       border-radius: 4px;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
       font-family: Arial, sans-serif;
@@ -907,7 +895,7 @@ const components = [
       width: 100%;
       padding: 12px;
       background-color: tertiaryColor;
-      color: #fff;
+      color: tertiaryColorContrast;
       border: none;
       border-radius: 4px;
       font-size: 16px;
@@ -1041,7 +1029,7 @@ const components = [
   },
   {
     type: "title",
-    name: "text shadow",
+    name: "Text Shadow",
     htmlText: `
     <style>
     .title-header{
@@ -1060,7 +1048,7 @@ const components = [
   },
   {
     type: "title",
-    name: "text uppercase",
+    name: "Uppercase",
     htmlText: `
     <style>
     .title-header{
@@ -1080,7 +1068,7 @@ const components = [
   },
   {
     type: "title",
-    name: "neon style",
+    name: "Neon Style",
     htmlText: `
     <style>
     .title-header{
@@ -1103,7 +1091,7 @@ const components = [
   },
   {
     type: "title",
-    name: "underline-style",
+    name: "Underline Style",
     htmlText: `
     <style>
     .title-header{
@@ -1122,7 +1110,7 @@ const components = [
   },
   {
     type: "title",
-    name: "italic-style",
+    name: "Italic Style",
     htmlText: `
     <style>
     .title-header{
@@ -1141,7 +1129,7 @@ const components = [
   },
   {
     type: "title",
-    name: "border-top",
+    name: "Border Top",
     htmlText: `
     <style>
     .title-header{
@@ -1163,7 +1151,7 @@ const components = [
   },
   {
     type: "title",
-    name: "border-gradiant",
+    name: "Border Gradiant",
     htmlText: `
     <style>
     .title-header{
@@ -1193,7 +1181,7 @@ const components = [
     htmlText: `
     <button style="
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
       font-size: 16px;
       padding: 10px 20px;
       border: none;
@@ -1232,7 +1220,7 @@ const components = [
     htmlText: `
     <button style="
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
       font-size: 16px;
       padding: 10px 20px;
       border: none;
@@ -1249,7 +1237,7 @@ const components = [
     htmlText: `
     <button style="
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
       font-size: 16px;
       padding: 10px 20px;
       border: none;
@@ -1267,7 +1255,7 @@ const components = [
     htmlText: `
     <button style="
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
       font-size: 16px;
       padding: 10px 20px;
       border: none;
@@ -1292,6 +1280,7 @@ const components = [
       justify-content: space-between;
       border: 2px solid primaryColor;
       background-color: bgColor;
+      color: bgColorContrast;
       border-radius: 6px;
       padding: 4px;
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
@@ -1327,14 +1316,15 @@ const components = [
       align-items: center;
       font-size: calc(6px + 0.5vw);
       background-color: tertiaryColor;
+      color: tertiaryColorContrast;
       border: 1px solid secondaryColor;
-      color: white;
       margin: 4px;
       padding: .3rem;
       border-radius: 5px;
     }
     .button:hover{
       background-color: bgColor;
+      color: bgColorContrast;
       cursor: pointer;
     }
     
@@ -1461,6 +1451,7 @@ const components = [
       align-items: center;
       font-size: calc(6px + 0.5vw);
       background-color: tertiaryColor;
+      color: tertiaryColorContrast;
       border: 1px solid secondaryColor;
       color: white;
       margin: 4px;
@@ -1471,6 +1462,7 @@ const components = [
     .button:hover{
       cursor: pointer;
       background-color: bgColor;
+      color: bgColorContrast;
       border: 1px solid primaryColor;
     }
     
@@ -1596,14 +1588,15 @@ const components = [
       align-items: center;
       font-size: calc(6px + 0.5vw);
       background-color: tertiaryColor;
+      color: tertiaryColorContrast;
       border: 1px solid secondaryColor;
-      color: white;
       margin: 4px;
       padding: .3rem;
       border-radius: 5px;
     }
     .button:hover{
-      background-color: bgColor;
+      background-color: primaryColor;
+      color: primaryColorContrast;
       border: 1px solid white;
       cursor: pointer;
     }
@@ -1695,6 +1688,7 @@ const components = [
       justify-content: space-between;
       border: 2px solid primaryColor;
       background-color: bgColor;
+      color: bgColorContrast;
       border-radius: 6px;
       padding: 4px;
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
@@ -1730,6 +1724,7 @@ const components = [
       align-items: center;
       font-size: calc(6px + 0.5vw);
       background-color: tertiaryColor;
+      color: tertiaryColorContrast;
       border: 1px solid primaryColor;
       color: white;
       margin: 4px;
@@ -1738,6 +1733,7 @@ const components = [
     }
     .button:hover{
       background-color: bgColor;
+      color: bgColorContrast;
       cursor: pointer;
     }
     .card:hover {
@@ -1821,7 +1817,7 @@ const components = [
   },
   {
     type: "card",
-    name: "shopping card",
+    name: "Shopping Card",
     htmlText: `
       <style>
         .card {
@@ -1877,7 +1873,7 @@ const components = [
 
           font-size: 14px;
           background-color: tertiaryColor;
-          color: white;
+          color: tertiaryColorContrast;
           border: none;
           border-radius: 4px;
           padding: 8px 16px;
@@ -1889,6 +1885,7 @@ const components = [
           box-sizing: border-box;
           padding: 6.5px 16px;
           background-color: bgColor;
+          color: bgColorContrast;
           border: 2px solid tertiaryColor
         }
               @media screen and (max-width: 768px) {
@@ -2015,14 +2012,15 @@ const components = [
       align-items: center;
       font-size: calc(6px + 0.5vw);
       background-color: tertiaryColor;
+      color: tertiaryColorContrast;
       border: 1px solid primaryColor;
-      color: white;
       margin: 4px;
       padding: .3rem;
       border-radius: 5px;
     }
     .button:hover{
       background-color: bgColor;
+      color: bgColorContrast;
       cursor: pointer;
     }
     .card:hover {
@@ -2102,6 +2100,141 @@ const components = [
   },
   {
     type: "card",
+    name: "Instagram Post Card",
+
+    htmlText: `
+      <style>
+
+      main > #previewCardContainer{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        aspect-ratio: 1/1;
+      }
+      #previewCardContainer > #previewCard {
+        aspect-ratio: 1/1;
+      }
+        .card {
+          background-color: white;
+          border: 2px solid primaryColor;
+          border-radius: 3px;
+          display: flex;
+          flex-direction: column;
+          max-width: 350px;
+          margin: 0 auto;
+        }
+  
+        .card-header {
+          display: flex;
+          align-items: center;
+          padding: 8px;
+        }
+  
+        .card-header img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 8px;
+        }
+  
+        .card-header .username {
+          font-weight: bold;
+          color: secondaryColor;
+        }
+  
+        .card-image img {
+          max-width: 100%;
+          object-fit: cover;
+          border-top-left-radius: 3px;
+          border-top-right-radius: 3px;
+        }
+  
+        .card-content {
+          padding: 8px;
+        }
+        .card-content .icons {
+          display: flex;
+          align-items: center;
+          margin-bottom: 4px;
+        }
+  
+        .card-content .icons .icon {
+          margin-right: 4px;
+        }
+        .card-content #likesandcomments{
+          display: flex;
+          justify-content: space-evenly;
+        }
+
+        .card-content .caption {
+          text-align: left;
+          margin-bottom: 4px;
+          margin-top: 0;
+        }
+  
+        .card-content .likes {
+          color: #8e8e8e;
+          font-size: 12px;
+        }
+        @media screen and (max-width: 550px) {
+          .card {
+            width: 90%;
+            max-width: 90%;
+            min-width: none;
+            aspect-ratio: 8/10;
+            box-sizing: border-box;
+            margin: 1rem;
+          }
+          .card > img {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 1/1;
+            box-shadow: 1px 1px 1rem secondaryColor;
+            margin: 1rem 0.5rem;
+          }
+          .cardcontent{
+            font-size: calc(12px + 1vw);
+            padding: 8px;
+          }
+          .action-items {
+            margin-top: 2rem;
+            padding: .5rem;
+          }
+          .button {
+            font-size: calc(10px + 0.5vw);
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+          }
+
+      </style>
+  
+      <div class="card">
+        <div class="card-header">
+          <img src="https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png" />
+          <span class="username">username</span>
+        </div>
+        <div class="card-image">
+          <img src="https://www.moatrek.com/sites/default/files/styles/1200_x_630/public/2016-10/Nature-Cruise-Milford-Sound.jpg?itok=fT2KvZs6" />
+        </div>
+        <div class="card-content">
+        <div class="icons">
+        <img class="icon" src="https://clipart-library.com/new_gallery/23-239546_png-black-and-white-library-chalk-heart-clipart.png" style="width:18px;height:16px;" alt="Heart Icon" />
+        <img class="icon" src="https://clipart-library.com/images/8T686eR7c.png" style="width:16px;height:16px;" alt="Comment Icon" />
+        <img class="icon" src="https://clipart-library.com/data_images/405621.png" style="width:32px;height:16px;" alt="Share Icon" />
+      </div>
+          <p class="caption">oh. em. geeeeeee this place #takemeback</p>
+          <div id="likesandcomments">
+          <p class="likes">Likes: 12,034</p>
+          <p class="likes">Comments: 847</p>
+          <div>
+        </div>
+      </div>
+    `,
+  },
+
+  {
+    type: "card",
     name: "Photo Card 1",
 
     htmlText: `
@@ -2115,9 +2248,7 @@ const components = [
       }
 
       #previewCardContainer > #previewCard {
-
         aspect-ratio: 1/1;
-
       }
   .card {
     grid-gap: 0.5vw;
@@ -2203,6 +2334,7 @@ const components = [
       padding: 0;
       min-width: 10vw;
       background-color: bgColor;
+      color: bgColorContrast;
       min-height: 70vh;
       overflow: auto;
       border: 2px solid primaryColor;
@@ -2244,6 +2376,7 @@ const components = [
           min-width: 10vw;
           max-width: 100%;
           background-color: bgColor;
+          color: bgColorContrast;
           min-height: 70vh;
           overflow: auto;
           border: 2px solid primaryColor;
@@ -2260,7 +2393,7 @@ const components = [
   
         .sidebar a:hover {
           background-color: secondaryColor;
-          color: white;
+          color: secondaryColorContrast;
         }
       </style>
   
@@ -2285,6 +2418,7 @@ const components = [
   
         .sidebar {
           background-color: bgColor;
+          color: bgColorContrast;
           height: 100%;
           overflow: auto;
           border-right: 2px solid primaryColor;
@@ -2296,15 +2430,15 @@ const components = [
           color: secondaryColor;
           border-bottom: 2px solid bgColor;
           padding: .3rem .7rem;
-
           text-decoration: none;
           transition: background-color 0.3s ease;
         }
   
         .sidebar a:hover {
           background-color: tertiaryColor;
+          color: tertiaryColorContrast;
+
           border-bottom: 2px solid secondaryColor;
-          color: white;
         }
       </style>
   
@@ -2341,6 +2475,7 @@ const components = [
         .sidebar {
           width: 150px;
           background-color: bgColor;
+          color: bgColorContrast;
           height: 70vh;
           overflow: auto;
           border-right: 2px solid primaryColor;
@@ -2359,13 +2494,14 @@ const components = [
         }
   
         .sidebar a:hover {
-          color: bgColor;
           background-color: primaryColor;
+          color: primaryColorContrast;
+
         }
   
         .sidebar a.active {
-          color: bgColor;
           background-color: secondaryColor;
+          color: secondaryColorContrast;
         }
   
         .sidebar .dropdown {
@@ -2389,6 +2525,7 @@ const components = [
           margin-bottom: 50px;
           width: 147px;
           background-color: bgColor;
+          color: bgColorContrast;
           border: 2px solid primaryColor;
           z-index: 1;
         }
@@ -2403,7 +2540,7 @@ const components = [
   
         .sidebar .dropdown-content a:hover {
           background-color: secondaryColor;
-          color: tertiaryColor;
+          color: secondaryColorContrast;
           
         }
   

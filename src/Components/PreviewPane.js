@@ -233,7 +233,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
 
   //building an on-hover for the download buttons, the heart, and a clear function:
   const handleComponentOnHover = (comp) => {
-    console.log(comp);
+    // console.log(comp);
     return (
       <span style={{ position: "absolute", bottom: 0, right: 0, border: "3px solid black" }}>
         hover box for things
@@ -246,7 +246,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
   if (!wholePageBackground) {
     const savedWholePageBackground = JSON.parse(localStorage.getItem("savedWholePageBackground"));
     wholePageBackground = savedWholePageBackground;
-    console.log("whole background", wholePageBackground);
+    // console.log("whole background", wholePageBackground);
   }
 
   // console.log(config);
