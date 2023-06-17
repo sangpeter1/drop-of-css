@@ -106,6 +106,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     const componentData = {
       htmlText: jsxGenerator(componentType),
       userId: userId,
+      type: componentType.type,
     };
     console.log("SAVE COMP FUNCTION", componentData);
     dispatch(createTemplate(componentData));

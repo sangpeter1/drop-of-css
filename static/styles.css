@@ -557,7 +557,9 @@ h5 {
 
 .login {
   width: 30vw;
-  height: 40vh;
+  padding: 1rem;
+
+  /* min-height: fit-content; */
   /* max-width: 80vw; */
   margin: 1rem auto;
   display: flex;
@@ -688,6 +690,15 @@ h5 {
   -webkit-text-fill-color: transparent;
 }
 
+#clipboard-message {
+  height: 2rem;
+  margin-bottom: -2rem;
+}
+
+.template-componentandcode-div {
+  margin-bottom: 2rem;
+}
+
 /* favHeart icon */
 .top-right-span {
   position: absolute;
@@ -745,7 +756,7 @@ h5 {
   }
   .login {
     width: 45vw;
-    height: 40vh;
+    /* height: 40vh; */
   }
   .login > form {
     min-width: 35vw;
@@ -820,7 +831,7 @@ h5 {
   }
   .login {
     width: 55vw;
-    height: 40vh;
+    /* height: 40vh; */
   }
   .login > form {
     min-width: 45vw;
@@ -987,5 +998,13 @@ h5 {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .login {
+    width: min-content;
+    /* height: 40vh; */
+  }
+  .login > form > .rainbowBtn {
+    width: 80%;
+    margin: 4px auto;
   }
 }
