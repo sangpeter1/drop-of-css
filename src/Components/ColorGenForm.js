@@ -53,11 +53,6 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const getListStyle = (isDraggingOver) => ({
-  // background: isDraggingOver ? "lightgray" : "",
-  // borderRadius: isDraggingOver ? ".5rem" : "",
-});
-
 const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBackground }) => {
   const { cpg } = useSelector((state) => state);
   const [format, setFormat] = useState("");
@@ -84,6 +79,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     if (savedColors) {
       setColorPalette(savedColors);
       dispatch(locallyStoredColorPalette(savedColors));
+      setExpanded(false);
     }
   }, []);
 
@@ -188,27 +184,6 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
     }
   };
 
-  //for bugs -- keeps the color palette length at 4, but keeps the indicies of locked colors.
-  //looks like it's unused??? maybe delete?
-  const trimColorPalette = (updatedColorPalette) => {
-    const output = [];
-    let objCount = 0;
-    for (let item of updatedColorPalette) {
-      if (typeof item == "number") {
-        output.push(item);
-      }
-      if (typeof item == "object") {
-        if (objCount !== 4) {
-          output.push(item);
-          objCount++;
-        } else {
-          break;
-        }
-      }
-    }
-    return output;
-  };
-
   //new lock func
   const toggleColorLock = (index, color) => {
     setLockedColors((prevLockedColors) => {
@@ -294,17 +269,29 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
       </h3>
       {/* </div> */}
 
-      <ExpandMore
-        expand={expanded}
-        onClick={handleExpandClick}
-        aria-expanded={expanded}
-        aria-label="show more"
-        style={{
-          display: "flex",
-        }}
-      >
-        <ExpandMoreIcon />
-      </ExpandMore>
+      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+          style={{
+            display: "flex",
+          }}
+        >
+          <ExpandMoreIcon />
+          {expanded ? (
+            <div
+              className="instructions"
+              style={{ top: "2.5rem", transform: "translateX(-50%) scale(-1, -1)" }}
+            >
+              hide palette generator
+            </div>
+          ) : (
+            <div className="instructions">show palette generator</div>
+          )}
+        </ExpandMore>
+      </div>
       <div className="ColorGen">
         <div
           className="expandButtonContainer"
@@ -431,7 +418,10 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
                     style={{
                       fontSize: "calc(8px + .5vw)",
                     }}
-                    onClick={() => dispatch(deleteColorPalette(cpg))}
+                    onClick={() => {
+                      dispatch(deleteColorPalette(cpg));
+                      setExpanded(true);
+                    }}
                   >
                     clear all
                   </span>

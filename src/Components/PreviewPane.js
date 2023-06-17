@@ -194,6 +194,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
       console.log(str);
       console.log("in local storage", localStorage.getItem("savedNavbar"));
       localStorage.removeItem("savedNavbar");
+      localStorage.removeItem("savedWholePageBackground");
       localStorage.removeItem("savedForm");
       localStorage.removeItem("savedTitle");
       localStorage.removeItem("savedNav");
@@ -202,6 +203,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
       localStorage.removeItem("savedButton");
       console.log("is local storage actually empty?", localStorage.getItem("savedNavbar"));
       form = null;
+      wholePageBackground = null;
       nav = null;
       title = null;
       sideNav = null;
@@ -272,7 +274,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
         {title ? (
           <div
             id="previewTitle"
-            style={{ background: "rgba(0,0,0,0)", outline: "none", position: "relative" }}
+            style={{ background: "transparent", outline: "none", position: "relative" }}
             onMouseEnter={() => setHoveredOnComponent(title)}
             onMouseLeave={() => setHoveredOnComponent(null)}
           >
@@ -300,7 +302,13 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
         {nav ? (
           <div
             id="previewNav"
-            style={{ background: "rgba(0,0,0,0)", outline: "none", position: "relative" }}
+            style={{
+              background: "rgba(0,0,0,0)",
+              backgroundImage: "none",
+              animation: "none",
+              outline: "none",
+              position: "relative",
+            }}
             onMouseEnter={() => setHoveredOnComponent(nav)}
             onMouseLeave={() => setHoveredOnComponent(false)}
           >
@@ -331,7 +339,9 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
           <div
             id="previewSideNav"
             style={{
-              background: "none",
+              background: "rgba(0,0,0,0)",
+              backgroundImage: "none",
+              animation: "none",
               outline: "none",
               display: "flex",
               alignItems: "flex-start",
@@ -363,35 +373,22 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             {card ? (
               <div
                 id="previewCard"
-                style={{ background: "rgba(0,0,0,0)", outline: "none" }}
-                dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
-              />
-            ) : (
-              <div
-                id="previewCard"
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontSize: "calc(12px + 0.5vw)",
+                  background: "rgba(0,0,0,0)",
+                  backgroundImage: "none",
+                  animation: "none",
+                  outline: "none",
                 }}
               >
-                Info or Product Card
+                <div dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }} />
               </div>
-            )}{" "}
-            {card ? (
-              <div
-                id="previewCard"
-                style={{ background: "rgba(0,0,0,0)", outline: "none" }}
-                dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
-              />
             ) : (
               <div
                 id="previewCard"
                 style={{
-                  display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  flexWrap: "wrap",
                   fontSize: "calc(12px + 0.5vw)",
                 }}
               >
@@ -401,16 +398,47 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             {card ? (
               <div
                 id="previewCard"
-                style={{ background: "rgba(0,0,0,0)", outline: "none" }}
-                dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
-              />
+                style={{
+                  background: "rgba(0,0,0,0)",
+                  backgroundImage: "none",
+                  animation: "none",
+                  outline: "none",
+                }}
+              >
+                <div dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }} />
+              </div>
             ) : (
               <div
                 id="previewCard"
                 style={{
-                  display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  flexWrap: "wrap",
+                  fontSize: "calc(12px + 0.5vw)",
+                }}
+              >
+                Info or Product Card
+              </div>
+            )}
+            {card ? (
+              <div
+                id="previewCard"
+                style={{
+                  background: "rgba(0,0,0,0)",
+                  backgroundImage: "none",
+                  animation: "none",
+                  outline: "none",
+                }}
+              >
+                <div dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }} />
+              </div>
+            ) : (
+              <div
+                id="previewCard"
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexWrap: "wrap",
                   fontSize: "calc(12px + 0.5vw)",
                 }}
               >
@@ -420,11 +448,16 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             {card ? <FavHeart component={card} /> : ""}
           </div>
           {form ? (
-            <div id="previewForm">
-              <div
-                style={{ background: "rgba(0,0,0,0)", outline: "none" }}
-                dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
-              />
+            <div
+              id="previewForm"
+              style={{
+                background: "rgba(0,0,0,0)",
+                backgroundImage: "none",
+                animation: "none",
+                outline: "none",
+              }}
+            >
+              <div dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }} />
               <FavHeart component={form} />
             </div>
           ) : (
@@ -435,6 +468,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                 justifyContent: "center",
                 alignItems: "center",
                 fontSize: "calc(12px + 0.5vw)",
+                padding: "1rem",
               }}
             >
               Login, Contact, General Information Form
@@ -450,7 +484,12 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             {button ? (
               <div id="previewButton">
                 <div
-                  style={{ background: "rgba(0,0,0,0)", outline: "none" }}
+                  style={{
+                    background: "rgba(0,0,0,0)",
+                    backgroundImage: "none",
+                    animation: "none",
+                    outline: "none",
+                  }}
                   dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }}
                 />
                 <FavHeart component={button} />
