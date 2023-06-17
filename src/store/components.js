@@ -25,20 +25,35 @@ export const fetchComponents = () => {
 export const setColorsOnComponents = (search) => {
   return async (dispatch) => {
     const { cpg, component } = search;
-    // console.log("setColorsOnComponents", cpg);
-    // let { bgColor, primaryColor, secondaryColor, tertiaryColor } = cpg;
-
     const primaryColor = cpg[0].hex.value;
     const secondaryColor = cpg[1].hex.value;
     const tertiaryColor = cpg[2].hex.value;
     const bgColor = cpg[3].hex.value;
-    console.log("in store", bgColor, primaryColor, secondaryColor, tertiaryColor);
+    const primaryColorContrast = cpg[0].contrast.value;
+    const secondaryColorContrast = cpg[1].contrast.value;
+    const tertiaryColorContrast = cpg[2].contrast.value;
+    const bgColorContrast = cpg[3].contrast.value;
+    // console.log(
+    //   "in store",
+    //   bgColor,
+    //   bgColorContrast,
+    //   primaryColor,
+    //   primaryColorContrast,
+    //   secondaryColor,
+    //   secondaryColorContrast,
+    //   tertiaryColor,
+    //   tertiaryColorContrast
+    // );
     const response = await axios.post("/api/components/", {
       component,
-      primaryColor,
-      secondaryColor,
-      tertiaryColor,
       bgColor,
+      bgColorContrast,
+      primaryColor,
+      primaryColorContrast,
+      secondaryColor,
+      secondaryColorContrast,
+      tertiaryColor,
+      tertiaryColorContrast,
     });
     // console.log("After axios call in store", response.data);
     dispatch({ type: "SET_COLORS", colors: response.data });
