@@ -248,7 +248,7 @@ const components = [
 
   {
     type: "form",
-    name: "contact us",
+    name: "Contact Us - Light",
     //front end preview window html
     htmlText: `
     <style>
@@ -367,7 +367,7 @@ const components = [
   },
   {
     type: "form",
-    name: "contact us 2",
+    name: "Contact Us - Dark",
     //front end preview window html
     htmlText: `
     <style>
@@ -489,7 +489,7 @@ const components = [
   },
   {
     type: "form",
-    name: "login with oauth",
+    name: "Login - with OAuth",
     htmlText: `
     <style>
     .loginWithOauth {
@@ -498,13 +498,19 @@ const components = [
       align-items: center;
       justify-content: center;
       margin: 0;
-      background-color: #f5f5f5;
+      padding: 0;
+      background-color: transparent;
+      min-width: 40vw;
+      max-width: 60vw;
     }
 
     .login-container {
+      width: 100%;
+      height: 100%;
       background-color: #fff;
       padding: 20px;
       border-radius: 4px;
+      border: 2px solid white;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
@@ -513,7 +519,7 @@ const components = [
 
     .login-container input[type="text"],
     .login-container input[type="password"] {
-      width: 100%;
+      width: 90%;
       margin-bottom: 10px;
       padding: 10px;
       border: 1px solid tertiaryColor;
@@ -531,7 +537,16 @@ const components = [
       padding: 10px 20px;
       background-color: secondaryColor;
       color: #fff;
-      border: none;
+      border: 2px solid secondaryColor;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: tertiaryColor;
+      color: #fff;
+      border: 2px solid primaryColor;
       border-radius: 4px;
       cursor: pointer;
     }
@@ -595,7 +610,7 @@ const components = [
   user-select: none;
 }
 .google-btn:hover {
-  box-shadow: 0 3px 8px secondaryColor;
+  box-shadow: 0 3px 8px secondaryColor40;
   user-select: none;
 }
   </style>
@@ -628,23 +643,80 @@ const components = [
 
   {
     type: "form",
-    name: "form one",
+    name: "Generic Form",
     htmlText: `
-    <div>
-      <form style="background-color: primaryColor; padding: 1rem;">
+    <style>
+    #genericform > form {
+      font-size: calc(12px + 0.5vw);
+      background-color: primaryColor;
+      padding: 1rem;
+    }
+   #genericform > form > label {
+      font-size: calc(12px + 0.5vw);
+      color: white;
+    }
+    #genericform > form > input {
+      color: white;
+      border-radius: 0.5rem; 
+      outline: none; 
+      padding: 0.5rem; 
+    }
+
+    #genericform > form > #checkboxes{
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+    #genericform > form > #radios{
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+
+    #genericform > form > button{
+      font-size: calc(12px + 0.5vw)
+      border: none; 
+      background-color: bgColor; 
+      color: white; 
+      padding: 0.5rem 1rem; 
+      border-radius: 0.25rem; 
+    }
+
+    #genericform > form > div > label {
+      color: white;
+    }
+    
+    #genericform > form > div > input {
+      color: black;
+    }
+   #genericform > form >  button:hover{
+      outline: 2px solid white; 
+      background-color: bgColor40; 
+      color: white; 
+      padding: 0.5rem 1rem; 
+      border-radius: 0.25rem; 
+      cursor: pointer;
+    }
+    </style>
+    <div id="genericform">
+      <form>
         <div style="margin-bottom: 1rem;">
-          <label for="inputField" style="color: tertiaryColor;">Type something here:</label>
-          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid primaryColor; padding: 0.5rem; outline: none;">
+          <label for="insertfieldvalue">Type something here:</label>
+          <input value="insert field value" id="inputField" placeholder="Type something here" style="border: 2px solid tertiaryColor">
         </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="checkbox" id="checkbox">
-          <label for="checkbox" style="color: secondaryColor;">I am a checkbox</label>
+        <div id="checkboxes">
+        <label for="checkbox">I am a checkbox button
+          <input type="checkbox" id="checkbox"></label>
+          <label for="checkbox">You can pick multiple checkboxes
+          <input type="checkbox" id="checkbox"></label>
         </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="radio" id="radio">
-          <label for="radio" style="color: secondaryColor;">I am a radio</label>
-        </div>
-        <button style="border: none; background-color: tertiaryColor; color: primaryColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
+        <div id="radios">
+        <label for="radio1">I am a radio button
+        <input type="radio" id="radio1" name="radio"></label>
+        <label for="radio2">You can only choose one radio button!
+        <input type="radio" id="radio2" name="radio"></label>
+      </div>
+        <button >
           Submit
         </button>
       </form>
@@ -703,52 +775,228 @@ const components = [
   },
   {
     type: "form",
-    name: "form four",
+    name: "Checkout - Payment",
     htmlText: `
-    <div>
-      <form style="background-color: secondaryColor; padding: 1rem;">
-        <div style="margin-bottom: 1rem;">
-          <label for="inputField" style="color: tertiaryColor;">Type something here:</label>
-          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid tertiaryColor; padding: 0.5rem; outline: none;">
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="checkbox" id="checkbox">
-          <label for="checkbox" style="color: bgColor;">I am a checkbox</label>
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="radio" id="radio">
-          <label for="radio" style="color: bgColor;">I am a radio</label>
-        </div>
-        <button style="border: none; background-color: primaryColor; color: secondaryColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
-          Submit
-        </button>
-      </form>
-    </div>
-  `,
+    <style>
+    .payment-form {
+      min-width: 40vw;
+      max-width: 60vw;
+      margin: 0 auto;
+      padding: 1rem;
+      background-color: bgColor;
+      color: white;
+      border-radius: 4px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif;
+    }
+    
+    .payment-form h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    
+    .form-row label {
+      font-weight: bold;
+    }
+    
+    .form-row input[type="text"] {
+      padding: .5rem;
+      border: 2px solid secondaryColor;
+      border-radius: 4px;
+    }
+    
+    .submit-button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: tertiaryColor;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .submit-button:hover {
+      background-color: #333;
+    }
+
+    </style>
+    <div class="payment-form">
+  <h1>Payment Details</h1>
+  
+  <div class="form-row">
+    <label for="card-number">Card Number</label>
+
+    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" />
+  </div>
+  
+  <div class="form-row">
+    <label for="expiry-date">Expiry Date</label>
+    <input type="text" id="expiry-date" placeholder="MM / YY" />
+  </div>
+  
+  <div class="form-row">
+    <label for="cvv">CVV</label>
+    <input type="text" id="cvv" placeholder="123" />
+  </div>
+  
+  <div class="form-row">
+    <label for="name">Cardholder Name</label>
+    <input type="text" id="name" placeholder="John Doe" />
+  </div>
+  
+  <button class="submit-button">Submit Payment</button>
+</div>
+
+    
+`,
   },
   {
     type: "form",
-    name: "Form 5",
+    name: "Checkout - Address",
     htmlText: `
-    <div>
-      <form style="background-color: bgColor; padding: 1rem;">
-        <div style="margin-bottom: 1rem;">
-          <label for="inputField" style="color: secondaryColor;">Type something here:</label>
-          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid primaryColor; padding: 0.5rem; outline: none;">
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="checkbox" id="checkbox">
-          <label for="checkbox" style="color: primaryColor;">I am a checkbox</label>
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="radio" id="radio">
-          <label for="radio" style="color: primaryColor;">I am a radio</label>
-        </div>
-        <button style="border: none; background-color: secondaryColor; color: bgColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
-          Submit
-        </button>
-      </form>
+    <style>
+    .payment-form {
+      min-width: 40vw;
+      max-width: 60vw;
+      margin: 0 auto;
+      padding: 1rem;
+      background-color: bgColor;
+      color: white;
+      border-radius: 4px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif;
+    }
+  
+    .payment-form h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+  
+    .form-row label {
+      font-weight: bold;
+    }
+  
+    .form-row input[type="text"],
+    .form-row select {
+      padding: 10px;
+      border: 2px solid secondaryColor;
+      border-radius: 4px;
+    }
+  
+    .form-row select {
+      appearance: none;
+      background-color: #fff;
+    }
+  
+    .submit-button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: tertiaryColor;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  
+    .submit-button:hover {
+      background-color: #333;
+    }
+  </style>
+  
+  <div class="payment-form">
+    <h1>Address Details</h1>
+  
+    <div class="form-row">
+      <label for="street">Street Address</label>
+      <input type="text" id="street" placeholder="123 Main St" />
     </div>
+  
+    <div class="form-row">
+      <label for="city">City</label>
+      <input type="text" id="city" placeholder="Enter your city" />
+    </div>
+  
+    <div class="form-row">
+      <label for="state">State</label>
+      <select id="state">
+        <option value="" disabled selected>Select State</option>
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
+      </select>
+    </div>
+  
+    <div class="form-row">
+      <label for="zip">Zip Code</label>
+      <input type="text" id="zip" placeholder="12345" minlength="5" maxlength="5" />
+    </div>
+  
+    <button class="submit-button">Submit Address</button>
+  </div>
+  
   `,
   },
 
@@ -1033,7 +1281,7 @@ const components = [
   },
   {
     type: "card",
-    name: "product card",
+    name: "Product - Generic",
     //
     htmlText: `
     <style>
@@ -1167,407 +1415,408 @@ const components = [
   },
   {
     type: "card",
-    name: "product card two",
+    name: "Product - Gradient BG",
     htmlText: `
-      <style>
-        .card {
-          aspect-ratio: 9/16;
-          min-height: 35vh;
-          max-width: 25vw;
-          border: 2px solid primaryColor;
-          background-image: linear-gradient(to right, secondaryColor, tertiaryColor);
-          border-radius: 6px;
-          padding: 4px;
-          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-          box-sizing: border-box;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-  
-        .card > img {
-          max-height: 30vh;
-          max-width: 100%;
-          aspect-ratio: 1/1;
-          flex: 1 1 100%;
-          flex-wrap: wrap;
-          justify-content: center;
-          box-shadow: 1px 1px 1rem bgColor;
-          margin: 1rem 0.5rem;
-        }
-  
-        .cardcontent {
-          flex-grow: 1;
-          text-align: center;
-          justify-content: center;
-          font-size: calc(10px + 0.5vw);
-          color: white;
-        }
-  
-        .action-items {
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
-          margin-top: .5rem;
-        }
-  
-        .button {
-          font-size: calc(7px + 0.5vw);
-          justify-content: space-evenly;
-          align-items: center;
-          background-color: 0;
-          border: 1px solid secondaryColor;
-          color: white;
-          padding: 4px;
-          margin: 4px;
-          border-radius: 5px;
-        }
+    <style>
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid primaryColor;
+      background-image: linear-gradient(to right, tertiaryColor, bgColor);
+      border-radius: 6px;
+      padding: 4px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+    .card > img {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1/1;
+      box-shadow: 1px 1px 1rem secondaryColor;
+      margin: 1rem 0.5rem;
+    }
+    .cardcontent{
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
+      color: white;
+    }
+    .action-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .5rem;
+      padding: .25rem;
+    }
 
-        .button:hover{
-          cursor: pointer;
-          color: bgColor;
-          border: 1px solid primaryColor;
-        }
-        @media screen and (max-width: 1000px) {
-          .card {
-            box-sizing: border-box;
-            margin: 1rem;
-            
-          }
-          .card > img {
-            width: 90%;
-            height: auto;
-            aspect-ratio: 1/1;
-            box-shadow: 1px 1px 1rem secondaryColor;
-            margin: 1rem 0.5rem;
-          }
-          .cardcontent{
-            font-size: calc(12px + 1vw);
-            padding: 8px;
-          }
-          .action-items {
-            margin-top: 2rem;
-            padding: .5rem;
-          }
-          .button {
-            font-size: calc(10px + 0.5vw);
-            margin: 8px;
-            padding: 8px;
-            border-radius: 5px;
-          }
-        @media screen and (max-width: 550px) {
-          .card {
-            width: 90%;
-            min-width: none;
-            aspect-ratio: 8/10;
-            box-sizing: border-box;
-            margin: 1rem;
-          }
-          .card > img {
-            width: 90%;
-            height: auto;
-            aspect-ratio: 1/1;
-            box-shadow: 1px 1px 1rem secondaryColor;
-            margin: 1rem 0.5rem;
-          }
-          .cardcontent{
-            font-size: calc(12px + 1vw);
-            padding: 8px;
-          }
-          .action-items {
-            margin-top: 2rem;
-            padding: .5rem;
-          }
-          .button {
-            font-size: calc(10px + 0.5vw);
-            margin: 8px;
-            padding: 8px;
-            border-radius: 5px;
-          }
-      </style>
-  
-      <div class="card">
-        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
-  
-        <div class="cardcontent">
-          Here's some fun text about whatever item you're putting in here!
-          <div class="action-items">
-            <div class="button">Learn More!</div>
-            <div class="button">Add to Cart!</div>
-            <div class="button">&#x2665;</div>
-          </div>
-        </div>
-      </div>
-    `,
-  },
-  {
-    type: "card",
-    name: "product card three",
-    htmlText: `
-      <style>
-        .card {
-          aspect-ratio: 9/16;
-          min-height: 30vh;
-          max-width: 20vw;
-          border: 2px solid primaryColor;
-          background-image: linear-gradient(45deg, secondaryColor, tertiaryColor);
-          border-radius: 6px;
-          padding: 4px;
-          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-          box-sizing: border-box;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-    
-        .card > img {
-          max-height: 30vh;
-          max-width: 100%;
-          aspect-ratio: 1/1;
-          flex: 1 1 100%;
-          flex-wrap: wrap;
-          justify-content: center;
-          box-shadow: 1px 1px 1rem bgColor;
-          margin: 1rem 0.5rem;
-        }
-    
-        .cardcontent {
-          flex-grow: 1;
-          text-align: center;
-          justify-content: center;
-          font-size: calc(10px + 0.5vw);
-        }
-    
-        .action-items {
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
-          margin-top: .5rem;
-        }
-    
-        .button {
-          font-size: calc(6px + 0.5vw);
-          justify-content: space-evenly;
-          align-items: center;
-          background-color: tertiaryColor;
-          border: 1px solid secondaryColor;
-          color: white;
-          padding: 4px;
-          margin: 4px;
-          border-radius: 5px;
-        }
-        .button:hover{
-          background-color: bgColor;
-          cursor: pointer;
-        }
-        @media screen and (max-width: 1000px) {
-          .card {
-            box-sizing: border-box;
-            margin: 1rem;
-            
-          }
-          .card > img {
-            width: 90%;
-            height: auto;
-            aspect-ratio: 1/1;
-            box-shadow: 1px 1px 1rem secondaryColor;
-            margin: 1rem 0.5rem;
-          }
-          .cardcontent{
-            font-size: calc(12px + 1vw);
-            padding: 8px;
-          }
-          .action-items {
-            margin-top: 2rem;
-            padding: .5rem;
-          }
-          .button {
-            font-size: calc(10px + 0.5vw);
-            margin: 8px;
-            padding: 8px;
-            border-radius: 5px;
-          }
-        @media screen and (max-width: 550px) {
-          .card {
-            width: 90%;
-            min-width: none;
-            aspect-ratio: 8/10;
-            box-sizing: border-box;
-            margin: 1rem;
-          }
-          .card > img {
-            width: 90%;
-            height: auto;
-            aspect-ratio: 1/1;
-            box-shadow: 1px 1px 1rem secondaryColor;
-            margin: 1rem 0.5rem;
-          }
-          .cardcontent{
-            font-size: calc(12px + 1vw);
-            padding: 8px;
-          }
-          .action-items {
-            margin-top: 2rem;
-            padding: .5rem;
-          }
-          .button {
-            font-size: calc(10px + 0.5vw);
-            margin: 8px;
-            padding: 8px;
-            border-radius: 5px;
-          }
-      
-      </style>
-    
-      <div class="card">
-        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
-    
-        <div class="cardcontent">
-          Here's some fun text about whatever item you're putting in here!
-          <div class="action-items">
-            <div class="button">Learn More!</div>
-            <div class="button">Add to Cart!</div>
-            <div class="button">&#x2665;</div>
-          </div>
-        </div>
-      </div>
-    `,
-  },
-  {
-    type: "card",
-    name: "product card four",
-    htmlText: `
-      <style>
-        .card {
-          aspect-ratio: 9/16;
-          min-height: 30vh;
-          max-width: 20vw;
-          border: 2px solid primaryColor;
-          background-image: linear-gradient(235deg, secondaryColor, tertiaryColor);
-          border-radius: 6px;
-          padding: 4px;
-          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-          box-sizing: border-box;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-  
-        .card > img {
-          max-height: 30vh;
-          max-width: 100%;
-          aspect-ratio: 1/1;
-          flex: 1 1 100%;
-          flex-wrap: wrap;
-          justify-content: center;
-          box-shadow: 1px 1px 1rem primaryColor;
-          margin: 1rem 0.5rem;
-        }
-  
-        .cardcontent {
-          flex-grow: 1;
-          text-align: center;
-          justify-content: center;
-          font-size: calc(10px + 0.5vw);
-          color: white;
-        }
-  
-        .action-items {
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
-          margin-top: .5rem;
-    
-        }
-    
-        .button {
-          font-size: calc(4px + 0.5vw);
-          justify-content: space-evenly;
-          align-items: center;
-          background-color: tertiaryColor;
-          border: 1px solid primaryColor;
-          color: white;
-          padding: 4px;
-          margin: 4px;
-          border-radius: 5px;
-        }
-        .button:hover{
-          background-color: bgColor20;
-          cursor: pointer;
-        }
+    .button {
+      display: flex;
+      justify-content: space-between;
+      align-self: stretch;
+      align-items: center;
+      font-size: calc(6px + 0.5vw);
+      background-color: tertiaryColor;
+      border: 1px solid secondaryColor;
+      color: white;
+      margin: 4px;
+      padding: .3rem;
+      border-radius: 5px;
+    }
 
-              @media screen and (max-width: 768px) {
-                @media screen and (max-width: 1000px) {
-                  .card {
-                    box-sizing: border-box;
-                    margin: 1rem;
-                    
-                  }
-                  .card > img {
-                    width: 90%;
-                    height: auto;
-                    aspect-ratio: 1/1;
-                    box-shadow: 1px 1px 1rem secondaryColor;
-                    margin: 1rem 0.5rem;
-                  }
-                  .cardcontent{
-                    font-size: calc(12px + 1vw);
-                    padding: 8px;
-                  }
-                  .action-items {
-                    margin-top: 2rem;
-                    padding: .5rem;
-                  }
-                  .button {
-                    font-size: calc(10px + 0.5vw);
-                    margin: 8px;
-                    padding: 8px;
-                    border-radius: 5px;
-                  }
-                @media screen and (max-width: 550px) {
-                  .card {
-                    width: 90%;
-                    min-width: none;
-                    aspect-ratio: 8/10;
-                    box-sizing: border-box;
-                    margin: 1rem;
-                  }
-                  .card > img {
-                    width: 90%;
-                    height: auto;
-                    aspect-ratio: 1/1;
-                    box-shadow: 1px 1px 1rem secondaryColor;
-                    margin: 1rem 0.5rem;
-                  }
-                  .cardcontent{
-                    font-size: calc(12px + 1vw);
-                    padding: 8px;
-                  }
-                  .action-items {
-                    margin-top: 2rem;
-                    padding: .5rem;
-                  }
-                  .button {
-                    font-size: calc(10px + 0.5vw);
-                    margin: 8px;
-                    padding: 8px;
-                    border-radius: 5px;
-                  }
+    .button:hover{
+      cursor: pointer;
+      background-color: bgColor;
+      border: 1px solid primaryColor;
+    }
+    
+    @media screen and (max-width: 1000px) {
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
         
-      </style>
-  
-      <div class="card">
-        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
-  
-        <div class="cardcontent">
-          Here's some fun text about whatever item you're putting in here!
-          <div class="action-items">
-            <div class="button">Learn More!</div>
-            <div class="button">Add to Cart!</div>
-            <div class="button">&#x2665;</div>
-          </div>
-        </div>
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    @media screen and (max-width: 550px) {
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+      
+    </style>
+
+    <div class="card"> 
+    <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png"></img>
+
+    <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
+    <div class="action-items">
+
+       <div class="button">Learn More!</div>
+       <div class="button">Add to Cart!</div>
+       <div class="button">&#x2665;</div>
+
       </div>
+    </div>
+
+    </div>`,
+  },
+  {
+    type: "card",
+    name: "Product - Curved Edges",
+    htmlText: `
+    <style>
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid primaryColor;
+      background-image: linear-gradient(45deg, bgColor, tertiaryColor);
+      color: white;
+      border-radius: 2rem;
+      padding: 4px;
+      box-shadow: 0 4px 4px rgba(100, 100, 100, 0.5);
+      box-sizing: border-box;
+    }
+    .card > img {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1/1;
+      box-shadow: 1px 1px 1rem secondaryColor;
+      margin: 1rem 0.5rem;
+    }
+    .cardcontent{
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
+    }
+    .action-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .5rem;
+      padding: .25rem;
+    }
+
+    .button {
+      display: flex;
+      justify-content: space-between;
+      align-self: stretch;
+      align-items: center;
+      font-size: calc(6px + 0.5vw);
+      background-color: tertiaryColor;
+      border: 1px solid secondaryColor;
+      color: white;
+      margin: 4px;
+      padding: .3rem;
+      border-radius: 5px;
+    }
+    .button:hover{
+      background-color: bgColor;
+      border: 1px solid white;
+      cursor: pointer;
+    }
+    
+    @media screen and (max-width: 1000px) {
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
+        
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    @media screen and (max-width: 550px) {
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+      
+    </style>
+
+    <div class="card"> 
+    <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png"></img>
+
+    <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
+    <div class="action-items">
+
+       <div class="button">Learn More!</div>
+       <div class="button">Add to Cart!</div>
+       <div class="button">&#x2665;</div>
+
+      </div>
+    </div>
+
+    </div>
+    `,
+  },
+  {
+    type: "card",
+    name: "Product - Hover Grow",
+    htmlText: `
+    <style>
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid primaryColor;
+      background-color: bgColor;
+      border-radius: 6px;
+      padding: 4px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+    .card > img {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1/1;
+      box-shadow: 1px 1px 1rem primaryColor;
+      margin: 1rem 0.5rem;
+    }
+    .cardcontent{
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
+    }
+    .action-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .5rem;
+      padding: .25rem;
+    }
+
+    .button {
+      display: flex;
+      justify-content: space-between;
+      align-self: stretch;
+      align-items: center;
+      font-size: calc(6px + 0.5vw);
+      background-color: tertiaryColor;
+      border: 1px solid primaryColor;
+      color: white;
+      margin: 4px;
+      padding: .3rem;
+      border-radius: 5px;
+    }
+    .button:hover{
+      background-color: bgColor;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.01);
+    }
+    
+    @media screen and (max-width: 1000px) {
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
+        
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    @media screen and (max-width: 550px) {
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+      
+    </style>
+
+    <div class="card"> 
+    <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png"></img>
+
+    <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
+    <div class="action-items">
+
+       <div class="button">Learn More!</div>
+       <div class="button">Add to Cart!</div>
+       <div class="button">&#x2665;</div>
+
+      </div>
+    </div>
+
+    </div>
     `,
   },
   {
@@ -1581,7 +1830,8 @@ const components = [
           min-height: 30vh;
           max-width: 20vw;
           border: 2px solid primaryColor;
-          background-color: bgColor26;
+          background: linear-gradient(to right, bgColor, secondaryColor40);
+          color: white;
           border-radius: 10px;
           padding: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -1720,126 +1970,124 @@ const components = [
   },
   {
     type: "card",
-    name: "Shopping Card 2",
+    name: "Shopping - Hover Grow",
     htmlText: `
-      <style>
-        .card {
-          aspect-ratio: 9/16;
-          min-height: 35vh;
-          max-width: 20vw;
-          border: 2px solid primaryColor;
-          background-color: bgColor;
-          border-radius: 10px;
-          padding: 8px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
-          text-align: center;
-          transition: transform 0.3s ease;
-        }
-  
-        .card:hover {
-          transform: scale(1.01);
-        }
-  
-        .card > img {
-          max-height: 50%;
-          max-width: 100%;
-          object-fit: cover;
-          border-radius: 10px;
-        }
-  
-        .card-content {
-          flex-grow: 1;
-          padding: 8px;
-          color: secondaryColor;
-        }
-  
-        .card-title {
-          font-size: calc(14px + 0.5vw);
-          font-weight: bold;
-          margin-bottom: 4px;
-        }
-  
-        .card-description {
-          font-size: calc(8px + 0.5vw);
-          margin-bottom: 8px;
-        }
-  
-        .card-price {
-          font-size: calc(10px + 0.5vw);
-          font-weight: bold;
-        }
-  
-        .button {
-          font-size: 14px;
-          background-color: tertiaryColor;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          padding: 8px 16px;
-          cursor: pointer;
-        }
-        @media screen and (max-width: 1000px) {
-          .card {
-            box-sizing: border-box;
-            margin: 1rem;
-            
-          }
-          .card > img {
-            width: 90%;
-            height: auto;
-            aspect-ratio: 1/1;
-            box-shadow: 1px 1px 1rem secondaryColor;
-            margin: 1rem 0.5rem;
-          }
-          .cardcontent{
-            font-size: calc(12px + 1vw);
-            padding: 8px;
-          }
-          .action-items {
-            margin-top: 2rem;
-            padding: .5rem;
-          }
-          .button {
-            font-size: calc(10px + 0.5vw);
-            margin: 8px;
-            padding: 8px;
-            border-radius: 5px;
-          }
-        @media screen and (max-width: 550px) {
-          .card {
-            width: 90%;
-            min-width: none;
-            aspect-ratio: 8/10;
-            box-sizing: border-box;
-            margin: 1rem;
-          }
-          .card > img {
-            width: 90%;
-            height: auto;
-            aspect-ratio: 1/1;
-            box-shadow: 1px 1px 1rem secondaryColor;
-            margin: 1rem 0.5rem;
-          }
-          .cardcontent{
-            font-size: calc(12px + 1vw);
-            padding: 8px;
-          }
-          .action-items {
-            margin-top: 2rem;
-            padding: .5rem;
-          }
-          .button {
-            font-size: calc(10px + 0.5vw);
-            margin: 8px;
-            padding: 8px;
-            border-radius: 5px;
-          }
-      </style>
+    <style>
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid primaryColor;
+      background: linear-gradient(to right, bgColor, secondaryColor);
+      border-radius: 6px;
+      padding: 4px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+    .card > img {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1/1;
+      box-shadow: 1px 1px 1rem primaryColor;
+      margin: 1rem 0.5rem;
+    }
+    .cardcontent{
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
+    }
+    .action-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .5rem;
+      padding: .25rem;
+    }
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-self: stretch;
+      align-items: center;
+      font-size: calc(6px + 0.5vw);
+      background-color: tertiaryColor;
+      border: 1px solid primaryColor;
+      color: white;
+      margin: 4px;
+      padding: .3rem;
+      border-radius: 5px;
+    }
+    .button:hover{
+      background-color: bgColor;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.01);
+    }
+    
+    @media screen and (max-width: 1000px) {
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
+        
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    @media screen and (max-width: 550px) {
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+      
+    </style>
+
   
       <div class="card">
       <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
@@ -1859,14 +2107,19 @@ const components = [
     htmlText: `
       <style>
 
-      main > #previewCardContainer{
+  main > #previewCardContainer{
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
         aspect-ratio: 1/1;
       }
-  .card {
 
+      #previewCardContainer > #previewCard {
+
+        aspect-ratio: 1/1;
+
+      }
+  .card {
     grid-gap: 0.5vw;
     justify-items: center;
     aspect-ratio: 1/1;
