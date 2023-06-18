@@ -23,29 +23,26 @@ import { jsx } from "@emotion/react";
 
 // Code for downloading react components
 
-const CodeDownloadButton = ({ code, html, filename }) => {
+const CodeDownloadButton = ({ code, html, filename,isSideNavHovered,isNavHovered,isTitleHovered}) => {
   const downloadCode = () => {
     const blobForJsx = new Blob([code], { type: "text/plain;charset=utf-8" });
     const blobForHtml = new Blob([html], { type: "text/plain;charset=utf-8" });
     saveAs(blobForJsx, `${filename}_jsx.txt`);
     saveAs(blobForHtml, `${filename}_innerHTML.txt`);
   };
-
-  return (
-    <button
-      style={{
-        position: "absolute",
-        backgroundColor: "white",
-        color: "black",
-        padding: "10px 20px",
-        border: "none",
-        borderRadius: "10px",
-        cursor: "pointer",
-        width: "100px",
-        height: "90px",
-      }}
-      onClick={downloadCode}
-    >{`Download code for ${filename}`}</button>
+  
+  return <button className={`download-hover-button ${isSideNavHovered ? 'download-hover-button-sidenav' : ''} ${isNavHovered ? 'download-hover-button-nav' : ''} ${isTitleHovered ? 'download-hover-button-title' : ''}`} 
+  style={{"position":'absolute',
+  "fontWeight":"bold",
+  "backgroundColor":"white",
+  "color":"black",
+  "padding":"10px 20px",
+  "border": "solid 0.75px black",
+  "borderRadius":"10px",
+  "cursor": "pointer",
+  "width":"100px",
+  "height":"90px"}} 
+  onClick={downloadCode}>{`Download code for ${filename}`}</button>;
   );
 };
 
@@ -59,7 +56,7 @@ const jsxGenerator = (component) => {
   return htmlText;
 };
 
-// Handling change of components field from redux store outside of the React component lasdkjf
+// Handling change of components field from redux store outside of the React component
 const config = {};
 
 const handleComponentChange = () => {
@@ -87,16 +84,21 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
   const [savedComponents, setSavedComponents] = useState([]);
   const [hoveredOnComponent, setHoveredOnComponent] = useState(null);
 
-  // Hover to download feature
+  // Hover to download code feature
 
-  const [isHovered, setIsHovered] = useState(false);
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [isFormHovered, setIsFormHovered] = useState(false);
+  const [isCardHovered,setIsCardHovered] = useState(false);
+  const [isSideNavHovered,setisSideNavHovered] = useState(false);
+  const [isNavHovered,setisNavHovered] = useState(false);
+  const [isTitleHovered,setisTitleHovered] = useState(false);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
+  const handleMouseEnter = (setFunction) => {
+    setFunction(true);
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
+  const handleMouseLeave = (setFunction) => {
+    setFunction(false);
   };
 
   //
@@ -272,17 +274,28 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
         }}
       >
         {title ? (
-          <div
-            id="previewTitle"
-            style={{ background: "transparent", outline: "none", position: "relative" }}
-            onMouseEnter={() => setHoveredOnComponent(title)}
-            onMouseLeave={() => setHoveredOnComponent(null)}
-          >
+          <div id="previewTitle" style={{ background: "transparent", outline: "none", position: "relative" }} onMouseEnter={() => {handleMouseEnter(setisTitleHovered)}} onMouseLeave={() => {handleMouseLeave(setisTitleHovered)}}>
             <div
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(title),
               }}
             />
+            <FavHeart component={title} />
+            {isTitleHovered && (<CodeDownloadButton
+              code={`<div id="previewTitle" style={{ background: "transparent", outline: "none", position: "relative" }}>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: jsxGenerator(title),
+                }}
+              />
+              </div>`}
+              html={title.htmlText}
+              filename="title"
+              isSideNavHovered={isSideNavHovered}
+              isNavHovered={isNavHovered}
+              isTitleHovered = {isTitleHovered}
+              />)
+            } 
             <span>{hoveredOnComponent === title ? handleComponentOnHover(title) : ""}</span>
             {/* <FavHeart component={title} /> */}
           </div>
@@ -300,18 +313,8 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
           </div>
         )}
         {nav ? (
-          <div
-            id="previewNav"
-            style={{
-              background: "rgba(0,0,0,0)",
-              backgroundImage: "none",
-              animation: "none",
-              outline: "none",
-              position: "relative",
-            }}
-            onMouseEnter={() => setHoveredOnComponent(nav)}
-            onMouseLeave={() => setHoveredOnComponent(false)}
-          >
+
+          <div id="previewNav" style={{background: "rgba(0,0,0,0)",backgroundImage: "none",animation: "none",outline: "none",position: "relative",}} onMouseEnter={() => {handleMouseEnter(setisNavHovered)}} onMouseLeave={() => {handleMouseLeave(setisNavHovered)}}>
             <div
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(nav),
@@ -319,7 +322,23 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             />
             <span>{hoveredOnComponent === nav ? handleComponentOnHover(nav) : ""}</span>
             <FavHeart component={previewNav} />
-
+            {isNavHovered && (<CodeDownloadButton
+              code={`
+                <div id="previewSideNav">
+                  <div
+                    style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                    dangerouslySetInnerHTML={{
+                      __html: jsxGenerator(sideNav),
+                    }}
+                  />
+                </div>`}
+            html={nav.htmlText}
+            filename="nav"
+            isSideNavHovered={isSideNavHovered}
+            isNavHovered = {isNavHovered}
+            isTitleHovered={isTitleHovered}
+             />)
+            }  
             {/* <Navbar /> */}
           </div>
         ) : (
@@ -336,40 +355,48 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
           </div>
         )}
         {sideNav ? (
-          <div
-            id="previewSideNav"
-            style={{
-              background: "rgba(0,0,0,0)",
-              backgroundImage: "none",
-              animation: "none",
-              outline: "none",
-              display: "flex",
-              alignItems: "flex-start",
-              minHeight: "70vh",
-            }}
-          >
+          <div id="previewSideNav" style={{background: "rgba(0,0,0,0)",backgroundImage: "none",animation: "none",outline: "none",display: "flex",alignItems: "flex-start",minHeight: "70vh",}} onMouseEnter={() => {handleMouseEnter(setisSideNavHovered)}} onMouseLeave={() => {handleMouseLeave(setisSideNavHovered)}}>
             <div
               dangerouslySetInnerHTML={{
                 __html: jsxGenerator(sideNav),
               }}
             />
             <FavHeart component={sideNav} />
+            {isSideNavHovered && (<CodeDownloadButton
+          code={`
+            <div id="previewSideNav">
+              <div
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{
+                  __html: jsxGenerator(sideNav),
+                }}
+              />
+              <FavHeart component={sideNav} />
+            </div>`}
+          html={sideNav.htmlText}
+          filename="sidenav"
+          isSideNavHovered={isSideNavHovered}
+          isNavHovered={isNavHovered}
+          isTitleHovered = {isTitleHovered}
+           />)
+        }
           </div>
         ) : (
-          <div
-            id="previewSideNav"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "calc(12px + 0.5vw)",
-            }}
-          >
-            Side Navigation
+          <div id="previewSideNav" style={{display: "flex",justifyContent: "center",alignItems: "center",fontSize: "calc(12px + 0.5vw)",}} onMouseEnter={() => {handleMouseEnter(setisSideNavHovered)}} onMouseLeave={() => {handleMouseLeave(setisSideNavHovered)}}>
+            Side Nav
+            {isSideNavHovered && (<CodeDownloadButton
+                code={`<div id="previewSideNav">Side Nav</div>)`}
+          html={sideNav.htmlText}
+          filename="sidenav"
+          isSideNavHovered={isSideNavHovered}
+          isNavHovered={isNavHovered}
+          isTitleHovered = {isTitleHovered}
+           />)
+        }
           </div>
         )}
         <main className="preview-pane-Main-Content">
-          <div id="previewCardContainer">
+          <div id="previewCardContainer" onMouseEnter={() => {handleMouseEnter(setIsCardHovered)}} onMouseLeave={() => {handleMouseLeave(setIsCardHovered)}}>
             {card ? (
               <div
                 id="previewCard"
@@ -446,41 +473,96 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
               </div>
             )}
             {card ? <FavHeart component={card} /> : ""}
+            {isCardHovered && (<CodeDownloadButton
+                code={`card ? (
+                  <div
+                    id="previewCard"
+                    style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                    dangerouslySetInnerHTML={{ __html: jsxGenerator(card) }}
+                  />
+                ) : (
+                  <div id="previewCard">Card</div>
+                )`}
+            html={card.htmlText}
+            filename="card"
+            isSideNavHovered={isSideNavHovered}
+            isNavHovered={isNavHovered}
+            isTitleHovered = {isTitleHovered}
+             />)
+          }
           </div>
           {form ? (
-            <div
-              id="previewForm"
-              style={{
-                background: "rgba(0,0,0,0)",
-                backgroundImage: "none",
-                animation: "none",
-                outline: "none",
-              }}
-            >
-              <div dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }} />
+            <div id="previewForm" style={{background: "rgba(0,0,0,0)",backgroundImage: "none",animation: "none",outline: "none",}} onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}}>
+              <div
+                style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
+              />
               <FavHeart component={form} />
+              {isFormHovered && (<CodeDownloadButton
+                code={`form ? (
+                  <div id="previewForm" style={{background: "rgba(0,0,0,0)",backgroundImage: "none",animation: "none",outline: "none",}} onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}}>
+                    <div
+                      style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                      dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
+                    />
+                    <FavHeart component={form} />
+
+                  </div>
+                ) : (
+                  <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}}>
+                    form
+                  </div>
+            )`}
+            html={form.htmlText}
+            filename="form"
+            isSideNavHovered={isSideNavHovered}
+            isNavHovered={isNavHovered}
+            isTitleHovered = {isTitleHovered}
+             />)
+          }
             </div>
           ) : (
-            <div
-              id="previewForm"
-              style={{
+            <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}} style={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 fontSize: "calc(12px + 0.5vw)",
                 padding: "1rem",
-              }}
-            >
+              }}>
               Login, Contact, General Information Form
+              {isFormHovered && (<CodeDownloadButton
+                code={`form ? (
+                  <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}}>
+                    <div
+                      style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+                      dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
+                    />
+                    <FavHeart component={form} />
+
+                  </div>
+                ) : (
+                  <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}} style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "calc(12px + 0.5vw)",
+                padding: "1rem",
+              }}>
+                    Login, Contact, General Information Form
+                  </div>
+            )`}
+            html={form.htmlText}
+            filename="form"
+            isSideNavHovered={isSideNavHovered}
+            isNavHovered={isNavHovered}
+            isTitleHovered = {isTitleHovered}
+             />)
+          }
             </div>
+
           )}
-          <div
-            id="previewButtonContainer"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            style={{ border: "4px solid red" }}
+          <div id="previewButtonContainer" style={{ border: "4px solid red" }} onMouseEnter={() => {handleMouseEnter(setIsButtonHovered)}} onMouseLeave={() => {handleMouseLeave(setIsButtonHovered)}}>
             // i put a border here because it keeps breaking my code and i'm not sure what the hover is doing? and i don't want my page to keep going blank lol --jdb
-          >
             {button ? (
               <div id="previewButton">
                 <div
@@ -507,21 +589,32 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                 Submit Buttons
               </div>
             )}
-
-            {button && isHovered && (
-              <CodeDownloadButton
-                code={`button ? (
+            {isButtonHovered && (<CodeDownloadButton
+            code={`button ? (
               <div id="previewButton">
                 <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
                 <FavHeart component={button} />
               </div>
             ) : (
-              <div id="previewButton">Button</div>
+              <div
+                id="previewButton"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "calc(12px + 0.5vw)",
+                }}
+              >
+                Submit Buttons
+              </div>
             )`}
-                html={button.htmlText}
-                filename="button"
-              />
-            )}
+            html={button.htmlText}
+            filename="button"
+            isSideNavHovered={isSideNavHovered}
+            isNavHovered={isNavHovered}
+            isTitleHovered = {isTitleHovered}
+             />)
+            }
           </div>
         </main>
       </div>
