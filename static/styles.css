@@ -225,6 +225,9 @@ nav {
   grid-row: 1;
   grid-column: 1 / 3;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 #previewNav {
   /* z-index: -1; */
@@ -755,6 +758,57 @@ h5 {
   color: red;
 }
 
+.download-hover-button {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s;
+}
+
+.download-hover-button:hover {
+  transform: scale(1.2);
+}
+
+.download-hover-button-sidenav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0, -50%);
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #555;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.download-hover-button-nav{
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(0, -50%);
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #555;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.download-hover-button-title{
+  position: absolute;
+  top:0%;
+  right:30px;
+  transform: translate(0, -50%);
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #555;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
 
 
