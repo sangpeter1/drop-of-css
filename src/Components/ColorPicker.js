@@ -55,7 +55,7 @@ const ColorPicker = ({ onColorChange }) => {
     },
   });
 
-  const isLargeScreen = useMediaQuery("(min-width: 750px)");
+  const isLargeScreen = useMediaQuery("(min-width: 850px)");
 
   return (
     <>

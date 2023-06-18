@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <div className="login">
-      <h3 className="header">Login</h3>
+      <h3 className="proheader">Login</h3>
       <form onSubmit={login}>
         <label>Username</label>
         <input
@@ -61,6 +61,7 @@ const Login = () => {
         >
           {errorMessage ? errorMessage : <div style={{ minHeight: "(4px + 0.5vw)" }}></div>}
         </div>
+        <button type="submit" style={{ display: "none" }}></button>
         <div className="rainbowBtn" type={"submit"} onClick={login}>
           Login
         </div>

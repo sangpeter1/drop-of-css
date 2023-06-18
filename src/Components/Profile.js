@@ -1,43 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaUser, FaEnvelope } from "react-icons/fa";
 import TemplateList from "./TemplateList";
 import UserUpdate from "./UserUpdate";
-import { Link, Outlet } from "react-router-dom";
+import { setTemplates } from "../store";
 
 const Profile = () => {
   const { auth } = useSelector((state) => state);
+  
+  useEffect(() => {
+    setTemplates(auth.id); // Update the local state when templates change
+  }, []);
 
   if (!auth.id) {
     return <p>Please log in to view your profile.</p>;
   }
 
   return (
+  <div>
     <div className="profile-main">
-      <h3 className="header">
-        Welcome {auth.username.charAt(0).toUpperCase() + auth.username.slice(1)}!
+      <h3 className="proheader">
+        My Components
       </h3>
-      <div className="profile-links">
-        <div>
-          <Link to="/profile/account">My Account</Link>
-        </div>
-        <div>
-          <Link to="/profile/components">My Components</Link>
-        </div>
-      </div>
-      <Outlet />
+      <TemplateList />
     </div>
-  );
-};
-
-const ProfileAccount = () => {
-  const { auth } = useSelector((state) => state);
-
-  return (
     <div className="profile">
       <div>
-        <h4 className="header">
-          {auth.username.charAt(0).toUpperCase() + auth.username.slice(1)}'s Info
+        <h4 className="proheader">
+          Welcome {auth.username.charAt(0).toUpperCase() + auth.username.slice(1)}!
         </h4>
         <p>
           <FaUser className="custom-icon" /> {auth.username}
@@ -49,19 +39,12 @@ const ProfileAccount = () => {
         )}
       </div>
       <div>
-        <h4 className="header">Update Info</h4>
+        <h4 className="proheader">Update Info</h4>
         <UserUpdate />
       </div>
     </div>
+  </div>
   );
 };
 
-const ProfileComponents = () => {
-  return (
-    <div>
-      <TemplateList />
-    </div>
-  );
-};
-
-export { Profile, ProfileAccount, ProfileComponents };
+export default Profile;

@@ -2,9 +2,7 @@ body {
   font-family: verdana;
   background-color: #fafafa;
   margin: 0;
-  min-width: 600px;
-  width: auto !important;
-  width: 600px;
+  /* overflow-x: hidden; maybe use this? idk*/
 }
 
 h1 {
@@ -35,6 +33,7 @@ h1 {
   top: -2rem;
   left: 50%;
   transform: translateX(-50%);
+  transform-origin: center center;
   border: 1px solid black;
   width: fit-content;
   height: 2vh;
@@ -103,7 +102,7 @@ h1 {
 #preview-pane-div {
   box-sizing: content-box;
   border-radius: 0.5rem;
-  height: 100vh;
+  min-height: 100vh;
   width: 74vw;
   margin: 0.25rem;
 }
@@ -121,7 +120,44 @@ form > * {
 
 nav {
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #2d545e;
+  color: cornsilk;
+  border-bottom: 4px solid #12343b;
+  border-bottom-right-radius: 1rem;
+}
+
+nav > #navSiteTitle {
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-start;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+nav > img {
+  height: 4rem;
+  width: 4rem;
+  margin: 1rem;
+  border-radius: 50%;
+  box-shadow: 1px 1px 16px 1px #12343b;
+  justify-content: flex-start;
+}
+
+nav > h1 {
+  margin: 0.5rem;
+  padding: 0;
+}
+nav > h1:hover {
+  color: white;
+}
+
+nav > h5 {
+  word-wrap: normal;
 }
 
 #cpg-container {
@@ -198,28 +234,33 @@ nav {
   font-size: calc(8px + 0.5vw);
 }
 
+.reset-button {
+  background-color: darkred;
+  color: white;
+  border-radius: 0.24rem;
+  margin-left: calc(100% - 8vw);
+  margin-bottom: 0.5rem;
+}
 /* PREVIEW PANE DIVS */
 
 .preview-pane-container {
-  /* z-index: -1; */
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) 8fr;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) minmax(20fr, auto);
   grid-gap: 10px;
-  height: fit-content;
-  border: 0.1px solid rgba(0, 0, 0, 0.2);
+  height: 100%;
+  outline: 0.1px solid rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
   padding: 1rem;
 }
 #previewTitle {
-  /* z-index: -1; */
-  /* display: flex; */
-  /* justify-content: space-around; */
-  /* align-items: center; */
+  display: grid;
+  grid-row: 1;
+  grid-column: 1 / -1;
+  min-height: 4rem;
   text-align: center;
-  /* vertical-align: center; */
-  background-color: rgba(230, 230, 230, 0.8);
-  border: 2px solid darkgray;
+  align-items: center;
+  outline: 2px solid darkgray;
   border-radius: 0.25rem;
   box-sizing: content-box;
   grid-row: 1;
@@ -228,50 +269,58 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-image: linear-gradient(90deg, #f0f0f0 25%, #e5e5e5, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 5s linear infinite;
 }
+
 #previewNav {
-  /* z-index: -1; */
-  /* display: flex; */
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: rgba(230, 230, 230, 0.8);
-  border: 2px solid darkgray;
-  border-radius: 0.25rem;
-  box-sizing: border-box;
   grid-row: 2;
-  grid-column: 1 / 3;
-  position: relative;
-  /* display: flex; */
+  grid-column: 1 / -1;
+  flex-grow: 1;
+  min-height: 2rem;
+  width: 100%;
+  text-align: center;
+  padding: auto;
+  outline: 2px solid darkgray;
+  border-radius: 0.25rem;
+  background-image: linear-gradient(90deg, #f0f0f0 25%, #e2e2e2 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 5s linear infinite;
 }
 #previewSideNav {
-  /* z-index: -2; */
-  display: flex;
-  /* padding-top: 8vh; */
-  justify-content: space-around;
-  background-color: rgba(230, 230, 230, 0.8);
-  border: 2px solid darkgray;
-  border-radius: 0.25rem;
-  box-sizing: border-box;
+  display: grid;
   grid-row: 3;
   grid-column: 1;
-  position: relative;
+  min-height: 70vh;
+  margin-top: 1rem;
+  text-align: center;
+  align-items: center;
+  outline: 2px solid darkgray;
+  border-radius: 0.25rem;
+  background-image: #e5e5e5;
+  background-size: 200% 100%;
+  animation: skeleton-bounce 5s ease-in-out infinite;
 }
 main {
-  /* z-index: -2; */
   border: 1px solid rgba(230, 230, 230, 0.8);
   padding: 1rem;
   grid-row: 3 / 5;
-  display: grid;
+  min-height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  justify-content: space-evenly;
+  align-content: flex-start;
+  /* display: grid;
+  grid-template-rows: auto auto 10vh;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: auto;
-  grid-gap: 4px;
+  grid-gap: 1vw; */
 }
 
 main > #previewCardContainer {
-  /* border: 1rem solid red; */
+  display: grid;
+  grid-row: 1;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -282,35 +331,32 @@ main > #previewCardContainer {
 
 #previewCardContainer > #previewCard {
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  min-height: 40vh;
-  min-width: 13vw;
-  max-width: 25vw;
+  text-align: center;
+  min-width: 18vw;
   aspect-ratio: 9/16;
-  background-color: rgba(230, 230, 230, 0.8);
-  border: 2px solid darkgray;
+  outline: 2px solid darkgray;
   border-radius: 0.25rem;
-  box-sizing: border-box;
+  flex-grow: 1;
+  background-image: #e5e5e5;
+  background-size: 200% 100%;
+  animation: skeleton-bounce 5s ease-in-out infinite;
 }
 #previewForm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 30vh;
   margin: 1rem;
-  background-color: rgba(230, 230, 230, 0.8);
-  border: 2px solid darkgray;
+  outline: 2px solid darkgray;
   border-radius: 0.25rem;
-  box-sizing: border-box;
   grid-row: 2;
   grid-column: 1 / span 3;
-  position: relative;
+  background-image: #e5e5e5;
+  background-size: 200% 100%;
+  animation: skeleton-bounce 5s ease-in-out infinite;
 }
 
 main > #previewButtonContainer {
   width: 100%;
-  height: 100px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -322,7 +368,6 @@ main > #previewButtonContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(230, 230, 230, 0.8);
   border: 2px solid darkgray;
   border-radius: 0.25rem;
   box-sizing: border-box;
@@ -330,6 +375,28 @@ main > #previewButtonContainer {
   width: 7vw;
   height: 3.5vh;
   position: relative;
+  background-image: #e5e5e5;
+  background-size: 200% 100%;
+  animation: skeleton-bounce 5s ease-in-out infinite;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+@keyframes skeleton-bounce {
+  0% {
+    background-color: #e5e5e5;
+  }
+  50% {
+    background-color: #e0e0e0;
+  }
+  100% {
+    background-color: #e5e5e5;
+  }
 }
 
 /* Component list  -mt*/
@@ -504,7 +571,9 @@ h5 {
 
 .login {
   width: 30vw;
-  height: 40vh;
+  padding: 1rem;
+
+  /* min-height: fit-content; */
   /* max-width: 80vw; */
   margin: 1rem auto;
   display: flex;
@@ -533,24 +602,156 @@ h5 {
   margin: 4px auto;
 }
 
-@media screen and (max-width: 900px) {
+/*Profile Page*/
+
+.profile {
+  display: flex;
+  margin: 1rem;
+  padding: 1rem;
+  justify-content: space-around;
+  background-color: lightgray;
+  outline: 0.1px solid darkgray;
+  border-radius: 1rem;
+}
+
+.custom-icon {
+  color: #2d545e;
+}
+
+.template-list-container {
+  display: flex;
+  margin: 1rem;
+  justify-content: space-between;
+}
+
+.profilecomppreview,
+.profilehtmlpreview {
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  margin: 1rem;
+}
+
+.boxesflex {
+  display: flex;
+  margin: 1rem;
+  justify-content: space-around;
+}
+
+.profile-main {
+  text-align: center;
+}
+
+.profile-comp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-comp-table li:hover {
+  animation: rainbow 1.5s linear infinite;
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  /*-webkit-text-fill-color: transparent;*/
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.profile-comp-table .selected {
+  color: red;
+}
+
+.template-name {
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon {
+  margin-left: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: gray;
+}
+
+.comp-name-input {
+  color: black !important;
+  width: 150px;
+  height: 15px;
+  padding: 5px;
+}
+
+.proheader {
+  color: #2d545e;
+}
+
+.copytoclip,
+.stylelink {
+  animation: rainbow 1.5s linear infinite;
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#clipboard-message {
+  height: 2rem;
+  margin-bottom: -2rem;
+}
+
+.template-componentandcode-div {
+  margin-bottom: 2rem;
+}
+
+/* favHeart icon */
+.top-right-span {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.heart-icon {
+  width: 1.2rem;
+  color: white;
+  transition: color 0.1s ease-in-out;
+  stroke: black;
+  stroke-width: 4px;
+}
+
+.heart-clicked {
+  color: red;
+}
+
+@media screen and (max-width: 1000px) {
   .preview-pane-container {
     /* z-index: -1; */
     display: grid;
     grid-template-columns: 1fr;
+    grid-gap: 10px;
   }
 
   #previewSideNav {
-    display: none;
+    display: none !important;
   }
 
   main {
-    display: grid;
     grid-template-columns: 1fr;
+    flex-direction: column;
   }
 
   main > #previewCardContainer {
     /* border: 1rem solid blue; */
+    margin-top: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
@@ -558,17 +759,16 @@ h5 {
     justify-items: center;
   }
   #previewCardContainer > #previewCard {
+    max-width: 40vw;
+    min-width: 25vw;
     aspect-ratio: 9/16;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    min-height: 40vh;
-    min-width: 20vw;
-    max-width: 30vw;
   }
   .login {
     width: 45vw;
-    height: 40vh;
+    /* height: 40vh; */
   }
   .login > form {
     min-width: 35vw;
@@ -607,15 +807,20 @@ h5 {
     /* z-index: -1; */
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) minmax(0, 1fr);
+    grid-gap: 10px;
+
+    overflow: auto;
+    min-height: 180vh;
   }
 
   #previewSideNav {
-    display: none;
+    display: none !important;
   }
 
   main {
-    display: grid;
     grid-template-columns: 1fr;
+    grid-row: 3 / 4;
   }
 
   main > #previewCardContainer {
@@ -625,18 +830,19 @@ h5 {
     grid-template-rows: auto auto auto;
     justify-items: center;
     grid-row-gap: 2vh;
+    min-height: 60vh;
   }
   #previewCardContainer > #previewCard {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    max-width: 60vw;
+    min-width: 35vw;
     aspect-ratio: 9/16;
-    min-height: 50vh;
-    min-width: 40vw;
   }
   .login {
     width: 55vw;
-    height: 40vh;
+    /* height: 40vh; */
   }
   .login > form {
     min-width: 45vw;
@@ -650,114 +856,133 @@ h5 {
   }
 }
 
-/*Profile Page*/
+/* For screens with a width of 550px or less */
 
-.profile {
-  display: flex;
-  margin: 1rem;
-  justify-content: space-around;
-}
-
-.custom-icon {
-  color: #2d545e;
-}
-
-.template-list-container {
-  display: flex;
-  margin: 1rem;
-  justify-content: space-around;
-}
-
-.profilecomppreview,
-.profilehtmlpreview {
-  width: 500px;
-  height: 400px;
-  overflow: auto;
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
-
-.profile-main {
-  text-align: center;
-}
-
-.profile-links {
-  display: flex;
-  margin: 1rem;
-  justify-content: space-around;
-}
-
-.profile-comp-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.profile-comp-list li:hover {
-  animation: rainbow 1.5s linear infinite;
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-  -webkit-background-clip: text;
-  /*-webkit-text-fill-color: transparent;*/
-}
-
-@keyframes rainbow {
-  0% {
-    background-position: 0% 50%;
+/* design here should be name on top, menu below */
+/* 2 columns. first row is the color palette and component selector, 2nd row is the preview pane in cell size*/
+@media screen and (max-width: 550px) {
+  .reset-button {
+    background-color: darkred;
+    color: white;
+    border-radius: 0.24rem;
+    font-size: calc(6px + 0.5vw);
+    margin-left: calc(100% - 25vw);
+    margin-bottom: 0.5rem;
   }
-  100% {
-    background-position: 100% 50%;
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto;
+    align-items: center;
+    text-align: center;
   }
-}
 
-.profile-comp-list .selected {
-  animation: rainbow 1.5s linear infinite;
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-  -webkit-background-clip: text;
-  /*-webkit-text-fill-color: transparent;*/
-}
+  nav > #navSiteTitle {
+    grid-column: 2;
+    margin-bottom: 1rem;
+  }
 
-.template-name {
-  display: flex;
-  align-items: center;
-}
+  nav > img {
+    grid-column: 1;
+    height: 6rem;
+    width: 6rem;
+    margin: 1rem auto;
+    border-radius: 50%;
+    box-shadow: 1px 1px 16px 1px #12343b;
+    justify-content: center;
+  }
 
-.edit-icon {
-  margin-left: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  color: gray;
-}
+  nav > #navlinks {
+    grid-column: 1 / span 2;
+    text-align: center;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+  }
 
-.comp-name-input {
-  color: black !important;
-  width: 150px;
-  height: 15px;
-  padding: 5px;
-}
+  #navSiteTitle > h1 {
+    /* margin: 0 auto; */
+    text-align: center;
+  }
+  #navSiteTitle > h5 {
+    /* margin: 0 auto; */
+    text-align: center;
+  }
 
-/* favHeart icon */
-.top-right-span {
-  position: absolute;
-  top: 0;
-  right: 0;
- 
-}
+  .header {
+    margin-bottom: 0px;
+  }
+  #page-container-div {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+  }
 
-.heart-icon {
-  width: 1.2rem;
-  color: white;
-  transition: color 0.3s ease-in-out;
-  stroke: black;
-  stroke-width: 4px;
-}
+  #page-container-left-divs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
 
-.heart-clicked {
-  color: red;
-}
+  #cpg-div {
+    grid-column: 1;
+    width: 47vw;
+    height: fit-content;
+    border: none;
+  }
 
+  #cpg-container {
+    min-width: 44vw;
+    max-height: none;
+    box-sizing: border-box;
+  }
+  .droppableDiv {
+    height: max-content;
+  }
+  .cpg-color {
+    min-width: 40vw;
+    min-height: 8vh;
+  }
+
+  #component-div {
+    grid-column: 2;
+    width: 47vw;
+    height: fit-content;
+  }
+
+  .componentlist {
+    margin-top: 40px;
+    width: 44vw;
+  }
+
+  .componentNamesContainer {
+    min-width: 25vw;
+  }
+  #previewCardContainer {
+    min-height: 80vh;
+  }
+
+  #previewSideNav {
+    display: none !important;
+  }
+
+  #preview-pane-div {
+    /* grid-column: 1 / -1; */
+    width: 97vw;
+  }
+  .preview-pane-container {
+    display: grid;
+    grid-template-columns: 1fr 0;
+    border: 1px solid red;
+    grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) minmax(20rem, auto);
+
+    grid-gap: 10px;
+    justify-content: flex-start; /* Align cards to the top */
+    overflow: auto;
+  }
+  #previewTitle {
+    grid-row: 1;
+  }
+  
 .download-hover-button {
   position: relative;
   z-index: 1;
@@ -809,12 +1034,43 @@ h5 {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
-
-
-/* For screens with a width of 576px or less */
-/*@media screen and (max-width: 576px) {
-  main {
-    grid-template-columns: 1fr;
+  
+  #previewNav {
+    grid-row: 2;
   }
-} */
+
+
+  #previewCardContainer {
+    display: unset;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+    /* justify-items: center; */
+    grid-row-gap: 2vh;
+  }
+  #previewCardContainer > #previewCard {
+    max-width: 100%;
+    min-width: 80%;
+    aspect-ratio: 4/5;
+    display: unset;
+  }
+
+  #previewForm {
+    grid-row: 4;
+  }
+
+  #previewButtonContainer {
+    grid-row: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login {
+    width: min-content;
+    /* height: 40vh; */
+  }
+  .login > form > .rainbowBtn {
+    width: 80%;
+    margin: 4px auto;
+  }
+}

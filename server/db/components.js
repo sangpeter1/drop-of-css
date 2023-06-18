@@ -10,183 +10,230 @@ let tertiaryColor;
 const components = [
   {
     type: "navbar",
-    name: "plain nav bar",
+    name: "Simple",
     htmlText: `
-    <html>
-    <div class="navbar" style="background-color: bgColor">
-    <a href="#home">Home</a>
-    <a href="#news">News</a>
-    <div class="dropdown">
-      <button class="dropbtn">Dropdown 
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-      </div>
-    </div> 
-  </div>
-  </html>
-  `,
-    htmlStyle: {
-      colors: {
-        primaryColor,
-        secondaryColor,
-        tertiaryColor,
-        bgColor,
-      },
-      styles: {
-        navbar: {
-          navbar: "border: 10px solid red",
-          backgroundColor: `{bgColor}`,
-          boxSizing: "content-box",
-          display: "grid",
-          gridAutoFlow: "row",
-          gridColumn: "1/3",
-          gridRow: 2,
-          fontSize: "1.2rem",
-          color: `{primaryColor}`,
-          textAlign: "center",
-          margin: 0,
-          height: "100%",
-          width: "100%",
-          verticalAlign: "center",
-          letterSpacing: "2px",
-          listStyle: "none",
-          borderBottom: `5px solid {tertiaryColor}`,
-          textDecoration: `underline {secondaryColor}`,
-        },
+      <style>
+        .navbar {
+          background-color: inherit;
+          font-size: calc(10px + 0.5vw);
+          padding: 10px;
+          text-align: center;
+        }
+        
+        .navbar a {
+          text-decoration: none;
+          color: primaryColor;
+          padding: 8px;
+        }
 
-        ul: {
-          backgroundColor: `{secondaryColor}`,
-          listStyleType: "none",
-          height: "100%",
-          margin: "0",
-          paddingLeft: "1rem",
-          color: "#FFFFFF",
-          width: "auto",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          textDecoration: "none",
-        },
+        .navbar a:hover{
+          border-bottom: 1px solid tertiaryColor;
+          border-radius: .5rem;
+        }
 
-        dropdownContent: {
-          display: "none",
-          position: "absolute",
-          minWidth: "160px",
-          boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
-          zIndex: "1",
-        },
-        "dropdownContent a": {
-          float: "none",
-          color: "black",
-          padding: "12px 16px",
-          textDecoration: "none",
-          display: "block",
-          textAlign: "left",
-        },
-        "dropdown:hover .dropdownContent": {
-          display: "block",
-        },
-      },
-    },
+        @media screen and (max-width: 768px) {
+          .navbar{
+            font-size: calc(12px + 1vw);
+          }
+      </style>
+      <body>
+        <div class="navbar">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div>
+      </body>
+    `,
   },
   {
     type: "navbar",
-    name: "dropdown nav bar",
+    name: "Dropdown",
     htmlText: `
     <style>
     .dropdownNav {
-      /* width: 100%;
-      height: 100%;*/
-      font-size: calc(10px + 0.5vw);
+      display: flex;
+      width: 100%;
+      align-items: center;
+      font-size: calc(12px + 0.5vw);
       list-style-type: none;
       margin: 0;
       padding: 0;
       overflow: hidden;
       background-color: primaryColor;
-      /* display: flex;
-      justify-content: space-between;*/
+      color: primaryColorContrast;
     }
     
-    #drop-li {
+    .drop-li {
       float: left;
     }
     
-    #drop-li a, .dropbtn {
+    .drop-li a,
+    .dropbtn {
       display: inline-block;
-      color: white;
+      color: primaryColorContrast;
       text-align: center;
       padding: 16px;
       text-decoration: none;
     }
     
-   #drop-li a:hover, .dropdown:hover .dropbtn {
+    .drop-li a:hover,
+    .dropdown:hover .dropbtn {
       background-color: bgColor;
-
-      color: primaryColor;
+      color: bgColorContrast;
     }
     
-   #drop-li > .dropdown {
+    .drop-li .dropdown {
       display: inline-block;
     }
     
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: bgColor;
-      color: primaryColor;
+      background-color: secondaryColor;
+      color: secondaryColorContrast;
       min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
-    .dropdown-content > a {
-      color: black;
+    
+    .dropdown-content a {
+      color: secondaryColorContrast;
       padding: 12px 16px;
       text-decoration: none;
       display: block;
       text-align: left;
     }
     
-    .dropdown-content a:hover {background-color: primaryColor; color: white;}
+    .dropdown-content a:hover {
+      background-color: primaryColor;
+      color: primaryColorContrast;
+    }
     
-  .dropdown:hover .dropdown-content {
+    .dropdown:hover .dropdown-content {
       display: block;
       color: primaryColor;
     }
+    
+    @media screen and (max-width: 768px) {
+      .drop-li {
+        flex-grow: 1;
+        font-size: calc(12px + 1vw);
+
+      }
     </style>
     <body>
     
     <ul class="dropdownNav">
-      <li id="drop-li"><a href="#home">Home</a></li>
-      <li id="drop-li"><a href="#news">News</a></li>
-      <li class="dropdown" id="drop-li">
-        <a class="dropbtn">Dropdown</a>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-      </li>
-    </ul>
+    <li class="drop-li"><a href="#">Home</a></li>
+    <li class="drop-li"><a href="#">News</a></li>
+    <li class="dropdown drop-li">
+      <a class="dropbtn">Dropdown</a>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </li>
+  </ul>
     
     </body>
-    </html>
   `,
+  },
+  {
+    type: "navbar",
+    name: "Gradient Background",
+    htmlText: `
+      <style>
+        .navbar {
+          background: linear-gradient(to right, bgColor, secondaryColor);
+          color: secondaryColorContrast;
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+        }
+        
+        .navbar a {
+          text-decoration: none;
+          color: secondaryColorContrast;
+          padding: 1rem;
+        }
+        .navbar a:hover{
+            background: secondaryColor40;
+            border-radius: 4px;
+            box-shadow: 0 4px 30px rgba(100, 100, 100, 0.2);
+            backdrop-filter: blur(21.4px);
+            -webkit-backdrop-filter: blur(2.4px);
+            outline: 1px solid rgba(255, 255, 255, 1); 
+        }
+
+        
+        @media screen and (max-width: 768px) {
+          .navbar{
+            font-size: calc(12px + 1vw);
+          }
+      </style>
+      <body>
+        <div class="navbar">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div>
+      </body>
+    `,
+  },
+  {
+    type: "navbar",
+    name: "Border Bottom",
+    htmlText: `
+      <style>
+        .navbar {
+          background-color: bgColor;
+          color: bgColorContrast;
+          padding: 10px;
+          display: flex;
+          justify-content: space-evenly;
+          font-size: calc(10px + 0.5vw);
+          border-bottom: 4px solid secondaryColor;
+        }
+        
+        .navbar a {
+          text-decoration: none;
+          color: primaryColor;
+          padding: 8px;
+        }
+        .navbar a:hover{
+          color: white
+        }
+        
+        @media screen and (max-width: 768px) {
+          .navbar{
+            font-size: calc(12px + 1vw);
+          }
+      </style>
+      <body>
+        <div class="navbar">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </div>
+      </body>
+    `,
   },
 
   //FORMS
 
   {
     type: "form",
-    name: "contact us",
+    name: "Contact Us - Light",
     //front end preview window html
     htmlText: `
     <style>
     .formComponent {
       background-color: bgColor26;
+      color: bgColorContrast;
       border: 2px solid primaryColor;
       border-radius: 2px;
       width: 50vw;
@@ -261,6 +308,10 @@ const components = [
       text-align: center;
       justify-content: center;
     }
+    @media screen and (max-width: 1000px) {
+      .formComponent {
+        width: 100%;
+      }}
   </style>
   
   <div class="formComponent">
@@ -300,14 +351,14 @@ const components = [
   },
   {
     type: "form",
-    name: "contact us 2",
+    name: "Contact Us - Dark",
     //front end preview window html
     htmlText: `
     <style>
     .formComponent {
       background-color: secondaryColor;
+      color: secondaryColorContrast;
       border: 2px solid primaryColor;
-      color: white;
       border-radius: 2px;
       width: 50vw;
       min-height: 45vh;
@@ -383,6 +434,11 @@ const components = [
       text-align: center;
       justify-content: center;
     }
+
+    @media screen and (max-width: 1000px) {
+      .formComponent {
+        width: 100%;
+      }}
   </style>
   
   <div class="formComponent">
@@ -422,162 +478,236 @@ const components = [
   },
   {
     type: "form",
-    name: "login with oauth",
+    name: "Login - with OAuth",
     htmlText: `
-    <style>
+    <style>  
     .loginWithOauth {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 0;
-      background-color: #f5f5f5;
+      background-color: transparent;
+      min-width: 40vw;
+      max-width: 60vw;
     }
-
+  
     .login-container {
+      width: 100%;
+      height: 100%;
       background-color: #fff;
+      color: #000;
       padding: 20px;
       border-radius: 4px;
+      border: 2px solid white;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow: hidden; /* Prevent vertical overflow */
     }
-
+  
     .login-container input[type="text"],
     .login-container input[type="password"] {
-      width: 100%;
+      width: 90%;
       margin-bottom: 10px;
       padding: 10px;
       border: 1px solid tertiaryColor;
       border-radius: 4px;
     }
-
+  
     .login-container input[type="text"]:focus,
     .login-container input[type="password"]:focus {
       border: 2px solid secondaryColor;
       outline: none;
     }
-
+  
     .login-container button {
       margin-top: 20px;
       padding: 10px 20px;
       background-color: secondaryColor;
-      color: #fff;
-      border: none;
+      color: secondaryColorContrast;
+      border: 2px solid secondaryColor;
       border-radius: 4px;
       cursor: pointer;
     }
-
+  
+    .login-container button:hover {
+      background-color: tertiaryColor;
+      color: tertiaryColorContrast;
+      border: 2px solid primaryColor;
+    }
+  
     .oauth-buttons {
       margin-top: 20px;
       display: flex;
       justify-content: center;
-      align-items:center;
+      align-items: center;
     }
-
-    .oauth-buttons button {
-      margin: 0 10px;
-      padding: 10px;
-      border: none;
-      background-color: transparent;
+  
+    .google-btn {
+      margin: 25px;
+      width: 80%;
+      min-width: 184px;
+      max-width: 184px;
+      height: 42px;
+      background-color: #fcfcfc;
+      border-radius: 2px;
+      box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .2);
       cursor: pointer;
+      user-select: none;
+      transition: all 400ms ease 0s;
+      display: flex;
     }
-    
-.google-btn {
-  margin: 25px;
-  width: 80%;
-  min-width: 184px;
-  max-width: 184px;
-  height: 42px;
-  background-color: #fcfcfc;
-  border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .2);
-  cursor: pointer;
-  cursor: hand;
-  align-self: center;
-  user-select: none;
-  transition: all 400ms ease 0s;
-  display: flex;
-}
-.google-btn .google-icon-wrapper {
-  position: absolute;
-  margin-top: 1px;
-  margin-left: 1px;
-  width: 40px;
-  height: 40px;
-  border-radius: 2px;
-  user-select: none;
-}
-.google-btn .google-icon-svg {
-  position: absolute;
-  margin-top: 11px;
-  margin-left: 11px;
-  width: 18px;
-  height: 18px;
-  user-select: none
-}
-.google-btn .btn-text {
-  float: right;
-  margin: 11px 14px 40px 40px;
-  color: #757575;
-  font-size: 11px;
-  align-items: center;
-  letter-spacing: .2px;
-  font-family: Roboto;
-  user-select: none;
-}
-.google-btn:hover {
-  box-shadow: 0 3px 8px secondaryColor;
-  user-select: none;
-}
+  
+    .google-btn .google-icon-wrapper {
+      position: absolute;
+      margin-top: 1px;
+      margin-left: 1px;
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+      user-select: none;
+    }
+  
+    .google-btn .google-icon-svg {
+      position: absolute;
+      margin-top: 11px;
+      margin-left: 11px;
+      width: 18px;
+      height: 18px;
+      user-select: none;
+    }
+  
+    .google-btn .btn-text {
+      float: right;
+      margin: 11px 14px 40px 40px;
+      color: #757575;
+      font-size: 11px;
+      align-items: center;
+      letter-spacing: .2px;
+      font-family: Roboto;
+      user-select: none;
+    }
+  
+    .google-btn:hover {
+      box-shadow: 0 3px 8px secondaryColor40;
+    }
+    @media screen and (max-width: 768px) {
+      .google-btn {
+        margin: 10px 25px; /* Adjusted */
+      }
+  
+      .oauth-buttons {
+        flex-direction: column; /* Added */
+        align-items: center; /* Added */
+      }
+    }
   </style>
-
-    <div class="loginWithOauth">
-    
-      <div class="login-container">
-        <input type="text" placeholder="Username" />
-        <input type="password" placeholder="Password" />
-        <button>Login</button>
-        <div class="oauth-buttons">
-          <div class="google-btn">
+  
+  <div class="loginWithOauth">
+    <div class="login-container">
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Password" />
+      <button>Login</button>
+      <div class="oauth-buttons">
+        <div class="google-btn">
           <div class="google-icon-wrapper">
-            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
           </div>
           <p class="btn-text"><b>Sign in with Google</b></p>
         </div>
-          <div class="google-btn">
+        <div class="google-btn">
           <div class="google-icon-wrapper">
-            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/91/036-facebook.png"/>
+            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/91/036-facebook.png" />
           </div>
           <p class="btn-text"><b>Sign in with Facebook</b></p>
         </div>
-        </div>
       </div>
     </div>
+  </div>
+  
     
     `,
   },
 
   {
     type: "form",
-    name: "form one",
+    name: "Generic Form",
     htmlText: `
-    <div>
-      <form style="background-color: primaryColor; padding: 1rem;">
+    <style>
+    #genericform > form {
+      font-size: calc(12px + 0.5vw);
+      background-color: primaryColor;
+      color: primaryColorContrast;
+
+      padding: 1rem;
+    }
+   #genericform > form > label {
+      font-size: calc(12px + 0.5vw);
+      color: white;
+    }
+    #genericform > form > input {
+      color: white;
+      border-radius: 0.5rem; 
+      outline: none; 
+      padding: 0.5rem; 
+    }
+
+    #genericform > form > #checkboxes{
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+    #genericform > form > #radios{
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+
+    #genericform > form > button{
+      font-size: calc(12px + 0.5vw)
+      border: none; 
+      background-color: bgColor; 
+      color: bgColorContrast;
+      padding: 0.5rem 1rem; 
+      border-radius: 0.25rem; 
+    }
+
+    #genericform > form > div > label {
+      color: white;
+    }
+    
+    #genericform > form > div > input {
+      color: black;
+    }
+   #genericform > form >  button:hover{
+      outline: 2px solid white; 
+      background-color: bgColor40; 
+      color: bgColorContrast;
+      padding: 0.5rem 1rem; 
+      border-radius: 0.25rem; 
+      cursor: pointer;
+    }
+    </style>
+    <div id="genericform">
+      <form>
         <div style="margin-bottom: 1rem;">
-          <label for="inputField" style="color: tertiaryColor;">Type something here:</label>
-          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid primaryColor; padding: 0.5rem; outline: none;">
+          <label for="insertfieldvalue">Type something here:</label>
+          <input value="insert field value" id="inputField" placeholder="Type something here" style="border: 2px solid tertiaryColor">
         </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="checkbox" id="checkbox">
-          <label for="checkbox" style="color: secondaryColor;">I am a checkbox</label>
+        <div id="checkboxes">
+        <label for="checkbox">I am a checkbox button
+          <input type="checkbox" id="checkbox"></label>
+          <label for="checkbox">You can pick multiple checkboxes
+          <input type="checkbox" id="checkbox"></label>
         </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="radio" id="radio">
-          <label for="radio" style="color: secondaryColor;">I am a radio</label>
-        </div>
-        <button style="border: none; background-color: tertiaryColor; color: primaryColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
+        <div id="radios">
+        <label for="radio1">I am a radio button
+        <input type="radio" id="radio1" name="radio"></label>
+        <label for="radio2">You can only choose one radio button!
+        <input type="radio" id="radio2" name="radio"></label>
+      </div>
+        <button >
           Submit
         </button>
       </form>
@@ -586,10 +716,11 @@ const components = [
   },
   {
     type: "form",
-    name: "form two",
+    name: "Generic Form 2",
     htmlText: `
     <div>
-      <form style="background-color: bgColor; padding: 1rem;">
+      <form style="background-color: bgColor;       color: bgColorContrast;
+      padding: 1rem;">
         <div style="margin-bottom: 1rem;">
           <label for="inputField" style="color: primaryColor;">Type something here:</label>
           <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 1px solid primaryColor; padding: 0.5rem; outline: none;">
@@ -602,7 +733,8 @@ const components = [
           <input type="radio" id="radio">
           <label for="radio" style="color: primaryColor;">I am a radio</label>
         </div>
-        <button style="border: 1px solid secondaryColor; color: tertiaryColor; background-color: bgColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
+        <button style="border: 1px solid secondaryColor; color: tertiaryColor; background-color: bgColor;       color: bgColorContrast;
+        padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
           Submit
         </button>
       </form>
@@ -611,10 +743,11 @@ const components = [
   },
   {
     type: "form",
-    name: "form three",
+    name: "Generic Form Three",
     htmlText: `
     <div>
-      <form style="background-color: bgColor; padding: 1rem;">
+      <form style="background-color: bgColor;       color: bgColorContrast;
+      padding: 1rem;">
         <div style="margin-bottom: 1rem;">
           <label for="inputField" style="color: primaryColor;">Type something here:</label>
           <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid primaryColor; padding: 0.5rem; outline: none;">
@@ -627,7 +760,7 @@ const components = [
           <input type="radio" id="radio">
           <label for="radio" style="color: secondaryColor;">I am a radio</label>
         </div>
-        <button style="border: none; background-color: primaryColor; color: bgColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
+        <button style="border: none; background-color: primaryColor; color: primaryColorContrast; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
           Submit
         </button>
       </form>
@@ -636,52 +769,230 @@ const components = [
   },
   {
     type: "form",
-    name: "form four",
+    name: "Checkout - Payment",
     htmlText: `
-    <div>
-      <form style="background-color: secondaryColor; padding: 1rem;">
-        <div style="margin-bottom: 1rem;">
-          <label for="inputField" style="color: tertiaryColor;">Type something here:</label>
-          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid tertiaryColor; padding: 0.5rem; outline: none;">
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="checkbox" id="checkbox">
-          <label for="checkbox" style="color: bgColor;">I am a checkbox</label>
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="radio" id="radio">
-          <label for="radio" style="color: bgColor;">I am a radio</label>
-        </div>
-        <button style="border: none; background-color: primaryColor; color: secondaryColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
-          Submit
-        </button>
-      </form>
-    </div>
-  `,
+    <style>
+    .payment-form {
+      min-width: 40vw;
+      max-width: 60vw;
+      margin: 0 auto;
+      padding: 1rem;
+      background-color: bgColor;
+      color: bgColorContrast;
+      border-radius: 4px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif;
+    }
+    
+    .payment-form h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    
+    .form-row label {
+      font-weight: bold;
+    }
+    
+    .form-row input[type="text"] {
+      padding: .5rem;
+      border: 2px solid secondaryColor;
+      border-radius: 4px;
+    }
+    
+    .submit-button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: tertiaryColor;
+      color: tertiaryColorContrast;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .submit-button:hover {
+      background-color: #333;
+      color: black;
+
+    }
+
+    </style>
+    <div class="payment-form">
+  <h1>Payment Details</h1>
+  
+  <div class="form-row">
+    <label for="card-number">Card Number</label>
+
+    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" />
+  </div>
+  
+  <div class="form-row">
+    <label for="expiry-date">Expiry Date</label>
+    <input type="text" id="expiry-date" placeholder="MM / YY" />
+  </div>
+  
+  <div class="form-row">
+    <label for="cvv">CVV</label>
+    <input type="text" id="cvv" placeholder="123" />
+  </div>
+  
+  <div class="form-row">
+    <label for="name">Cardholder Name</label>
+    <input type="text" id="name" placeholder="John Doe" />
+  </div>
+  
+  <button class="submit-button">Submit Payment</button>
+</div>
+
+    
+`,
   },
   {
     type: "form",
-    name: "plain form five",
+    name: "Checkout - Address",
     htmlText: `
-    <div>
-      <form style="background-color: bgColor; padding: 1rem;">
-        <div style="margin-bottom: 1rem;">
-          <label for="inputField" style="color: secondaryColor;">Type something here:</label>
-          <input id="inputField" placeholder="Type something here" style="border-radius: 0.5rem; border: 2px solid primaryColor; padding: 0.5rem; outline: none;">
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="checkbox" id="checkbox">
-          <label for="checkbox" style="color: primaryColor;">I am a checkbox</label>
-        </div>
-        <div style="margin-bottom: 1rem;">
-          <input type="radio" id="radio">
-          <label for="radio" style="color: primaryColor;">I am a radio</label>
-        </div>
-        <button style="border: none; background-color: secondaryColor; color: bgColor; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">
-          Submit
-        </button>
-      </form>
+    <style>
+    .payment-form {
+      min-width: 40vw;
+      max-width: 60vw;
+      margin: 0 auto;
+      padding: 1rem;
+      background-color: bgColor;
+      color: bgColorContrast;
+      border-radius: 4px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif;
+    }
+  
+    .payment-form h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+  
+    .form-row label {
+      font-weight: bold;
+    }
+  
+    .form-row input[type="text"],
+    .form-row select {
+      padding: 10px;
+      border: 2px solid secondaryColor;
+      border-radius: 4px;
+    }
+  
+    .form-row select {
+      appearance: none;
+      background-color: #fff;
+    }
+  
+    .submit-button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: tertiaryColor;
+      color: tertiaryColorContrast;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  
+    .submit-button:hover {
+      background-color: #333;
+    }
+  </style>
+  
+  <div class="payment-form">
+    <h1>Address Details</h1>
+  
+    <div class="form-row">
+      <label for="street">Street Address</label>
+      <input type="text" id="street" placeholder="123 Main St" />
     </div>
+  
+    <div class="form-row">
+      <label for="city">City</label>
+      <input type="text" id="city" placeholder="Enter your city" />
+    </div>
+  
+    <div class="form-row">
+      <label for="state">State</label>
+      <select id="state">
+        <option value="" disabled selected>Select State</option>
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
+      </select>
+    </div>
+  
+    <div class="form-row">
+      <label for="zip">Zip Code</label>
+      <input type="text" id="zip" placeholder="12345" minlength="5" maxlength="5" />
+    </div>
+  
+    <button class="submit-button">Submit Address</button>
+  </div>
+  
   `,
   },
 
@@ -689,7 +1000,7 @@ const components = [
 
   {
     type: "title",
-    name: "jdb test title",
+    name: "Title & Subtitle",
     htmlText: `
     <style>
     .title-header{
@@ -726,7 +1037,7 @@ const components = [
   },
   {
     type: "title",
-    name: "text shadow",
+    name: "Text Shadow",
     htmlText: `
     <style>
     .title-header{
@@ -745,7 +1056,7 @@ const components = [
   },
   {
     type: "title",
-    name: "text uppercase",
+    name: "Uppercase",
     htmlText: `
     <style>
     .title-header{
@@ -765,7 +1076,7 @@ const components = [
   },
   {
     type: "title",
-    name: "neon style",
+    name: "Neon Style",
     htmlText: `
     <style>
     .title-header{
@@ -788,7 +1099,7 @@ const components = [
   },
   {
     type: "title",
-    name: "underline-style",
+    name: "Underline Style",
     htmlText: `
     <style>
     .title-header{
@@ -807,7 +1118,7 @@ const components = [
   },
   {
     type: "title",
-    name: "italic-style",
+    name: "Italic Style",
     htmlText: `
     <style>
     .title-header{
@@ -826,7 +1137,7 @@ const components = [
   },
   {
     type: "title",
-    name: "border-top",
+    name: "Border Top",
     htmlText: `
     <style>
     .title-header{
@@ -848,7 +1159,7 @@ const components = [
   },
   {
     type: "title",
-    name: "border-gradiant",
+    name: "Border Gradiant",
     htmlText: `
     <style>
     .title-header{
@@ -878,7 +1189,7 @@ const components = [
     htmlText: `
     <button style="
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
       font-size: 16px;
       padding: 10px 20px;
       border: none;
@@ -888,15 +1199,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: `${primaryColor}`,
-      color: "white",
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-    },
   },
   {
     type: "button",
@@ -919,15 +1221,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: "transparent",
-      color: `${primaryColor}`,
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: `2px solid ${primaryColor}`,
-      borderRadius: "5px",
-      cursor: "pointer",
-    },
   },
   {
     type: "button",
@@ -935,7 +1228,7 @@ const components = [
     htmlText: `
     <button style="
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
       font-size: 16px;
       padding: 10px 20px;
       border: none;
@@ -945,15 +1238,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: `${primaryColor}`,
-      color: "white",
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "25px",
-      cursor: "pointer",
-    },
   },
   {
     type: "button",
@@ -961,7 +1245,7 @@ const components = [
     htmlText: `
     <button style="
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
       font-size: 16px;
       padding: 10px 20px;
       border: none;
@@ -972,16 +1256,6 @@ const components = [
       Click Me
     </button>
   `,
-    htmlStyle: {
-      backgroundColor: `${primaryColor}`,
-      color: "white",
-      fontSize: "16px",
-      padding: "10px 20px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-      transition: "background-color 0.3s ease",
-    },
   },
   {
     type: "button",
@@ -989,7 +1263,7 @@ const components = [
     htmlText: `
     <button style="
       background-color: primaryColor;
-      color: white;
+      color: primaryColorContrast;
       font-size: 16px;
       padding: 10px 20px;
       border: none;
@@ -1003,74 +1277,145 @@ const components = [
   },
   {
     type: "card",
-    name: "product card",
+    name: "Product - Generic",
+    //
     htmlText: `
     <style>
     .card {
-      aspect-ratio: 9/16;
-          min-height: 35vh;
-          max-width: 20vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
       border: 2px solid primaryColor;
       background-color: bgColor;
+      color: bgColorContrast;
       border-radius: 6px;
       padding: 4px;
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-      box-sizing: content-box;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      box-sizing: border-box;
     }
-
-    .card > img{
-
-      max-height: 30vh;
-      max-width: 100%;
+    .card > img {
+      width: 90%;
+      height: auto;
       aspect-ratio: 1/1;
-      flex: 1 1 100%;
-      flex-wrap: wrap;
-      justify-content: center;
       box-shadow: 1px 1px 1rem secondaryColor;
-      margin: 1rem .5rem;
+      margin: 1rem 0.5rem;
     }
-    
     .cardcontent{
+      flex-direction: column;
       flex-grow: 1;
       text-align: center;
       justify-content: center;
-      font-size: calc(8px + 0.5vw);
-
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
     }
-    
     .action-items {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
       align-items: center;
       margin-top: .5rem;
-
+      padding: .25rem;
     }
 
     .button {
-      font-size: calc(4px + 0.5vw);
-      justify-content: space-evenly;
+      display: flex;
+      justify-content: space-between;
+      align-self: stretch;
       align-items: center;
+      font-size: calc(6px + 0.5vw);
       background-color: tertiaryColor;
+      color: tertiaryColorContrast;
       border: 1px solid secondaryColor;
-      color: white;
-      padding: 4px;
       margin: 4px;
+      padding: .3rem;
       border-radius: 5px;
     }
     .button:hover{
       background-color: bgColor;
+      color: bgColorContrast;
       cursor: pointer;
     }
     
-          @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
+    @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
       }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      }
+    @media screen and (max-width: 550px) {
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+      
     </style>
 
     <div class="card"> 
@@ -1078,269 +1423,522 @@ const components = [
 
     <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
     <div class="action-items">
+
        <div class="button">Learn More!</div>
        <div class="button">Add to Cart!</div>
        <div class="button">&#x2665;</div>
+
       </div>
     </div>
+
     </div>
     `,
   },
   {
     type: "card",
-    name: "product card two",
+    name: "Product - Gradient BG",
     htmlText: `
-      <style>
-        .card {
-          aspect-ratio: 9/16;
-          min-height: 35vh;
-          max-width: 25vw;
-          border: 2px solid primaryColor;
-          background-image: linear-gradient(to right, secondaryColor, tertiaryColor);
-          border-radius: 6px;
-          padding: 4px;
-          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-          box-sizing: border-box;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-  
-        .card > img {
-          max-height: 30vh;
-          max-width: 100%;
-          aspect-ratio: 1/1;
-          flex: 1 1 100%;
-          flex-wrap: wrap;
-          justify-content: center;
-          box-shadow: 1px 1px 1rem bgColor;
-          margin: 1rem 0.5rem;
-        }
-  
-        .cardcontent {
-          flex-grow: 1;
-          text-align: center;
-          justify-content: center;
-          font-size: calc(10px + 0.5vw);
-        }
-  
-        .action-items {
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
-          margin-top: .5rem;
-        }
-  
-        .button {
-          font-size: calc(7px + 0.5vw);
-          justify-content: space-evenly;
-          align-items: center;
-          background-color: 0;
-          border: 1px solid secondaryColor;
-          color: white;
-          padding: 4px;
-          margin: 4px;
-          border-radius: 5px;
-        }
+    <style>
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid primaryColor;
+      background-image: linear-gradient(to right, tertiaryColor, bgColor);
+      border-radius: 6px;
+      padding: 4px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+    .card > img {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1/1;
+      box-shadow: 1px 1px 1rem secondaryColor;
+      margin: 1rem 0.5rem;
+    }
+    .cardcontent{
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
+      color: white;
+    }
+    .action-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .5rem;
+      padding: .25rem;
+    }
 
-        .button:hover{
-          cursor: pointer;
-          color: bgColor;
-          border: 1px solid primaryColor;
-        }
+    .button {
+      display: flex;
+      justify-content: space-between;
+      align-self: stretch;
+      align-items: center;
+      font-size: calc(6px + 0.5vw);
+      background-color: tertiaryColor;
+      color: tertiaryColorContrast;
+      border: 1px solid secondaryColor;
+      color: white;
+      margin: 4px;
+      padding: .3rem;
+      border-radius: 5px;
+    }
 
-              @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
+    .button:hover{
+      cursor: pointer;
+      background-color: bgColor;
+      color: bgColorContrast;
+      border: 1px solid primaryColor;
+    }
+    
+    @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
       }
-      </style>
-  
-      <div class="card">
-        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
-  
-        <div class="cardcontent">
-          Here's some fun text about whatever item you're putting in here!
-          <div class="action-items">
-            <div class="button">Learn More!</div>
-            <div class="button">Add to Cart!</div>
-            <div class="button">&#x2665;</div>
-          </div>
-        </div>
-      </div>
-    `,
-  },
-  {
-    type: "card",
-    name: "product card three",
-    htmlText: `
-      <style>
-        .card {
-          aspect-ratio: 9/16;
-          min-height: 30vh;
-          max-width: 20vw;
-          border: 2px solid primaryColor;
-          background-image: linear-gradient(45deg, secondaryColor, tertiaryColor);
-          border-radius: 6px;
-          padding: 4px;
-          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-          box-sizing: border-box;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-    
-        .card > img {
-          max-height: 30vh;
-          max-width: 100%;
-          aspect-ratio: 1/1;
-          flex: 1 1 100%;
-          flex-wrap: wrap;
-          justify-content: center;
-          box-shadow: 1px 1px 1rem bgColor;
-          margin: 1rem 0.5rem;
-        }
-    
-        .cardcontent {
-          flex-grow: 1;
-          text-align: center;
-          justify-content: center;
-          font-size: calc(10px + 0.5vw);
-        }
-    
-        .action-items {
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
-          margin-top: .5rem;
-        }
-    
-        .button {
-          font-size: calc(6px + 0.5vw);
-          justify-content: space-evenly;
-          align-items: center;
-          background-color: tertiaryColor;
-          border: 1px solid secondaryColor;
-          color: white;
-          padding: 4px;
-          margin: 4px;
-          border-radius: 5px;
-        }
-        .button:hover{
-          background-color: bgColor;
-          cursor: pointer;
-        }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
       @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       }
+
+    @media screen and (max-width: 550px) {
+      main > #previewCardContainer{
+        min-height: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        aspect-ratio: none;
+      }
+      #previewCardContainer > #previewCard {
+        aspect-ratio: 10/9;
+      }
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
       
-      </style>
-    
-      <div class="card">
-        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
-    
-        <div class="cardcontent">
-          Here's some fun text about whatever item you're putting in here!
-          <div class="action-items">
-            <div class="button">Learn More!</div>
-            <div class="button">Add to Cart!</div>
-            <div class="button">&#x2665;</div>
-          </div>
-        </div>
+    </style>
+
+    <div class="card"> 
+    <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png"></img>
+
+    <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
+    <div class="action-items">
+
+       <div class="button">Learn More!</div>
+       <div class="button">Add to Cart!</div>
+       <div class="button">&#x2665;</div>
+
       </div>
-    `,
+    </div>
+
+    </div>`,
   },
   {
     type: "card",
-    name: "product card four",
+    name: "Product - Curved Edges",
     htmlText: `
-      <style>
-        .card {
-          aspect-ratio: 9/16;
-          min-height: 30vh;
-          max-width: 20vw;
-          border: 2px solid primaryColor;
-          background-image: linear-gradient(235deg, secondaryColor, tertiaryColor);
-          border-radius: 6px;
-          padding: 4px;
-          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-          box-sizing: border-box;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
+    <style>
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid primaryColor;
+      background-image: linear-gradient(45deg, bgColor, tertiaryColor);
+      color: white;
+      border-radius: 2rem;
+      padding: 4px;
+      box-shadow: 0 4px 4px rgba(100, 100, 100, 0.5);
+      box-sizing: border-box;
+    }
+    .card > img {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1/1;
+      box-shadow: 1px 1px 1rem secondaryColor;
+      margin: 1rem 0.5rem;
+    }
+    .cardcontent{
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
+    }
+    .action-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .5rem;
+      padding: .25rem;
+    }
+    .button {
+      display: flex;
+      justify-content: space-between;
+      align-self: stretch;
+      align-items: center;
+      font-size: calc(6px + 0.5vw);
+      background-color: tertiaryColor;
+      color: tertiaryColorContrast;
+      border: 1px solid secondaryColor;
+      margin: 4px;
+      padding: .3rem;
+      border-radius: 5px;
+    }
+    .button:hover{
+      background-color: primaryColor;
+      color: primaryColorContrast;
+      border: 1px solid white;
+      cursor: pointer;
+    }
   
-        .card > img {
-          max-height: 30vh;
-          max-width: 100%;
-          aspect-ratio: 1/1;
-          flex: 1 1 100%;
-          flex-wrap: wrap;
-          justify-content: center;
-          box-shadow: 1px 1px 1rem primaryColor;
-          margin: 1rem 0.5rem;
+    @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
         }
-  
-        .cardcontent {
-          flex-grow: 1;
-          text-align: center;
-          justify-content: center;
-          font-size: calc(10px + 0.5vw);
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
         }
-  
-        .action-items {
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
-          margin-top: .5rem;
-    
-        }
-    
-        .button {
-          font-size: calc(4px + 0.5vw);
-          justify-content: space-evenly;
-          align-items: center;
-          background-color: tertiaryColor;
-          border: 1px solid primaryColor;
-          color: white;
-          padding: 4px;
-          margin: 4px;
-          border-radius: 5px;
-        }
-        .button:hover{
-          background-color: 0;
-          cursor: pointer;
-        }
-              @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
       }
-        
-      </style>
-  
-      <div class="card">
-        <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
-  
-        <div class="cardcontent">
-          Here's some fun text about whatever item you're putting in here!
-          <div class="action-items">
-            <div class="button">Learn More!</div>
-            <div class="button">Add to Cart!</div>
-            <div class="button">&#x2665;</div>
-          </div>
-        </div>
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      }
+
+    @media screen and (max-width: 550px) {
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+      
+    </style>
+
+    <div class="card"> 
+    <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png"></img>
+
+    <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
+    <div class="action-items">
+
+       <div class="button">Learn More!</div>
+       <div class="button">Add to Cart!</div>
+       <div class="button">&#x2665;</div>
+
       </div>
+    </div>
+
+    </div>
     `,
   },
   {
     type: "card",
-    name: "shopping card",
+    name: "Product - Hover Grow",
+    htmlText: `
+    <style>
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid primaryColor;
+      background-color: bgColor;
+      color: bgColorContrast;
+      border-radius: 6px;
+      padding: 4px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+    .card > img {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1/1;
+      box-shadow: 1px 1px 1rem primaryColor;
+      margin: 1rem 0.5rem;
+    }
+    .cardcontent{
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
+    }
+    .action-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .5rem;
+      padding: .25rem;
+    }
+
+    .button {
+      display: flex;
+      justify-content: space-between;
+      align-self: stretch;
+      align-items: center;
+      font-size: calc(6px + 0.5vw);
+      background-color: tertiaryColor;
+      color: tertiaryColorContrast;
+      border: 1px solid primaryColor;
+      color: white;
+      margin: 4px;
+      padding: .3rem;
+      border-radius: 5px;
+    }
+    .button:hover{
+      background-color: bgColor;
+      color: bgColorContrast;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.01);
+    }
+    
+    @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;   
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      }
+    @media screen and (max-width: 550px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+      
+    </style>
+
+    <div class="card"> 
+    <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png"></img>
+
+    <div class="cardcontent">Here's some fun text about whatever item you're putting in here! 
+    <div class="action-items">
+
+       <div class="button">Learn More!</div>
+       <div class="button">Add to Cart!</div>
+       <div class="button">&#x2665;</div>
+
+      </div>
+    </div>
+
+    </div>
+    `,
+  },
+  {
+    type: "card",
+    name: "Shopping Card",
     htmlText: `
       <style>
         .card {
@@ -1349,7 +1947,8 @@ const components = [
           min-height: 30vh;
           max-width: 20vw;
           border: 2px solid primaryColor;
-          background-color: bgColor26;
+          background: linear-gradient(to right, bgColor, secondaryColor40);
+          color: white;
           border-radius: 10px;
           padding: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -1392,10 +1991,9 @@ const components = [
   
         .button {
           box-sizing: border-box;
-
           font-size: 14px;
           background-color: tertiaryColor;
-          color: white;
+          color: tertiaryColorContrast;
           border: none;
           border-radius: 4px;
           padding: 8px 16px;
@@ -1403,26 +2001,111 @@ const components = [
         }
         .button:hover{
           cursor: pointer;
-
           box-sizing: border-box;
           padding: 6.5px 16px;
           background-color: bgColor;
+          color: bgColorContrast;
           border: 2px solid tertiaryColor
         }
-              @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
-      }
 
-      @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
+      @media screen and (max-width: 1000px) {
+          main > #previewCardContainer{
+            min-height: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            aspect-ratio: none;
+          }
+          #previewCardContainer > #previewCard {
+            aspect-ratio: 9/16;
+          }
+        .card {
+          box-sizing: border-box;
+          margin: 1rem;
+          min-height: none;
+          max-width: none;
+        }
+        .card > img {
+          width: 90%;
+          height: auto;
+          aspect-ratio: 1/1;
+          box-shadow: 1px 1px 1rem secondaryColor;
+          margin: 1rem 0.5rem;
+        }
+        .cardcontent{
+          font-size: calc(12px + 1vw);
+          padding: 8px;
+        }
+        .action-items {
+          margin-top: 2rem;
+          padding: .5rem;
+        }
+        .button {
+          font-size: calc(10px + 0.5vw);
+          margin: 8px;
+          padding: 8px;
+          border-radius: 5px;
+        }
       }
-    }    
+        @media screen and (max-width: 768px) {
+          main > #previewCardContainer{
+            min-height: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            aspect-ratio: none;
+          }
+          #previewCardContainer > #previewCard {
+            aspect-ratio: 10/9;
+          }
+          .card {
+            box-sizing: border-box;
+            aspect-ratio: 1/1;
+            min-height: none;
+            max-width: none;
+        }
+      }
+      @media screen and (max-width: 550px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 1/1;
+        }
+        .card {
+          width: 90%;
+          min-width: none;
+          aspect-ratio: 8/10;
+          box-sizing: border-box;
+          margin: 1rem;
+          min-height: none;
+          max-width: none;
+        }
+        .card > img {
+          width: 90%;
+          height: auto;
+          aspect-ratio: 1/1;
+          box-shadow: 1px 1px 1rem secondaryColor;
+          margin: 1rem 0.5rem;
+        }
+        .cardcontent{
+          font-size: calc(12px + 1vw);
+          padding: 8px;
+        }
+        .action-items {
+          margin-top: 2rem;
+          padding: .5rem;
+        }
+        .button {
+          font-size: calc(10px + 0.5vw);
+          margin: 8px;
+          padding: 8px;
+          border-radius: 5px;
+        }  
 
       </style>
   
@@ -1439,78 +2122,148 @@ const components = [
   },
   {
     type: "card",
-    name: "Shopping Card 2",
+    name: "Shopping - Hover Grow",
     htmlText: `
-      <style>
-        .card {
-          aspect-ratio: 9/16;
-          min-height: 35vh;
-          max-width: 20vw;
-          border: 2px solid primaryColor;
-          background-color: bgColor;
-          border-radius: 10px;
-          padding: 8px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
-          text-align: center;
-          transition: transform 0.3s ease;
+    <style>
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid primaryColor;
+      background: linear-gradient(to right, bgColor, secondaryColor);
+      border-radius: 6px;
+      padding: 4px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+    .card > img {
+      width: 90%;
+      height: auto;
+      aspect-ratio: 1/1;
+      box-shadow: 1px 1px 1rem primaryColor;
+      margin: 1rem 0.5rem;
+    }
+    .cardcontent{
+      flex-direction: column;
+      flex-grow: 1;
+      text-align: center;
+      justify-content: center;
+      font-size: calc(10px + 0.5vw);
+      padding: 8px;
+    }
+    .action-items {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .5rem;
+      padding: .25rem;
+    }
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-self: stretch;
+      align-items: center;
+      font-size: calc(6px + 0.5vw);
+      background-color: tertiaryColor;
+      color: tertiaryColorContrast;
+      border: 1px solid primaryColor;
+      margin: 4px;
+      padding: .3rem;
+      border-radius: 5px;
+    }
+    .button:hover{
+      background-color: bgColor;
+      color: bgColorContrast;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.01);
+    }
+    
+    @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
         }
-  
-        .card:hover {
-          transform: scale(1.01);
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
         }
-  
-        .card > img {
-          max-height: 50%;
-          max-width: 100%;
-          object-fit: cover;
-          border-radius: 10px;
+      .card {
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
         }
-  
-        .card-content {
-          flex-grow: 1;
-          padding: 8px;
-          color: secondaryColor;
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
         }
-  
-        .card-title {
-          font-size: calc(14px + 0.5vw);
-          font-weight: bold;
-          margin-bottom: 4px;
-        }
-  
-        .card-description {
-          font-size: calc(8px + 0.5vw);
-          margin-bottom: 8px;
-        }
-  
-        .card-price {
-          font-size: calc(10px + 0.5vw);
-          font-weight: bold;
-        }
-  
-        .button {
-          font-size: 14px;
-          background-color: tertiaryColor;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          padding: 8px 16px;
-          cursor: pointer;
-        }
-        @media screen and (max-width: 768px) {
-          .card{
-            aspect-ratio: 9/16;
-          min-height: 50vh;
-          min-width: 40vw;
-        }
-      }    
-  
-      </style>
+      }
+    @media screen and (max-width: 550px) {
+      .card {
+        width: 90%;
+        min-width: none;
+        aspect-ratio: 8/10;
+        box-sizing: border-box;
+        margin: 1rem;
+      }
+      .card > img {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1/1;
+        box-shadow: 1px 1px 1rem secondaryColor;
+        margin: 1rem 0.5rem;
+      }
+      .cardcontent{
+        font-size: calc(12px + 1vw);
+        padding: 8px;
+      }
+      .action-items {
+        margin-top: 2rem;
+        padding: .5rem;
+      }
+      .button {
+        font-size: calc(10px + 0.5vw);
+        margin: 8px;
+        padding: 8px;
+        border-radius: 5px;
+      }
+    }
+      
+    </style>
+
   
       <div class="card">
       <img src="https://cdn-5f3056b4c1ac191bfcc58755.closte.com/wp-content/uploads/woocommerce-placeholder-600x600.png" />
@@ -1525,19 +2278,173 @@ const components = [
   },
   {
     type: "card",
-    name: "Photo Card 1",
+    name: "Social Media Photo Card",
 
     htmlText: `
       <style>
 
       main > #previewCardContainer{
+        min-height: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        aspect-ratio: none;
+      }
+      #previewCardContainer > #previewCard {
+        aspect-ratio: 1/1;
+      }
+        .card {
+          background-color: white;
+          border: 2px solid primaryColor;
+          border-radius: 3px;
+          display: flex;
+          flex-direction: column;
+          max-width: 100%;
+          margin: 0 auto;
+        }
+  
+        .card-header {
+          display: flex;
+          align-items: center;
+          padding: 8px;
+        }
+  
+        .card-header img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 8px;
+        }
+  
+        .card-header .username {
+          font-weight: bold;
+          color: secondaryColor;
+        }
+  
+        .card-image img {
+          max-width: 100%;
+          object-fit: cover;
+          border-top-left-radius: 3px;
+          border-top-right-radius: 3px;
+        }
+  
+        .card-content {
+          padding: 8px;
+        }
+        .card-content .icons {
+          display: flex;
+          align-items: center;
+          margin-bottom: 4px;
+        }
+  
+        .card-content .icons .icon {
+          margin-right: 4px;
+        }
+        .card-content #likesandcomments{
+          display: flex;
+          justify-content: space-evenly;
+        }
+
+        .card-content .caption {
+          text-align: left;
+          margin-bottom: 4px;
+          margin-top: 0;
+        }
+  
+        .card-content .likes {
+          color: #8e8e8e;
+          font-size: 12px;
+        }
+
+        @media screen and (max-width: 768px) {
+          main > #previewCardContainer{
+            min-height: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            aspect-ratio: none;
+          }
+          #previewCardContainer > #previewCard {
+            aspect-ratio: 10/9;
+          }
+        }
+        @media screen and (max-width: 550px) {
+          .card {
+            width: 90%;
+            max-width: 90%;
+            min-width: none;
+            min-height: none;
+            aspect-ratio: 1/1;
+            box-sizing: border-box;
+            margin: 1rem;
+            grid-column-gap: 0;
+          }
+          .card > img {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 1/1;
+            box-shadow: 1px 1px 1rem secondaryColor;
+            margin: 1rem 0.5rem;
+          }
+          .cardcontent{
+            font-size: calc(12px + 1vw);
+            padding: 8px;
+          }
+          .action-items {
+            margin-top: 2rem;
+            padding: .5rem;
+          }
+          .button {
+            font-size: calc(10px + 0.5vw);
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+          }
+
+      </style>
+  
+      <div class="card">
+        <div class="card-header">
+          <img src="https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png" />
+          <span class="username">username</span>
+        </div>
+        <div class="card-image">
+          <img src="https://www.moatrek.com/sites/default/files/styles/1200_x_630/public/2016-10/Nature-Cruise-Milford-Sound.jpg?itok=fT2KvZs6" />
+        </div>
+        <div class="card-content">
+        <div class="icons">
+        <img class="icon" src="https://clipart-library.com/new_gallery/23-239546_png-black-and-white-library-chalk-heart-clipart.png" style="width:18px;height:16px;" alt="Heart Icon" />
+        <img class="icon" src="https://clipart-library.com/images/8T686eR7c.png" style="width:16px;height:16px;" alt="Comment Icon" />
+        <img class="icon" src="https://clipart-library.com/data_images/405621.png" style="width:32px;height:16px;" alt="Share Icon" />
+      </div>
+          <p class="caption">oh. em. geeeeeee this place #takemeback</p>
+          <div id="likesandcomments">
+          <p class="likes">Likes: 12,034</p>
+          <p class="likes">Comments: 847</p>
+          <div>
+        </div>
+      </div>
+    `,
+  },
+
+  {
+    type: "card",
+    name: "Photo Card",
+
+    htmlText: `
+      <style>
+
+  main > #previewCardContainer{
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
         aspect-ratio: 1/1;
       }
-  .card {
 
+      #previewCardContainer > #previewCard {
+        aspect-ratio: 1/1;
+      }
+  .card {
     grid-gap: 0.5vw;
     justify-items: center;
     aspect-ratio: 1/1;
@@ -1621,7 +2528,8 @@ const components = [
       padding: 0;
       min-width: 10vw;
       background-color: bgColor;
-      height: 100%;
+      color: bgColorContrast;
+      min-height: 70vh;
       overflow: auto;
       border: 2px solid primaryColor;
     }
@@ -1633,12 +2541,15 @@ const components = [
       padding: 16px;
       text-decoration: none;
     }
+    .sidebar a:hover{
+      color: white;
+    }
     </style>
     <div class="sidebar">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+  <a class="active" href="#">Home</a>
+  <a href="#">News</a>
+  <a href="#">Contact</a>
+  <a href="#">About</a>
 </div>
     `,
   },
@@ -1659,7 +2570,8 @@ const components = [
           min-width: 10vw;
           max-width: 100%;
           background-color: bgColor;
-          height: 100%;
+          color: bgColorContrast;
+          min-height: 70vh;
           overflow: auto;
           border: 2px solid primaryColor;
         }
@@ -1675,15 +2587,15 @@ const components = [
   
         .sidebar a:hover {
           background-color: secondaryColor;
-          color: white;
+          color: secondaryColorContrast;
         }
       </style>
   
       <div class="sidebar">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
+        <a class="active" href="#">Home</a>
+        <a href="#">News</a>
+        <a href="#">Contact</a>
+        <a href="#">About</a>
       </div>
     `,
   },
@@ -1700,6 +2612,7 @@ const components = [
   
         .sidebar {
           background-color: bgColor;
+          color: bgColorContrast;
           height: 100%;
           overflow: auto;
           border-right: 2px solid primaryColor;
@@ -1711,34 +2624,34 @@ const components = [
           color: secondaryColor;
           border-bottom: 2px solid bgColor;
           padding: .3rem .7rem;
-
           text-decoration: none;
           transition: background-color 0.3s ease;
         }
   
         .sidebar a:hover {
           background-color: tertiaryColor;
+          color: tertiaryColorContrast;
+
           border-bottom: 2px solid secondaryColor;
-          color: white;
         }
       </style>
   
       <div class="sidebar">
-      <a class="active" href="#home">Home</a>
-      <a href="#news">News</a>
-      <a href="#contact">Contact</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#blog">Blog</a>
-      <a href="#shop">Shop</a>
-      <a href="#events">Events</a>
-      <a href="#team">Team</a>
-      <a href="#faq">FAQ</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#contact-us">Contact Us</a>
+      <a class="active" href="#">Home</a>
+      <a href="#">News</a>
+      <a href="#">Contact</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Gallery</a>
+      <a href="#">Blog</a>
+      <a href="#">Shop</a>
+      <a href="#">Events</a>
+      <a href="#">Team</a>
+      <a href="#">FAQ</a>
+      <a href="#">Pricing</a>
+      <a href="#">Testimonials</a>
+      <a href="#">Contact Us</a>
       </div>
     `,
   },
@@ -1756,7 +2669,8 @@ const components = [
         .sidebar {
           width: 150px;
           background-color: bgColor;
-          height: 100%;
+          color: bgColorContrast;
+          height: 70vh;
           overflow: auto;
           border-right: 2px solid primaryColor;
           padding: 10px;
@@ -1774,13 +2688,14 @@ const components = [
         }
   
         .sidebar a:hover {
-          color: bgColor;
           background-color: primaryColor;
+          color: primaryColorContrast;
+
         }
   
         .sidebar a.active {
-          color: bgColor;
           background-color: secondaryColor;
+          color: secondaryColorContrast;
         }
   
         .sidebar .dropdown {
@@ -1799,11 +2714,12 @@ const components = [
         .sidebar .dropdown-content {
           display: none;
           position: absolute;
-          top: 0;
-          left: 100%;
-          margin-top: -1px;
-          min-width: 10vw;
+          top: 100%;
+          left: 0;
+          margin-bottom: 50px;
+          width: 147px;
           background-color: bgColor;
+          color: bgColorContrast;
           border: 2px solid primaryColor;
           z-index: 1;
         }
@@ -1818,27 +2734,29 @@ const components = [
   
         .sidebar .dropdown-content a:hover {
           background-color: secondaryColor;
-          color: tertiaryColor;
+          color: secondaryColorContrast;
+          
         }
   
         .sidebar .dropdown:hover .dropdown-content {
           display: block;
         }
+
       </style>
   
       <div class="sidebar">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
+        <a class="active" href="#">Home</a>
+        <a href="#">News</a>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Testimonials</a>
         <div class="dropdown">
-          <a class="has-dropdown" href="#contact">Contact</a>
-          <div class="dropdown-content">
-            <a href="#">Sublink 1</a>
-            <a href="#">Sublink 2</a>
-          </div>
+        <a class="has-dropdown" href="#">Contact</a>
+        <div class="dropdown-content">
+          <a href="#">Sublink 1</a>
+          <a href="#">Sublink 2</a>
         </div>
-        <a href="#about">About</a>
-        <a href="#blog">Blog</a>
-        <a href="#testimonials">Testimonials</a>
+      </div>
       </div>
     `,
   },

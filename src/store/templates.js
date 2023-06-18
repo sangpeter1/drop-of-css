@@ -7,8 +7,8 @@ const templates = (state = [], action) => {
   if (action.type === "CREATE_TEMPLATE") {
     return [...state, action.template];
   }
-  if(action.type === 'DELETE_TEMPLATE'){
-    return state.filter(template => template.id !== action.templateId);
+  if (action.type === "DELETE_TEMPLATE") {
+    return state.filter((template) => template.id !== action.templateId);
   }
   if (action.type === "UPDATE_TEMPLATE_NAME") {
     return state.map((template) =>
@@ -18,16 +18,18 @@ const templates = (state = [], action) => {
   return state;
 };
 
-export const setTemplates = () => {
+export const setTemplates = (userId) => {
   return async (dispatch) => {
-    const response = await axios.get("/api/templates");
+    console.log("moe's id in setTemplates", userId);
+    const response = await axios.get(`/api/templates/${userId}`);
     dispatch({ type: "SET_TEMPLATES", templates: response.data });
   };
 };
+
 export const createTemplate = (template) => {
   return async (dispatch) => {
-    const { htmlText, userId } = template;
-    const updatedTemplate = { userId, htmlText };
+    const { htmlText, userId, type } = template;
+    const updatedTemplate = { userId, htmlText, type };
     try {
       const response = await axios.post("/api/templates", updatedTemplate);
       console.log(response);
@@ -38,10 +40,10 @@ export const createTemplate = (template) => {
   };
 };
 
-export const deleteTemplate = (templateId)=> {
-  return async(dispatch)=> {
+export const deleteTemplate = (templateId) => {
+  return async (dispatch) => {
     await axios.delete(`/api/templates/${templateId}`);
-    dispatch({ type: 'DELETE_TEMPLATE', templateId});
+    dispatch({ type: "DELETE_TEMPLATE", templateId });
   };
 };
 
