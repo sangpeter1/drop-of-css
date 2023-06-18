@@ -253,14 +253,14 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
 
   return (
     <div>
-      <div className="button-container" style={{ display: "block", textAlign: "center" }}>
-        <h3 className="header">
-          Template Preview
-          <div className="instructions">
-            your preview template. you can save individual components or the template as a whole
-          </div>
-        </h3>
-      </div>
+      {/* <div className="button-container" style={{ display: "block", textAlign: "center" }}> */}
+      <h3 className="header" style={{ display: "block", textAlign: "center" }}>
+        Template Preview
+        <div className="instructions">
+          your preview template. you can save individual components or the template as a whole
+        </div>
+      </h3>
+      {/* </div> */}
       <button className="reset-button" onClick={() => clearComponents("all")}>
         Reset Template
       </button>
