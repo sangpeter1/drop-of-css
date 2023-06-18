@@ -43,7 +43,6 @@ const CodeDownloadButton = ({ code, html, filename,isSideNavHovered,isNavHovered
   "width":"100px",
   "height":"90px"}} 
   onClick={downloadCode}>{`Download code for ${filename}`}</button>;
-  );
 };
 
 //
@@ -371,7 +370,6 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                   __html: jsxGenerator(sideNav),
                 }}
               />
-              <FavHeart component={sideNav} />
             </div>`}
           html={sideNav.htmlText}
           filename="sidenav"
@@ -384,15 +382,6 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
         ) : (
           <div id="previewSideNav" style={{display: "flex",justifyContent: "center",alignItems: "center",fontSize: "calc(12px + 0.5vw)",}} onMouseEnter={() => {handleMouseEnter(setisSideNavHovered)}} onMouseLeave={() => {handleMouseLeave(setisSideNavHovered)}}>
             Side Nav
-            {isSideNavHovered && (<CodeDownloadButton
-                code={`<div id="previewSideNav">Side Nav</div>)`}
-          html={sideNav.htmlText}
-          filename="sidenav"
-          isSideNavHovered={isSideNavHovered}
-          isNavHovered={isNavHovered}
-          isTitleHovered = {isTitleHovered}
-           />)
-        }
           </div>
         )}
         <main className="preview-pane-Main-Content">
@@ -499,20 +488,13 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
               />
               <FavHeart component={form} />
               {isFormHovered && (<CodeDownloadButton
-                code={`form ? (
+                code={`
                   <div id="previewForm" style={{background: "rgba(0,0,0,0)",backgroundImage: "none",animation: "none",outline: "none",}} onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}}>
                     <div
                       style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
                       dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
                     />
-                    <FavHeart component={form} />
-
-                  </div>
-                ) : (
-                  <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}}>
-                    form
-                  </div>
-            )`}
+                  </div>`}
             html={form.htmlText}
             filename="form"
             isSideNavHovered={isSideNavHovered}
@@ -531,17 +513,8 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
               }}>
               Login, Contact, General Information Form
               {isFormHovered && (<CodeDownloadButton
-                code={`form ? (
-                  <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}}>
-                    <div
-                      style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
-                      dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
-                    />
-                    <FavHeart component={form} />
-
-                  </div>
-                ) : (
-                  <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}} style={{
+                code={`
+              <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}} style={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -550,7 +523,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
               }}>
                     Login, Contact, General Information Form
                   </div>
-            )`}
+            `}
             html={form.htmlText}
             filename="form"
             isSideNavHovered={isSideNavHovered}
