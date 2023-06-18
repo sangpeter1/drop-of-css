@@ -308,6 +308,10 @@ const components = [
       text-align: center;
       justify-content: center;
     }
+    @media screen and (max-width: 1000px) {
+      .formComponent {
+        width: 100%;
+      }}
   </style>
   
   <div class="formComponent">
@@ -430,6 +434,11 @@ const components = [
       text-align: center;
       justify-content: center;
     }
+
+    @media screen and (max-width: 1000px) {
+      .formComponent {
+        width: 100%;
+      }}
   </style>
   
   <div class="formComponent">
@@ -471,19 +480,17 @@ const components = [
     type: "form",
     name: "Login - with OAuth",
     htmlText: `
-    <style>
+    <style>  
     .loginWithOauth {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 0;
-      padding: 0;
       background-color: transparent;
       min-width: 40vw;
       max-width: 60vw;
     }
-
+  
     .login-container {
       width: 100%;
       height: 100%;
@@ -496,8 +503,9 @@ const components = [
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow: hidden; /* Prevent vertical overflow */
     }
-
+  
     .login-container input[type="text"],
     .login-container input[type="password"] {
       width: 90%;
@@ -506,13 +514,13 @@ const components = [
       border: 1px solid tertiaryColor;
       border-radius: 4px;
     }
-
+  
     .login-container input[type="text"]:focus,
     .login-container input[type="password"]:focus {
       border: 2px solid secondaryColor;
       outline: none;
     }
-
+  
     .login-container button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -522,102 +530,102 @@ const components = [
       border-radius: 4px;
       cursor: pointer;
     }
+  
     .login-container button:hover {
-      margin-top: 20px;
-      padding: 10px 20px;
       background-color: tertiaryColor;
       color: tertiaryColorContrast;
       border: 2px solid primaryColor;
-      border-radius: 4px;
-      cursor: pointer;
     }
-
+  
     .oauth-buttons {
       margin-top: 20px;
       display: flex;
       justify-content: center;
-      align-items:center;
+      align-items: center;
     }
-
-    .oauth-buttons button {
-      margin: 0 10px;
-      padding: 10px;
-      border: none;
-      background-color: transparent;
+  
+    .google-btn {
+      margin: 25px;
+      width: 80%;
+      min-width: 184px;
+      max-width: 184px;
+      height: 42px;
+      background-color: #fcfcfc;
+      border-radius: 2px;
+      box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .2);
       cursor: pointer;
+      user-select: none;
+      transition: all 400ms ease 0s;
+      display: flex;
     }
-    
-.google-btn {
-  margin: 25px;
-  width: 80%;
-  min-width: 184px;
-  max-width: 184px;
-  height: 42px;
-  background-color: #fcfcfc;
-  border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .2);
-  cursor: pointer;
-  cursor: hand;
-  align-self: center;
-  user-select: none;
-  transition: all 400ms ease 0s;
-  display: flex;
-}
-.google-btn .google-icon-wrapper {
-  position: absolute;
-  margin-top: 1px;
-  margin-left: 1px;
-  width: 40px;
-  height: 40px;
-  border-radius: 2px;
-  user-select: none;
-}
-.google-btn .google-icon-svg {
-  position: absolute;
-  margin-top: 11px;
-  margin-left: 11px;
-  width: 18px;
-  height: 18px;
-  user-select: none
-}
-.google-btn .btn-text {
-  float: right;
-  margin: 11px 14px 40px 40px;
-  color: #757575;
-  font-size: 11px;
-  align-items: center;
-  letter-spacing: .2px;
-  font-family: Roboto;
-  user-select: none;
-}
-.google-btn:hover {
-  box-shadow: 0 3px 8px secondaryColor40;
-  user-select: none;
-}
+  
+    .google-btn .google-icon-wrapper {
+      position: absolute;
+      margin-top: 1px;
+      margin-left: 1px;
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+      user-select: none;
+    }
+  
+    .google-btn .google-icon-svg {
+      position: absolute;
+      margin-top: 11px;
+      margin-left: 11px;
+      width: 18px;
+      height: 18px;
+      user-select: none;
+    }
+  
+    .google-btn .btn-text {
+      float: right;
+      margin: 11px 14px 40px 40px;
+      color: #757575;
+      font-size: 11px;
+      align-items: center;
+      letter-spacing: .2px;
+      font-family: Roboto;
+      user-select: none;
+    }
+  
+    .google-btn:hover {
+      box-shadow: 0 3px 8px secondaryColor40;
+    }
+    @media screen and (max-width: 768px) {
+      .google-btn {
+        margin: 10px 25px; /* Adjusted */
+      }
+  
+      .oauth-buttons {
+        flex-direction: column; /* Added */
+        align-items: center; /* Added */
+      }
+    }
   </style>
-
-    <div class="loginWithOauth">
-    
-      <div class="login-container">
-        <input type="text" placeholder="Username" />
-        <input type="password" placeholder="Password" />
-        <button>Login</button>
-        <div class="oauth-buttons">
-          <div class="google-btn">
+  
+  <div class="loginWithOauth">
+    <div class="login-container">
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Password" />
+      <button>Login</button>
+      <div class="oauth-buttons">
+        <div class="google-btn">
           <div class="google-icon-wrapper">
-            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
           </div>
           <p class="btn-text"><b>Sign in with Google</b></p>
         </div>
-          <div class="google-btn">
+        <div class="google-btn">
           <div class="google-icon-wrapper">
-            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/91/036-facebook.png"/>
+            <img class="google-icon-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/91/036-facebook.png" />
           </div>
           <p class="btn-text"><b>Sign in with Facebook</b></p>
         </div>
-        </div>
       </div>
     </div>
+  </div>
+  
     
     `,
   },
@@ -1329,10 +1337,19 @@ const components = [
     }
     
     @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       .card {
         box-sizing: border-box;
         margin: 1rem;
-        
       }
       .card > img {
         width: 90%;
@@ -1354,6 +1371,19 @@ const components = [
         margin: 8px;
         padding: 8px;
         border-radius: 5px;
+      }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       }
     @media screen and (max-width: 550px) {
       .card {
@@ -1384,6 +1414,7 @@ const components = [
         padding: 8px;
         border-radius: 5px;
       }
+    }
       
     </style>
 
@@ -1467,10 +1498,19 @@ const components = [
     }
     
     @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       .card {
         box-sizing: border-box;
         margin: 1rem;
-        
       }
       .card > img {
         width: 90%;
@@ -1493,7 +1533,31 @@ const components = [
         padding: 8px;
         border-radius: 5px;
       }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      }
+
     @media screen and (max-width: 550px) {
+      main > #previewCardContainer{
+        min-height: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        aspect-ratio: none;
+      }
+      #previewCardContainer > #previewCard {
+        aspect-ratio: 10/9;
+      }
       .card {
         width: 90%;
         min-width: none;
@@ -1522,6 +1586,7 @@ const components = [
         padding: 8px;
         border-radius: 5px;
       }
+    }
       
     </style>
 
@@ -1580,7 +1645,6 @@ const components = [
       margin-top: .5rem;
       padding: .25rem;
     }
-
     .button {
       display: flex;
       justify-content: space-between;
@@ -1600,12 +1664,21 @@ const components = [
       border: 1px solid white;
       cursor: pointer;
     }
-    
+  
     @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       .card {
         box-sizing: border-box;
         margin: 1rem;
-        
       }
       .card > img {
         width: 90%;
@@ -1628,6 +1701,20 @@ const components = [
         padding: 8px;
         border-radius: 5px;
       }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      }
+
     @media screen and (max-width: 550px) {
       .card {
         width: 90%;
@@ -1657,6 +1744,7 @@ const components = [
         padding: 8px;
         border-radius: 5px;
       }
+    }
       
     </style>
 
@@ -1741,10 +1829,19 @@ const components = [
     }
     
     @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       .card {
         box-sizing: border-box;
-        margin: 1rem;
-        
+        margin: 1rem;   
       }
       .card > img {
         width: 90%;
@@ -1767,7 +1864,30 @@ const components = [
         padding: 8px;
         border-radius: 5px;
       }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
+      }
     @media screen and (max-width: 550px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       .card {
         width: 90%;
         min-width: none;
@@ -1796,6 +1916,7 @@ const components = [
         padding: 8px;
         border-radius: 5px;
       }
+    }
       
     </style>
 
@@ -1870,7 +1991,6 @@ const components = [
   
         .button {
           box-sizing: border-box;
-
           font-size: 14px;
           background-color: tertiaryColor;
           color: tertiaryColorContrast;
@@ -1881,25 +2001,29 @@ const components = [
         }
         .button:hover{
           cursor: pointer;
-
           box-sizing: border-box;
           padding: 6.5px 16px;
           background-color: bgColor;
           color: bgColorContrast;
           border: 2px solid tertiaryColor
         }
-              @media screen and (max-width: 768px) {
-        .card{
-          aspect-ratio: 9/16;
-        min-height: 50vh;
-        min-width: 40vw;
-      }
 
       @media screen and (max-width: 1000px) {
+          main > #previewCardContainer{
+            min-height: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            aspect-ratio: none;
+          }
+          #previewCardContainer > #previewCard {
+            aspect-ratio: 9/16;
+          }
         .card {
           box-sizing: border-box;
           margin: 1rem;
-          
+          min-height: none;
+          max-width: none;
         }
         .card > img {
           width: 90%;
@@ -1922,13 +2046,44 @@ const components = [
           padding: 8px;
           border-radius: 5px;
         }
+      }
+        @media screen and (max-width: 768px) {
+          main > #previewCardContainer{
+            min-height: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            aspect-ratio: none;
+          }
+          #previewCardContainer > #previewCard {
+            aspect-ratio: 10/9;
+          }
+          .card {
+            box-sizing: border-box;
+            aspect-ratio: 1/1;
+            min-height: none;
+            max-width: none;
+        }
+      }
       @media screen and (max-width: 550px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 1/1;
+        }
         .card {
           width: 90%;
           min-width: none;
           aspect-ratio: 8/10;
           box-sizing: border-box;
           margin: 1rem;
+          min-height: none;
+          max-width: none;
         }
         .card > img {
           width: 90%;
@@ -2028,10 +2183,19 @@ const components = [
     }
     
     @media screen and (max-width: 1000px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       .card {
         box-sizing: border-box;
         margin: 1rem;
-        
       }
       .card > img {
         width: 90%;
@@ -2053,6 +2217,19 @@ const components = [
         margin: 8px;
         padding: 8px;
         border-radius: 5px;
+      }
+    }
+      @media screen and (max-width: 768px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       }
     @media screen and (max-width: 550px) {
       .card {
@@ -2083,6 +2260,7 @@ const components = [
         padding: 8px;
         border-radius: 5px;
       }
+    }
       
     </style>
 
@@ -2100,16 +2278,17 @@ const components = [
   },
   {
     type: "card",
-    name: "Instagram Post Card",
+    name: "Social Media Photo Card",
 
     htmlText: `
       <style>
 
       main > #previewCardContainer{
+        min-height: none;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
-        aspect-ratio: 1/1;
+        aspect-ratio: none;
       }
       #previewCardContainer > #previewCard {
         aspect-ratio: 1/1;
@@ -2120,7 +2299,7 @@ const components = [
           border-radius: 3px;
           display: flex;
           flex-direction: column;
-          max-width: 350px;
+          max-width: 100%;
           margin: 0 auto;
         }
   
@@ -2176,14 +2355,29 @@ const components = [
           color: #8e8e8e;
           font-size: 12px;
         }
+
+        @media screen and (max-width: 768px) {
+          main > #previewCardContainer{
+            min-height: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            aspect-ratio: none;
+          }
+          #previewCardContainer > #previewCard {
+            aspect-ratio: 10/9;
+          }
+        }
         @media screen and (max-width: 550px) {
           .card {
             width: 90%;
             max-width: 90%;
             min-width: none;
-            aspect-ratio: 8/10;
+            min-height: none;
+            aspect-ratio: 1/1;
             box-sizing: border-box;
             margin: 1rem;
+            grid-column-gap: 0;
           }
           .card > img {
             width: 90%;
@@ -2235,7 +2429,7 @@ const components = [
 
   {
     type: "card",
-    name: "Photo Card 1",
+    name: "Photo Card",
 
     htmlText: `
       <style>

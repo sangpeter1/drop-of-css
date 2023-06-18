@@ -2,9 +2,7 @@ body {
   font-family: verdana;
   background-color: #fafafa;
   margin: 0;
-  /* min-width: 600px;
-  width: auto !important;
-  width: 600px; */
+  /* overflow-x: hidden; maybe use this? idk*/
 }
 
 h1 {
@@ -740,7 +738,6 @@ h5 {
   }
 
   main {
-    /* display: grid; */
     grid-template-columns: 1fr;
     flex-direction: column;
   }
@@ -815,7 +812,6 @@ h5 {
   }
 
   main {
-    display: grid;
     grid-template-columns: 1fr;
     grid-row: 3 / 4;
   }
