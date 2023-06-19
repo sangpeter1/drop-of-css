@@ -210,9 +210,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
 
   //clearing local storage and components?
   const clearComponents = (str) => {
-    // console.log("trying to clear components");
     if (str === "all") {
-      // console.log(str);
       // console.log("in local storage", localStorage.getItem("savedNavbar"));
       localStorage.removeItem("savedNavbar");
       localStorage.removeItem("savedWholePageBackground");
@@ -230,8 +228,8 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
       sideNav = null;
       card = null;
       button = null;
-    } else if (str === "nav") {
-      localStorage.removeItem("savedNavBar");
+    } else if (str === "navbar") {
+      localStorage.removeItem("savedNavbar");
       nav = null;
     } else if (str === "form") {
       localStorage.removeItem("savedForm");
@@ -246,7 +244,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
       localStorage.removeItem("savedCard");
       card = null;
     } else if (str === "button") {
-      localStorage.removeItem("savedBbutton");
+      localStorage.removeItem("savedButton");
       button = null;
     }
     window.location.reload();
@@ -267,7 +265,6 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
     };
 
     const clear = () => {
-      // console.log(comp.type, "to be cleared");
       clearComponents(comp.type);
     };
     return (
@@ -633,7 +630,6 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                     : ""}
                 </span>
               </div>
-
             </div>
           ) : (
             <div
@@ -659,6 +655,8 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                   animation: "none",
                   outline: "none",
                 }}
+                onMouseEnter={() => setHoveredOnComponent(button)}
+                onMouseLeave={() => setHoveredOnComponent(null)}
               >
                 <div
                   style={{
@@ -667,8 +665,6 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                     animation: "none",
                     outline: "none",
                   }}
-                  onMouseEnter={() => setHoveredOnComponent(button)}
-                  onMouseLeave={() => setHoveredOnComponent(null)}
                 >
                   <div
                     dangerouslySetInnerHTML={{
@@ -708,7 +704,6 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                 Submit Buttons
               </div>
             )}
-
           </div>
         </main>
       </div>
