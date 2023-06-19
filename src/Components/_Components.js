@@ -37,14 +37,14 @@ export const NavbarWithStyles = ({ navbar }) => {
   // .replace(/{colors.secondaryColor}/g, secondaryColor);
 
   const classes = useStyles();
-  console.log("classes", classes);
+  // console.log("classes", classes);
 
   const parseNode = (domNode, classes) => {
     if (domNode.type === "tag") {
       const children = domNode.children.map((childNode) => parseNode(childNode, classes));
 
       if (domNode.name === "ul") {
-        console.log("ul", domNode.name);
+        // console.log("ul", domNode.name);
         return React.createElement(
           "div",
           {
@@ -57,7 +57,7 @@ export const NavbarWithStyles = ({ navbar }) => {
       }
 
       if (domNode.name === "ul" && domNode.attribs.class === "navbar") {
-        console.log("ul", domNode.attribs.class);
+        // console.log("ul", domNode.attribs.class);
         return React.createElement(
           "div",
           {
@@ -70,7 +70,7 @@ export const NavbarWithStyles = ({ navbar }) => {
       }
 
       if (domNode.name === "div" && domNode.attribs.class === "dropdown-content") {
-        console.log("dropdown-content", domNode.attribs.class);
+        // console.log("dropdown-content", domNode.attribs.class);
 
         return React.createElement(
           "div",
@@ -100,13 +100,13 @@ export const NavbarWithStyles = ({ navbar }) => {
   const jsxGenerator = (component, classes) => {
     const { htmlText } = component;
     const sanitizedHtml = DOMPurify.sanitize(htmlText);
-    console.log(JSON.stringify(sanitizedHtml, null, "2"));
+    // console.log(JSON.stringify(sanitizedHtml, null, "2"));
     const domTree = parse(sanitizedHtml);
 
     return parseNode(domTree, classes);
   };
 
-  console.log("parsedHtml", jsxGenerator(navbar, classes));
+  // console.log("parsedHtml", jsxGenerator(navbar, classes));
 
   return navbar ? (
     <div

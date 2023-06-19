@@ -29,11 +29,11 @@ const trimColorPalette = (updatedColorPalette) => {
 
 const cpg = (state = [], action) => {
   if (action.type === "SET_COLORPALETTE") {
-    console.log(action.cpg, "action cpg");
+    // console.log(action.cpg, "action cpg");
     return action.cpg;
   }
   if (action.type === "SET_LOCALLYSAVED_COLORPALETTE") {
-    console.log(action.colors, "action colors");
+    // console.log(action.colors, "action colors");
     return action.colors;
   }
   if (action.type === "REORDER_COLORPALETTE") {
@@ -51,10 +51,10 @@ const cpg = (state = [], action) => {
     }
   }
   if (action.type === "UPDATE_COLOR") {
-    console.log("individual color state before update", state);
-    console.log("state splice", state.splice(action.index, 1, action.color));
+    // console.log("individual color state before update", state);
+    // console.log("state splice", state.splice(action.index, 1, action.color));
     state.splice(action.index, 1, action.color);
-    console.log("update color state splice and filter", state);
+    // console.log("update color state splice and filter", state);
     return [...state];
   }
 
@@ -69,9 +69,9 @@ const cpg = (state = [], action) => {
 export const fetchColorPalette = (search) => {
   return async (dispatch) => {
     const { hex, mode } = search;
-    console.log("fetch in store", hex, mode);
+    // console.log("fetch in store", hex, mode);
     const response = await axios.post("/api/cpg", { hex, mode });
-    console.log("in the store response", response.data);
+    // console.log("in the store response", response.data);
     dispatch({ type: "SET_COLORPALETTE", cpg: response.data });
   };
 };
@@ -104,9 +104,9 @@ export const updateColor = (search) => {
   return async (dispatch) => {
     const { color, colorIndex, hex, mode, count } = search;
     const colorToRemove = color;
-    console.log("updateColor in store color to remove", colorToRemove);
+    // console.log("updateColor in store color to remove", colorToRemove);
     const response = await axios.put("/api/cpg", { hex, mode, count });
-    console.log("response updateColor in store", response.data);
+    // console.log("response updateColor in store", response.data);
     dispatch({
       type: "UPDATE_COLOR",
       index: colorIndex,

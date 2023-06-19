@@ -42,7 +42,7 @@ app.get("/github", async (req, res, next) => {
   try {
     const { code } = req.query;
     const token = await User.authenticateGithub(code);
-    console.log(token);
+    // console.log(token);
     res.send(`
       <script>
         window.localStorage.setItem('token', '${token}');

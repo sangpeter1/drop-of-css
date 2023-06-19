@@ -1185,94 +1185,389 @@ const components = [
   //BUTTONS
   {
     type: "button",
-    name: "default-button",
+    name: "Basic Color Buttons",
     htmlText: `
-    <button style="
-      background-color: primaryColor;
-      color: primaryColorContrast;
-      font-size: 16px;
+    <style>
+    .mui-style-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 15vw;
+      max-width: 100px;
+      height: 10vh;
+      max-height: 50px;
+      color: #fff;
+      font-size: calc(8px + 0.5vw);
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-    ">
+      margin: 2px;
+      transition: background-color 0.3s ease;
+    }
+  
+    .mui-style-button:hover {
+      background-color: #888;
+    }
+  
+    .mui-style-primary {
+      background-color: primaryColor;
+    }
+  
+    .mui-style-secondary {
+      background-color: secondaryColor;
+    }
+  
+    .mui-style-tertiary {
+      background-color: tertiaryColor;
+    }
+  
+    .mui-style-bg {
+      background-color: bgColor;
+    }
+  </style>
+  
+  <div style="display: flex; justify-content: space-around;">
+    <button class="mui-style-button mui-style-primary">
       Click Me
     </button>
+  
+    <button class="mui-style-button mui-style-secondary">
+      Click Me
+    </button>
+  
+    <button class="mui-style-button mui-style-tertiary">
+      Click Me
+    </button>
+  </div>
+  
   `,
   },
   {
     type: "button",
-    name: "outline-button",
+    name: "Variety: Text, Outlined, Contained)",
     htmlText: `
-    <button style="
+    <style>
+
+    #basic-text-button {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 7vw;
-      height: 3.5vh;
-      background-color: 0;
+      width: 15vw;
+      max-width: 100px;
+      height: 10vh;
+      max-height: 50px;
+      background-color: transparent;
       color: primaryColor;
-      font-size: calc(12px+.5vw);
+      font-size: calc(8px + 0.5vw);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      margin: 2px;
+    }
+
+    #basic-contained-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 15vw;
+      max-width: 100px;
+      height: 10vh;
+      max-height: 50px;
+      background-color: primaryColor;
+      color: #fff;
+      font-size: calc(8px + 0.5vw);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 2px;
+    }
+
+    #basic-outlined-button{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 15vw;
+      max-width: 100px;
+      height: 10vh;
+      max-height: 50px;
+      background-color: transparent;
+      color: primaryColor;
+      font-size: calc(8px + 0.5vw);
       padding: 10px 20px;
       border: 2px solid primaryColor;
       border-radius: 5px;
       cursor: pointer;
-    ">
+      margin: 2px;
+    }
+  </style>
+  <div style="display:flex; justify-content: space-around;">
+  <button id="basic-text-button">
+    Click Me
+  </button>
+
+    <button id="basic-outlined-button">
       Click Me
     </button>
+
+    <button id="basic-contained-button">
+    Click Me
+  </button>
+  
+  </div>
   `,
   },
   {
     type: "button",
-    name: "rounded-button",
+    name: "Bold Buttons",
     htmlText: `
-    <button style="
-      background-color: primaryColor;
-      color: primaryColorContrast;
-      font-size: 16px;
+    <style>
+    .custom-button {
+      display: inline-block;
       padding: 10px 20px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-    ">
-      Click Me
-    </button>
-  `,
-  },
-  {
-    type: "button",
-    name: "hover-button",
-    htmlText: `
-    <button style="
-      background-color: primaryColor;
-      color: primaryColorContrast;
       font-size: 16px;
-      padding: 10px 20px;
-      border: none;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-    ">
-      Click Me
-    </button>
+    }
+  
+    .custom-button:hover {
+      background-color: #888;
+    }
+  
+    .custom-button-primary {
+      color: #fff;
+      background-color: primaryColor;
+    }
+  
+    .custom-button-secondary {
+      color: #fff;
+      background-color: secondaryColor;
+    }
+  
+    .custom-button-tertiary {
+      color: #fff;
+      background-color: tertiaryColor;
+    }
+  
+    .custom-button-outline {
+      color: primaryColor;
+      background-color: transparent;
+      border: 2px solid primaryColor;
+    }
+  </style>
+  
+  <div style="display: flex; justify-content: space-around;">
+    <a class="custom-button custom-button-primary" href="#">Primary</a>
+    <a class="custom-button custom-button-secondary" href="#">Secondary</a>
+    <a class="custom-button custom-button-tertiary" href="#">Tertiary</a>
+    <a class="custom-button custom-button-outline" href="#">Outline</a>
+  </div>
+  
   `,
   },
   {
     type: "button",
-    name: "disabled-button",
+    name: "Social Media Icons",
     htmlText: `
-    <button style="
-      background-color: primaryColor;
-      color: primaryColorContrast;
-      font-size: 16px;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+      .social-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 30px
+        max-width: 50px;
+        min-height: 30px
+        max-height: 50px;
+        color: #fff;
+        font-size: calc(8px + 0.5vw);
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 2px;
+        transition: background-color 0.3s ease;
+      }
+    
+      .social-button:hover {
+        background-color: bgColor;
+        outline: 1px solid primaryColor;
+
+      }
+    
+      .facebook-button {
+        background-color: #3b5998;
+      }
+    
+      .twitter-button {
+        background-color: #1da1f2;
+      }
+    
+      .instagram-button {
+        background-color: #e4405f;
+      }
+    
+      .linkedin-button {
+        background-color: #0077b5;
+      }
+    </style>
+    
+<div style="display: flex; justify-content: space-around;">
+<button class="social-button facebook-button">
+  <i class="fab fa-facebook-f"></i>
+</button>
+
+<button class="social-button twitter-button">
+  <i class="fab fa-twitter"></i>
+</button>
+
+<button class="social-button instagram-button">
+  <i class="fab fa-instagram"></i>
+</button>
+
+<button class="social-button linkedin-button">
+  <i class="fab fa-linkedin-in"></i>
+</button>
+</div>
+    `,
+  },
+  {
+    type: "button",
+    name: "Icon Buttons",
+    htmlText: `
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <style>
+      .mui-style-icon-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 30px
+        max-width: 50px;
+        min-height: 30px
+        max-height: 50px;
+        color: #fff;
+        font-size: calc(8px + 0.5vw);
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 2px;
+        transition: background-color 0.3s ease;
+      }
+    
+      .mui-style-icon-button:hover {
+        background-color: #888;
+      }
+    
+      .mui-style-primary {
+        background-color: primaryColor;
+      }
+    
+      .mui-style-secondary {
+        background-color: secondaryColor;
+      }
+    
+      .mui-style-tertiary {
+        background-color: tertiaryColor;
+      }
+    
+      .mui-style-bg {
+        background-color: bgColor;
+      }
+    </style>
+    
+    <div style="display: flex; justify-content: space-around;">
+      <button class="mui-style-icon-button mui-style-primary">
+        <span class="material-icons">home</span>
+      </button>
+    
+      <button class="mui-style-icon-button mui-style-secondary">
+        <span class="material-icons">favorite</span>
+      </button>
+    
+      <button class="mui-style-icon-button mui-style-tertiary">
+        <span class="material-icons">settings</span>
+      </button>
+    </div>
+    
+  `,
+  },
+  {
+    type: "button",
+    name: "Disabled Buttons",
+    htmlText: `
+    <style>
+    .mui-style-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 15vw;
+      max-width: 100px;
+      height: 10vh;
+      max-height: 50px;
+      color: #fff;
+      font-size: calc(8px + 0.5vw);
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
-      cursor: not-allowed;
+      cursor: pointer;
+      margin: 2px;
+      transition: background-color 0.3s ease;
+      border: 2px solid transparent;
+    }
+  
+    .mui-style-button:hover {
+      background-color: #888;
+    }
+  
+    .mui-style-button:disabled {
       opacity: 0.5;
-    " disabled>
+      cursor: not-allowed;
+    }
+  
+    .mui-style-primary {
+      background-color: primaryColor;
+      border-color: secondaryColor;
+    }
+  
+    .mui-style-secondary {
+      background-color: secondaryColor;
+      border-color: tertiaryColor;
+    }
+  
+    .mui-style-tertiary {
+      background-color: tertiaryColor;
+      border-color: primaryColor;
+    }
+  
+    .mui-style-bg {
+      background-color: bgColor;
+      border-color: bgColor;
+    }
+  </style>
+  
+  <div style="display: flex; justify-content: space-around;">
+    <button class="mui-style-button mui-style-primary" disabled>
       Click Me
     </button>
+  
+    <button class="mui-style-button mui-style-secondary" disabled>
+      Click Me
+    </button>
+  
+    <button class="mui-style-button mui-style-tertiary" disabled>
+      Click Me
+    </button>
+  </div>
+  
   `,
   },
   {

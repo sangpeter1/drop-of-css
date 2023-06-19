@@ -47,7 +47,7 @@ const Home = () => {
   }, []);
 
   const handleOpenInPreview = (component) => {
-    console.log("handle open in preview on home page", component);
+    // console.log("handle open in preview on home page", component);
     if (component.type === "navbar") {
       setNavBar(component);
     }

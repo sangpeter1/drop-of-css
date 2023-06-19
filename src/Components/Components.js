@@ -46,7 +46,6 @@ const Components = ({ openInPreview }) => {
         openInPreview(colorsOnComponents);
 
         //local storage
-        console.log("LOCAL STORAGEEEEEEEEE");
         if (component.type === "navbar") {
           localStorage.setItem("savedNavbar", JSON.stringify(colorsOnComponents));
         }

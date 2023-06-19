@@ -20,7 +20,7 @@ const templates = (state = [], action) => {
 
 export const setTemplates = (userId) => {
   return async (dispatch) => {
-    console.log("moe's id in setTemplates", userId);
+    // console.log("moe's id in setTemplates", userId);
     const response = await axios.get(`/api/templates/${userId}`);
     dispatch({ type: "SET_TEMPLATES", templates: response.data });
   };
@@ -30,9 +30,11 @@ export const createTemplate = (template) => {
   return async (dispatch) => {
     const { htmlText, userId, type } = template;
     const updatedTemplate = { userId, htmlText, type };
+    // console.log("creating template in store", updatedTemplate);
+
     try {
       const response = await axios.post("/api/templates", updatedTemplate);
-      console.log(response);
+      // console.log(response);
       dispatch({ type: "CREATE_TEMPLATE", template: response.data });
     } catch (error) {
       console.error("Error creating template:", error);
