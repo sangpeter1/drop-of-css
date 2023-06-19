@@ -462,7 +462,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
               </div>
             )}
             {card ? <FavHeart component={card} /> : ""}
-            {isCardHovered && (<CodeDownloadButton
+            {card && isCardHovered && (<CodeDownloadButton
                 code={`card ? (
                   <div
                     id="previewCard"
@@ -487,7 +487,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                 dangerouslySetInnerHTML={{ __html: jsxGenerator(form) }}
               />
               <FavHeart component={form} />
-              {isFormHovered && (<CodeDownloadButton
+              {form && isFormHovered && (<CodeDownloadButton
                 code={`
                   <div id="previewForm" style={{background: "rgba(0,0,0,0)",backgroundImage: "none",animation: "none",outline: "none",}} onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}}>
                     <div
@@ -512,7 +512,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                 padding: "1rem",
               }}>
               Login, Contact, General Information Form
-              {isFormHovered && (<CodeDownloadButton
+              {form && isFormHovered && (<CodeDownloadButton
                 code={`
               <div id="previewForm" onMouseEnter={() => {handleMouseEnter(setIsFormHovered)}} onMouseLeave={() => {handleMouseLeave(setIsFormHovered)}} style={{
                 display: "flex",
@@ -562,7 +562,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                 Submit Buttons
               </div>
             )}
-            {isButtonHovered && (<CodeDownloadButton
+            {button && isButtonHovered && (<CodeDownloadButton
             code={`button ? (
               <div id="previewButton">
                 <div dangerouslySetInnerHTML={{ __html: jsxGenerator(button) }} />
