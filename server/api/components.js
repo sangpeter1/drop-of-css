@@ -25,17 +25,17 @@ app.post("/", async (req, res, next) => {
     component,
   } = req.body;
   const id = component.id;
-  console.log(
-    "logging colors in components api",
-    bgColor,
-    bgColorContrast,
-    primaryColor,
-    primaryColorContrast,
-    secondaryColor,
-    secondaryColorContrast,
-    tertiaryColor,
-    tertiaryColorContrast
-  );
+  // console.log(
+  //   "logging colors in components api",
+  //   bgColor,
+  //   bgColorContrast,
+  //   primaryColor,
+  //   primaryColorContrast,
+  //   secondaryColor,
+  //   secondaryColorContrast,
+  //   tertiaryColor,
+  //   tertiaryColorContrast
+  // );
   try {
     const response = await Component.findByPk(component.id);
     const replacedHtmlText = response.htmlText

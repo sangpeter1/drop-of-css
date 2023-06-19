@@ -123,10 +123,10 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   const runCPG = async (ev) => {
     ev.preventDefault();
-    console.log("runcpg ev", hex);
+    // console.log("runcpg ev", hex);
 
     if (!hex) {
-      console.log("no hex");
+      // console.log("no hex");
       setErrorMessage("red");
       setTimeout(() => {
         setErrorMessage("");
@@ -142,7 +142,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           mode,
           count,
         };
-        console.log("runCPG func", search);
+        // console.log("runCPG func", search);
         dispatch(fetchColorPalette(search));
       } catch (error) {
         console.log(error);
@@ -157,7 +157,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           mode,
           count,
         };
-        console.log("runCPG func", search);
+        // console.log("runCPG func", search);
         dispatch(fetchColorPalette(search));
       } catch (error) {
         console.log(error);
@@ -205,19 +205,19 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
           mode,
           count,
         };
-        console.log("runCPG func", search);
+        // console.log("runCPG func", search);
         dispatch(fetchColorPalette(search));
       } else {
         const unlocked = cpg.filter((_color) => !lockedColors.includes(_color));
         const length = unlocked.length;
-        console.log("shuffle unlocked", lockedColors, length);
+        // console.log("shuffle unlocked", lockedColors, length);
         let search = {
           hex: getRandomHexCode(),
           mode: randomMode,
           count: length,
           unlocked: unlocked,
         };
-        console.log("search", search);
+        // console.log("search", search);
         dispatch(updateColorPalette(search));
       }
     } catch (err) {
@@ -227,7 +227,7 @@ const ColorGenForm = ({ openColorsInPreview, wholePageBackground, setWholePageBa
 
   const regenColor = async (color) => {
     if (lockedColors.includes(color)) {
-      console.log("This color's locked.");
+      // console.log("This color's locked.");
       return;
     }
     try {

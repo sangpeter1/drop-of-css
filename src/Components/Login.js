@@ -21,7 +21,7 @@ const Login = () => {
   const login = async (ev) => {
     ev.preventDefault();
     try {
-      console.log(credentials);
+      // console.log(credentials);
       await dispatch(attemptLogin(credentials));
       console.log("successful");
       navigate("/");

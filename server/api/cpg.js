@@ -9,7 +9,7 @@ app.post("/", async (req, res, next) => {
   if (!mode) {
     mode === "monochrome";
   }
-  console.log("req body post", hex, mode);
+  // console.log("req body post", hex, mode);
   try {
     let output = [];
     if (mode === "primary accent" || mode === "complementary accent" || mode === "pastel") {
@@ -44,7 +44,7 @@ app.post("/", async (req, res, next) => {
         const pastelURL = `https://www.thecolorapi.com/scheme?hex=${hex}&format=json&mode=quad&count=4`;
         const responsePastel = await axios.get(pastelURL);
         const colors = responsePastel.data.colors;
-        console.log("pastel");
+        // console.log("pastel");
         for (let color of colors) {
           const hue = color.hsl.h;
           const lightness = Math.min(color.hsl.l * 3, 75);
@@ -72,7 +72,7 @@ app.post("/", async (req, res, next) => {
 // needs functions for new styles
 app.put("/", async (req, res, next) => {
   let { hex, mode, count } = req.body;
-  console.log("req body put", hex, mode, count);
+  // console.log("req body put", hex, mode, count);
   let url;
   if (count === 1) {
     function getRandomHex() {
@@ -96,10 +96,10 @@ app.put("/", async (req, res, next) => {
     url = `https://www.thecolorapi.com/scheme?hex=${hex}&format=json&mode=${mode}&count=${count}`;
   }
 
-  console.log(url);
+  // console.log(url);
   try {
     let newColor = await axios.get(url);
-    console.log("new color", newColor.data);
+    // console.log("new color", newColor.data);
     res.send(newColor.data);
   } catch (err) {
     next(err);
