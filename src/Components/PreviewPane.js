@@ -633,6 +633,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                     : ""}
                 </span>
               </div>
+
             </div>
           ) : (
             <div
@@ -707,6 +708,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
                 Submit Buttons
               </div>
             )}
+
           </div>
         </main>
       </div>
