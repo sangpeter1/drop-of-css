@@ -731,10 +731,13 @@ h5 {
   justify-content: space-evenly;
   width: 7rem;
   position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #12343b40;
-  border: 2px solid black;
+  bottom: 2px;
+  right: 2px;
+  background: rgba(200, 200, 200, 0.6);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(200, 200, 200, 1);
   border-radius: 0.25rem;
 }
 

@@ -1573,7 +1573,6 @@ const components = [
   {
     type: "card",
     name: "Product - Generic",
-    //
     htmlText: `
     <style>
     .card {
@@ -1581,19 +1580,19 @@ const components = [
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      border: 2px solid primaryColor;
-      background-color: bgColor;
+      border: 3px solid primaryColor;
+      background-color: bgColor0D;
       color: bgColorContrast;
       border-radius: 6px;
       padding: 4px;
-      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
     }
     .card > img {
-      width: 90%;
+      width: 95%;
       height: auto;
       aspect-ratio: 1/1;
-      box-shadow: 1px 1px 1rem secondaryColor;
+      box-shadow: 0 3px 3px 0px secondaryColor;
       margin: 1rem 0.5rem;
     }
     .cardcontent{
@@ -1618,17 +1617,20 @@ const components = [
       align-self: stretch;
       align-items: center;
       font-size: calc(6px + 0.5vw);
-      background-color: tertiaryColor;
-      color: tertiaryColorContrast;
-      border: 1px solid secondaryColor;
+      background-color: 0;
+      border: none;
+      color: black;
       margin: 4px;
       padding: .3rem;
       border-radius: 5px;
     }
     .button:hover{
-      background-color: bgColor;
+      background-color: bgColor40;
       color: bgColorContrast;
       cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.01);
     }
     
     @media screen and (max-width: 1000px) {
@@ -1644,7 +1646,7 @@ const components = [
         }
       .card {
         box-sizing: border-box;
-        margin: 1rem;
+        margin: 1rem;   
       }
       .card > img {
         width: 90%;
@@ -1681,6 +1683,16 @@ const components = [
         }
       }
     @media screen and (max-width: 550px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       .card {
         width: 90%;
         min-width: none;
@@ -1747,7 +1759,7 @@ const components = [
       box-sizing: border-box;
     }
     .card > img {
-      width: 90%;
+      width: 95%;
       height: auto;
       aspect-ratio: 1/1;
       box-shadow: 1px 1px 1rem secondaryColor;
@@ -1911,18 +1923,18 @@ const components = [
       align-items: center;
       justify-content: space-between;
       border: 2px solid primaryColor;
-      background-image: linear-gradient(45deg, bgColor, tertiaryColor);
-      color: white;
+      background-color: bgColor;
+      color: bgColorContrast;
       border-radius: 2rem;
       padding: 4px;
-      box-shadow: 0 4px 4px rgba(100, 100, 100, 0.5);
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
     }
     .card > img {
-      width: 90%;
+      width: 95%;
       height: auto;
       aspect-ratio: 1/1;
-      box-shadow: 1px 1px 1rem secondaryColor;
+      box-shadow: 1px 1px 1rem primaryColor;
       margin: 1rem 0.5rem;
     }
     .cardcontent{
@@ -1940,6 +1952,7 @@ const components = [
       margin-top: .5rem;
       padding: .25rem;
     }
+
     .button {
       display: flex;
       justify-content: space-between;
@@ -1948,18 +1961,21 @@ const components = [
       font-size: calc(6px + 0.5vw);
       background-color: tertiaryColor;
       color: tertiaryColorContrast;
-      border: 1px solid secondaryColor;
+      border: 1px solid primaryColor;
+      color: white;
       margin: 4px;
       padding: .3rem;
       border-radius: 5px;
     }
     .button:hover{
-      background-color: primaryColor;
-      color: primaryColorContrast;
-      border: 1px solid white;
+      background-color: bgColor;
+      color: bgColorContrast;
       cursor: pointer;
     }
-  
+    .card:hover {
+      transform: scale(1.01);
+    }
+    
     @media screen and (max-width: 1000px) {
         main > #previewCardContainer{
           min-height: none;
@@ -1973,7 +1989,7 @@ const components = [
         }
       .card {
         box-sizing: border-box;
-        margin: 1rem;
+        margin: 1rem;   
       }
       .card > img {
         width: 90%;
@@ -2009,8 +2025,17 @@ const components = [
           aspect-ratio: 10/9;
         }
       }
-
     @media screen and (max-width: 550px) {
+        main > #previewCardContainer{
+          min-height: none;
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          aspect-ratio: none;
+        }
+        #previewCardContainer > #previewCard {
+          aspect-ratio: 10/9;
+        }
       .card {
         width: 90%;
         min-width: none;
@@ -2040,7 +2065,6 @@ const components = [
         border-radius: 5px;
       }
     }
-      
     </style>
 
     <div class="card"> 
@@ -2055,7 +2079,6 @@ const components = [
 
       </div>
     </div>
-
     </div>
     `,
   },
@@ -2078,7 +2101,7 @@ const components = [
       box-sizing: border-box;
     }
     .card > img {
-      width: 90%;
+      width: 95%;
       height: auto;
       aspect-ratio: 1/1;
       box-shadow: 1px 1px 1rem primaryColor;
@@ -2233,7 +2256,7 @@ const components = [
   },
   {
     type: "card",
-    name: "Shopping Card",
+    name: "Shopping - Generic",
     htmlText: `
       <style>
         .card {
@@ -2241,9 +2264,9 @@ const components = [
           aspect-ratio: 9/16;
           min-height: 30vh;
           max-width: 20vw;
-          border: 2px solid primaryColor;
-          background: linear-gradient(to right, bgColor, secondaryColor40);
-          color: white;
+          border: 3px solid primaryColor;
+          background-color: bgColor0D;
+          color: bgColorContrast;
           border-radius: 10px;
           padding: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -2256,10 +2279,12 @@ const components = [
         }
   
         .card > img {
-          max-height: 50%;
+          max-height: 70%;
           max-width: 100%;
           object-fit: cover;
-          border-radius: 10px;
+          border-radius: 5px;
+          box-shadow: 0 3px 3px 0px secondaryColor;
+
         }
   
         .card-content {
@@ -2433,7 +2458,7 @@ const components = [
       box-sizing: border-box;
     }
     .card > img {
-      width: 90%;
+      width: 95%;
       height: auto;
       aspect-ratio: 1/1;
       box-shadow: 1px 1px 1rem primaryColor;
