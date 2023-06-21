@@ -159,11 +159,11 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
         <div>
           <div className="button-container" style={{ display: "block", textAlign: "center" }}>
             <h3 className="header">
-              Save Components
+              My Favorites
               <div className="instructions">login to save your built components</div>
             </h3>
           </div>
-          <div
+          { /*<div
             style={{
               display: "flex",
               justifyContent: "space-evenly",
@@ -189,7 +189,7 @@ const PreviewPane = ({ wholePageBackground, form, nav, title, sideNav, card, but
             {button && !savedComponents.includes(button) && (
               <button onClick={() => saveComponent(button)}>Save Button</button>
             )}
-          </div>
+          </div> */}
           <button
             onClick={goToUserComponents}
             className="rainbowBtn"
