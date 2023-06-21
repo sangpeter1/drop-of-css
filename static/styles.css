@@ -249,7 +249,7 @@ nav > h5 {
   grid-template-rows: minmax(4rem, auto) minmax(2rem, auto) minmax(20fr, auto);
   grid-gap: 10px;
   height: 100%;
-  outline: 0.1px solid rgba(0, 0, 0, 0.2);
+  /* outline: 0.1px solid rgba(0, 0, 0, 0.2); */
   border-radius: 1rem;
   padding: 1rem;
 }
@@ -269,7 +269,7 @@ nav > h5 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: linear-gradient(90deg, #f0f0f0 25%, #e5e5e5, #f0f0f0 75%);
+  background-image: linear-gradient(90deg, #dddddd 25%, #e0e0e0, #dddddd 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 5s linear infinite;
 }
@@ -304,7 +304,7 @@ nav > h5 {
   animation: skeleton-bounce 5s ease-in-out infinite;
 }
 main {
-  border: 1px solid rgba(230, 230, 230, 0.8);
+  /* border: 1px solid rgba(230, 230, 230, 0.8); */
   padding: 1rem 0;
   grid-row: 3 / 5;
   min-height: fit-content;
@@ -390,13 +390,13 @@ main > #previewButtonContainer {
 }
 @keyframes skeleton-bounce {
   0% {
-    background-color: #e5e5e5;
+    background-color: #e7e7e7;
   }
   50% {
     background-color: #e0e0e0;
   }
   100% {
-    background-color: #e5e5e5;
+    background-color: #e7e7e7;
   }
 }
 
