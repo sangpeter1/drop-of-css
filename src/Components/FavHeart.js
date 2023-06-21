@@ -11,14 +11,6 @@ const FavHeart = ({ component }) => {
   const [heartClicked, setHeartClicked] = useState(false);
   const dispatch = useDispatch();
 
-  // things that need to happen:
-  // 1. a click needs to turn the object red, and it also needs to submit the current code to favorites.
-  // 2. an unclick needs to clear the code from the template list, but doesn't clear local storage.
-
-  // if (templates && templates.find((template) => template.id === component.id)) {
-  //   setHeartClicked(!isHeartClicked);
-  // }
-
   useEffect(() => {
     if (auth) {
       dispatch(setTemplates(auth.id));
@@ -28,24 +20,14 @@ const FavHeart = ({ component }) => {
   const isFavorite = templates.some((fav) => component.htmlText === fav.htmlText);
   const toUnfavorite = templates.find((fav) => component.htmlText === fav.htmlText);
 
-  // console.log(component ? component : "no component");
-  // console.log(templates ? templates : "no templates");
-  // console.log(isFavorite ? isFavorite : "favorites");
-  // console.log(auth ? auth : "no auth");
-
   const onHandleHeartClick = async () => {
-    if (auth) {
+    if (!auth.id) {
+      await setHeartClicked(false);
+    } else if (auth.id) {
       component.userId = auth.id;
-      // console.log("favorited");
       dispatch(createTemplate(component));
       await setHeartClicked(true);
-      // console.log("dispatched");
-      // console.log("isfavorite?", isFavorite);
     }
-    // if (!auth) {
-    //   <HeartBrokenIcon />;
-    //   ("not logged in");
-    // }
   };
   const offHandleHeartClick = async () => {
     dispatch(deleteTemplate(toUnfavorite.id));
